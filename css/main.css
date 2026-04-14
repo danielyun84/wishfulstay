@@ -225,6 +225,21 @@ h4 {
   color: var(--c-cream);
   transition: color var(--t-base);
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-symbol {
+  height: 28px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  transition: filter var(--t-base);
+}
+
+#header.is-scrolled .logo-symbol {
+  filter: brightness(0);
 }
 
 #header.is-scrolled .logo {
