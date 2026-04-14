@@ -660,7 +660,7 @@ h4 {
   transition: transform 0.8s ease;
 }
 
-.program-image img {
+.program-img {
   width: 100%;
   height: 100%;
   min-height: 480px;
@@ -1530,8 +1530,15 @@ dd small {
     direction: ltr;
   }
 
-  .program-image .ph-image {
-    min-height: 320px;
+  .program-image {
+    height: 280px;
+  }
+
+  .program-image .ph-image,
+  .program-img {
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
   }
 
   .program-content {
