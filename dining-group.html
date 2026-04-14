@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>단체 식사 · 맞춤형 — WISHFUL STAY</title>
+  <meta name="description" content="팀·기업 단위 단체 식사 및 맞춤형 케이터링. 인원과 목적에 맞게 위시풀스테이가 식사를 설계합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html" class="is-active">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-dining"
+             data-concept="[ 사진 교체 예정 ] 단체 식사 또는 케이터링 세팅 — 테이블 세팅, 전문적이고 따뜻한 분위기"
+             role="img" aria-label="단체 식사·맞춤형"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow"><a href="dining.html" style="color:inherit;text-decoration:none;">식사</a> / Group Dining</span>
+        <h1>단체 식사 ·<br>맞춤형</h1>
+        <p>팀·기업 규모에 맞게 설계하는 단체 식사 프로그램</p>
+      </div>
+    </section>
+
+
+    <section class="content-section content-section--alt">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">Options</span>
+          <h2>식사 옵션</h2>
+          <p style="margin-top:12px; font-size:14px; color:var(--c-text-muted);">
+            원하는 옵션을 패키지에 담아 예약 문의 시 상세 협의를 진행합니다.
+          </p>
+        </div>
+
+        <div class="item-list">
+
+          <!-- 옵션 1 — 단체 식사 패키지 -->
+          <div class="item-row reveal"
+               data-pkg-id="dining-group-package"
+               data-pkg-category="식사"
+               data-pkg-title="단체 식사 — 단체 식사 패키지"
+               data-pkg-tag="Group Dining">
+            <div class="item-row-image">
+              <div class="ph-image ph-work"
+                   data-concept="[ 사진 교체 예정 ] 단체 식사 장면 — 넓은 테이블, 팀원들이 함께하는 식사"
+                   role="img" aria-label="단체 식사 패키지"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Group Package</span>
+              <h3 class="item-row-title">단체 식사 패키지</h3>
+              <p class="item-row-desc">10인 이상 팀을 위한 단체 식사 패키지. 파트너 식당과 협력하여 인원과 예산에 맞게 코스 또는 뷔페 형식의 단체 식사를 기획합니다.</p>
+              <ul class="gallery-specs">
+                <li>최소 인원: 10인 이상</li>
+                <li>형식: 코스 / 뷔페 / 세트 메뉴 협의</li>
+                <li>장소: 파트너 식당 또는 지정 장소</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 및 메뉴 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 옵션 2 — 케이터링 서비스 -->
+          <div class="item-row reveal"
+               data-pkg-id="dining-group-catering"
+               data-pkg-category="식사"
+               data-pkg-title="단체 식사 — 케이터링 서비스"
+               data-pkg-tag="Group Dining">
+            <div class="item-row-image">
+              <div class="ph-image ph-exp"
+                   data-concept="[ 사진 교체 예정 ] 케이터링 세팅 — 다양한 음식이 놓인 테이블, 전문적인 분위기"
+                   role="img" aria-label="케이터링 서비스"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Catering</span>
+              <h3 class="item-row-title">케이터링 서비스</h3>
+              <p class="item-row-desc">워케이션 장소로 직접 찾아오는 케이터링 서비스. 레지던스, 야외 공간 등 원하는 장소에서 전문 케이터링 식사를 즐길 수 있습니다.</p>
+              <ul class="gallery-specs">
+                <li>최소 인원: 10인 이상</li>
+                <li>메뉴: 한식 / 퓨전 / 핑거푸드 협의</li>
+                <li>장소: 레지던스 또는 야외 공간</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 및 메뉴 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 옵션 3 — 바베큐·야외 식사 -->
+          <div class="item-row reveal"
+               data-pkg-id="dining-group-bbq"
+               data-pkg-category="식사"
+               data-pkg-title="단체 식사 — 바베큐 · 야외 식사"
+               data-pkg-tag="Group Dining">
+            <div class="item-row-image">
+              <div class="ph-image ph-gangdong"
+                   data-concept="[ 사진 교체 예정 ] 야외 바베큐 장면 — 강동 자연 배경, 그릴 위 음식, 활기찬 분위기"
+                   role="img" aria-label="바베큐·야외 식사"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">BBQ & Outdoor</span>
+              <h3 class="item-row-title">바베큐 · 야외 식사</h3>
+              <p class="item-row-desc">강동의 자연 속에서 즐기는 바베큐 및 야외 식사. 팀 전체가 함께 즐길 수 있는 야외 식사 프로그램으로 워케이션 분위기를 극대화합니다.</p>
+              <ul class="gallery-specs">
+                <li>최소 인원: 10인 이상</li>
+                <li>장소: 야외 공간 (기상 조건 고려)</li>
+                <li>그릴·도구·재료 제공</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 및 운영 조건 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div class="cta-banner reveal">
+      <h2>단체 식사 기획 문의</h2>
+      <p>인원, 예산, 일정을 알려주시면 맞춤형 식사 프로그램을 제안합니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

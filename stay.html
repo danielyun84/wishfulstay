@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ✏️ 수정: 브라우저 탭 타이틀 -->
+  <title>숙박 — WISHFUL STAY</title>
+  <!-- ✏️ 수정: 검색 결과 설명 문구 -->
+  <meta name="description" content="KCC 앰버서더 호텔과 레지던스를 기반으로 한 위시풀스테이 숙박 안내. 단기 출장부터 장기 체류까지.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- HEADER ── ✏️ 현재 페이지: 숙박 -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html" class="is-active">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         페이지 히어로
+         ✏️ 수정: 소제목, 타이틀, 설명
+         📷 사진 교체: .ph-image → <img>
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-stay"
+             data-concept="[ 사진 교체 예정 ] 촬영 컨셉: KCC 앰버서더 호텔 외관 또는 로비 — 모던하고 고급스러운 분위기"
+             role="img" aria-label="숙박 대표 이미지"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow">Stay</span>
+        <!-- ✏️ 수정: 페이지 타이틀, 설명 -->
+        <h1>편안하게,<br>머물다</h1>
+        <p>KCC 앰버서더 호텔 & 레지던스 — 강동에서의 나만의 공간</p>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [1] 소개 글
+         ✏️ 수정: 제목, 본문 2단락
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section">
+      <div class="container">
+        <div class="page-intro reveal">
+          <span class="eyebrow">About Stay</span>
+          <!-- ✏️ 수정: 소개 헤딩 -->
+          <h2>편안하게,<br>진심으로 머물다</h2>
+          <div class="page-intro-body">
+            <!-- ✏️ 수정: 본문 첫째 단락 -->
+            <p>위시풀스테이의 숙박은 KCC 앰버서더 호텔과 레지던스를 기반으로 합니다.
+              단기 출장형 호텔과 장기 체류형 레지던스 중 일정과 목적에 맞는 유형을 선택할 수 있습니다.</p>
+            <!-- ✏️ 수정: 본문 둘째 단락 -->
+            <p>셀프 체크인 방식으로 운영되며, 입실 당일 안내 문자를 통해 언제 도착하든 원활하게 체크인하실 수 있습니다.
+              체크인 15:00 · 체크아웃 11:00이 기본이며, 사전 요청 시 얼리/레이트도 가능합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [2] 숙박 갤러리
+         ✏️ 수정: 각 카드의 태그, 제목, 설명, 스펙 항목
+         📷 사진 교체: .ph-image div → <img> 태그로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section content-section--alt">
+      <div class="container">
+        <div class="gallery-grid">
+
+          <!-- 카드 1 — KCC 앰버서더 호텔 -->
+          <div class="gallery-card reveal">
+            <div class="gallery-card-image">
+              <!-- 📷 사진 교체: <img src="images/hotel.jpg" alt="KCC 앰버서더 호텔 객실"> -->
+              <div class="ph-image ph-stay"
+                   data-concept="[ 사진 교체 예정 ] KCC 앰버서더 호텔 객실 내부 — 넓은 침대, 깔끔한 인테리어, 창문 뷰"
+                   role="img" aria-label="KCC 앰버서더 호텔 객실"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Short Stay</span>
+              <h3 class="gallery-title">KCC 앰버서더 호텔</h3>
+              <p class="gallery-desc">단기 출장과 1박 이상의 워케이션에 최적화된 호텔 객실. 비즈니스 편의시설을 갖춘 환경에서 일과 휴식을 모두 누릴 수 있습니다.</p>
+              <ul class="gallery-specs">
+                <li>단기 숙박 (1박 이상)</li>
+                <li>개인 및 2인 이용 적합</li>
+                <li>체크인 15:00 · 체크아웃 11:00</li>
+                <li>내부 취사 불가</li>
+              </ul>
+              <a href="stay-hotel.html" class="gallery-link">객실 보기</a>
+            </div>
+          </div>
+
+          <!-- 카드 2 — 씨스테이 레지던스 -->
+          <div class="gallery-card reveal reveal-delay-2">
+            <div class="gallery-card-image">
+              <!-- 📷 사진 교체: <img src="images/residence.jpg" alt="씨스테이 레지던스"> -->
+              <div class="ph-image ph-work"
+                   data-concept="[ 사진 교체 예정 ] 씨스테이 레지던스 내부 — 주방, 거실, 편안한 생활공간 분위기"
+                   role="img" aria-label="씨스테이 레지던스 내부"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Long Stay</span>
+              <h3 class="gallery-title">씨스테이 레지던스</h3>
+              <p class="gallery-desc">소규모 팀 또는 장기 체류형 워케이션에 적합한 레지던스. 취사 가능한 생활 공간을 제공해 보다 자유로운 체류를 지원합니다.</p>
+              <ul class="gallery-specs">
+                <li>장기 체류 및 소규모 팀 이용 적합</li>
+                <li>취사 가능 (주방 시설 구비)</li>
+                <li>팀 워크숍 거점으로 활용 가능</li>
+                <li>셀프 체크인 운영</li>
+              </ul>
+              <a href="stay-residence.html" class="gallery-link">객실 보기</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [3] 이용 안내
+         ✏️ 수정: 체크인/아웃 시간, 환불 기준, 이용 규칙
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section" id="info">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Info</span>
+          <h2>이용 안내</h2>
+        </div>
+        <div class="info-grid">
+
+          <div class="info-card reveal">
+            <h4>체크인 / 체크아웃</h4>
+            <dl>
+              <dt>체크인</dt>
+              <!-- ✏️ 수정: 체크인 시간 -->
+              <dd>오후 3:00 (15:00)</dd>
+              <dt>체크아웃</dt>
+              <!-- ✏️ 수정: 체크아웃 시간 -->
+              <dd>오전 11:00</dd>
+              <dt>방식</dt>
+              <dd>셀프 체크인 <small>당일 안내 문자 발송</small></dd>
+              <dt>얼리/레이트</dt>
+              <dd>사전 요청 시 가능 (별도 요금)</dd>
+            </dl>
+          </div>
+
+          <div class="info-card reveal reveal-delay-2">
+            <h4>운영 시간</h4>
+            <p class="info-time">09:00 — 21:00</p>
+            <!-- ✏️ 수정: 운영시간 안내 문구 -->
+            <p class="info-note">
+              운영 시간 외 문의는 다음 영업일 순차 처리됩니다.<br>
+              야간 도착 시에도 셀프 체크인으로 입실 가능합니다.
+            </p>
+          </div>
+
+          <div class="info-card info-card--full reveal">
+            <h4>환불 정책</h4>
+            <table class="refund-table">
+              <thead>
+                <tr><th>취소 시점</th><th>환불 금액</th></tr>
+              </thead>
+              <tbody>
+                <!-- ✏️ 수정: 환불 정책 내용 -->
+                <tr><td>체크인 10일 전 취소</td><td>100% 전액 환불</td></tr>
+                <tr><td>체크인 9~6일 전 취소</td><td>70% 환불</td></tr>
+                <tr><td>체크인 5~2일 전 취소</td><td>50% 환불</td></tr>
+                <tr><td>체크인 1일 전 / 당일 취소</td><td>환불 불가 (0%)</td></tr>
+              </tbody>
+            </table>
+            <!-- ✏️ 수정: 주의사항 -->
+            <p class="info-note">
+              ※ 환불 기준 시각은 자정(00:00) 기준입니다.<br>
+              항공·선박 결항 등 불가항력 사유는 증빙 제출 시 별도 처리됩니다.
+            </p>
+          </div>
+
+          <div class="info-card reveal reveal-delay-2">
+            <h4>이용 규칙</h4>
+            <!-- ✏️ 수정: 이용 규칙 항목 -->
+            <ul class="info-rules">
+              <li>시설 전 구역 금연 (전자담배 포함)</li>
+              <li>미성년자는 법정대리인 동반 필수</li>
+              <li>레지던스 취사 가능 / 호텔 내부 취사 불가</li>
+              <li>화기성 물품 반입 및 사용 금지</li>
+              <li>파손·오염 시 실비 청구</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA 배너 -->
+    <div class="cta-banner reveal">
+      <!-- ✏️ 수정: CTA 헤딩, 부제, 버튼 텍스트 -->
+      <h2>숙박 예약 및 문의</h2>
+      <p>패키지 선택부터 일정 조율까지 위시풀스테이가 함께 설계합니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

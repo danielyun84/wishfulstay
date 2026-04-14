@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>교육 — WISHFUL STAY</title>
+  <meta name="description" content="강동 지역 기반 교육 체험 프로그램. 역사 탐방, 농업 체험 등 강동을 깊이 이해하는 교육 프로그램을 안내합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html" class="is-active">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-experience"
+             data-concept="[ 사진 교체 예정 ] 강동 교육 프로그램 — 야외 강의, 지역 탐방 장면"
+             role="img" aria-label="교육 프로그램"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow"><a href="experience.html" style="color:inherit;text-decoration:none;">체험</a> / Education</span>
+        <h1>교육</h1>
+        <p>강동을 배우고 이해하는 지역 기반 교육 체험 프로그램</p>
+      </div>
+    </section>
+
+
+    <section class="content-section content-section--alt">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">Programs</span>
+          <h2>프로그램 목록</h2>
+          <p style="margin-top:12px; font-size:14px; color:var(--c-text-muted);">
+            원하는 프로그램을 패키지에 담고 예약 문의 시 일정을 조율합니다.
+          </p>
+        </div>
+
+        <div class="item-list">
+
+          <!-- 강동 역사 탐방 -->
+          <div class="item-row reveal"
+               data-pkg-id="exp-edu-history"
+               data-pkg-category="체험"
+               data-pkg-title="교육 — 강동 역사 탐방"
+               data-pkg-tag="Education">
+            <div class="item-row-image">
+              <div class="ph-image ph-gangdong"
+                   data-concept="[ 사진 교체 예정 ] 강동 역사 유적지 탐방 — 유물, 탐방객 일행"
+                   role="img" aria-label="강동 역사 탐방"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Local History</span>
+              <h3 class="item-row-title">강동 역사 탐방</h3>
+              <p class="item-row-desc">강동의 지역 역사와 문화를 현장에서 배우는 탐방 프로그램. 전문 해설사와 함께 강동의 역사 유적지를 둘러봅니다.</p>
+              <ul class="gallery-specs">
+                <li>소요 시간: 약 3시간</li>
+                <li>전문 해설사 동행</li>
+                <li>이동 교통 포함 여부: [확인 예정]</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 농업·어촌 체험 -->
+          <div class="item-row reveal"
+               data-pkg-id="exp-edu-farm"
+               data-pkg-category="체험"
+               data-pkg-title="교육 — 농업·어촌 체험"
+               data-pkg-tag="Education">
+            <div class="item-row-image">
+              <div class="ph-image ph-exp"
+                   data-concept="[ 사진 교체 예정 ] 강동 농촌·어촌 체험 — 어구 체험, 농작물 수확 장면"
+                   role="img" aria-label="농업·어촌 체험"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Farm & Sea</span>
+              <h3 class="item-row-title">농업 · 어촌 체험</h3>
+              <p class="item-row-desc">강동의 농업과 어촌 문화를 직접 체험합니다. 제철 농작물 수확, 어구 체험 등 도시에서는 만나기 어려운 경험을 제공합니다.</p>
+              <ul class="gallery-specs">
+                <li>소요 시간: 약 2~3시간</li>
+                <li>계절 프로그램 별도 운영</li>
+                <li>체험물 수령 가능 (계절별 상이)</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 기업 팀빌딩 교육 -->
+          <div class="item-row reveal"
+               data-pkg-id="exp-edu-team"
+               data-pkg-category="체험"
+               data-pkg-title="교육 — 기업 팀빌딩 워크숍"
+               data-pkg-tag="Education">
+            <div class="item-row-image">
+              <div class="ph-image ph-work"
+                   data-concept="[ 사진 교체 예정 ] 팀빌딩 워크숍 장면 — 야외 미팅, 팀원들의 활기찬 모습"
+                   role="img" aria-label="팀빌딩 워크숍"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Team Building</span>
+              <h3 class="item-row-title">기업 팀빌딩 워크숍</h3>
+              <p class="item-row-desc">기업 단위의 팀빌딩 프로그램. 강동의 자연환경을 활용한 야외 미션, 협업 워크숍 등 팀 결속력을 높이는 프로그램을 설계합니다.</p>
+              <ul class="gallery-specs">
+                <li>맞춤 기획 가능 (인원·목적 협의)</li>
+                <li>반나절 / 전일 선택</li>
+                <li>기업 단체 특화</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div class="cta-banner reveal">
+      <h2>교육 프로그램 문의</h2>
+      <p>기업 팀빌딩 기획 및 단체 교육 연계는 예약 문의를 통해 진행됩니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

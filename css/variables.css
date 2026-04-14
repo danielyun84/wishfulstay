@@ -1,0 +1,62 @@
+:root {
+  /* ── Colors ── */
+  --c-bg:          #F4F1EC;   /* warm cream */
+  --c-bg-alt:      #EAE5DB;   /* slightly darker cream */
+  --c-dark:        #0F1916;   /* near-black dark green */
+  --c-bg-dark:     #1C2B28;   /* dark section bg */
+  --c-text:        #2D3D39;   /* main body text */
+  --c-text-muted:  #7A8C87;   /* secondary / caption */
+  --c-accent:      #4E7A6B;   /* sage green */
+  --c-accent-warm: #B8865A;   /* warm sand */
+  --c-cream:       #FDFBF8;   /* near-white warm */
+  --c-border:      #D8D2C6;   /* subtle divider */
+  --c-white:       #FFFFFF;
+
+  /* ── Typography ── */
+  --f-display: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
+  --f-body:    'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ── Spacing ── */
+  --sp-xs:   8px;
+  --sp-sm:   16px;
+  --sp-md:   24px;
+  --sp-lg:   48px;
+  --sp-xl:   80px;
+  --sp-2xl: 120px;
+
+  /* ── Layout ── */
+  --container:  1200px;
+  --gutter:     48px;
+
+  /* ── Transitions ── */
+  --t-fast: 0.2s ease;
+  --t-base: 0.38s ease;
+  --t-slow: 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Z-index ── */
+  --z-header: 100;
+  --z-overlay: 50;
+}
+
+/* ── Responsive token overrides ── */
+@media (max-width: 1024px) {
+  :root {
+    --gutter: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter:   24px;
+    --sp-xl:    56px;
+    --sp-2xl:   80px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --gutter:   20px;
+    --sp-xl:    48px;
+    --sp-2xl:   64px;
+  }
+}

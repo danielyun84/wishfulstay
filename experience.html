@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ✏️ 수정: 브라우저 탭 타이틀 -->
+  <title>체험 — WISHFUL STAY</title>
+  <!-- ✏️ 수정: 검색 결과 설명 문구 -->
+  <meta name="description" content="강동의 로컬 자원과 연결된 위시풀스테이 체험 프로그램. 레저, 공예, 예술, 교육 등 다양한 체험을 경험하세요.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- HEADER ── ✏️ 현재 페이지: 체험 -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html" class="is-active">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         페이지 히어로
+         ✏️ 수정: 소제목, 타이틀, 설명
+         📷 사진 교체: .ph-image → <img>
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-experience"
+             data-concept="[ 사진 교체 예정 ] 촬영 컨셉: 강동 자연 속 체험 활동 장면 — 레저, 공예, 로컬 문화 등 생동감 있는 분위기"
+             role="img" aria-label="체험 대표 이미지"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow">Experience</span>
+        <!-- ✏️ 수정: 페이지 타이틀, 설명 -->
+        <h1>강동을<br>경험하다</h1>
+        <p>단순 관광이 아닌, 강동의 로컬 자원과 직접 연결되는 체험 프로그램</p>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [1] 소개 글
+         ✏️ 수정: 제목, 본문 2단락
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section">
+      <div class="container">
+        <div class="page-intro reveal">
+          <span class="eyebrow">About Experience</span>
+          <!-- ✏️ 수정: 소개 헤딩 -->
+          <h2>일과 쉼 사이,<br>강동을 만나다</h2>
+          <div class="page-intro-body">
+            <!-- ✏️ 수정: 본문 첫째 단락 -->
+            <p>위시풀스테이의 체험 프로그램은 강동의 지역 자원과 직접 연계하여 운영됩니다.
+              워케이션 기간 동안 업무와 체험을 자유롭게 배합하여 진짜 강동을 경험할 수 있습니다.</p>
+            <!-- ✏️ 수정: 본문 둘째 단락 -->
+            <p>개인·소규모는 원하는 체험을 선택형으로, 기업 단체는 일정과 규모에 맞춘
+              맞춤 포함형으로 구성합니다. 구체적인 프로그램은 예약문의를 통해 안내드립니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [2] 체험 갤러리
+         ✏️ 수정: 각 카드의 태그, 제목, 설명
+         ✏️ 추가: 프로그램 확정 시 카드 추가 가능 (복사 후 붙여넣기)
+         📷 사진 교체: .ph-image div → <img> 태그로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section content-section--alt">
+      <div class="container">
+        <div class="gallery-grid">
+
+          <!-- 카드 1 — 레저·액티비티 -->
+          <div class="gallery-card reveal">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-exp"
+                   data-concept="[ 사진 교체 예정 ] 강동 해안 레저 활동 — 수상스포츠, 트레킹 등 생동감 있는 야외 장면"
+                   role="img" aria-label="레저 체험 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Leisure</span>
+              <h3 class="gallery-title">레저 · 액티비티</h3>
+              <p class="gallery-desc">강동 해안을 배경으로 한 레저 활동. 수상스포츠, 해안 트레킹 등 강동의 자연을 온몸으로 경험합니다.</p>
+              <a href="exp-leisure.html" class="gallery-link">프로그램 보기</a>
+            </div>
+          </div>
+
+          <!-- 카드 2 — 공예·예술 -->
+          <div class="gallery-card reveal reveal-delay-1">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-stay"
+                   data-concept="[ 사진 교체 예정 ] 로컬 공방 체험 장면 — 도예, 목공, 공예 작업 중인 모습. 따뜻하고 집중된 분위기"
+                   role="img" aria-label="공예 체험 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Craft & Art</span>
+              <h3 class="gallery-title">공예 · 예술</h3>
+              <p class="gallery-desc">지역 작가 및 공방과 연계한 공예·예술 체험. 도예, 목공, 지역 예술 프로그램 등 손으로 만드는 경험을 제공합니다.</p>
+              <a href="exp-craft.html" class="gallery-link">프로그램 보기</a>
+            </div>
+          </div>
+
+          <!-- 카드 3 — 교육 -->
+          <div class="gallery-card reveal reveal-delay-2">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-work"
+                   data-concept="[ 사진 교체 예정 ] 강동 지역 기반 교육 프로그램 장면 — 강의, 워크숍, 학습 분위기"
+                   role="img" aria-label="교육 프로그램 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Education</span>
+              <h3 class="gallery-title">교육</h3>
+              <p class="gallery-desc">강동 지역 기반 교육 프로그램. 지역 역사 탐방, 커뮤니티 연계 활동 등 강동을 깊이 이해하는 시간입니다.</p>
+              <a href="exp-edu.html" class="gallery-link">프로그램 보기</a>
+            </div>
+          </div>
+
+          <!-- 카드 4 — 행사·이벤트 -->
+          <div class="gallery-card reveal reveal-delay-3">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-gangdong"
+                   data-concept="[ 사진 교체 예정 ] 강동 지역 행사 또는 이벤트 장면 — 축제, 지역 행사, 활기찬 분위기"
+                   role="img" aria-label="행사·이벤트 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Event</span>
+              <h3 class="gallery-title">행사 · 이벤트</h3>
+              <p class="gallery-desc">강동에서 열리는 지역 행사 및 이벤트 연계 프로그램. 워케이션 기간에 맞춰 특별한 지역 경험을 더합니다.</p>
+              <a href="exp-event.html" class="gallery-link">프로그램 보기</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA 배너 -->
+    <div class="cta-banner reveal">
+      <!-- ✏️ 수정: CTA 헤딩, 부제, 버튼 텍스트 -->
+      <h2>체험 프로그램 문의</h2>
+      <p>개인 선택형부터 기업 맞춤형까지, 원하는 체험을 함께 설계합니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

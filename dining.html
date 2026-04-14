@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ✏️ 수정: 브라우저 탭 타이틀 -->
+  <title>식사 — WISHFUL STAY</title>
+  <!-- ✏️ 수정: 검색 결과 설명 문구 -->
+  <meta name="description" content="강동의 로컬 식당·카페와 연계한 위시풀스테이 식사 프로그램. 개인부터 기업 단체까지 맞춤 식사를 설계합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- HEADER ── ✏️ 현재 페이지: 식사 -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html" class="is-active">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         페이지 히어로
+         ✏️ 수정: 소제목, 타이틀, 설명
+         📷 사진 교체: .ph-image → <img>
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-dining"
+             data-concept="[ 사진 교체 예정 ] 촬영 컨셉: 강동 로컬 식당 또는 카페 — 따뜻하고 맛있어 보이는 분위기, 자연광"
+             role="img" aria-label="식사 대표 이미지"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow">Dining</span>
+        <!-- ✏️ 수정: 페이지 타이틀, 설명 -->
+        <h1>강동의 맛을<br>경험하다</h1>
+        <p>지역 식당·카페와 연계한 강동의 진짜 식사 프로그램</p>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [1] 소개 글
+         ✏️ 수정: 제목, 본문 2단락
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section">
+      <div class="container">
+        <div class="page-intro reveal">
+          <span class="eyebrow">About Dining</span>
+          <!-- ✏️ 수정: 소개 헤딩 -->
+          <h2>강동의 맛으로<br>하루를 채우다</h2>
+          <div class="page-intro-body">
+            <!-- ✏️ 수정: 본문 첫째 단락 -->
+            <p>위시풀스테이는 강동 지역의 식당·카페를 직접 연계하여 워케이션 식사를 설계합니다.
+              단순한 끼니 해결을 넘어, 강동의 맛을 경험하는 것도 체류의 일부입니다.</p>
+            <!-- ✏️ 수정: 본문 둘째 단락 -->
+            <p>개인은 간단식부터 일반 식사까지 자유롭게 선택하고, 기업 단체는 단체 식사 및
+              맞춤 케이터링까지 규모와 목적에 맞게 구성합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [2] 식사 갤러리
+         ✏️ 수정: 각 카드의 태그, 제목, 설명
+         ✏️ 식당/카페 파트너 확정 시: 아래 카드를 각 업장별로 교체
+         📷 사진 교체: .ph-image div → <img> 태그로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section content-section--alt">
+      <div class="container">
+        <div class="gallery-grid">
+
+          <!-- 카드 1 — 간단식·카페 -->
+          <div class="gallery-card reveal">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-exp"
+                   data-concept="[ 사진 교체 예정 ] 강동 로컬 카페 내부 — 따뜻하고 감각적인 공간, 커피와 디저트"
+                   role="img" aria-label="강동 카페 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Café & Snack</span>
+              <h3 class="gallery-title">간단식 · 카페</h3>
+              <p class="gallery-desc">가볍게 즐기는 간식과 카페 이용. 강동 지역 카페 및 간단식 연계 옵션으로 업무 중 짧은 여유를 더합니다.</p>
+              <a href="dining-cafe.html" class="gallery-link">업장 보기</a>
+            </div>
+          </div>
+
+          <!-- 카드 2 — 일반 식사 -->
+          <div class="gallery-card reveal reveal-delay-1">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-stay"
+                   data-concept="[ 사진 교체 예정 ] 강동 로컬 식당 음식 또는 내부 — 신선한 지역 식재료, 따뜻하고 정겨운 분위기"
+                   role="img" aria-label="강동 로컬 식당 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Local Meal</span>
+              <h3 class="gallery-title">일반 식사</h3>
+              <p class="gallery-desc">점심·저녁 일반 식사 연계. 강동 인근 로컬 식당과 협력하여 추천 코스를 안내합니다. 지역 식재료로 만든 진짜 강동의 맛입니다.</p>
+              <a href="dining-meal.html" class="gallery-link">업장 보기</a>
+            </div>
+          </div>
+
+          <!-- 카드 3 — 단체 식사·맞춤형 -->
+          <div class="gallery-card reveal reveal-delay-2">
+            <div class="gallery-card-image">
+              <div class="ph-image ph-work"
+                   data-concept="[ 사진 교체 예정 ] 단체 식사 또는 케이터링 장면 — 세팅된 테이블, 전문적이고 따뜻한 분위기"
+                   role="img" aria-label="단체 식사 이미지"></div>
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">Group Dining</span>
+              <h3 class="gallery-title">단체 식사 · 맞춤형</h3>
+              <p class="gallery-desc">팀 및 기업 단위의 단체 식사를 기획합니다. 인원·식단·장소를 패키지에 맞게 설계하여 워케이션 일정을 완성합니다.</p>
+              <a href="dining-group.html" class="gallery-link">업장 보기</a>
+            </div>
+          </div>
+
+          <!-- ✏️ 추가: 식당/카페 파트너 확정 시 아래 카드 블록 복사해서 사용
+          <div class="gallery-card reveal">
+            <div class="gallery-card-image">
+              <img src="images/dining-partner.jpg" alt="파트너 업장명">
+            </div>
+            <div class="gallery-card-body">
+              <span class="gallery-tag">카테고리 (예: Korean)</span>
+              <h3 class="gallery-title">업장 이름</h3>
+              <p class="gallery-desc">업장 소개 및 추천 메뉴, 분위기 등을 입력하세요.</p>
+            </div>
+          </div>
+          -->
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA 배너 -->
+    <div class="cta-banner reveal">
+      <!-- ✏️ 수정: CTA 헤딩, 부제, 버튼 텍스트 -->
+      <h2>식사 프로그램 문의</h2>
+      <p>단체 식사 설계 및 맞춤 식사 연계는 문의를 통해 안내드립니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

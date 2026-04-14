@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✏️ 수정: 브라우저 탭에 표시되는 타이틀 -->
+  <title>WISHFUL STAY — 워케이션 in 강동, 울산</title>
+
+  <!-- ✏️ 수정: 구글/네이버 검색 결과에 표시되는 설명 문구 (150자 이내 권장) -->
+  <meta name="description" content="울산 강동에서 일하고, 쉬고, 머물다. 위시풀스테이가 설계하는 체류형 워케이션 프로그램 — 숙박, 업무, 로컬 체험을 하나의 흐름으로.">
+
+  <!-- ✏️ 수정: 카카오톡·SNS 공유 시 표시되는 제목과 설명 -->
+  <meta property="og:title" content="WISHFUL STAY — 워케이션 in 강동">
+  <meta property="og:description" content="숙박과 업무, 체험을 하나의 흐름으로. 강동에서의 워케이션을 설계합니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <!-- ✏️ 추가 가능: og:image — 공유 썸네일 이미지 URL (1200×630px 권장) -->
+  <!-- <meta property="og:image" content="https://도메인/images/og-thumbnail.jpg"> -->
+
+  <!-- 폰트 (수정 불필요) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- 스타일시트 (수정 불필요) -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HEADER (상단 고정 네비게이션)
+       ✏️ 수정 가능: 로고 텍스트, 메뉴명, 문의하기 버튼 텍스트
+  ════════════════════════════════════════════════════════════════ -->
+  <header id="header">
+    <div class="header-inner">
+
+      <!-- ✏️ 수정: 좌측 로고 텍스트 -->
+      <a href="#" class="logo" aria-label="WISHFUL STAY 홈으로">WISHFUL STAY</a>
+
+      <!-- ✏️ 수정: 상단 메뉴 항목명 / 각 페이지 파일명과 일치해야 함 -->
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html" class="is-active">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+
+      <!-- ✏️ 수정: 우측 상단 버튼 텍스트 -->
+      <a href="contact.html" class="header-cta">예약문의</a>
+
+      <!-- 모바일 햄버거 버튼 (수정 불필요) -->
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- 모바일 메뉴 (내용은 상단 nav와 동일하게 유지) -->
+  <!-- ✏️ 수정: 메뉴명 변경 시 아래도 동일하게 수정 -->
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <!-- ✏️ 수정: 모바일 메뉴 하단 버튼 텍스트 -->
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         [1] HERO 섹션 — 첫 화면 전체 영역
+         ✏️ 수정 가능: 소제목, 메인 타이틀, 부제목, 버튼 2개
+         📷 사진 교체: .ph-hero div를 <img> 태그로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="hero" aria-label="메인 히어로">
+
+      <!-- 배경 이미지 영역 -->
+      <!-- 📷 사진 교체 방법:
+           아래 div 전체를 지우고
+           <img src="images/hero.jpg" alt="강동 해안 풍경" style="width:100%;height:100%;object-fit:cover;">
+           로 교체하면 됩니다 -->
+      <div class="hero-bg">
+        <div class="ph-image ph-hero"
+             data-concept="[ 사진 교체 예정 ] 촬영 컨셉: 강동 해안가 또는 KCC 호텔 전경 — 새벽 혹은 골든아워, 조용하고 탁 트인 분위기"
+             role="img"
+             aria-label="강동 해안 풍경"></div>
+      </div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <!-- ✏️ 수정: 히어로 소제목 (영문 태그라인) -->
+        <span class="hero-eyebrow">Workcation in Gangdong, Ulsan</span>
+
+        <!-- ✏️ 수정: 히어로 메인 타이틀 (<br>은 줄바꿈) -->
+        <h1 class="hero-title">일하고, 쉬고,<br>머물다</h1>
+
+        <!-- ✏️ 수정: 히어로 본문 한 줄 설명 -->
+        <p class="hero-sub">울산 강동에서 펼쳐지는 체류형 워케이션</p>
+
+        <div class="hero-ctas">
+          <!-- ✏️ 수정: 첫 번째 버튼 텍스트 (클릭 시 패키지 섹션으로 이동) -->
+          <a href="#packages" class="btn btn-light-outline">패키지 보기</a>
+          <!-- ✏️ 수정: 두 번째 버튼 텍스트 (클릭 시 문의 섹션으로 이동) -->
+          <a href="#contact" class="btn btn-light-fill">문의하기</a>
+        </div>
+      </div>
+
+      <!-- 스크롤 유도 인디케이터 (수정 불필요) -->
+      <div class="hero-scroll" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [2] ABOUT 섹션 — 회사/서비스 소개
+         ✏️ 수정 가능: 소제목, 메인 헤딩, 본문 2단락, 3가지 축
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+
+          <div class="about-left reveal">
+            <!-- ✏️ 수정: 소제목 (영문) -->
+            <span class="eyebrow">About Wishful Stay</span>
+            <!-- ✏️ 수정: 좌측 큰 헤딩 (<br>은 줄바꿈) -->
+            <h2 id="about-title">숙박과 업무,<br>체험을 하나의<br>흐름으로</h2>
+          </div>
+
+          <div class="about-right reveal reveal-delay-2">
+            <!-- ✏️ 수정: 본문 첫 번째 단락 -->
+            <p>
+              위시풀스테이는 강동의 숙박·업무·체험 자원을 연결하는
+              <strong>워케이션 코디네이터</strong>입니다.
+              단순한 출장이나 여행이 아닌, 일과 쉼이 균형을 이루는
+              체류 경험 전체를 설계합니다.
+            </p>
+            <!-- ✏️ 수정: 본문 두 번째 단락 -->
+            <p>
+              KCC 앰버서더 호텔과 레지던스를 숙박 기반으로,
+              해월당 업무공간과 강동의 로컬 체험을 연결하여
+              강동에서만 가능한 체류 패키지를 만듭니다.
+            </p>
+
+            <!-- ✏️ 수정: 3가지 핵심 축 — 번호/타이틀/설명 각각 수정 가능 -->
+            <div class="about-pillars">
+              <div class="pillar">
+                <span class="pillar-number">01</span>
+                <!-- ✏️ 수정: 첫 번째 축 제목 -->
+                <span class="pillar-title">숙박 파트너</span>
+                <!-- ✏️ 수정: 첫 번째 축 설명 -->
+                <span class="pillar-desc">KCC 앰버서더 호텔 & 레지던스</span>
+              </div>
+              <div class="pillar">
+                <span class="pillar-number">02</span>
+                <!-- ✏️ 수정: 두 번째 축 제목 -->
+                <span class="pillar-title">집중 업무공간</span>
+                <!-- ✏️ 수정: 두 번째 축 설명 -->
+                <span class="pillar-desc">해월당 외부 업무공간 연계</span>
+              </div>
+              <div class="pillar">
+                <span class="pillar-number">03</span>
+                <!-- ✏️ 수정: 세 번째 축 제목 -->
+                <span class="pillar-title">로컬 체험</span>
+                <!-- ✏️ 수정: 세 번째 축 설명 -->
+                <span class="pillar-desc">강동 식사·레저·문화 프로그램</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [3] PROGRAM 섹션 — 머물다 / 집중하다 / 경험하다
+         ✏️ 수정 가능: 각 프로그램의 제목, 본문, 특징 리스트
+         📷 사진 교체: 각 .ph-image div를 <img>로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="program" aria-labelledby="program-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <!-- ✏️ 수정: 섹션 소제목 -->
+          <span class="eyebrow">Program</span>
+          <!-- ✏️ 수정: 섹션 메인 헤딩 -->
+          <h2 id="program-title">머물고, 집중하고, 경험하다</h2>
+        </div>
+      </div>
+
+      <!-- ── [3-1] Stay (숙박) ── -->
+      <div class="program-item program-item--stay">
+        <!-- 📷 사진 교체: 아래 div를 <img src="images/stay.jpg" alt="KCC 호텔 객실"> 로 교체 -->
+        <div class="program-image reveal">
+          <div class="ph-image ph-stay"
+               data-concept="[ 사진 교체 예정 ] KCC 앰버서더 호텔 객실 또는 레지던스 내부 — 창문, 자연광, 깔끔한 침실 분위기"
+               role="img"
+               aria-label="KCC 앰버서더 호텔 객실 이미지"></div>
+        </div>
+        <div class="program-content reveal reveal-delay-2">
+          <!-- ✏️ 수정: 소제목 (영문 태그) -->
+          <span class="eyebrow">Stay</span>
+          <!-- ✏️ 수정: 프로그램 제목 -->
+          <h3>머물다</h3>
+          <!-- ✏️ 수정: 프로그램 본문 설명 -->
+          <p>
+            KCC 앰버서더 호텔과 레지던스를 기반으로 한 숙박 프로그램입니다.
+            단기 출장부터 장기 체류까지, 개인의 일정과 목적에 맞는
+            숙박 유형을 선택할 수 있습니다.
+          </p>
+          <!-- ✏️ 수정: 특징 리스트 (항목 추가/삭제/수정 가능) -->
+          <ul class="program-features">
+            <li>KCC 앰버서더 호텔 — 단기형 숙박 (1박 이상)</li>
+            <li>씨스테이 레지던스 — 장기 체류형 (취사 가능)</li>
+            <li>셀프 체크인 운영 / 체크인 15:00, 체크아웃 11:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── [3-2] Work (업무공간) ── -->
+      <div class="program-item program-item--work program-item--reverse">
+        <!-- 📷 사진 교체: 아래 div를 <img src="images/work.jpg" alt="해월당 업무공간"> 로 교체 -->
+        <div class="program-image reveal">
+          <div class="ph-image ph-work"
+               data-concept="[ 사진 교체 예정 ] 해월당 내부 업무 공간 — 노트북, 넓은 테이블, 자연광, 조용한 분위기"
+               role="img"
+               aria-label="해월당 업무공간 이미지"></div>
+        </div>
+        <div class="program-content reveal reveal-delay-2">
+          <!-- ✏️ 수정: 소제목 -->
+          <span class="eyebrow">Work</span>
+          <!-- ✏️ 수정: 프로그램 제목 -->
+          <h3>집중하다</h3>
+          <!-- ✏️ 수정: 프로그램 본문 설명 -->
+          <p>
+            숙소 외부의 독립된 업무공간을 제공합니다.
+            해월당을 중심으로 개인 집중 업무부터 소규모 미팅까지
+            가능한 공간을 연계하여, 호텔 객실이 아닌 진짜 업무 환경을 만듭니다.
+          </p>
+          <!-- ✏️ 수정: 특징 리스트 -->
+          <ul class="program-features">
+            <li>해월당 집중 업무공간 연계</li>
+            <li>개인 업무 및 팀 미팅 모두 가능</li>
+            <li>안정적인 네트워크 및 업무 환경 제공</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── [3-3] Experience (체험) ── -->
+      <div class="program-item program-item--exp">
+        <!-- 📷 사진 교체: 아래 div를 <img src="images/exp.jpg" alt="강동 로컬 체험"> 로 교체 -->
+        <div class="program-image reveal">
+          <div class="ph-image ph-exp"
+               data-concept="[ 사진 교체 예정 ] 강동 해안 또는 로컬 체험 장면 — 레저, 공예, 지역 맛집 등 생동감 있는 장면"
+               role="img"
+               aria-label="강동 로컬 체험 이미지"></div>
+        </div>
+        <div class="program-content reveal reveal-delay-2">
+          <!-- ✏️ 수정: 소제목 -->
+          <span class="eyebrow">Experience</span>
+          <!-- ✏️ 수정: 프로그램 제목 -->
+          <h3>경험하다</h3>
+          <!-- ✏️ 수정: 프로그램 본문 설명 -->
+          <p>
+            강동동의 로컬 자원과 연결된 체험 프로그램입니다.
+            단순 숙박을 넘어 지역 식사, 레저, 문화 체험을 통해
+            진짜 강동을 만납니다.
+          </p>
+          <!-- ✏️ 수정: 특징 리스트 -->
+          <ul class="program-features">
+            <li>레저·공예·예술·로컬 교육 등 다양한 체험 연계</li>
+            <li>개인·소규모는 선택형, 기업은 맞춤 포함형</li>
+            <li>강동 식당·카페 중심의 식사 프로그램 연계</li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [4] PACKAGES 섹션 — 패키지 3종
+         ✏️ 수정 가능: 섹션 헤딩, 각 카드의 제목/설명/버튼
+         📷 사진 교체: 각 .ph-image div를 <img>로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="packages" aria-labelledby="packages-title">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <!-- ✏️ 수정: 섹션 소제목 -->
+          <span class="eyebrow">Package</span>
+          <!-- ✏️ 수정: 섹션 메인 헤딩 -->
+          <h2 id="packages-title">나에게 맞는 워케이션을 고르세요</h2>
+        </div>
+
+        <div class="packages-grid">
+
+          <!-- ── [4-1] 개인형 패키지 ── -->
+          <div class="package-card reveal">
+            <!-- 📷 사진 교체: 아래 div를 <img src="images/pkg-individual.jpg" alt="개인형 워케이션"> 로 교체 -->
+            <div class="package-image">
+              <div class="ph-image ph-pkg1"
+                   data-concept="[ 사진 교체 예정 ] 1인 직장인 워케이션 장면 — 창가 작업, 여유로운 분위기"
+                   role="img"
+                   aria-label="개인형 워케이션 이미지"></div>
+            </div>
+            <div class="package-body">
+              <!-- ✏️ 수정: 패키지 영문 태그 -->
+              <span class="eyebrow">Individual</span>
+              <!-- ✏️ 수정: 패키지 제목 -->
+              <h3>개인형 워케이션</h3>
+              <!-- ✏️ 수정: 패키지 설명 -->
+              <p>
+                출장 또는 재충전을 원하는 1~2인을 위한 패키지.
+                숙박과 업무공간이 기본으로 포함되며,
+                체험은 원하는 항목을 선택 추가할 수 있습니다.
+              </p>
+              <!-- ✏️ 수정: 버튼 텍스트 (링크는 #contact 유지 권장) -->
+              <a href="#contact" class="pkg-cta">문의하기 &rarr;</a>
+            </div>
+          </div>
+
+          <!-- ── [4-2] 팀형 패키지 ── -->
+          <div class="package-card reveal reveal-delay-2">
+            <!-- 📷 사진 교체: 아래 div를 <img src="images/pkg-team.jpg" alt="팀형 워케이션"> 로 교체 -->
+            <div class="package-image">
+              <div class="ph-image ph-pkg2"
+                   data-concept="[ 사진 교체 예정 ] 소규모 팀 미팅 또는 워크숍 장면 — 협업, 화이트보드, 자연스러운 분위기"
+                   role="img"
+                   aria-label="팀형 워케이션 이미지"></div>
+            </div>
+            <div class="package-body">
+              <!-- ✏️ 수정: 패키지 영문 태그 -->
+              <span class="eyebrow">Team</span>
+              <!-- ✏️ 수정: 패키지 제목 -->
+              <h3>팀형 워케이션</h3>
+              <!-- ✏️ 수정: 패키지 설명 -->
+              <p>
+                팀 워크숍과 체류를 결합한 소규모 단체 패키지.
+                미팅 공간과 단체 식사, 팀 빌딩 체험까지
+                함께 설계합니다.
+              </p>
+              <!-- ✏️ 수정: 버튼 텍스트 -->
+              <a href="#contact" class="pkg-cta">문의하기 &rarr;</a>
+            </div>
+          </div>
+
+          <!-- ── [4-3] 기업 맞춤형 패키지 (어두운 배경 강조 카드) ── -->
+          <div class="package-card package-card--featured reveal reveal-delay-3">
+            <!-- 📷 사진 교체: 아래 div를 <img src="images/pkg-corporate.jpg" alt="기업 맞춤형"> 로 교체 -->
+            <div class="package-image">
+              <div class="ph-image ph-pkg3"
+                   data-concept="[ 사진 교체 예정 ] 기업 단체 세미나 또는 연수 장면 — 전문적이고 차분한 분위기"
+                   role="img"
+                   aria-label="기업 맞춤형 워케이션 이미지"></div>
+            </div>
+            <div class="package-body">
+              <!-- ✏️ 수정: 패키지 영문 태그 -->
+              <span class="eyebrow">Corporate</span>
+              <!-- ✏️ 수정: 패키지 제목 -->
+              <h3>기업 맞춤형</h3>
+              <!-- ✏️ 수정: 패키지 설명 -->
+              <p>
+                기업 단위 맞춤 설계 프로그램.
+                인원·일정·목적에 따라 숙박, 업무, 체험 전체를
+                커스터마이즈합니다. 공공기관·법인 계약도 가능합니다.
+              </p>
+              <!-- ✏️ 수정: 버튼 텍스트 -->
+              <a href="#contact" class="pkg-cta">문의하기 &rarr;</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [5] WHY GANGDONG 섹션 — 강동을 선택하는 이유
+         ✏️ 수정 가능: 섹션 헤딩, 이유 4가지의 제목/설명
+         📷 사진 교체: .ph-gangdong div를 <img>로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="gangdong" aria-labelledby="gangdong-title">
+      <div class="gangdong-inner">
+
+        <!-- 📷 사진 교체: 아래 div를 <img src="images/gangdong.jpg" alt="강동 해안 풍경"> 로 교체 -->
+        <div class="gangdong-image">
+          <div class="ph-image ph-gangdong"
+               data-concept="[ 사진 교체 예정 ] 강동동 해안 전경 — 탁 트인 바다, 자연 풍경, 골든아워 또는 새벽빛"
+               role="img"
+               aria-label="강동 해안 풍경"></div>
+        </div>
+
+        <div class="gangdong-content">
+          <!-- ✏️ 수정: 소제목 -->
+          <span class="eyebrow">Why Gangdong</span>
+          <!-- ✏️ 수정: 섹션 헤딩 (<br>은 줄바꿈) -->
+          <h2 id="gangdong-title">강동을<br>선택하는 이유</h2>
+
+          <div class="reasons">
+
+            <!-- ✏️ 수정: 이유 01 — 제목과 설명 -->
+            <div class="reason reveal">
+              <span class="reason-num">01</span>
+              <div>
+                <h4>바다와 자연 속 체류 환경</h4>
+                <p>도심의 소음에서 벗어난 울산 강동의 해안 자연환경이 집중과 회복의 공간을 만듭니다.</p>
+              </div>
+            </div>
+
+            <!-- ✏️ 수정: 이유 02 — 제목과 설명 -->
+            <div class="reason reveal reveal-delay-1">
+              <span class="reason-num">02</span>
+              <div>
+                <h4>검증된 숙박 인프라</h4>
+                <p>KCC 앰버서더 호텔과 레지던스가 이미 운영 중인 안정적인 숙박 기반 위에 워케이션을 설계합니다.</p>
+              </div>
+            </div>
+
+            <!-- ✏️ 수정: 이유 03 — 제목과 설명 -->
+            <div class="reason reveal reveal-delay-2">
+              <span class="reason-num">03</span>
+              <div>
+                <h4>연결된 로컬 경험</h4>
+                <p>식사, 체험, 업무공간까지 강동 안에서 모두 연결됩니다. 이동 없이 몰입할 수 있는 환경입니다.</p>
+              </div>
+            </div>
+
+            <!-- ✏️ 수정: 이유 04 — 제목과 설명 -->
+            <div class="reason reveal reveal-delay-3">
+              <span class="reason-num">04</span>
+              <div>
+                <h4>부산·울산·경남권 접근성</h4>
+                <p>울산 시내는 물론, 부산·경남권에서도 당일 이동이 가능한 거리입니다.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [6] INFO 섹션 — 이용 안내
+         ✏️ 수정 가능: 체크인/아웃 시간, 운영시간, 환불정책, 이용규칙
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="info" aria-labelledby="info-title">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <!-- ✏️ 수정: 소제목 -->
+          <span class="eyebrow">Info</span>
+          <!-- ✏️ 수정: 섹션 헤딩 -->
+          <h2 id="info-title">이용 안내</h2>
+        </div>
+
+        <div class="info-grid">
+
+          <!-- ── [6-1] 체크인/체크아웃 ── -->
+          <div class="info-card reveal">
+            <!-- ✏️ 수정: 카드 제목 -->
+            <h4>체크인 / 체크아웃</h4>
+            <dl>
+              <dt>체크인</dt>
+              <!-- ✏️ 수정: 체크인 시간 -->
+              <dd>오후 3:00 (15:00)</dd>
+
+              <dt>체크아웃</dt>
+              <!-- ✏️ 수정: 체크아웃 시간 -->
+              <dd>오전 11:00</dd>
+
+              <dt>방식</dt>
+              <dd>셀프 체크인
+                <!-- ✏️ 수정: 체크인 방식 부연 설명 -->
+                <small>체크인 당일 안내 문자 발송</small>
+              </dd>
+
+              <dt>얼리/레이트</dt>
+              <!-- ✏️ 수정: 얼리체크인/레이트체크아웃 정책 -->
+              <dd>사전 요청 시 가능 (별도 요금 발생)</dd>
+            </dl>
+          </div>
+
+          <!-- ── [6-2] 운영 시간 ── -->
+          <div class="info-card reveal reveal-delay-2">
+            <!-- ✏️ 수정: 카드 제목 -->
+            <h4>운영 시간</h4>
+            <!-- ✏️ 수정: 운영 시간 표시 (큰 글씨) -->
+            <p class="info-time">09:00 — 21:00</p>
+            <!-- ✏️ 수정: 운영시간 관련 안내 문구 -->
+            <p class="info-note">
+              운영 시간 외 문의는 접수 후 영업 시간 내 순차 처리됩니다.<br>
+              시설 긴급 사항은 별도 채널로 안내드립니다.<br><br>
+              야간에 도착하시는 경우도 셀프 체크인으로 입실 가능합니다.
+            </p>
+          </div>
+
+          <!-- ── [6-3] 환불 정책 (전체 너비) ── -->
+          <div class="info-card info-card--full reveal">
+            <!-- ✏️ 수정: 카드 제목 -->
+            <h4>환불 정책</h4>
+            <!-- ✏️ 수정: 환불 정책 표 — 취소 시점과 환불 금액 -->
+            <table class="refund-table">
+              <thead>
+                <tr>
+                  <th>취소 시점</th>
+                  <th>환불 금액</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>체크인 10일 전 취소</td>
+                  <td>100% 전액 환불</td>
+                </tr>
+                <tr>
+                  <td>체크인 9~6일 전 취소</td>
+                  <td>70% 환불</td>
+                </tr>
+                <tr>
+                  <td>체크인 5~2일 전 취소</td>
+                  <td>50% 환불</td>
+                </tr>
+                <tr>
+                  <td>체크인 1일 전 / 당일 취소</td>
+                  <td>환불 불가 (0%)</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- ✏️ 수정: 환불 정책 하단 주의사항 -->
+            <p class="info-note">
+              ※ 환불 기준 시각은 자정(00:00) 기준입니다.<br>
+              항공·선박 결항 등 불가항력적 사유는 관련 증빙 제출 시 별도 처리됩니다.
+            </p>
+          </div>
+
+          <!-- ── [6-4] 이용 규칙 ── -->
+          <div class="info-card reveal reveal-delay-2">
+            <!-- ✏️ 수정: 카드 제목 -->
+            <h4>이용 규칙</h4>
+            <!-- ✏️ 수정: 이용 규칙 리스트 (항목 추가/삭제/수정 가능) -->
+            <ul class="info-rules">
+              <li>시설 전 구역 금연 (전자담배 포함)</li>
+              <li>미성년자는 법정대리인 동반 필수</li>
+              <li>레지던스 취사 가능 / 호텔 내부 취사 불가</li>
+              <li>화기성 물품 반입 및 사용 금지</li>
+              <li>퇴실 시 시설 파손·오염 발생 시 실비 청구</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [7] CONTACT 섹션 — 문의 채널 3가지
+         ✏️ 수정 가능: 헤딩, 부제, 각 채널의 링크/표시 텍스트
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+
+        <div class="contact-header reveal">
+          <!-- ✏️ 수정: 소제목 -->
+          <span class="eyebrow eyebrow--light">Contact</span>
+          <!-- ✏️ 수정: 섹션 메인 헤딩 (<br>은 줄바꿈) -->
+          <h2 id="contact-title">워케이션을 시작할<br>준비가 되셨나요?</h2>
+          <!-- ✏️ 수정: 헤딩 아래 부제 문구 -->
+          <p>패키지 문의, 단체 예약, 기업 협업까지 — 원하는 방식으로 연락주세요.</p>
+        </div>
+
+        <div class="contact-channels">
+
+          <!-- ── [7-1] 카카오톡 ── -->
+          <!-- ✏️ 수정: href="" 안에 카카오 채널 링크 입력
+               예: href="https://pf.kakao.com/_xxxxx" -->
+          <a href="#" class="contact-card contact-card--kakao reveal">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 3C6.48 3 2 6.72 2 11.25c0 2.88 1.58 5.41 4 6.96v3.29l3.1-1.71c.94.26 1.93.4 2.9.4 5.52 0 10-3.72 10-8.25C22 6.72 17.52 3 12 3z"/>
+              </svg>
+            </div>
+            <!-- ✏️ 수정: 채널 이름 표시 텍스트 -->
+            <p class="contact-method">카카오톡</p>
+            <!-- ✏️ 수정: 채널 ID 또는 안내 문구 -->
+            <p class="contact-detail">[입력예정]</p>
+          </a>
+
+          <!-- ── [7-2] 전화 ── -->
+          <!-- ✏️ 수정: href="tel:+82-10-0000-0000" 형식으로 전화번호 입력 -->
+          <a href="#" class="contact-card contact-card--phone reveal reveal-delay-2">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <!-- ✏️ 수정: 채널 이름 표시 텍스트 -->
+            <p class="contact-method">전화 문의</p>
+            <!-- ✏️ 수정: 실제 전화번호로 교체 (예: 010-0000-0000) -->
+            <p class="contact-detail">[입력예정]</p>
+          </a>
+
+          <!-- ── [7-3] 이메일 ── -->
+          <!-- ✏️ 수정: href="mailto:이메일주소" 형식으로 이메일 입력 -->
+          <a href="#" class="contact-card contact-card--email reveal reveal-delay-3">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <polyline points="2,4 12,13 22,4"/>
+              </svg>
+            </div>
+            <!-- ✏️ 수정: 채널 이름 표시 텍스트 -->
+            <p class="contact-method">이메일</p>
+            <!-- ✏️ 수정: 실제 이메일 주소로 교체 (예: hello@wishfulstay.com) -->
+            <p class="contact-detail">[입력예정]</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       FOOTER — 하단 정보
+       ✏️ 수정 가능: 로고, 태그라인, 회사 법인명, 운영시간, 저작권
+  ════════════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+
+      <div class="footer-top">
+        <div class="footer-brand">
+          <!-- ✏️ 수정: 푸터 로고 텍스트 -->
+          <p class="footer-logo">WISHFUL STAY</p>
+          <!-- ✏️ 수정: 로고 아래 한 줄 태그라인 -->
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+
+        <!-- ✏️ 수정: 푸터 메뉴 (상단 nav와 동일하게 유지 권장) -->
+        <nav class="footer-nav" aria-label="푸터 메뉴">
+          <a href="#about">소개</a>
+          <a href="#program">프로그램</a>
+          <a href="#packages">패키지</a>
+          <a href="#gangdong">강동</a>
+          <a href="#info">이용안내</a>
+          <a href="#contact">문의</a>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <!-- ✏️ 수정: 법인명 -->
+          <p>(주)위시풀스테이</p>
+          <!-- ✏️ 수정: 운영 시간 표시 -->
+          <p>운영 시간: 09:00 — 21:00</p>
+          <!-- ✏️ 추가 가능: 사업자등록번호, 주소 등
+               <p>사업자등록번호: 000-00-00000</p>
+               <p>울산광역시 북구 강동동 000</p> -->
+        </div>
+        <!-- ✏️ 수정: 저작권 표기 연도/회사명 -->
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- 자바스크립트 (수정 불필요) -->
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레저 · 액티비티 — WISHFUL STAY</title>
+  <meta name="description" content="강동의 자연을 배경으로 한 레저·액티비티 체험. 수상스포츠, 트레킹 등 다양한 야외 활동 프로그램을 안내합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html" class="is-active">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-experience"
+             data-concept="[ 사진 교체 예정 ] 강동 해안 레저 활동 — 서핑, 카약 등 역동적인 수상스포츠 장면"
+             role="img" aria-label="레저·액티비티"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow"><a href="experience.html" style="color:inherit;text-decoration:none;">체험</a> / Leisure</span>
+        <h1>레저 ·<br>액티비티</h1>
+        <p>강동의 자연을 온몸으로 경험하는 야외 활동 프로그램</p>
+      </div>
+    </section>
+
+
+    <section class="content-section content-section--alt">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">Programs</span>
+          <h2>프로그램 목록</h2>
+          <p style="margin-top:12px; font-size:14px; color:var(--c-text-muted);">
+            원하는 프로그램을 패키지에 담고 예약 문의 시 일정을 조율합니다.
+          </p>
+        </div>
+
+        <div class="item-list">
+
+          <!-- 프로그램 1 — 서핑 체험 -->
+          <div class="item-row reveal"
+               data-pkg-id="exp-leisure-surf"
+               data-pkg-category="체험"
+               data-pkg-title="레저 — 서핑 체험"
+               data-pkg-tag="Leisure">
+            <div class="item-row-image">
+              <div class="ph-image ph-exp"
+                   data-concept="[ 사진 교체 예정 ] 강동 해변 서핑 체험 — 파도 위 서퍼, 강동 바다 배경"
+                   role="img" aria-label="서핑 체험"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Surfing</span>
+              <h3 class="item-row-title">서핑 체험</h3>
+              <p class="item-row-desc">강동 해변을 배경으로 한 서핑 입문 체험. 전문 강사와 함께 기초부터 안전하게 배울 수 있습니다. 장비 일체 제공.</p>
+              <ul class="gallery-specs">
+                <li>소요 시간: 약 2시간</li>
+                <li>난이도: 입문</li>
+                <li>장비 대여 포함</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 프로그램 2 — 해안 카약 -->
+          <div class="item-row reveal"
+               data-pkg-id="exp-leisure-kayak"
+               data-pkg-category="체험"
+               data-pkg-title="레저 — 해안 카약"
+               data-pkg-tag="Leisure">
+            <div class="item-row-image">
+              <div class="ph-image ph-gangdong"
+                   data-concept="[ 사진 교체 예정 ] 강동 해안 카약 — 투명 바다 위 카약, 강동 해안선"
+                   role="img" aria-label="해안 카약"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Kayaking</span>
+              <h3 class="item-row-title">해안 카약</h3>
+              <p class="item-row-desc">강동의 맑은 바다를 카약으로 탐험합니다. 초보자도 쉽게 즐길 수 있는 해안 카약 투어로 강동의 새로운 시각을 경험하세요.</p>
+              <ul class="gallery-specs">
+                <li>소요 시간: 약 1.5~2시간</li>
+                <li>난이도: 입문</li>
+                <li>2인 1조 카약 이용</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 프로그램 3 — 강동 해안 트레킹 -->
+          <div class="item-row reveal"
+               data-pkg-id="exp-leisure-trek"
+               data-pkg-category="체험"
+               data-pkg-title="레저 — 강동 해안 트레킹"
+               data-pkg-tag="Leisure">
+            <div class="item-row-image">
+              <div class="ph-image ph-stay"
+                   data-concept="[ 사진 교체 예정 ] 강동 해안 트레킹 코스 — 자연 경치와 트레커 실루엣"
+                   role="img" aria-label="해안 트레킹"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Trekking</span>
+              <h3 class="item-row-title">강동 해안 트레킹</h3>
+              <p class="item-row-desc">강동의 해안선을 따라 걷는 트레킹 코스. 워케이션 중 가벼운 산책부터 본격 트레킹까지 코스 수준을 선택할 수 있습니다.</p>
+              <ul class="gallery-specs">
+                <li>소요 시간: 2~4시간 (코스 선택)</li>
+                <li>가이드 동행 포함</li>
+                <li>개인·소규모 모두 가능</li>
+                <li>파트너: [확정 예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div class="cta-banner reveal">
+      <h2>레저 프로그램 문의</h2>
+      <p>일정과 인원에 맞는 레저 프로그램을 함께 설계합니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

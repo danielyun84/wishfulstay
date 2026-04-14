@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>간단식 · 카페 — WISHFUL STAY</title>
+  <meta name="description" content="강동 로컬 카페와 간단식 연계 프로그램. 업무 중 여유로운 카페 타임을 위시풀스테이가 안내합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html" class="is-active">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-dining"
+             data-concept="[ 사진 교체 예정 ] 강동 로컬 카페 내부 — 따뜻하고 감각적인 공간, 커피와 디저트"
+             role="img" aria-label="간단식·카페"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow"><a href="dining.html" style="color:inherit;text-decoration:none;">식사</a> / Café & Snack</span>
+        <h1>간단식 ·<br>카페</h1>
+        <p>강동 로컬 카페와 함께하는 업무 중 짧은 여유</p>
+      </div>
+    </section>
+
+
+    <section class="content-section content-section--alt">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">Partners</span>
+          <h2>파트너 업장</h2>
+          <p style="margin-top:12px; font-size:14px; color:var(--c-text-muted);">
+            원하는 업장을 패키지에 담아 예약 문의 시 함께 안내드립니다.
+          </p>
+        </div>
+
+        <div class="item-list">
+
+          <!-- 파트너 1 — 강동 로컬 카페 A -->
+          <div class="item-row reveal"
+               data-pkg-id="dining-cafe-partner1"
+               data-pkg-category="식사"
+               data-pkg-title="간단식·카페 — [업장명 입력예정]"
+               data-pkg-tag="Café & Snack">
+            <div class="item-row-image">
+              <div class="ph-image ph-exp"
+                   data-concept="[ 사진 교체 예정 ] 파트너 카페 내부 또는 음료 — 따뜻하고 감각적인 분위기"
+                   role="img" aria-label="파트너 카페 1"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Café</span>
+              <!-- ✏️ 수정: 파트너사 확정 후 업장명, 설명, 스펙 교체 -->
+              <h3 class="item-row-title">[업장명 입력예정]</h3>
+              <p class="item-row-desc">강동 지역 로컬 카페 파트너사. 스페셜티 커피와 강동산 재료로 만든 디저트를 제공합니다. 위시풀스테이 이용 시 할인 혜택이 제공됩니다.</p>
+              <ul class="gallery-specs">
+                <li>유형: 카페 / 디저트</li>
+                <li>위치: 강동 [위치 입력예정]</li>
+                <li>운영 시간: [입력예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+          <!-- 파트너 2 — 간단식 업장 B -->
+          <div class="item-row reveal"
+               data-pkg-id="dining-cafe-partner2"
+               data-pkg-category="식사"
+               data-pkg-title="간단식·카페 — [업장명 입력예정] B"
+               data-pkg-tag="Café & Snack">
+            <div class="item-row-image">
+              <div class="ph-image ph-stay"
+                   data-concept="[ 사진 교체 예정 ] 간단식 업장 음식 — 샌드위치, 브런치 등 밝고 맛있어 보이는 분위기"
+                   role="img" aria-label="파트너 간단식 업장"></div>
+            </div>
+            <div class="item-row-body">
+              <span class="gallery-tag">Snack & Brunch</span>
+              <h3 class="item-row-title">[업장명 입력예정]</h3>
+              <p class="item-row-desc">강동 지역 간단식 파트너사. 건강한 재료로 만든 샌드위치, 샐러드, 브런치 메뉴를 제공합니다. 업무 중 간편하게 에너지를 보충하세요.</p>
+              <ul class="gallery-specs">
+                <li>유형: 브런치 / 간단식</li>
+                <li>위치: 강동 [위치 입력예정]</li>
+                <li>운영 시간: [입력예정]</li>
+              </ul>
+              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div class="cta-banner reveal">
+      <h2>카페·간단식 문의</h2>
+      <p>패키지에 포함된 업장 이용 혜택과 일정 연계는 예약 문의를 통해 안내드립니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

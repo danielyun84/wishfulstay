@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ✏️ 수정: 브라우저 탭 타이틀 -->
+  <title>예약문의 — WISHFUL STAY</title>
+  <!-- ✏️ 수정: 검색 결과 설명 문구 -->
+  <meta name="description" content="위시풀스테이 예약 및 문의. 카카오톡, 전화, 이메일을 통해 패키지 문의와 예약을 진행하세요.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- HEADER ── ✏️ 현재 페이지: 예약문의 (헤더 CTA 버튼에 is-active 없음 — 별도 스타일 불필요) -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <!-- ✏️ 현재 페이지 = 예약문의 (버튼이 현재 페이지이므로 스타일 차별화 가능) -->
+      <a href="contact.html" class="header-cta" style="background:rgba(255,255,255,0.15);">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         페이지 히어로
+         ✏️ 수정: 소제목, 타이틀, 설명
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-contact"
+             data-concept="[ 사진 교체 예정 ] 촬영 컨셉: 강동 바다 전경 or 숙소 외부 — 여유롭고 초대하는 분위기"
+             role="img" aria-label="예약문의 대표 이미지"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow">Reservation & Inquiry</span>
+        <!-- ✏️ 수정: 페이지 타이틀, 설명 -->
+        <h1>워케이션을<br>시작하세요</h1>
+        <p>패키지 문의부터 예약 확정까지, 원하는 방식으로 연락주세요</p>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [1] 예약 프로세스
+         ✏️ 수정: 각 단계의 제목, 설명
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">How to Reserve</span>
+          <!-- ✏️ 수정: 섹션 헤딩 -->
+          <h2>예약 진행 방법</h2>
+        </div>
+        <div class="process-steps">
+
+          <div class="process-step reveal">
+            <span class="step-num">01</span>
+            <!-- ✏️ 수정: 단계 제목, 설명 -->
+            <span class="step-title">문의 접수</span>
+            <span class="step-desc">카카오톡, 전화, 이메일 중 편한 방법으로 희망 일정·인원·패키지를 알려주세요.</span>
+          </div>
+
+          <div class="process-step reveal reveal-delay-1">
+            <span class="step-num">02</span>
+            <!-- ✏️ 수정: 단계 제목, 설명 -->
+            <span class="step-title">일정 확인</span>
+            <span class="step-desc">담당자가 가용 일정 및 패키지 내용을 확인 후 안내드립니다.</span>
+          </div>
+
+          <div class="process-step reveal reveal-delay-2">
+            <span class="step-num">03</span>
+            <!-- ✏️ 수정: 단계 제목, 설명 -->
+            <span class="step-title">결제 및 확정</span>
+            <span class="step-desc">결제 완료 시 예약이 확정됩니다. 확정 후 안내 메시지를 드립니다.</span>
+          </div>
+
+          <div class="process-step reveal reveal-delay-3">
+            <span class="step-num">04</span>
+            <!-- ✏️ 수정: 단계 제목, 설명 -->
+            <span class="step-title">체크인 안내</span>
+            <span class="step-desc">체크인 당일 셀프 체크인 안내 문자를 발송드립니다.</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [2] 문의 접수 폼
+         ✏️ 수정: Formspree 연동 시 form action에 실제 URL 입력
+                  ex) action="https://formspree.io/f/YOUR_ID"
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section content-section--alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Inquiry Form</span>
+          <h2>문의 접수</h2>
+        </div>
+
+        <div class="inquiry-form-wrap">
+
+          <!-- 선택한 패키지 미리보기 (JS로 렌더링) -->
+          <div class="contact-pkg-preview reveal" id="contactPkgPreview">
+            <span class="contact-pkg-preview-label">선택한 패키지</span>
+            <div id="contactPkgList">
+              <p class="contact-pkg-empty-note">
+                선택된 항목이 없습니다. 숙박·체험·식사 페이지에서 원하는 항목을 담은 후 문의해 주세요.<br>
+                또는 아래 폼에서 직접 원하는 내용을 적어 문의하셔도 됩니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- ✏️ 수정: Formspree 연동 시 action 값 교체 -->
+          <form id="inquiryForm" class="reveal"
+                action="#"
+                method="POST"
+                onsubmit="handleInquirySubmit(event)">
+
+            <!-- 선택 패키지 (hidden) — JS가 자동 채움 -->
+            <input type="hidden" name="선택패키지" id="hiddenPackage">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inqName">이름 *</label>
+                <input type="text" id="inqName" name="이름" placeholder="홍길동" required>
+              </div>
+              <div class="form-group">
+                <label for="inqContact">연락처 *</label>
+                <input type="text" id="inqContact" name="연락처" placeholder="전화번호 또는 이메일" required>
+              </div>
+            </div>
+
+            <div class="form-row form-row--3">
+              <div class="form-group">
+                <label for="inqCheckin">희망 체크인</label>
+                <input type="date" id="inqCheckin" name="체크인">
+              </div>
+              <div class="form-group">
+                <label for="inqCheckout">희망 체크아웃</label>
+                <input type="date" id="inqCheckout" name="체크아웃">
+              </div>
+              <div class="form-group">
+                <label for="inqGuests">인원</label>
+                <input type="number" id="inqGuests" name="인원" min="1" max="100" placeholder="명">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inqMessage">추가 요청사항</label>
+              <textarea id="inqMessage" name="요청사항" placeholder="기타 문의 사항이나 요청 사항을 자유롭게 적어주세요."></textarea>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="btn btn-dark">문의 접수하기</button>
+              <p class="form-note">
+                접수 후 영업시간(09:00 — 21:00) 내 순차적으로 연락드립니다.
+              </p>
+            </div>
+
+          </form>
+
+          <!-- 제출 완료 메시지 -->
+          <div class="form-success" id="formSuccess">
+            <p>
+              문의가 접수되었습니다.<br>
+              담당자가 확인 후 영업시간 내 연락드립니다. 감사합니다.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [3] 문의 채널 3가지
+         ✏️ 수정: 각 채널의 href 링크, 표시 정보
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="contact" class="content-section content-section--dark">
+      <div class="container">
+
+        <div class="contact-header reveal">
+          <span class="eyebrow eyebrow--light">Contact</span>
+          <!-- ✏️ 수정: 섹션 헤딩, 부제 -->
+          <h2 style="color:var(--c-cream); font-size:clamp(32px,4vw,52px); margin-bottom:16px;">
+            원하는 방식으로<br>연락주세요
+          </h2>
+          <p style="color:rgba(253,251,248,0.55); font-size:15px; max-width:440px; margin:0 auto;">
+            패키지 문의, 단체 예약, 기업 협업 모두 가능합니다.
+          </p>
+        </div>
+
+        <div class="contact-channels" style="margin-top:0;">
+
+          <!-- 카카오톡 -->
+          <!-- ✏️ 수정: href에 카카오 채널 링크 입력 예: href="https://pf.kakao.com/_xxxxx" -->
+          <a href="#" class="contact-card contact-card--kakao reveal">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 3C6.48 3 2 6.72 2 11.25c0 2.88 1.58 5.41 4 6.96v3.29l3.1-1.71c.94.26 1.93.4 2.9.4 5.52 0 10-3.72 10-8.25C22 6.72 17.52 3 12 3z"/>
+              </svg>
+            </div>
+            <p class="contact-method">카카오톡</p>
+            <!-- ✏️ 수정: 카카오 채널 ID 또는 안내 문구 -->
+            <p class="contact-detail">[입력예정]</p>
+          </a>
+
+          <!-- 전화 -->
+          <!-- ✏️ 수정: href="tel:+82-10-0000-0000" 형식으로 전화번호 입력 -->
+          <a href="#" class="contact-card contact-card--phone reveal reveal-delay-2">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <p class="contact-method">전화 문의</p>
+            <!-- ✏️ 수정: 실제 전화번호 입력 (예: 010-0000-0000) -->
+            <p class="contact-detail">[입력예정]</p>
+          </a>
+
+          <!-- 이메일 -->
+          <!-- ✏️ 수정: href="mailto:이메일주소" 형식으로 이메일 입력 -->
+          <a href="#" class="contact-card contact-card--email reveal reveal-delay-3">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <polyline points="2,4 12,13 22,4"/>
+              </svg>
+            </div>
+            <p class="contact-method">이메일</p>
+            <!-- ✏️ 수정: 실제 이메일 주소 입력 (예: hello@wishfulstay.com) -->
+            <p class="contact-detail">[입력예정]</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [3] 환불 정책
+         ✏️ 수정: 환불 기준, 주의사항
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Refund Policy</span>
+          <!-- ✏️ 수정: 섹션 헤딩 -->
+          <h2>환불 정책</h2>
+        </div>
+        <div class="info-grid" style="margin-top:48px;">
+
+          <div class="info-card info-card--full reveal">
+            <h4>취소 및 환불 기준</h4>
+            <!-- ✏️ 수정: 환불 정책 표 -->
+            <table class="refund-table">
+              <thead>
+                <tr><th>취소 시점</th><th>환불 금액</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>체크인 10일 전 취소</td><td>100% 전액 환불</td></tr>
+                <tr><td>체크인 9~6일 전 취소</td><td>70% 환불</td></tr>
+                <tr><td>체크인 5~2일 전 취소</td><td>50% 환불</td></tr>
+                <tr><td>체크인 1일 전 / 당일 취소</td><td>환불 불가 (0%)</td></tr>
+              </tbody>
+            </table>
+            <!-- ✏️ 수정: 주의사항 문구 -->
+            <p class="info-note">
+              ※ 환불 기준 시각은 자정(00:00) 기준입니다.<br>
+              항공·선박 결항 등 불가항력적 사유는 관련 증빙 제출 시 별도 처리됩니다.<br>
+              외부 플랫폼(야놀자, 에어비앤비 등)을 통한 예약은 해당 플랫폼 환불 정책이 우선 적용됩니다.
+            </p>
+          </div>
+
+          <div class="info-card reveal">
+            <h4>운영 시간</h4>
+            <p class="info-time">09:00 — 21:00</p>
+            <!-- ✏️ 수정: 운영시간 안내 문구 -->
+            <p class="info-note">
+              운영 시간 외 문의는 접수 후 영업 시간 내 순차 처리됩니다.<br>
+              시설 긴급 사항은 별도 채널로 안내드립니다.
+            </p>
+          </div>
+
+          <div class="info-card reveal reveal-delay-2">
+            <h4>결제 방법</h4>
+            <!-- ✏️ 수정: 결제 수단 목록 -->
+            <ul class="info-rules">
+              <li>계좌이체</li>
+              <li>신용카드 / 체크카드</li>
+              <li>온라인 무통장입금</li>
+              <!-- ✏️ 추가 가능: 무통장 입금 계좌 정보 확정 시 추가
+              <li>입금 계좌: [입력예정]</li> -->
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <!-- ✏️ 수정: 법인명, 운영시간 -->
+          <p>(주)위시풀스테이</p>
+          <p>운영 시간: 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
