@@ -26,7 +26,7 @@
   <!-- 스타일시트 (수정 불필요) -->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css?v=2">
 </head>
 <body>
 
@@ -105,13 +105,13 @@
 
       <div class="hero-content">
         <!-- ✏️ 수정: 히어로 소제목 (영문 태그라인) -->
-        <span class="hero-eyebrow">Workcation in Gangdong, Ulsan</span>
+        <span class="hero-eyebrow">바다를 곁에 둔 특별한 워케이션</span>
 
         <!-- ✏️ 수정: 히어로 메인 타이틀 (<br>은 줄바꿈) -->
-        <h1 class="hero-title">일하고, 쉬고,<br>머물다</h1>
+        <h1 class="hero-title" style="white-space:nowrap;">머물고싶은 강동</h1>
 
         <!-- ✏️ 수정: 히어로 본문 한 줄 설명 -->
-        <p class="hero-sub">울산 강동에서 펼쳐지는 체류형 워케이션</p>
+        <p class="hero-sub">일과 휴식, 그리고 특별한 경험</p>
 
         <div class="hero-ctas">
           <!-- ✏️ 수정: 첫 번째 버튼 텍스트 (클릭 시 패키지 섹션으로 이동) -->
@@ -142,46 +142,50 @@
             <!-- ✏️ 수정: 소제목 (영문) -->
             <span class="eyebrow">About Wishful Stay</span>
             <!-- ✏️ 수정: 좌측 큰 헤딩 (<br>은 줄바꿈) -->
-            <h2 id="about-title">숙박과 업무,<br>체험을 하나의<br>흐름으로</h2>
+            <h2 id="about-title">일과 휴식,<br>그리고 특별한 경험을<br>하나의 흐름으로</h2>
           </div>
 
           <div class="about-right reveal reveal-delay-2">
             <!-- ✏️ 수정: 본문 첫 번째 단락 -->
             <p>
-              위시풀스테이는 강동의 숙박·업무·체험 자원을 연결하는
-              <strong>워케이션 코디네이터</strong>입니다.
-              단순한 출장이나 여행이 아닌, 일과 쉼이 균형을 이루는
-              체류 경험 전체를 설계합니다.
+              위시풀스테이는 숙박예약, 업무공간, 교육 및 체험프로그램을
+              패키지로 연계하는 <strong>워케이션 서비스</strong>입니다.
+              단순한 출장이나 여행이 아닌,
+              이곳에서만 가능한 특별한 시간을 경험해보세요.
             </p>
             <!-- ✏️ 수정: 본문 두 번째 단락 -->
             <p>
-              KCC 앰버서더 호텔과 레지던스를 숙박 기반으로,
-              해월당 업무공간과 강동의 로컬 체험을 연결하여
-              강동에서만 가능한 체류 패키지를 만듭니다.
+              강동의 수많은 파트너가 여러분의 완전한 시간을 기다리고 있습니다.
             </p>
 
             <!-- ✏️ 수정: 3가지 핵심 축 — 번호/타이틀/설명 각각 수정 가능 -->
             <div class="about-pillars">
               <div class="pillar">
                 <span class="pillar-number">01</span>
-                <!-- ✏️ 수정: 첫 번째 축 제목 -->
                 <span class="pillar-title">숙박 파트너</span>
-                <!-- ✏️ 수정: 첫 번째 축 설명 -->
-                <span class="pillar-desc">KCC 앰버서더 호텔 & 레지던스</span>
+                <div class="pillar-marquee-wrap">
+                  <div class="pillar-marquee-track">
+                    <span>KCC 앰버서더 호텔</span><span>KCC 레지던스</span><span>씨스테이 레지던스</span><span>KCC 앰버서더 호텔</span><span>KCC 레지던스</span><span>씨스테이 레지던스</span><span>KCC 앰버서더 호텔</span><span>KCC 레지던스</span><span>씨스테이 레지던스</span><span>KCC 앰버서더 호텔</span><span>KCC 레지던스</span><span>씨스테이 레지던스</span>
+                  </div>
+                </div>
               </div>
               <div class="pillar">
                 <span class="pillar-number">02</span>
-                <!-- ✏️ 수정: 두 번째 축 제목 -->
                 <span class="pillar-title">집중 업무공간</span>
-                <!-- ✏️ 수정: 두 번째 축 설명 -->
-                <span class="pillar-desc">해월당 외부 업무공간 연계</span>
+                <div class="pillar-marquee-wrap">
+                  <div class="pillar-marquee-track">
+                    <span>해월당</span><span>강동 코워킹스페이스</span><span>해월당</span><span>강동 코워킹스페이스</span><span>해월당</span><span>강동 코워킹스페이스</span><span>해월당</span><span>강동 코워킹스페이스</span><span>해월당</span><span>강동 코워킹스페이스</span><span>해월당</span><span>강동 코워킹스페이스</span>
+                  </div>
+                </div>
               </div>
               <div class="pillar">
                 <span class="pillar-number">03</span>
-                <!-- ✏️ 수정: 세 번째 축 제목 -->
                 <span class="pillar-title">로컬 체험</span>
-                <!-- ✏️ 수정: 세 번째 축 설명 -->
-                <span class="pillar-desc">강동 식사·레저·문화 프로그램</span>
+                <div class="pillar-marquee-wrap">
+                  <div class="pillar-marquee-track">
+                    <span>오션페어리</span><span>곽암카페</span><span>라메르판지</span><span>더킹</span><span>카페 높</span><span>오션페어리</span><span>곽암카페</span><span>라메르판지</span><span>더킹</span><span>카페 높</span><span>오션페어리</span><span>곽암카페</span><span>라메르판지</span><span>더킹</span><span>카페 높</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -202,7 +206,7 @@
           <!-- ✏️ 수정: 섹션 소제목 -->
           <span class="eyebrow">Program</span>
           <!-- ✏️ 수정: 섹션 메인 헤딩 -->
-          <h2 id="program-title">머물고, 집중하고, 경험하다</h2>
+          <h2 id="program-title">숙박 | 업무 | 경험</h2>
         </div>
       </div>
 
@@ -219,7 +223,7 @@
           <!-- ✏️ 수정: 소제목 (영문 태그) -->
           <span class="eyebrow">Stay</span>
           <!-- ✏️ 수정: 프로그램 제목 -->
-          <h3>머물다</h3>
+          <h3>숙박</h3>
           <!-- ✏️ 수정: 프로그램 본문 설명 -->
           <p>
             KCC 앰버서더 호텔과 레지던스를 기반으로 한 숙박 프로그램입니다.
@@ -248,16 +252,15 @@
           <!-- ✏️ 수정: 소제목 -->
           <span class="eyebrow">Work</span>
           <!-- ✏️ 수정: 프로그램 제목 -->
-          <h3>집중하다</h3>
+          <h3>업무</h3>
           <!-- ✏️ 수정: 프로그램 본문 설명 -->
           <p>
             숙소 외부의 독립된 업무공간을 제공합니다.
-            해월당을 중심으로 개인 집중 업무부터 소규모 미팅까지
+            개인 집중 업무부터 소규모 미팅까지
             가능한 공간을 연계하여, 호텔 객실이 아닌 진짜 업무 환경을 만듭니다.
           </p>
           <!-- ✏️ 수정: 특징 리스트 -->
           <ul class="program-features">
-            <li>해월당 집중 업무공간 연계</li>
             <li>개인 업무 및 팀 미팅 모두 가능</li>
             <li>안정적인 네트워크 및 업무 환경 제공</li>
           </ul>
@@ -277,7 +280,7 @@
           <!-- ✏️ 수정: 소제목 -->
           <span class="eyebrow">Experience</span>
           <!-- ✏️ 수정: 프로그램 제목 -->
-          <h3>경험하다</h3>
+          <h3>경험</h3>
           <!-- ✏️ 수정: 프로그램 본문 설명 -->
           <p>
             강동동의 로컬 자원과 연결된 체험 프로그램입니다.
@@ -334,7 +337,7 @@
                 체험은 원하는 항목을 선택 추가할 수 있습니다.
               </p>
               <!-- ✏️ 수정: 버튼 텍스트 (링크는 #contact 유지 권장) -->
-              <a href="#contact" class="pkg-cta">문의하기 &rarr;</a>
+              <a href="stay.html" class="pkg-cta">패키지 구성하기 &rarr;</a>
             </div>
           </div>
 
@@ -354,12 +357,12 @@
               <h3>팀형 워케이션</h3>
               <!-- ✏️ 수정: 패키지 설명 -->
               <p>
-                팀 워크숍과 체류를 결합한 소규모 단체 패키지.
-                미팅 공간과 단체 식사, 팀 빌딩 체험까지
-                함께 설계합니다.
+                소규모 팀 워크숍과 체류를 결합한 단체 패키지.
+                레지던스 숙박과 미팅 공간이 기본으로 포함되며,
+                단체 식사와 팀 빌딩 체험을 함께 설계합니다.
               </p>
               <!-- ✏️ 수정: 버튼 텍스트 -->
-              <a href="#contact" class="pkg-cta">문의하기 &rarr;</a>
+              <a href="stay.html" class="pkg-cta">패키지 구성하기 &rarr;</a>
             </div>
           </div>
 
@@ -384,7 +387,7 @@
                 커스터마이즈합니다. 공공기관·법인 계약도 가능합니다.
               </p>
               <!-- ✏️ 수정: 버튼 텍스트 -->
-              <a href="#contact" class="pkg-cta">문의하기 &rarr;</a>
+              <a href="stay.html" class="pkg-cta">패키지 구성하기 &rarr;</a>
             </div>
           </div>
 
@@ -590,17 +593,31 @@
 
         <div class="contact-channels">
 
+          <!-- ── [7-0] 패키지 선택 ── -->
+          <a href="stay.html" class="contact-card contact-card--package reveal">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+                <line x1="12" y1="12" x2="12" y2="16"/>
+                <line x1="10" y1="14" x2="14" y2="14"/>
+              </svg>
+            </div>
+            <p class="contact-method">패키지 선택</p>
+            <p class="contact-detail">숙박·체험·식사 구성하기</p>
+          </a>
+
           <!-- ── [7-1] 카카오톡 ── -->
           <!-- ✏️ 수정: href="" 안에 카카오 채널 링크 입력
                예: href="https://pf.kakao.com/_xxxxx" -->
-          <a href="#" class="contact-card contact-card--kakao reveal">
+          <a href="#" class="contact-card contact-card--kakao reveal reveal-delay-1">
             <div class="contact-icon">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 3C6.48 3 2 6.72 2 11.25c0 2.88 1.58 5.41 4 6.96v3.29l3.1-1.71c.94.26 1.93.4 2.9.4 5.52 0 10-3.72 10-8.25C22 6.72 17.52 3 12 3z"/>
               </svg>
             </div>
             <!-- ✏️ 수정: 채널 이름 표시 텍스트 -->
-            <p class="contact-method">카카오톡</p>
+            <p class="contact-method">카카오톡 상담</p>
             <!-- ✏️ 수정: 채널 ID 또는 안내 문구 -->
             <p class="contact-detail">[입력예정]</p>
           </a>
@@ -629,7 +646,7 @@
               </svg>
             </div>
             <!-- ✏️ 수정: 채널 이름 표시 텍스트 -->
-            <p class="contact-method">이메일</p>
+            <p class="contact-method">이메일 문의</p>
             <!-- ✏️ 수정: 실제 이메일 주소로 교체 (예: hello@wishfulstay.com) -->
             <p class="contact-detail">[입력예정]</p>
           </a>

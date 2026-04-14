@@ -250,6 +250,7 @@ h4 {
   color: rgba(253,251,248,0.75);
   transition: color var(--t-fast);
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-main a::after {
@@ -455,7 +456,7 @@ h4 {
 
 .hero-title {
   font-family: var(--f-display);
-  font-size: clamp(56px, 8vw, 100px);
+  font-size: clamp(28px, 5.5vw, 85px);
   font-weight: 300;
   line-height: 1.05;
   color: var(--c-cream);
@@ -548,7 +549,7 @@ h4 {
   font-size: 16px;
   line-height: 1.85;
   color: var(--c-text);
-  margin-bottom: 48px;
+  margin-bottom: 20px;
 }
 
 .about-right > p strong {
@@ -565,7 +566,7 @@ h4 {
 
 .pillar {
   display: grid;
-  grid-template-columns: 36px 1fr 1fr;
+  grid-template-columns: 36px 140px 1fr;
   gap: 16px;
   align-items: center;
   padding: 20px 0;
@@ -592,6 +593,33 @@ h4 {
   font-size: 12px;
   font-weight: 300;
   color: var(--c-text-muted);
+}
+
+.pillar-marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+}
+
+.pillar-marquee-track {
+  display: inline-flex;
+  gap: 0;
+  animation: pillar-marquee 12s linear infinite;
+  white-space: nowrap;
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--c-text-muted);
+}
+
+.pillar-marquee-track span::after {
+  content: ' · ';
+  margin: 0 8px;
+  opacity: 0.5;
+}
+
+@keyframes pillar-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 
@@ -1039,6 +1067,10 @@ dd small {
 
 .contact-card--kakao .contact-icon svg {
   color: #FEE500;
+}
+
+.contact-card--package .contact-icon svg {
+  color: #2d6a4f;
 }
 
 .contact-method {
