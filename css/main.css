@@ -1142,6 +1142,17 @@ dd small {
   letter-spacing: 0.22em;
   color: var(--c-cream);
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo-symbol {
+  height: 24px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
 }
 
 .footer-tagline {
