@@ -660,7 +660,18 @@ h4 {
   transition: transform 0.8s ease;
 }
 
-.program-item:hover .program-image .ph-image {
+.program-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.8s ease;
+}
+
+.program-item:hover .program-image .ph-image,
+.program-item:hover .program-image img {
   transform: scale(1.03);
 }
 
