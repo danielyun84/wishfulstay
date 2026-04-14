@@ -540,8 +540,8 @@ h4 {
 }
 
 .about-left h2 {
-  font-size: clamp(38px, 4.5vw, 58px);
-  line-height: 1.12;
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.18;
   color: var(--c-dark);
 }
 
