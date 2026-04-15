@@ -10,6 +10,7 @@ const chatSuccess = document.getElementById('chatSuccess');
 
 let messages = [];
 let isWaiting = false;
+let isComposing = false;
 
 /* ── 초기 메시지 ── */
 const INITIAL_MESSAGE =
@@ -131,6 +132,8 @@ function sendMessage() {
   messages.push({ role: 'user', content: text });
 
   chatInput.value = '';
+  chatInput.blur();
+  chatInput.focus();
   autoResize();
 
   isWaiting = true;
@@ -142,8 +145,16 @@ function sendMessage() {
 /* ── 이벤트 바인딩 ── */
 sendBtn.addEventListener('click', sendMessage);
 
+chatInput.addEventListener('compositionstart', function () {
+  isComposing = true;
+});
+
+chatInput.addEventListener('compositionend', function () {
+  isComposing = false;
+});
+
 chatInput.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
+  if (e.key === 'Enter' && !e.shiftKey && !isComposing) {
     e.preventDefault();
     sendMessage();
   }
