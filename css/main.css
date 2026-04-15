@@ -641,7 +641,7 @@ h4 {
 /* ── Program ──────────────────────────────────────────────────── */
 
 #program {
-  padding: var(--sp-2xl) 0;
+  padding: var(--sp-2xl) 0 0;
   background: var(--c-bg-alt);
 }
 
