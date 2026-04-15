@@ -287,6 +287,47 @@
       margin-bottom: 12px;
       display: block;
     }
+
+    /* ── 모바일 반응형 ── */
+    @media (max-width: 768px) {
+      .chat-section {
+        padding: 60px 0 80px;
+      }
+      .chat-section .section-header {
+        margin-bottom: 32px;
+      }
+      .chat-wrapper {
+        height: calc(100svh - 240px);
+        min-height: 420px;
+        max-height: 580px;
+        border-left: none;
+        border-right: none;
+        margin: 0 -16px;
+      }
+      #chatMessages {
+        padding: 16px;
+        gap: 12px;
+      }
+      #chatInputArea {
+        padding: 10px 12px;
+      }
+      #chatInput {
+        font-size: 16px; /* iOS 자동 줌 방지 */
+        min-height: 40px;
+        padding: 8px 12px;
+      }
+      #sendBtn {
+        width: 40px;
+        height: 40px;
+      }
+      .msg {
+        max-width: 88%;
+      }
+      .msg-bubble {
+        font-size: 0.875rem;
+        padding: 10px 14px;
+      }
+    }
   </style>
 </head>
 <body>
