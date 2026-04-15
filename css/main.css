@@ -1782,7 +1782,7 @@ dd small {
 }
 
 .gallery-specs li::before {
-  content: '—';
+  content: '•';
   position: absolute;
   left: 0;
   color: var(--c-accent);
