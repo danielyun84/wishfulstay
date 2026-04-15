@@ -365,11 +365,55 @@
   };
 
 
+  /* ── Image Row Slider ──────────────────────────────────────── */
+
+  function initImageSliders() {
+    document.querySelectorAll('.item-row-image').forEach(function(container) {
+      var track = container.querySelector('.item-slider-track');
+      if (!track) return;
+
+      var imgs = track.querySelectorAll('img');
+      var total = imgs.length;
+      var current = 0;
+      var dotsContainer = container.querySelector('.slider-dots');
+
+      // 사진 1장이면 버튼 숨김
+      if (total <= 1) {
+        container.querySelectorAll('.slider-btn').forEach(function(b) { b.style.display = 'none'; });
+        return;
+      }
+
+      // 도트 생성
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('div');
+        dot.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
+        dot.dataset.index = i;
+        dot.addEventListener('click', (function(idx) {
+          return function() { goTo(idx); };
+        })(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      function goTo(idx) {
+        current = (idx + total) % total;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        container.querySelectorAll('.slider-dot').forEach(function(d, i) {
+          d.classList.toggle('is-active', i === current);
+        });
+      }
+
+      container.querySelector('.slider-btn--prev').addEventListener('click', function() { goTo(current - 1); });
+      container.querySelector('.slider-btn--next').addEventListener('click', function() { goTo(current + 1); });
+    });
+  }
+
+
   /* ── 초기화 ─────────────────────────────────────────────────── */
 
   updatePackageNav();
   initCardSelection();
   initPackagePage();
   initContactForm();
+  setTimeout(initImageSliders, 0);
 
 })();
