@@ -464,7 +464,7 @@ h4 {
   font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(253,251,248,0.6);
+  color: rgba(253,251,248,0.85);
   margin-bottom: 28px;
   animation: fadeUp 0.9s 0.3s both ease;
 }
@@ -484,7 +484,7 @@ h4 {
   font-family: var(--f-body);
   font-size: clamp(14px, 1.5vw, 17px);
   font-weight: 300;
-  color: rgba(253,251,248,0.7);
+  color: rgba(253,251,248,0.9);
   letter-spacing: 0.05em;
   margin-bottom: 44px;
   animation: fadeUp 0.9s 0.7s both ease;
@@ -496,6 +496,12 @@ h4 {
   justify-content: center;
   flex-wrap: wrap;
   animation: fadeUp 0.9s 0.9s both ease;
+}
+
+.hero-ctas .btn {
+  min-width: 160px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .hero-scroll {
@@ -860,6 +866,7 @@ h4 {
 }
 
 .gangdong-content h2 {
+  line-height: 1.4;
   margin-bottom: 48px;
 }
 
