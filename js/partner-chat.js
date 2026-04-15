@@ -11,6 +11,7 @@ const chatSuccess = document.getElementById('chatSuccess');
 let messages = [];
 let isWaiting = false;
 let isComposing = false;
+let pendingData = null; // 확인 대기 중인 수집 데이터
 
 /* ── 초기 메시지 ── */
 const INITIAL_MESSAGE =
@@ -87,10 +88,13 @@ async function fetchChatResponse() {
   sendBtn.disabled = true;
 
   try {
+    const body = { messages };
+    if (pendingData) body.pendingConfirm = pendingData;
+
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify(body),
     });
 
     if (!res.ok) {
@@ -106,9 +110,17 @@ async function fetchChatResponse() {
       messages.push({ role: 'assistant', content: replyText });
     }
 
-    if (json.complete && json.data) {
+    if (json.confirm && json.data) {
+      // 확인 대기 상태 저장
+      pendingData = json.data;
+    } else if (json.complete) {
+      // 사용자가 종료 확인 → 완료 처리
+      pendingData = null;
       await submitToMake(json.data);
       setTimeout(showSuccess, 1200);
+    } else {
+      // 아니오 응답 등 → 확인 대기 해제
+      pendingData = null;
     }
   } catch (err) {
     hideTyping();
