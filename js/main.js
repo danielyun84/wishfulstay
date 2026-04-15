@@ -439,6 +439,24 @@
 
       container.querySelector('.slider-btn--prev').addEventListener('click', function() { slideTo(current - 1); });
       container.querySelector('.slider-btn--next').addEventListener('click', function() { slideTo(current + 1); });
+
+      // 터치 스와이프
+      var touchStartX = 0;
+      var touchDeltaX = 0;
+
+      track.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+      }, { passive: true });
+
+      track.addEventListener('touchmove', function(e) {
+        touchDeltaX = e.touches[0].clientX - touchStartX;
+      }, { passive: true });
+
+      track.addEventListener('touchend', function() {
+        if (touchDeltaX < -40) { slideTo(current + 1); }
+        else if (touchDeltaX > 40) { slideTo(current - 1); }
+      });
     });
   }
 
