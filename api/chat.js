@@ -135,7 +135,13 @@ module.exports = async function handler(req, res) {
 
     if (isConfirm) {
       displayText = rawText.slice(0, confirmIdx).trim();
-      const jsonPart = rawText.slice(confirmIdx + CONFIRM_MARKER.length).trim();
+      const afterMarker = rawText.slice(confirmIdx + CONFIRM_MARKER.length);
+      // { ... } 범위만 추출
+      const jsonStart = afterMarker.indexOf('{');
+      const jsonEnd = afterMarker.lastIndexOf('}');
+      const jsonPart = jsonStart !== -1 && jsonEnd !== -1
+        ? afterMarker.slice(jsonStart, jsonEnd + 1)
+        : afterMarker.trim();
       try {
         data = JSON.parse(jsonPart);
         await saveToNotion(data); // 5가지 수집 완료 즉시 저장
