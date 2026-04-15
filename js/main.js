@@ -396,7 +396,7 @@
         var dot = document.createElement('div');
         dot.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
         dot.addEventListener('click', (function(idx) {
-          return function() { goTo(idx + 1, true); };
+          return function() { slideTo(idx + 1); };
         })(i));
         dotsContainer.appendChild(dot);
       }
@@ -408,29 +408,37 @@
         });
       }
 
-      function goTo(idx, animate) {
-        track.style.transition = animate ? '' : 'none';
+      function slideTo(idx) {
+        track.style.transition = '';
         current = idx;
         track.style.transform = 'translateX(-' + (current * 100) + '%)';
         updateDots();
       }
 
+      function jumpTo(idx) {
+        track.style.transition = 'none';
+        current = idx;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        updateDots();
+        track.offsetWidth; // reflow — transition: none 즉시 적용
+        track.style.transition = '';
+      }
+
       // 무한 루프: 클론 도달 시 실제 슬라이드로 순간 이동
-      track.addEventListener('transitionend', function() {
+      track.addEventListener('transitionend', function(e) {
+        if (e.propertyName !== 'transform') return;
         if (current === 0) {
-          // lastClone → 실제 마지막
-          goTo(total, false);
+          jumpTo(total);       // lastClone → 실제 마지막
         } else if (current === total + 1) {
-          // firstClone → 실제 첫 번째
-          goTo(1, false);
+          jumpTo(1);           // firstClone → 실제 첫 번째
         }
       });
 
-      // 초기 위치 (첫 번째 실제 이미지, 애니메이션 없이)
-      goTo(1, false);
+      // 초기 위치
+      jumpTo(1);
 
-      container.querySelector('.slider-btn--prev').addEventListener('click', function() { goTo(current - 1, true); });
-      container.querySelector('.slider-btn--next').addEventListener('click', function() { goTo(current + 1, true); });
+      container.querySelector('.slider-btn--prev').addEventListener('click', function() { slideTo(current - 1); });
+      container.querySelector('.slider-btn--next').addEventListener('click', function() { slideTo(current + 1); });
     });
   }
 
