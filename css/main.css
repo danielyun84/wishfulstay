@@ -1053,6 +1053,7 @@ dd small {
 .contact-header h2 {
   color: var(--c-cream);
   font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.4;
   margin-bottom: 16px;
 }
 
