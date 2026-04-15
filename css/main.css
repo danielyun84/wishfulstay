@@ -556,7 +556,7 @@ h4 {
 
 .about-left h2 {
   font-size: clamp(28px, 2.6vw, 40px);
-  line-height: 1.18;
+  line-height: 1.4;
   color: var(--c-dark);
 }
 
@@ -866,7 +866,7 @@ h4 {
 .reasons {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 44px;
 }
 
 .reason {
@@ -893,7 +893,7 @@ h4 {
 
 .reason p {
   font-size: 14px;
-  line-height: 1.75;
+  line-height: 1.9;
   color: var(--c-text-muted);
 }
 
