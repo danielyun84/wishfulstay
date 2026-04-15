@@ -95,16 +95,14 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  // 확인 대기 중인 상태에서 사용자가 응답한 경우
+  // 확인 대기 중인 상태에서 사용자가 응답한 경우 (노션 저장은 이미 완료됨)
   if (pendingConfirm) {
     const lastUserMsg = [...messages].reverse().find((m) => m.role === 'user');
     if (lastUserMsg && isAffirmative(lastUserMsg.content)) {
-      await saveToNotion(pendingConfirm);
       res.status(200).json({ text: '', complete: true, data: pendingConfirm });
       return;
-    } else {
-      // 아니오 → 대화 계속 (pendingConfirm 무시, 일반 응답)
     }
+    // 아니오 → 대화 계속
   }
 
   try {
