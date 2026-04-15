@@ -30,6 +30,50 @@ const SYSTEM_PROMPT = `당신은 위시풀스테이의 파트너 제휴 상담 �
 
 const COMPLETE_MARKER = '[COMPLETE]';
 
+/* ── Notion DB에 로그 저장 ── */
+async function saveToNotion(data) {
+  const apiKey = process.env.NOTION_API_KEY;
+  const dbId = process.env.NOTION_LOG_DB_ID;
+
+  if (!apiKey || !dbId) {
+    console.log('[api/chat] Notion 환경변수 미설정, 로그 저장 생략');
+    return;
+  }
+
+  const properties = {
+    '업장명': { title: [{ text: { content: data['업장명'] || '' } }] },
+    '업종':   { select: { name: data['업종'] || '기타' } },
+    '담당자명': { rich_text: [{ text: { content: data['담당자명'] || '' } }] },
+    '연락처': { phone_number: data['연락처'] || null },
+    '이메일': { email: data['이메일'] || null },
+    '제안내용': { rich_text: [{ text: { content: data['제안내용'] || '' } }] },
+    '대화요약': { rich_text: [{ text: { content: data['대화요약'] || '' } }] },
+    '상태':   { select: { name: '신규접수' } },
+  };
+
+  try {
+    const res = await fetch('https://api.notion.com/v1/pages', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Notion-Version': '2022-06-28',
+      },
+      body: JSON.stringify({
+        parent: { database_id: dbId },
+        properties,
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('[api/chat] Notion 저장 오류:', err);
+    }
+  } catch (err) {
+    console.error('[api/chat] Notion fetch 오류:', err);
+  }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
@@ -75,6 +119,7 @@ module.exports = async function handler(req, res) {
       const jsonPart = rawText.slice(completeIdx + COMPLETE_MARKER.length).trim();
       try {
         data = JSON.parse(jsonPart);
+        await saveToNotion(data);
       } catch (parseErr) {
         console.error('[api/chat] JSON 파싱 오류:', parseErr, jsonPart);
         data = { raw: jsonPart };
