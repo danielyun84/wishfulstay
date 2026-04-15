@@ -138,6 +138,7 @@ module.exports = async function handler(req, res) {
       const jsonPart = rawText.slice(confirmIdx + CONFIRM_MARKER.length).trim();
       try {
         data = JSON.parse(jsonPart);
+        await saveToNotion(data); // 5가지 수집 완료 즉시 저장
       } catch (parseErr) {
         console.error('[api/chat] JSON 파싱 오류:', parseErr, jsonPart);
         data = { raw: jsonPart };
