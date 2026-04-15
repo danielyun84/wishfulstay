@@ -372,9 +372,8 @@
       var track = container.querySelector('.item-slider-track');
       if (!track) return;
 
-      var imgs = track.querySelectorAll('img');
+      var imgs = Array.prototype.slice.call(track.querySelectorAll('img'));
       var total = imgs.length;
-      var current = 0;
       var dotsContainer = container.querySelector('.slider-dots');
 
       // 사진 1장이면 버튼 숨김
@@ -383,27 +382,55 @@
         return;
       }
 
-      // 도트 생성
+      // 무한 루프: 앞에 마지막 클론, 뒤에 첫 번째 클론 추가
+      var firstClone = imgs[0].cloneNode(true);
+      var lastClone  = imgs[total - 1].cloneNode(true);
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, imgs[0]);
+      // 순서: [lastClone, img0, img1, ..., imgN-1, firstClone]
+
+      var current = 1; // 실제 첫 번째 이미지 인덱스
+
+      // 도트 생성 (실제 이미지 수 기준)
       for (var i = 0; i < total; i++) {
         var dot = document.createElement('div');
         dot.className = 'slider-dot' + (i === 0 ? ' is-active' : '');
-        dot.dataset.index = i;
         dot.addEventListener('click', (function(idx) {
-          return function() { goTo(idx); };
+          return function() { goTo(idx + 1, true); };
         })(i));
         dotsContainer.appendChild(dot);
       }
 
-      function goTo(idx) {
-        current = (idx + total) % total;
-        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      function updateDots() {
+        var dotIdx = current - 1;
         container.querySelectorAll('.slider-dot').forEach(function(d, i) {
-          d.classList.toggle('is-active', i === current);
+          d.classList.toggle('is-active', i === dotIdx);
         });
       }
 
-      container.querySelector('.slider-btn--prev').addEventListener('click', function() { goTo(current - 1); });
-      container.querySelector('.slider-btn--next').addEventListener('click', function() { goTo(current + 1); });
+      function goTo(idx, animate) {
+        track.style.transition = animate ? '' : 'none';
+        current = idx;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        updateDots();
+      }
+
+      // 무한 루프: 클론 도달 시 실제 슬라이드로 순간 이동
+      track.addEventListener('transitionend', function() {
+        if (current === 0) {
+          // lastClone → 실제 마지막
+          goTo(total, false);
+        } else if (current === total + 1) {
+          // firstClone → 실제 첫 번째
+          goTo(1, false);
+        }
+      });
+
+      // 초기 위치 (첫 번째 실제 이미지, 애니메이션 없이)
+      goTo(1, false);
+
+      container.querySelector('.slider-btn--prev').addEventListener('click', function() { goTo(current - 1, true); });
+      container.querySelector('.slider-btn--next').addEventListener('click', function() { goTo(current + 1, true); });
     });
   }
 
