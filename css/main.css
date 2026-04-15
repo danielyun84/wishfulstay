@@ -2052,8 +2052,7 @@ dd small {
 .item-row-image {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 3 / 2;
-  align-self: start;
+  min-height: 320px;
 }
 
 .item-row-image .ph-image,
