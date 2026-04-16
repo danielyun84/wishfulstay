@@ -202,7 +202,7 @@ module.exports = async function handler(req, res) {
           {
             basicCard: {
               thumbnail: {
-                imageUrl: 'https://www.wishfulstay.com/images/logo-highres.png',
+                imageUrl: 'https://www.wishfulstay.com/images/kakao-thumbnail.png',
               },
               buttons: [
                 {
