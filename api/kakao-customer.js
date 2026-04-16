@@ -118,60 +118,32 @@ async function logToNotion(utterance, answer, category, userId) {
   };
 
   try {
-    // 최근 30분 이내 같은 사용자의 세션 페이지 조회
-    const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
-    const queryRes = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
+    const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+    const title = `[${category || '미분류'}] ${now}`;
+    const createRes = await fetch('https://api.notion.com/v1/pages', {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        filter: {
-          and: [
-            { property: '사용자ID', rich_text: { equals: userId } },
-            { timestamp: 'created_time', created_time: { after: thirtyMinAgo } },
-          ],
+        parent: { database_id: dbId },
+        properties: {
+          제목: { title: [{ text: { content: title } }] },
+          사용자ID: { rich_text: [{ text: { content: userId } }] },
         },
-        sorts: [{ timestamp: 'created_time', direction: 'descending' }],
-        page_size: 1,
+        children: [
+          {
+            object: 'block', type: 'paragraph',
+            paragraph: { rich_text: [{ type: 'text', text: { content: `Q. ${utterance}` }, annotations: { bold: true } }] },
+          },
+          {
+            object: 'block', type: 'paragraph',
+            paragraph: { rich_text: [{ type: 'text', text: { content: `A. ${answer}` } }] },
+          },
+        ],
       }),
     });
-    const queryData = await queryRes.json();
-    const existingPage = queryData.results?.[0];
-
-    const qaBlocks = [
-      { object: 'block', type: 'divider', divider: {} },
-      {
-        object: 'block', type: 'paragraph',
-        paragraph: { rich_text: [{ type: 'text', text: { content: `Q. ${utterance}` }, annotations: { bold: true } }] },
-      },
-      {
-        object: 'block', type: 'paragraph',
-        paragraph: { rich_text: [{ type: 'text', text: { content: `A. ${answer}` } }] },
-      },
-    ];
-
-    if (existingPage) {
-      // 기존 세션에 Q&A 블록 추가
-      await fetch(`https://api.notion.com/v1/blocks/${existingPage.id}/children`, {
-        method: 'PATCH',
-        headers,
-        body: JSON.stringify({ children: qaBlocks }),
-      });
-    } else {
-      // 새 세션 페이지 생성
-      const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-      const title = `[${category || '미분류'}] ${now}`;
-      await fetch('https://api.notion.com/v1/pages', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          parent: { database_id: dbId },
-          properties: {
-            제목: { title: [{ text: { content: title } }] },
-            사용자ID: { rich_text: [{ text: { content: userId } }] },
-          },
-          children: qaBlocks.slice(1), // 첫 divider 제외
-        }),
-      });
+    const createData = await createRes.json();
+    if (!createRes.ok) {
+      console.error('[kakao-customer] 노션 저장 실패:', JSON.stringify(createData));
     }
   } catch (err) {
     console.error('[kakao-customer] 로그 저장 실패:', err);
