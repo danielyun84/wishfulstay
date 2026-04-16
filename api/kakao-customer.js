@@ -118,6 +118,13 @@ async function logToNotion(utterance, answer, category, userId) {
   };
 
   try {
+    // DB 스키마 확인 (디버깅용)
+    const dbRes = await fetch(`https://api.notion.com/v1/databases/${dbId}`, {
+      headers: { 'Authorization': `Bearer ${process.env.NOTION_API_KEY}`, 'Notion-Version': '2022-06-28' },
+    });
+    const dbData = await dbRes.json();
+    console.log('[kakao-customer] DB 속성:', JSON.stringify(Object.keys(dbData.properties || {})));
+
     const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
     const title = `[${category || '미분류'}] ${now}`;
     const createRes = await fetch('https://api.notion.com/v1/pages', {
