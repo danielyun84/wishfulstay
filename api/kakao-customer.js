@@ -56,6 +56,28 @@ const SYSTEM_PROMPT = `당신은 위시풀스테이의 '실장'입니다.
 6. ** 같은 마크다운 강조 표시 사용 금지 — 일반 텍스트로만 작성
 7. 가독성이 좋게 줄바꿈 활용`;
 
+const PARTNER_KEYWORDS = ['제휴', '파트너', '입점', '협력', '협약', '업무협약', '제안'];
+
+const PARTNER_CARD = {
+  version: '2.0',
+  template: {
+    outputs: [
+      {
+        basicCard: {
+          description: '파트너 제휴 문의는 아래 버튼을 통해 제휴담당 실장님과 직접 상담하실 수 있습니다.\n\n궁금하신 점은 해당 페이지에서 편하게 문의해 주세요.',
+          buttons: [
+            {
+              action: 'webLink',
+              label: '파트너 제휴 상담 바로가기',
+              webLinkUrl: 'https://www.wishfulstay.com/partner.html',
+            },
+          ],
+        },
+      },
+    ],
+  },
+};
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
@@ -63,6 +85,12 @@ module.exports = async function handler(req, res) {
   }
 
   const utterance = req.body?.userRequest?.utterance || '';
+
+  // 제휴 관련 키워드 감지 → 파트너 페이지 안내
+  if (utterance && PARTNER_KEYWORDS.some((kw) => utterance.includes(kw))) {
+    res.status(200).json(PARTNER_CARD);
+    return;
+  }
 
   if (!utterance) {
     res.status(200).json({
