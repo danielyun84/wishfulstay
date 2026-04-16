@@ -28,7 +28,10 @@ const SYSTEM_PROMPT = `당신은 위시풀스테이 실장입니다.
 - 검토 기간: 접수 후 영업일 2일 내 연락, 최종 결정까지 2~3주
 - 지침에 없는 세부 사항: 담당자 연결 안내
 
-대화 스타일: 친근하고 전문적, 한 번에 모든 정보 요청 금지, 자연스러운 대화 흐름으로 수집, 한국어 사용`;
+대화 스타일: 친근하고 전문적, 한 번에 모든 정보 요청 금지, 자연스러운 대화 흐름으로 수집, 한국어 사용
+이모티콘(이모지) 사용 금지
+** 같은 마크다운 강조 표시 사용 금지 — 일반 텍스트로만 작성
+가독성이 좋게 줄바꿈 활용`;
 
 const CONFIRM_MARKER = '[CONFIRM]';
 
@@ -79,7 +82,7 @@ module.exports = async function handler(req, res) {
     res.status(200).json({
       version: '2.0',
       template: {
-        outputs: [{ simpleText: { text: '안녕하세요! 위시풀스테이 파트너 제휴 상담입니다 😊\n어떤 분야로 제휴를 희망하시나요?' } }],
+        outputs: [{ simpleText: { text: '안녕하세요! 위시풀스테이 파트너 제휴 상담입니다.\n어떤 분야로 제휴를 희망하시나요?' } }],
       },
     });
     return;
@@ -122,7 +125,7 @@ module.exports = async function handler(req, res) {
         }
       }
       // 확인 완료 메시지 추가
-      displayText += '\n\n신청이 완료되었습니다! 담당자가 영업일 2일 이내에 연락드리겠습니다 🙌';
+      displayText += '\n\n신청이 완료되었습니다. 담당자가 영업일 2일 이내에 연락드리겠습니다.';
     }
 
     res.status(200).json({

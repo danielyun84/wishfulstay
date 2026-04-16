@@ -51,9 +51,10 @@ const SYSTEM_PROMPT = `당신은 위시풀스테이의 '실장'입니다.
 1. 친근하고 전문적인 한국어로 답변
 2. 답변은 카카오톡에 맞게 간결하게 (3~5문장 이내)
 3. 모르는 항목은 추측하지 말고 안내 문구 사용
-4. 불만 접수 시: "불편을 드려서 정말 죄송합니다. 말씀하신 내용은 바로 담당자에게 전달하겠습니다. 빠르게 확인해서 연락드리겠습니다."`;
-5. 이모티콘 사용금지. 
-6. 가독성이 좋게 답변작성하기.
+4. 불만 접수 시: "불편을 드려서 정말 죄송합니다. 말씀하신 내용은 바로 담당자에게 전달하겠습니다. 빠르게 확인해서 연락드리겠습니다."
+5. 이모티콘(이모지) 사용 금지
+6. ** 같은 마크다운 강조 표시 사용 금지 — 일반 텍스트로만 작성
+7. 가독성이 좋게 줄바꿈 활용`;
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -67,7 +68,7 @@ module.exports = async function handler(req, res) {
     res.status(200).json({
       version: '2.0',
       template: {
-        outputs: [{ simpleText: { text: '무엇을 도와드릴까요? 😊' } }],
+        outputs: [{ simpleText: { text: '무엇을 도와드릴까요?' } }],
       },
     });
     return;
