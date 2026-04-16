@@ -201,6 +201,9 @@ module.exports = async function handler(req, res) {
           { simpleText: { text } },
           {
             basicCard: {
+              thumbnail: {
+                imageUrl: 'https://www.wishfulstay.com/images/logo-highres.png',
+              },
               buttons: [
                 {
                   action: 'webLink',
