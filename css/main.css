@@ -2114,7 +2114,7 @@ dd small {
   cursor: pointer;
   font-size: 22px;
   line-height: 1;
-  display: flex;
+  display: none; /* 모바일 기본: 숨김 */
   align-items: center;
   justify-content: center;
   z-index: 3;
@@ -2123,12 +2123,17 @@ dd small {
   color: var(--c-dark);
 }
 
-.item-row-image:hover .slider-btn {
-  opacity: 1;
-}
-
-.slider-btn:hover {
-  background: #fff;
+/* 데스크탑에서만 버튼 표시 */
+@media (hover: hover) and (pointer: fine) {
+  .slider-btn {
+    display: flex;
+  }
+  .item-row-image:hover .slider-btn {
+    opacity: 1;
+  }
+  .slider-btn:hover {
+    background: #fff;
+  }
 }
 
 .slider-btn--prev { left: 12px; }
