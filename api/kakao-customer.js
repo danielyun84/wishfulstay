@@ -212,8 +212,8 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
     const text = data?.content?.[0]?.text || '잠시 후 다시 시도해 주세요.';
 
-    // 로그 저장 (응답 지연 없이 백그라운드로)
-    logToNotion(utterance, text, category, userId);
+    // 로그 저장
+    await logToNotion(utterance, text, category, userId);
 
     const outputs = [{ simpleText: { text } }];
 
