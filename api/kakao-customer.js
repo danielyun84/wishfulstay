@@ -108,6 +108,31 @@ async function fetchNotionPage(pageId) {
   }
 }
 
+// ─── 노션 로그 저장 ───────────────────────────────────────────────────────────
+async function logToNotion(utterance, answer, category) {
+  try {
+    const title = `[${category || '미분류'}] ${utterance.slice(0, 40)}${utterance.length > 40 ? '...' : ''}`;
+    await fetch('https://api.notion.com/v1/pages', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.NOTION_API_KEY}`,
+        'Notion-Version': '2022-06-28',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        parent: { database_id: process.env.NOTION_LOG_DB_ID },
+        properties: {
+          제목: { title: [{ text: { content: title } }] },
+          질문: { rich_text: [{ text: { content: utterance } }] },
+          답변: { rich_text: [{ text: { content: answer } }] },
+        },
+      }),
+    });
+  } catch (err) {
+    console.error('[kakao-customer] 로그 저장 실패:', err);
+  }
+}
+
 // ─── 메인 핸들러 ─────────────────────────────────────────────────────────────
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -161,6 +186,9 @@ module.exports = async function handler(req, res) {
 
     const data = await response.json();
     const text = data?.content?.[0]?.text || '잠시 후 다시 시도해 주세요.';
+
+    // 로그 저장 (응답 지연 없이 백그라운드로)
+    logToNotion(utterance, text, category);
 
     const outputs = [{ simpleText: { text } }];
 
