@@ -194,27 +194,29 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
     const text = data?.content?.[0]?.text || '잠시 후 다시 시도해 주세요.';
 
+    const outputs = [{ simpleText: { text } }];
+
+    // 홈페이지 안내가 포함된 경우에만 버튼 카드 추가
+    if (text.includes('홈페이지')) {
+      outputs.push({
+        basicCard: {
+          thumbnail: {
+            imageUrl: 'https://www.wishfulstay.com/images/kakao-thumbnail.png',
+          },
+          buttons: [
+            {
+              action: 'webLink',
+              label: '홈페이지 바로가기',
+              webLinkUrl: 'https://www.wishfulstay.com',
+            },
+          ],
+        },
+      });
+    }
+
     res.status(200).json({
       version: '2.0',
-      template: {
-        outputs: [
-          { simpleText: { text } },
-          {
-            basicCard: {
-              thumbnail: {
-                imageUrl: 'https://www.wishfulstay.com/images/kakao-thumbnail.png',
-              },
-              buttons: [
-                {
-                  action: 'webLink',
-                  label: '홈페이지 바로가기',
-                  webLinkUrl: 'https://www.wishfulstay.com',
-                },
-              ],
-            },
-          },
-        ],
-      },
+      template: { outputs },
     });
   } catch (err) {
     console.error('[kakao-customer] 오류:', err);
