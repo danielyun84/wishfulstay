@@ -108,26 +108,71 @@ async function fetchNotionPage(pageId) {
   }
 }
 
-// ─── 노션 로그 저장 ───────────────────────────────────────────────────────────
-async function logToNotion(utterance, answer, category) {
+// ─── 노션 로그 저장 (세션 단위) ──────────────────────────────────────────────
+async function logToNotion(utterance, answer, category, userId) {
+  const dbId = process.env.NOTION_LOG_DB_ID;
+  const headers = {
+    'Authorization': `Bearer ${process.env.NOTION_API_KEY}`,
+    'Notion-Version': '2022-06-28',
+    'Content-Type': 'application/json',
+  };
+
   try {
-    const title = `[${category || '미분류'}] ${utterance.slice(0, 40)}${utterance.length > 40 ? '...' : ''}`;
-    await fetch('https://api.notion.com/v1/pages', {
+    // 최근 30분 이내 같은 사용자의 세션 페이지 조회
+    const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+    const queryRes = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.NOTION_API_KEY}`,
-        'Notion-Version': '2022-06-28',
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
-        parent: { database_id: process.env.NOTION_LOG_DB_ID },
-        properties: {
-          제목: { title: [{ text: { content: title } }] },
-          질문: { rich_text: [{ text: { content: utterance } }] },
-          답변: { rich_text: [{ text: { content: answer } }] },
+        filter: {
+          and: [
+            { property: '사용자ID', rich_text: { equals: userId } },
+            { timestamp: 'created_time', created_time: { after: thirtyMinAgo } },
+          ],
         },
+        sorts: [{ timestamp: 'created_time', direction: 'descending' }],
+        page_size: 1,
       }),
     });
+    const queryData = await queryRes.json();
+    const existingPage = queryData.results?.[0];
+
+    const qaBlocks = [
+      { object: 'block', type: 'divider', divider: {} },
+      {
+        object: 'block', type: 'paragraph',
+        paragraph: { rich_text: [{ type: 'text', text: { content: `Q. ${utterance}` }, annotations: { bold: true } }] },
+      },
+      {
+        object: 'block', type: 'paragraph',
+        paragraph: { rich_text: [{ type: 'text', text: { content: `A. ${answer}` } }] },
+      },
+    ];
+
+    if (existingPage) {
+      // 기존 세션에 Q&A 블록 추가
+      await fetch(`https://api.notion.com/v1/blocks/${existingPage.id}/children`, {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({ children: qaBlocks }),
+      });
+    } else {
+      // 새 세션 페이지 생성
+      const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+      const title = `[${category || '미분류'}] ${now}`;
+      await fetch('https://api.notion.com/v1/pages', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          parent: { database_id: dbId },
+          properties: {
+            제목: { title: [{ text: { content: title } }] },
+            사용자ID: { rich_text: [{ text: { content: userId } }] },
+          },
+          children: qaBlocks.slice(1), // 첫 divider 제외
+        }),
+      });
+    }
   } catch (err) {
     console.error('[kakao-customer] 로그 저장 실패:', err);
   }
@@ -141,6 +186,7 @@ module.exports = async function handler(req, res) {
   }
 
   const utterance = req.body?.userRequest?.utterance || '';
+  const userId = req.body?.userRequest?.user?.id || 'unknown';
 
   // 파트너 키워드 감지
   if (utterance && PARTNER_KEYWORDS.some(kw => utterance.includes(kw))) {
@@ -188,7 +234,7 @@ module.exports = async function handler(req, res) {
     const text = data?.content?.[0]?.text || '잠시 후 다시 시도해 주세요.';
 
     // 로그 저장 (응답 지연 없이 백그라운드로)
-    logToNotion(utterance, text, category);
+    logToNotion(utterance, text, category, userId);
 
     const outputs = [{ simpleText: { text } }];
 
