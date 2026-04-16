@@ -2092,6 +2092,7 @@ dd small {
   inset: 0;
   display: flex;
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  touch-action: pan-y;
 }
 
 .item-slider-track img {
