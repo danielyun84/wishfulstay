@@ -1,156 +1,114 @@
 'use strict';
 
-const SYSTEM_PROMPT = `당신은 위시풀스테이의 '실장'입니다.
-위시풀스테이는 울산 강동에서 운영하는 워케이션 서비스로, 숙박·업무·체험을 하나의 패키지로 연결합니다.
-카카오톡 채널을 통해 문의하는 고객에게 친근하고 정확하게 안내합니다.
-첫 대화에서만 인사를 하고, 이후 이어지는 대화부터는 인사는 생략하며 "네 고객님" 이후 바로 답변한다. 
+// ─── 노션 페이지 ID 맵 ───────────────────────────────────────────────────────
+const NOTION_PAGES = {
+  예약:    '33d465164cc881d3b0abef2736b36fac',
+  가격결제: '33d465164cc8813ebf13f8c23ec13f34',
+  체크인:  '33d465164cc881db9441f1fd67acad3c',
+  취소환불: '33d465164cc881e58ca4e97059dc1638',
+  시설이용: '33d465164cc8816580aafde6910045be',
+  이용규칙: '33d465164cc881b0bfccf13744c427ef',
+  파손청소: '33d465164cc8815887bbc503aeed51c5',
+  분실긴급: '33d465164cc881958254e36efe7571a4',
+  문의운영: '33d465164cc881d2b1ebea962b9adf46',
+  한계안내: '33d465164cc881c382f9c506eb4720f7',
+};
 
-## 운영 정보 (이 내용을 기반으로 답변)
+// ─── 키워드 → 카테고리 ────────────────────────────────────────────────────────
+const CATEGORY_KEYWORDS = {
+  취소환불: ['취소', '환불', '날짜변경', '변경', '노쇼'],
+  체크인:  ['체크인', '체크아웃', '입실', '퇴실', '얼리', '레이트', '도착', '주차', '위치', '어디', '주소', '오시는'],
+  가격결제: ['가격', '요금', '비용', '결제', '계좌', '세금계산서', '영수증', '할인', '입금', '무통장'],
+  시설이용: ['와이파이', '인터넷', '취사', '냉장고', '세탁', '편의시설', '어메니티', '칫솔', '구비', '수영장', '바비큐'],
+  이용규칙: ['흡연', '담배', '음주', '파티', '소음', '외부손님', '미성년자', '금지'],
+  파손청소: ['파손', '청소', '침구', '수건', '배상', '부서'],
+  분실긴급: ['분실', '잃어버', '긴급', '응급', '고장', '비밀번호', '잠금'],
+  문의운영: ['운영시간', '연락처', '전화번호', '리뷰', 'SNS', '인스타'],
+  예약:    ['예약', '신청', '접수', '당일', '단체', '룸타입', '객실', '인원', '몇 명', '반려동물'],
+};
 
-### 예약방법
-- 1. 홈페이지 접속: https://www.wishfulstay.com
-- 2. 패키지 선택: 숙박/체험/식사 등 원하는 패키지 선택
-- 3. 예약문의: 예약자 성함 및 체크인/아웃, 이용인원, 기타요청사항등을 기입한 후 접수
-- 4. 담당자 배정 후 유선확인
-- 5. 결재 & 예약확정 
-
-### 체크인 / 체크아웃
-- 체크인: 오후 3시 (15:00)
-- 체크아웃: 오전 11시 (11:00)
-- 체크인 방식: 셀프 체크인 (당일 안내문자 발송)
-- 얼리 체크인 / 레이트 체크아웃: 사전 예약 시 가능, 별도 요금 발생
-- 야간 도착: 셀프 체크인이므로 시간 무관 (문의는 09:00~21:00)
-
-### 취소·환불
-- 10일 전: 100% 환불
-- 9~6일 전: 70% 환불
-- 5~2일 전: 50% 환불
-- 1일 전 / 당일 / 노쇼: 환불 불가
-- 기준 시각: 자정 00:00
-- 환불 처리: 영업일 3~5일 이내, 원래 결제 수단으로
-- 날짜 변경: 취소 후 재예약 (취소 시점 환불 규정 동일 적용)
-- 외부 플랫폼 예약: 해당 플랫폼 정책 우선
-- 불가항력 취소 (항공 결항 등): 증빙 제출 시 특별 처리 가능
-
-### 결제
-- 수단: 계좌이체, 신용카드, 체크카드, 온라인 무통장입금
-- 입금 확인 후 예약 확정
-
-### 상담운영 시간
-- 24시
-
-### 레지던스 구비 용품
-- TV, 침대, 식탁, 에어컨, 냉장고, 드라이기, 취사도구, 전기밥솥, 전자레인지, 핫플레이트, 인터넷, 욕실용품, 객실샤워실, 소화기, 화재경보기, 선풍기, 세면도구
-- 칫솔·치약은 구비되어 있지 않음
-
-### 질문답변 예시
-Q. 당일예약 되나요?
-A. 당일예약도 가능합니다. 홈페이지에서 같은 방식으로 예약문의 남겨주시면 확인 후 연락드리겠습니다.
-
-Q. 단체 예약 가능한가요?
-A. 단체예약도 가능합니다. 홈페이지에서 같은 방식으로 예약문의 남겨주시면 확인 후 연락드리겠습니다.
-
-Q. 예약 확인은 어떻게 해요?
-A. 홈페이지에서 같은 방식으로 예약문의 남겨주시면 확인 후 연락드리겠습니다.
-
-Q. 체크인 몇 시예요?
-A. 체크인 시간은 오후 3시입니다.
-
-Q. 체크아웃 몇 시예요?
-A. 체크아웃 시간은 오전 11시입니다.
-
-Q. 얼리 체크인 되나요?
-A. 얼리 체크인도 가능합니다만 별도 요금이 발생하는점 참고부탁드립니다.
-
-Q. 늦게 도착해도 되나요?
-A. 늦게 도착해도 됩니다.
-
-Q. 취소하고 싶어요
-A. 취소는 홈페이지를 통해서 취소해주시면 됩니다.
-
-Q. 환불 기준이 어떻게 돼요?
-A. 환불 기준은 다음과 같습니다.
-- 10일 전: 100% 환불
-- 9~6일 전: 70% 환불
-- 5~2일 전: 50% 환불
-- 1일 전 / 당일 / 노쇼: 환불 불가
-
-Q. 날짜 변경 가능한가요?
-A. 날짜 변경은 홈페이지를 통해서 취소후 재예약해주시면 됩니다.
-
-Q. 어디 있어요?
-A. 울산 강동에 있습니다.
-
-Q. 주차 되나요?
-A. 주차 가능합니다.
-
-Q. 와이파이 되나요?
-A. 와이파이 가능합니다.
-
-Q. 취사 가능한가요?
-A. 숙박이 호텔인 경우, 취사가 불가하고 레지던스인 경우, 취사가 가능합니다. 레지던스는 취사용품도 구비되어 있습니다.
-
-Q. 어떤 패키지가 있어요?
-A. 홈페이지를 통해서 원하시는 객실, 체험프로그램, 식사, 교육, 행사등을 선택하시면 고객님의 패키지가 완성됩니다.
-
-Q. 가격이 어떻게 돼요?
-A. 고객님께서 구성하신 패키지에 따라 가격이 다릅니다. 따라서 패키지 구성후에 예약문의시 총금액을 확인하실 수 있습니다.
-
-Q. 체험 프로그램 뭐가 있어요?
-A. 강동을 기반으로 한 레저/문화/예술/힐링/교육/요리 등 다양한 프로그램이 준비되어 있습니다. 자세한 내용은 홈페이지 [체험]탭을 통해 확인하실 수 있습니다.
-
-Q. 워케이션이 뭐예요?
-A. 워케이션은 일과 휴가를 병행하는 여행입니다. 홈페이지에서 자세한 내용을 확인하실 수 있습니다.
-
-Q. 기타
-A. 홈페이지를 통해서 자세한 내용을 확인하실 수 있습니다.
-
-Q. 반려동물 데려와도 되나요?
-A. 반려동물 동반이 불가합니다. 양해부탁드립니다. 
-
-Q. 영수증/세금계산서 가능한가요?
-A. 영수증/세금계산서 발행 가능합니다.
-
-Q. 문의는 어디로 해요?
-A. 시설이용이나 서비스에 관한 문의는 이 채팅방에서 문의주시면 됩니다. 파트너쉽 및 제휴문의는 https://www.wishfulstay.com/partner.html 에서 문의주시면 됩니다.
-
-## 답변 불가 항목 (아래 질문이 오면 담당자가 직접 전화드릴예정이라고 안내)
-가격, 룸 타입, 주차, 위치, 대중교통, 반려동물, 당일 예약가능 여부, 짐보관, 세금계산서, 계좌 정보
-
-안내 문구: "해당내용은 담당자가 직접확인 후 안내드릴 예정입니다. 빠르게 연결해 드릴게요! 조금만 기다려 주세요."
-
-## 응대 원칙
-1. 친근하고 전문적인 한국어로 답변
-2. 답변은 카카오톡에 맞게 간결하게 (3~5문장 이내)
-3. 모르는 항목은 추측하지 말고 안내 문구 사용
-4. 불만 접수 시: "불편을 드려서 정말 죄송합니다. 말씀하신 내용은 바로 담당자에게 전달하겠습니다. 빠르게 확인해서 연락드리겠습니다."
-5. 이모티콘(이모지) 사용 금지
-6. ** 같은 마크다운 강조 표시 사용 금지 — 일반 텍스트로만 작성
-7. 가독성이 좋게 줄바꿈 활용
-8. 답변에 URL 링크를 절대 포함하지 않는다 (홈페이지 버튼은 별도로 제공됨)`;
-
+// ─── 파트너 키워드 ─────────────────────────────────────────────────────────────
 const PARTNER_KEYWORDS = ['제휴', '파트너', '입점', '협력', '협약', '업무협약', '제안'];
 
+// ─── 파트너 안내 카드 ──────────────────────────────────────────────────────────
 const PARTNER_CARD = {
   version: '2.0',
   template: {
-    outputs: [
-      {
-        basicCard: {
-          description: '파트너 제휴 문의는 아래 버튼을 통해 제휴담당 실장님과 직접 상담하실 수 있습니다.\n\n궁금하신 점은 해당 페이지에서 편하게 문의해 주세요.',
-          buttons: [
-            {
-              action: 'webLink',
-              label: '파트너 제휴 상담 바로가기',
-              webLinkUrl: 'https://www.wishfulstay.com/partner.html',
-            },
-          ],
-        },
+    outputs: [{
+      basicCard: {
+        description: '파트너 제휴 문의는 아래 버튼을 통해 제휴담당 실장님과 직접 상담하실 수 있습니다.\n\n궁금하신 점은 해당 페이지에서 편하게 문의해 주세요.',
+        buttons: [{
+          action: 'webLink',
+          label: '파트너 제휴 상담 바로가기',
+          webLinkUrl: 'https://www.wishfulstay.com/partner.html',
+        }],
       },
-    ],
+    }],
   },
 };
 
+// ─── 기본 시스템 프롬프트 ────────────────────────────────────────────────────────
+const BASE_SYSTEM = `당신은 위시풀스테이의 '실장'입니다.
+위시풀스테이는 울산 강동에서 운영하는 워케이션 서비스로, 숙박·업무·체험을 하나의 패키지로 연결합니다.
+카카오톡 채널을 통해 문의하는 고객에게 친근하고 정확하게 안내합니다.
+첫 대화에서만 인사를 하고, 이후 이어지는 대화부터는 인사는 생략하며 "네 고객님" 이후 바로 답변한다.
+
+## 응대 원칙
+1. 친근하고 전문적인 한국어로 답변
+2. 카카오톡에 맞게 간결하게 (3~5문장 이내)
+3. 아래 참고자료에 없는 내용은 추측하지 말고 "해당내용은 담당자가 직접확인 후 안내드릴 예정입니다. 빠르게 연결해 드릴게요! 조금만 기다려 주세요." 라고 안내
+4. 불만 접수 시: "불편을 드려서 정말 죄송합니다. 말씀하신 내용은 바로 담당자에게 전달하겠습니다. 빠르게 확인해서 연락드리겠습니다."
+5. 이모티콘(이모지) 사용 금지
+6. ** 같은 마크다운 강조 표시 사용 금지
+7. 가독성이 좋게 줄바꿈 활용
+8. 답변에 URL 링크를 절대 포함하지 않는다`;
+
+// ─── 카테고리 감지 ─────────────────────────────────────────────────────────────
+function detectCategory(utterance) {
+  for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
+    if (keywords.some(kw => utterance.includes(kw))) {
+      return category;
+    }
+  }
+  return null;
+}
+
+// ─── 노션 블록 텍스트 추출 ────────────────────────────────────────────────────
+function extractText(blocks) {
+  const lines = [];
+  for (const block of blocks) {
+    const type = block.type;
+    const content = block[type];
+    if (!content) continue;
+    if (content.rich_text && content.rich_text.length > 0) {
+      const text = content.rich_text.map(rt => rt.plain_text).join('');
+      if (text.trim()) lines.push(text);
+    }
+  }
+  return lines.join('\n');
+}
+
+// ─── 노션 페이지 fetch ────────────────────────────────────────────────────────
+async function fetchNotionPage(pageId) {
+  try {
+    const res = await fetch(
+      `https://api.notion.com/v1/blocks/${pageId}/children?page_size=100`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NOTION_API_KEY}`,
+          'Notion-Version': '2022-06-28',
+        },
+      }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return extractText(data.results || []);
+  } catch {
+    return null;
+  }
+}
+
+// ─── 메인 핸들러 ─────────────────────────────────────────────────────────────
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method Not Allowed' });
@@ -159,8 +117,8 @@ module.exports = async function handler(req, res) {
 
   const utterance = req.body?.userRequest?.utterance || '';
 
-  // 제휴 관련 키워드 감지 → 파트너 페이지 안내
-  if (utterance && PARTNER_KEYWORDS.some((kw) => utterance.includes(kw))) {
+  // 파트너 키워드 감지
+  if (utterance && PARTNER_KEYWORDS.some(kw => utterance.includes(kw))) {
     res.status(200).json(PARTNER_CARD);
     return;
   }
@@ -168,14 +126,24 @@ module.exports = async function handler(req, res) {
   if (!utterance) {
     res.status(200).json({
       version: '2.0',
-      template: {
-        outputs: [{ simpleText: { text: '무엇을 도와드릴까요?' } }],
-      },
+      template: { outputs: [{ simpleText: { text: '무엇을 도와드릴까요?' } }] },
     });
     return;
   }
 
   try {
+    // 카테고리 감지 → 노션 페이지 fetch
+    let notionContext = '';
+    const category = detectCategory(utterance);
+    if (category && NOTION_PAGES[category]) {
+      const pageText = await fetchNotionPage(NOTION_PAGES[category]);
+      if (pageText) {
+        notionContext = `\n\n## 참고자료 (아래 내용을 기반으로 답변)\n${pageText}`;
+      }
+    }
+
+    const systemPrompt = BASE_SYSTEM + notionContext;
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -186,7 +154,7 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 500,
-        system: SYSTEM_PROMPT,
+        system: systemPrompt,
         messages: [{ role: 'user', content: utterance }],
       }),
     });
@@ -196,28 +164,22 @@ module.exports = async function handler(req, res) {
 
     const outputs = [{ simpleText: { text } }];
 
-    // 홈페이지 안내가 포함된 경우에만 버튼 카드 추가
     if (text.includes('홈페이지')) {
       outputs.push({
         basicCard: {
           thumbnail: {
             imageUrl: 'https://www.wishfulstay.com/images/kakao-thumbnail.png',
           },
-          buttons: [
-            {
-              action: 'webLink',
-              label: '홈페이지 바로가기',
-              webLinkUrl: 'https://www.wishfulstay.com',
-            },
-          ],
+          buttons: [{
+            action: 'webLink',
+            label: '홈페이지 바로가기',
+            webLinkUrl: 'https://www.wishfulstay.com',
+          }],
         },
       });
     }
 
-    res.status(200).json({
-      version: '2.0',
-      template: { outputs },
-    });
+    res.status(200).json({ version: '2.0', template: { outputs } });
   } catch (err) {
     console.error('[kakao-customer] 오류:', err);
     res.status(200).json({
