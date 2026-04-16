@@ -108,7 +108,7 @@ async function fetchNotionPage(pageId) {
   }
 }
 
-// ─── 노션 로그 저장 (세션 단위) ──────────────────────────────────────────────
+// ─── 노션 로그 저장 (사용자ID 기준 1페이지) ─────────────────────────────────
 async function logToNotion(utterance, answer, category, userId) {
   const dbId = process.env.NOTION_LOG_DB_ID;
   const headers = {
@@ -118,39 +118,65 @@ async function logToNotion(utterance, answer, category, userId) {
   };
 
   try {
-    // DB 스키마 확인 (디버깅용)
-    const dbRes = await fetch(`https://api.notion.com/v1/databases/${dbId}`, {
-      headers: { 'Authorization': `Bearer ${process.env.NOTION_API_KEY}`, 'Notion-Version': '2022-06-28' },
-    });
-    const dbData = await dbRes.json();
-    console.log('[kakao-customer] DB 속성:', JSON.stringify(Object.keys(dbData.properties || {})));
-
-    const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-    const title = `[${category || '미분류'}] ${now}`;
-    const createRes = await fetch('https://api.notion.com/v1/pages', {
+    // 기존 페이지 조회 (사용자ID 기준)
+    const queryRes = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        parent: { database_id: dbId },
-        properties: {
-          제목: { title: [{ text: { content: title } }] },
-          사용자ID: { rich_text: [{ text: { content: userId } }] },
+        filter: {
+          property: '사용자ID',
+          rich_text: { equals: userId },
         },
-        children: [
-          {
-            object: 'block', type: 'paragraph',
-            paragraph: { rich_text: [{ type: 'text', text: { content: `Q. ${utterance}` }, annotations: { bold: true } }] },
-          },
-          {
-            object: 'block', type: 'paragraph',
-            paragraph: { rich_text: [{ type: 'text', text: { content: `A. ${answer}` } }] },
-          },
-        ],
+        page_size: 1,
       }),
     });
-    const createData = await createRes.json();
-    if (!createRes.ok) {
-      console.error('[kakao-customer] 노션 저장 실패:', JSON.stringify(createData));
+    const queryData = await queryRes.json();
+    const existingPage = queryData.results?.[0];
+
+    const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+    const newBlocks = [
+      {
+        object: 'block', type: 'paragraph',
+        paragraph: { rich_text: [{ type: 'text', text: { content: `[${now}] Q. ${utterance}` }, annotations: { bold: true } }] },
+      },
+      {
+        object: 'block', type: 'paragraph',
+        paragraph: { rich_text: [{ type: 'text', text: { content: `A. ${answer}` } }] },
+      },
+      {
+        object: 'block', type: 'divider', divider: {},
+      },
+    ];
+
+    if (existingPage) {
+      // 기존 페이지에 블록 추가
+      const appendRes = await fetch(`https://api.notion.com/v1/blocks/${existingPage.id}/children`, {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({ children: newBlocks }),
+      });
+      if (!appendRes.ok) {
+        const appendData = await appendRes.json();
+        console.error('[kakao-customer] 노션 블록 추가 실패:', JSON.stringify(appendData));
+      }
+    } else {
+      // 새 페이지 생성
+      const createRes = await fetch('https://api.notion.com/v1/pages', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          parent: { database_id: dbId },
+          properties: {
+            제목: { title: [{ text: { content: userId } }] },
+            사용자ID: { rich_text: [{ text: { content: userId } }] },
+          },
+          children: newBlocks,
+        }),
+      });
+      if (!createRes.ok) {
+        const createData = await createRes.json();
+        console.error('[kakao-customer] 노션 저장 실패:', JSON.stringify(createData));
+      }
     }
   } catch (err) {
     console.error('[kakao-customer] 로그 저장 실패:', err);
