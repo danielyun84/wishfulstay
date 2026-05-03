@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <title>파트너 제휴 상담 — WISHFUL STAY</title>
+  <meta name="description" content="위시풀스테이 파트너 제휴 AI 상담">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--c-bg);
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    /* ── 전체 레이아웃 ── */
+    .chat-page {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--c-cream, #FDFBF8);
+    }
+
+    /* ── 상단 브랜드 바 ── */
+    .chat-topbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--c-bg, #F4F1EC);
+      border-bottom: 1px solid rgba(139,115,85,0.15);
+    }
+    .chat-topbar-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--c-dark, #0F1916);
+      text-decoration: none;
+    }
+    .chat-topbar-label {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--c-text-muted, #7A8C87);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 챗봇 헤더 바 ── */
+    .chat-header-bar {
+      flex-shrink: 0;
+      padding: 13px 20px;
+      background: var(--c-accent, #4E7A6B);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chat-header-bar::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* ── 메시지 영역 ── */
+    #chatMessages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    #chatMessages::-webkit-scrollbar { width: 3px; }
+    #chatMessages::-webkit-scrollbar-track { background: transparent; }
+    #chatMessages::-webkit-scrollbar-thumb {
+      background: rgba(139,115,85,0.2);
+      border-radius: 2px;
+    }
+
+    /* ── 말풍선 ── */
+    .msg {
+      display: flex;
+      flex-direction: column;
+      max-width: 82%;
+    }
+    .msg--assistant { align-self: flex-start; align-items: flex-start; }
+    .msg--user      { align-self: flex-end;   align-items: flex-end; }
+
+    .msg-bubble {
+      padding: 11px 15px;
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .msg--assistant .msg-bubble {
+      background: var(--c-bg-alt, #EAE5DB);
+      color: var(--c-dark, #0F1916);
+      border-radius: 0 12px 12px 12px;
+    }
+    .msg--user .msg-bubble {
+      background: var(--c-accent, #4E7A6B);
+      color: #fff;
+      border-radius: 12px 0 12px 12px;
+    }
+
+    /* ── 타이핑 인디케이터 ── */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 13px 16px;
+      background: var(--c-bg-alt, #EAE5DB);
+      border-radius: 0 12px 12px 12px;
+      align-self: flex-start;
+    }
+    .typing-indicator span {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--c-accent, #4E7A6B);
+      opacity: 0.4;
+      animation: typingBounce 1.2s infinite ease-in-out;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40%           { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* ── 입력창 ── */
+    #chatInputArea {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(139,115,85,0.15);
+      background: var(--c-cream, #FDFBF8);
+    }
+    #chatInput {
+      flex: 1;
+      border: 1px solid rgba(139,115,85,0.2);
+      background: var(--c-bg-alt, #EAE5DB);
+      padding: 10px 14px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px; /* iOS 자동 줌 방지 */
+      font-weight: 300;
+      color: var(--c-dark, #0F1916);
+      outline: none;
+      resize: none;
+      border-radius: 4px;
+      transition: border-color 0.2s;
+      line-height: 1.5;
+      max-height: 100px;
+      min-height: 42px;
+      -webkit-overflow-scrolling: touch;
+    }
+    #chatInput::placeholder { color: var(--c-text-muted, #7A8C87); }
+    #chatInput:focus { border-color: var(--c-accent, #4E7A6B); }
+
+    #sendBtn {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      background: var(--c-accent, #4E7A6B);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+    #sendBtn:hover   { opacity: 0.85; }
+    #sendBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #sendBtn svg {
+      width: 18px; height: 18px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── 완료 화면 ── */
+    #chatSuccess {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .success-icon {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--c-accent, #4E7A6B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .success-icon svg {
+      width: 24px; height: 24px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--c-accent, #4E7A6B);
+      margin-bottom: 12px;
+      display: block;
+    }
+    #chatSuccess p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--c-dark, #0F1916);
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-page">
+
+    <!-- 브랜드 바 -->
+    <div class="chat-topbar">
+      <a href="index.html" class="chat-topbar-logo">WISHFUL STAY</a>
+      <span class="chat-topbar-label">파트너 제휴 상담</span>
+    </div>
+
+    <!-- 챗봇 헤더 -->
+    <div class="chat-header-bar">
+      위시풀스테이 파트너 상담 AI
+    </div>
+
+    <!-- 메시지 영역 -->
+    <div id="chatMessages" role="log" aria-live="polite" aria-label="채팅 메시지"></div>
+
+    <!-- 완료 화면 -->
+    <div id="chatSuccess" aria-live="polite">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <span class="success-title">상담 신청 완료</span>
+      <p>상담 신청이 완료되었습니다.<br>영업일 2일 이내에 담당자가 연락드립니다.</p>
+    </div>
+
+    <!-- 입력창 -->
+    <div id="chatInputArea">
+      <textarea
+        id="chatInput"
+        placeholder="메시지를 입력하세요..."
+        rows="1"
+        aria-label="메시지 입력"
+        autocomplete="off"
+      ></textarea>
+      <button id="sendBtn" aria-label="전송">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <script src="js/partner-chat.js"></script>
+</body>
+</html>
