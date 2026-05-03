@@ -11,7 +11,7 @@ const chatSuccess = document.getElementById('chatSuccess');
 let messages = [];
 let isWaiting = false;
 let isComposing = false;
-let pendingData = null; // 확인 대기 중인 수집 데이터
+let notionPageId = null; // 세션당 노션 페이지 ID (첫 메시지 후 서버에서 반환)
 
 /* ── 초기 메시지 ── */
 const INITIAL_MESSAGE =
@@ -58,23 +58,6 @@ function autoResize() {
   chatInput.style.height = Math.min(chatInput.scrollHeight, 100) + 'px';
 }
 
-/* ── Make(Webhook) 전송 ── */
-async function submitToMake(data) {
-  if (!MAKE_WEBHOOK_URL) {
-    console.log('[partner-chat] Make webhook URL이 설정되지 않았습니다. 수집된 데이터:', data);
-    return;
-  }
-  try {
-    await fetch(MAKE_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-  } catch (err) {
-    console.error('[partner-chat] Make webhook 전송 오류:', err);
-  }
-}
-
 /* ── 성공 화면 표시 ── */
 function showSuccess() {
   chatMessages.style.display = 'none';
@@ -88,21 +71,24 @@ async function fetchChatResponse() {
   sendBtn.disabled = true;
 
   try {
-    const body = { messages };
-    if (pendingData) body.pendingConfirm = pendingData;
-
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        messages,
+        notionPageId, // 세션 페이지 ID 전달 (없으면 null → 서버가 새 페이지 생성)
+      }),
     });
 
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const json = await res.json();
     hideTyping();
+
+    // 노션 페이지 ID 업데이트 (첫 응답 시 서버가 반환)
+    if (json.notionPageId) {
+      notionPageId = json.notionPageId;
+    }
 
     const replyText = json.text || '';
     if (replyText) {
@@ -110,25 +96,14 @@ async function fetchChatResponse() {
       messages.push({ role: 'assistant', content: replyText });
     }
 
-    if (json.confirm && json.data) {
-      // 확인 대기 상태 저장
-      pendingData = json.data;
-    } else if (json.complete) {
-      // 사용자가 종료 확인 → 완료 처리
-      pendingData = null;
-      await submitToMake(json.data);
-      setTimeout(showSuccess, 1200);
-    } else {
-      // 아니오 응답 등 → 확인 대기 해제
-      pendingData = null;
+    // 상담 완료 → 성공 화면
+    if (json.complete) {
+      setTimeout(showSuccess, 1400);
     }
   } catch (err) {
     hideTyping();
     console.error('[partner-chat] API 오류:', err);
-    addMessage(
-      'assistant',
-      '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'
-    );
+    addMessage('assistant', '죄송합니다. 일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
   } finally {
     sendBtn.disabled = false;
   }
@@ -157,13 +132,8 @@ function sendMessage() {
 /* ── 이벤트 바인딩 ── */
 sendBtn.addEventListener('click', sendMessage);
 
-chatInput.addEventListener('compositionstart', function () {
-  isComposing = true;
-});
-
-chatInput.addEventListener('compositionend', function () {
-  isComposing = false;
-});
+chatInput.addEventListener('compositionstart', function () { isComposing = true; });
+chatInput.addEventListener('compositionend', function () { isComposing = false; });
 
 chatInput.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey && !isComposing) {
