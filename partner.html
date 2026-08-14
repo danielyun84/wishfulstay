@@ -288,8 +288,414 @@
       display: block;
     }
 
+    /* ── 파트너 페이지 공통: 섹션 h2 크기 축소 ── */
+    .partner-vision .section-header h2,
+    .partner-types .section-header h2,
+    .why-gangdong .section-header h2,
+    .partner-process .section-header h2,
+    .revenue-section .section-header h2,
+    .partner-benefits .section-header h2,
+    .closing-banner h2 {
+      font-size: clamp(22px, 2.8vw, 36px);
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) {
+      .partner-vision .section-header h2,
+      .partner-types .section-header h2,
+      .why-gangdong .section-header h2,
+      .partner-process .section-header h2,
+      .revenue-section .section-header h2,
+      .partner-benefits .section-header h2,
+      .closing-banner h2 {
+        white-space: normal;
+        font-size: clamp(20px, 5vw, 28px);
+      }
+    }
+
+    /* ── 비전 섹션 ── */
+    .partner-vision {
+      padding: 80px 0;
+      background: var(--c-cream, #FDFBF8);
+    }
+    .partner-vision .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .partner-vision .section-header .lead {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 1.8;
+      max-width: 780px;
+      margin: 16px auto 0;
+      white-space: nowrap;
+    }
+    @media (max-width: 860px) {
+      .partner-vision .section-header .lead {
+        white-space: normal;
+        max-width: 90%;
+      }
+    }
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .vision-item {
+      padding: 40px 36px;
+      background: var(--c-bg-alt);
+      position: relative;
+    }
+    .vision-item:nth-child(2) { background: var(--c-bg); }
+    .vision-tag {
+      display: inline-block;
+      background: var(--c-accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .vision-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--c-dark);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .vision-item p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 1.75;
+    }
+
+    /* ── 파트너 유형 섹션 ── */
+    .partner-types {
+      padding: 80px 0;
+      background: var(--c-bg);
+    }
+    .partner-types .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .type-col {
+      background: var(--c-bg-alt);
+      padding: 28px 20px;
+      border-top: 2px solid var(--c-accent);
+    }
+    .type-col h4 {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--c-dark);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(78,122,107,0.2);
+    }
+    .type-col ul {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+    .type-col ul li {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 2;
+    }
+
+    /* ── 왜 강동인가 섹션 ── */
+    .why-gangdong {
+      padding: 80px 0;
+      background: var(--c-bg-dark, #1C2B28);
+    }
+    .why-gangdong .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .why-gangdong .section-header .eyebrow { color: var(--c-accent-warm, #B8865A); }
+    .why-gangdong .section-header h2 { color: #fff; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .why-card {
+      padding: 36px 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .why-card .why-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--c-accent);
+      opacity: 0.5;
+      display: block;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .why-card h3 {
+      font-size: clamp(0.82rem, 1.1vw, 1rem);
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.55;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    .why-card p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+
+    /* ── 운영 프로세스 ── */
+    .partner-process {
+      padding: 80px 0;
+      background: var(--c-bg-alt);
+    }
+    .partner-process .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-flow::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: var(--c-accent);
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .pf-step {
+      text-align: center;
+      padding: 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .pf-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .pf-step h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--c-dark);
+      margin-bottom: 8px;
+    }
+    .pf-step p {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── 수익 구조 ── */
+    .revenue-section {
+      padding: 80px 0;
+      background: var(--c-cream, #FDFBF8);
+    }
+    .revenue-section .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .revenue-section .section-header .lead {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 16px auto 0;
+    }
+    .revenue-structure {
+      max-width: 720px;
+      margin: 0 auto 40px;
+      background: var(--c-bg-alt);
+      padding: 36px 40px;
+      border-left: 3px solid var(--c-accent);
+    }
+    .revenue-structure .rs-label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--c-accent);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .revenue-structure .rs-formula {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .rs-box {
+      padding: 12px 24px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--c-dark);
+      background: var(--c-bg);
+      border: 1px solid rgba(78,122,107,0.2);
+    }
+    .rs-arrow {
+      font-size: 1.2rem;
+      color: var(--c-accent);
+      opacity: 0.6;
+    }
+    .rs-box.rs-highlight {
+      background: var(--c-accent);
+      color: #fff;
+      border-color: var(--c-accent);
+      font-weight: 500;
+    }
+    .revenue-example {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .revenue-example h4 {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--c-text-muted);
+      margin-bottom: 16px;
+    }
+    .example-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .example-table th {
+      background: var(--c-accent);
+      color: #fff;
+      font-weight: 400;
+      padding: 12px 16px;
+      text-align: left;
+    }
+    .example-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(78,122,107,0.12);
+      color: var(--c-dark);
+      font-weight: 300;
+      background: var(--c-bg-alt);
+    }
+    .example-table tr:last-child td { border-bottom: none; }
+
+    /* ── 혜택 6개 ── */
+    .benefits-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .benefit-card-6 {
+      background: var(--c-bg-alt);
+      padding: 36px 32px;
+      border-top: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .benefit-card-6:hover { border-top-color: var(--c-accent); }
+    .benefit-card-6:nth-child(even) { background: var(--c-bg); }
+    .benefit-icon {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .benefit-card-6 h3 {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--c-dark);
+      margin-bottom: 12px;
+    }
+    .benefit-card-6 ul {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+    .benefit-card-6 ul li {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 2;
+      padding-left: 14px;
+      position: relative;
+    }
+    .benefit-card-6 ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--c-accent);
+    }
+
+    /* ── 클로징 배너 ── */
+    .closing-banner {
+      padding: 100px 0;
+      background: var(--c-dark, #0F1916);
+      text-align: center;
+    }
+    .closing-banner .cb-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--c-accent);
+      display: block;
+      margin-bottom: 24px;
+    }
+    .closing-banner h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    .closing-banner .cb-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      background: var(--c-accent);
+      color: #fff;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .closing-banner .cb-btn:hover { opacity: 0.85; }
+
     /* ── 모바일 반응형 ── */
     @media (max-width: 768px) {
+      .vision-grid { grid-template-columns: 1fr; gap: 2px; }
+      .types-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .why-grid { grid-template-columns: 1fr; gap: 20px; }
+      .process-flow { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-flow::before { display: none; }
+      .benefits-grid-6 { grid-template-columns: 1fr; gap: 2px; }
+      .revenue-structure { padding: 24px 20px; }
+      .rs-formula { gap: 10px; }
       .chat-section {
         padding: 60px 0 80px;
       }
@@ -392,7 +798,194 @@
 
 
     <!-- ════════════════════════════════════════════════════════
-         [2] 파트너 혜택 소개
+         [2] 비전 — 머물고/배우고/느끼고 싶은 강동
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="partner-vision">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Vision</span>
+          <h2>파트너가 먼저입니다</h2>
+          <p class="lead">위시풀스테이는 파트너의 성장에 발맞춰 성장합니다.<br>파트너와 함께 강동의 가치를 높이고, 그 성과를 함께 나누는 상생의 구조를 만들어가겠습니다.</p>
+        </div>
+        <div class="vision-grid">
+          <div class="vision-item reveal">
+            <span class="vision-tag">머물고싶은 강동</span>
+            <h3>머물고 싶은<br>이유가 있는 곳</h3>
+            <p>주말뿐만 아니라 평일에도 찾아올 이유를 만들 수 있습니다.</p>
+          </div>
+          <div class="vision-item reveal reveal-delay-2">
+            <span class="vision-tag">배우고싶은 강동</span>
+            <h3>강동에서 마주하는<br>새로운 경험</h3>
+            <p>이곳에서 보고 듣고 체험하는 모든 것이 교육이 됩니다.</p>
+          </div>
+          <div class="vision-item reveal reveal-delay-3">
+            <span class="vision-tag">느끼고싶은 강동</span>
+            <h3>새로운 나를<br>발견하는 시간</h3>
+            <p>나를 돌아보고 비워내며 다시 나아갈 힘을 채울 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [3] 모집 파트너 유형
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="partner-types">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Partners We Seek</span>
+          <h2>함께할 파트너를 찾습니다</h2>
+        </div>
+        <div class="types-grid">
+          <div class="type-col reveal">
+            <h4>숙 박</h4>
+            <ul>
+              <li>호텔</li>
+              <li>레지던스</li>
+              <li>펜션</li>
+              <li>게스트하우스</li>
+            </ul>
+          </div>
+          <div class="type-col reveal reveal-delay-2">
+            <h4>공 간</h4>
+            <ul>
+              <li>업무공간</li>
+              <li>회의공간</li>
+              <li>연회장</li>
+              <li>교육장</li>
+            </ul>
+          </div>
+          <div class="type-col reveal reveal-delay-3">
+            <h4>교 육</h4>
+            <ul>
+              <li>AI 교육</li>
+              <li>진로/창업</li>
+              <li>시니어/퇴직</li>
+              <li>생활/여가</li>
+            </ul>
+          </div>
+          <div class="type-col reveal reveal-delay-2">
+            <h4>체 험</h4>
+            <ul>
+              <li>레저체험</li>
+              <li>직업체험</li>
+              <li>문화체험</li>
+              <li>힐링체험</li>
+            </ul>
+          </div>
+          <div class="type-col reveal reveal-delay-3">
+            <h4>서비스</h4>
+            <ul>
+              <li>행사기획</li>
+              <li>차량렌트</li>
+              <li>보험</li>
+              <li>공연/이벤트</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [4] 왜 강동인가
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="why-gangdong">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Why Gangdong</span>
+          <h2>왜 강동인가</h2>
+        </div>
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <span class="why-num">01</span>
+            <h3>주요 고객이 이미 근처에 있습니다</h3>
+            <p>강동에서 반경 30분 이내, 현대자동차·HD현대중공업·한국석유공사·한국수력원자력 등 울산·경남권 대형 기업과 공공기관이 밀집해 있습니다.</p>
+          </div>
+          <div class="why-card reveal reveal-delay-2">
+            <span class="why-num">02</span>
+            <h3>인프라가 빠르게 채워지고 있습니다</h3>
+            <p>7천억 규모의 웨일즈코브 해양관광단지, 2027년 준공 예정인 강동롯데리조트, 울산외곽순환도로 개통과 KTX 북울산역 정차 추진까지.</p>
+          </div>
+          <div class="why-card reveal reveal-delay-3">
+            <span class="why-num">03</span>
+            <h3>지금이 타이밍입니다</h3>
+            <p>대규모 관광인프라가 들어서고 교통망이 개선되고 기업 워케이션 수요가 폭발적으로 늘고 있는 지금, 강동이 울산을 대표하는 워케이션 거점도시로 자리잡을 결정적인 시기입니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [5] 운영 프로세스
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="partner-process">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">How It Works</span>
+          <h2>연결이 만드는 강동의 힘</h2>
+        </div>
+        <div class="process-flow">
+          <div class="pf-step reveal">
+            <div class="pf-num">01</div>
+            <h4>고객 요청</h4>
+            <p>목적, 인원, 기간, 예산 등 사전 확인</p>
+          </div>
+          <div class="pf-step reveal reveal-delay-2">
+            <div class="pf-num">02</div>
+            <h4>패키지 설계</h4>
+            <p>숙박+공간 선택 후 교육·체험·서비스 옵션 조합</p>
+          </div>
+          <div class="pf-step reveal reveal-delay-3">
+            <div class="pf-num">03</div>
+            <h4>제휴사 조율</h4>
+            <p>각 항목별 제휴사와 일정 및 조건 협의</p>
+          </div>
+          <div class="pf-step reveal reveal-delay-2">
+            <div class="pf-num">04</div>
+            <h4>패키지 확정</h4>
+            <p>전체 일정표 및 견적을 고객에게 전달·결재</p>
+          </div>
+          <div class="pf-step reveal reveal-delay-3">
+            <div class="pf-num">05</div>
+            <h4>운영 및 관리</h4>
+            <p>현장 코디네이션 및 사후 피드백</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [6] 수익 구조
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="revenue-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Revenue Model</span>
+          <h2>투명하고 간단한 수익관계</h2>
+          <p class="lead">복잡한 계산이 없습니다. 사전에 협의된 제휴단가가 그대로 파트너의 수익이 됩니다.<br>위시풀스테이는 고객 판매가에서 마진을 가져가는 구조로, 파트너는 서비스 제공에만 집중하시면 됩니다.</p>
+        </div>
+
+        <div class="revenue-structure reveal">
+          <span class="rs-label">수익 구조</span>
+          <div class="rs-formula">
+            <div class="rs-box rs-highlight">제휴단가<br><small style="font-size:0.72rem;opacity:0.8;">파트너 수익</small></div>
+            <span class="rs-arrow">+</span>
+            <div class="rs-box">위시풀스테이 마진</div>
+            <span class="rs-arrow">=</span>
+            <div class="rs-box">고객 판매가</div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--c-text-muted);margin-top:20px;font-weight:300;">※ 실제 제휴단가는 파트너와 개별 협의 후 결정됩니다. 정산 기한: 패키지 종료 후 +3일 이내.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [7] 파트너 혜택 6가지
     ═══════════════════════════════════════════════════════════ -->
     <section class="partner-benefits">
       <div class="container">
@@ -400,24 +993,66 @@
           <span class="eyebrow">Benefits</span>
           <h2>파트너로 합류하면</h2>
         </div>
-        <div class="benefits-grid">
+        <div class="benefits-grid-6">
 
-          <div class="benefit-card reveal">
-            <span class="benefit-num">01</span>
-            <h3>노출 &amp; 홍보</h3>
-            <p>위시풀스테이 홈페이지와 워케이션 패키지에 파트너 정보가 포함됩니다. 기업·단체 고객에게 자연스럽게 브랜드를 알릴 수 있습니다.</p>
+          <div class="benefit-card-6 reveal">
+            <span class="benefit-icon">📈</span>
+            <h3>평일 매출 증대</h3>
+            <ul>
+              <li>기업·기관 고객의 평일 이용률 증가</li>
+              <li>주중 공실 및 유휴시간 수익으로 전환</li>
+              <li>안정적인 수익흐름 확보</li>
+            </ul>
           </div>
 
-          <div class="benefit-card reveal reveal-delay-2">
-            <span class="benefit-num">02</span>
-            <h3>안정적인 예약</h3>
-            <p>기업·단체 고객을 중심으로 한 안정적인 방문객을 연결해 드립니다. 개인 영업 없이도 꾸준한 고객 유입을 경험하세요.</p>
+          <div class="benefit-card-6 reveal reveal-delay-2">
+            <span class="benefit-icon">🤝</span>
+            <h3>영업·마케팅 전담</h3>
+            <ul>
+              <li>고객발굴·제안·계약 위시풀스테이 전담</li>
+              <li>현장 코디네이션 및 A/S 전담</li>
+              <li>파트너는 서비스 제공에만 집중</li>
+            </ul>
           </div>
 
-          <div class="benefit-card reveal reveal-delay-3">
-            <span class="benefit-num">03</span>
-            <h3>간편한 운영</h3>
-            <p>예약과 정산은 위시풀스테이가 담당합니다. 파트너는 서비스 제공에만 집중할 수 있도록 행정 부담을 최소화합니다.</p>
+          <div class="benefit-card-6 reveal reveal-delay-3">
+            <span class="benefit-icon">📣</span>
+            <h3>홍보채널 추가</h3>
+            <ul>
+              <li>홈페이지 파트너 등록</li>
+              <li>기업 제안서에 파트너사 직접 소개</li>
+              <li>기업 담당자에게 브랜드 자연 노출</li>
+            </ul>
+          </div>
+
+          <div class="benefit-card-6 reveal">
+            <span class="benefit-icon">🎯</span>
+            <h3>시즌별 이벤트 기획</h3>
+            <ul>
+              <li>성수기·비수기 맞춤 이벤트 기획</li>
+              <li>위시풀스테이가 운영제안 및 지원</li>
+              <li>비수기 매출 공백 최소화</li>
+            </ul>
+          </div>
+
+          <div class="benefit-card-6 reveal reveal-delay-2">
+            <span class="benefit-icon">🤖</span>
+            <h3>AI 통합상담 운영</h3>
+            <ul>
+              <li>1차 고객문의 AI 통합상담으로 응대</li>
+              <li>파트너 고객응대 부담 감소</li>
+              <li>주요문의 정리 후 파트너사 전달</li>
+            </ul>
+          </div>
+
+          <div class="benefit-card-6 reveal reveal-delay-3">
+            <span class="benefit-icon">💬</span>
+            <h3>고객의견 공유</h3>
+            <ul>
+              <li>패키지 종료 후 만족도 조사 진행</li>
+              <li>서비스별 고객 피드백 파트너사 공유</li>
+              <li>데이터 기반 서비스 개선 제안</li>
+            </ul>
           </div>
 
         </div>
@@ -426,7 +1061,19 @@
 
 
     <!-- ════════════════════════════════════════════════════════
-         [3] 챗봇 상담 섹션
+         [8] 클로징 배너
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="closing-banner">
+      <div class="container">
+        <span class="cb-sub">Workation in Gangdong</span>
+        <h2>가장 빛날 강동의 순간<br>위시풀스테이와 함께 해주세요</h2>
+        <a href="#chat" class="cb-btn">파트너 상담 시작하기</a>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════
+         [9] 챗봇 상담 섹션
     ═══════════════════════════════════════════════════════════ -->
     <section class="chat-section" id="chat">
       <div class="container">

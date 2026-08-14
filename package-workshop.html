@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <title>워크샵 패키지 — WISHFUL STAY</title>
+  <meta name="description" content="기업 및 관공서의 임직원 워크숍, 세미나, 직원연수에 적합한 위시풀스테이 워크샵 패키지.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* ── 패키지 구성 페이지 전용 ── */
+
+    .pkg-hero {
+      position: relative;
+      height: 52vh;
+      min-height: 380px;
+      overflow: hidden;
+    }
+    .pkg-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+    .pkg-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(12,23,19,0.2) 0%, rgba(12,23,19,0.55) 100%);
+    }
+    .pkg-hero-content {
+      position: absolute;
+      bottom: 48px;
+      left: 0;
+      right: 0;
+      padding: 0 var(--gutter);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .pkg-hero-content .eyebrow { color: rgba(253,251,248,0.7); margin-bottom: 10px; }
+    .pkg-hero-content h1 {
+      font-family: var(--f-display);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 300;
+      color: var(--c-cream);
+      margin-bottom: 10px;
+    }
+    .pkg-hero-content p { font-size: 14px; color: rgba(253,251,248,0.75); font-weight: 300; }
+
+    /* ── 구성 선택 영역 ── */
+    .pkg-builder {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--sp-2xl) var(--gutter);
+    }
+
+    .pkg-section {
+      border-top: 1px solid var(--c-border);
+      padding: 36px 0;
+    }
+    .pkg-section-title {
+      font-family: var(--f-body);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* ── 캘린더 ── */
+    .cal-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+    .cal-panel { }
+    .cal-nav-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .cal-nav-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      cursor: pointer;
+      color: var(--c-dark);
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .cal-nav-btn:hover { background: var(--c-border); }
+    .cal-nav-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--c-dark);
+    }
+    .cal-month { width: 100%; }
+    .cal-month-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--c-dark);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .cal-dow {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--c-text-muted);
+      padding: 6px 0 12px;
+    }
+    .cal-dow:first-child { color: #c0392b; }
+    .cal-dow:last-child  { color: #2980b9; }
+    .cal-day {
+      text-align: center;
+      font-size: 17px;
+      padding: 7px 4px;
+      border-radius: 2px;
+      cursor: default;
+      transition: background 0.15s;
+    }
+    .cal-day--past  { color: var(--c-border); }
+    .cal-day--empty { }
+    .cal-day--active {
+      color: var(--c-dark);
+      cursor: pointer;
+    }
+    .cal-day--active:hover:not(.cal-day--start):not(.cal-day--end) {
+      background: rgba(12,23,19,0.07);
+    }
+    .cal-day--start,
+    .cal-day--end {
+      background: var(--c-dark) !important;
+      color: var(--c-cream) !important;
+      border-radius: 2px;
+    }
+    .cal-day--range {
+      background: rgba(12,23,19,0.08);
+      border-radius: 0;
+    }
+    .cal-day--hover-end {
+      background: rgba(12,23,19,0.12);
+      border-radius: 2px;
+    }
+    /* 일요일·토요일 색상 */
+    .cal-day:nth-child(7n+1):not(.cal-day--start):not(.cal-day--end) { color: #c0392b; }
+    .cal-day--past:nth-child(7n+1) { color: rgba(192,57,43,0.3); }
+    .cal-day:nth-child(7n):not(.cal-day--start):not(.cal-day--end) { color: #2980b9; }
+    .cal-day--past:nth-child(7n) { color: rgba(41,128,185,0.3); }
+
+    /* 우측 정보 박스 */
+    .cal-info {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: 4px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .cal-dates-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--c-border);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .cal-info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-right: 16px;
+    }
+    .cal-info-item + .cal-info-item {
+      padding-right: 0;
+      padding-left: 16px;
+      border-left: 1px solid var(--c-border);
+    }
+    .cal-info-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+    }
+    .cal-info-val {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--c-dark);
+    }
+    .cal-info-val--empty {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--c-text-muted);
+    }
+    .cal-info-nights {
+      font-family: var(--f-body);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--c-dark);
+      margin-bottom: 20px;
+      min-height: 36px;
+    }
+    .cal-clear {
+      font-size: 11px;
+      color: var(--c-text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-align: left;
+    }
+    .cal-info-people {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--c-border);
+    }
+    .cal-people-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .cal-people-note {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--c-text-muted);
+    }
+    /* 일정 안내 (달력 하단 독립 영역) */
+    .cal-stay-guide {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--c-border);
+    }
+    .cal-stay-guide-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 18px;
+    }
+    .cal-stay-guide dl {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px 40px;
+    }
+    .cal-stay-guide-row {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .cal-stay-guide-row dt {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--c-dark);
+    }
+    .cal-stay-guide-row dd {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+
+    /* ── 숙박 슬라이드 그리드 ── */
+    .stay-opt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .stay-opt-item { display: flex; flex-direction: column; }
+    .stay-slide {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--c-border);
+      margin-bottom: 10px;
+    }
+    .stay-slide-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+    .stay-slide-track img {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.75);
+      border: none;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--c-dark);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      z-index: 2;
+    }
+    .slide-btn:hover { background: rgba(255,255,255,0.95); }
+    .slide-btn--prev { left: 8px; }
+    .slide-btn--next { right: 8px; }
+    .slide-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      z-index: 2;
+    }
+    .slide-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .slide-dot--active { background: #fff; }
+    .stay-slide-none {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border: 1px dashed var(--c-border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      color: var(--c-text-muted);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+    .stay-opt-item .opt-card { display: block; }
+    .stay-opt-item .opt-card-inner { border-radius: 2px; }
+
+    /* ── 라디오/체크박스 카드 ── */
+    .opt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .opt-card { position: relative; cursor: pointer; }
+    .opt-card input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .opt-card-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 18px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      background: var(--c-bg);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .opt-card input:checked + .opt-card-inner {
+      border-color: var(--c-dark);
+      background: var(--c-cream);
+    }
+    .opt-card-name { font-family: var(--f-body); font-size: 14px; font-weight: 500; color: var(--c-dark); }
+    .opt-card-desc { font-family: var(--f-body); font-size: 12px; font-weight: 300; color: var(--c-text-muted); }
+
+    /* ── 식사 일부포함 그리드 ── */
+    .meal-partial-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .meal-partial-wrap.open {
+      max-height: 1000px;
+    }
+    .meal-partial-grid {
+      margin-top: 20px;
+      border-top: 1px solid var(--c-border);
+    }
+    .meal-day-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 1fr 1fr;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .meal-day-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-text-muted);
+      letter-spacing: 0.04em;
+    }
+    .meal-check-card { position: relative; cursor: pointer; }
+    .meal-check-card input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .meal-check-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--c-dark);
+      background: var(--c-bg);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .meal-check-card input:checked + .meal-check-inner {
+      border-color: var(--c-dark);
+      background: var(--c-cream);
+      font-weight: 500;
+    }
+
+    /* ── 인원 선택 ── */
+    .people-control {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .people-btn {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 300;
+      color: var(--c-dark); background: var(--c-bg);
+      cursor: pointer; border: none;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .people-btn:hover { background: var(--c-border); }
+    .people-count {
+      width: 56px; text-align: center;
+      font-family: var(--f-body); font-size: 15px; font-weight: 500;
+      color: var(--c-dark);
+      border-left: 1px solid var(--c-border);
+      border-right: 1px solid var(--c-border);
+      padding: 12px 0;
+    }
+
+    /* ── 일정 미리보기 ── */
+    .sch-section-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .sch-section-top .pkg-section-title { margin-bottom: 0; }
+    .sch-print-btn {
+      font-size: 12px;
+      font-family: var(--f-body);
+      letter-spacing: 0.12em;
+      color: var(--c-dark);
+      background: none;
+      border: 1px solid var(--c-dark);
+      padding: 7px 18px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .sch-print-btn:hover { background: var(--c-dark); color: #fff; }
+
+    /* 인쇄 프레임 */
+    .sch-frame {
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      background: #fff;
+      padding: 36px 40px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .sch-doc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .sch-doc-title {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--c-dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .sch-doc-subtitle {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+    }
+    .sch-doc-logo {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      color: var(--c-text-muted);
+      align-self: flex-end;
+    }
+
+    /* 구성 요약 그리드 */
+    .sch-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .sch-info-cell {
+      padding: 14px 18px;
+      border-right: 1px solid var(--c-border);
+    }
+    .sch-info-cell:last-child { border-right: none; }
+    .sch-info-cell:nth-child(n+4) { border-top: 1px solid var(--c-border); }
+    .sch-info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 5px;
+    }
+    .sch-info-value {
+      font-size: 13px;
+      color: var(--c-dark);
+      font-weight: 400;
+    }
+    .sch-divider { height: 1px; background: var(--c-border); margin-bottom: 24px; }
+    .sch-doc-footer {
+      margin-top: 24px;
+      font-size: 11px;
+      color: var(--c-text-muted);
+      border-top: 1px solid var(--c-border);
+      padding-top: 16px;
+    }
+    /* ── 일정 미리보기 (원래 위치에 있던 것들) ── */
+    .schedule-note {
+      font-size: 12px; font-weight: 300;
+      color: var(--c-text-muted);
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+    .schedule-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .schedule-day {
+      padding: 20px 18px;
+      border-right: 1px solid var(--c-border);
+    }
+    .schedule-day:last-child { border-right: none; }
+    .schedule-day-header {
+      font-size: 12px; font-weight: 600;
+      color: var(--c-dark);
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .schedule-slot {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 9px;
+    }
+    .schedule-time {
+      font-size: 10.5px;
+      color: var(--c-text-muted);
+      min-width: 86px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .schedule-item {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 2px 7px;
+      border-radius: 2px;
+      line-height: 1.5;
+    }
+    .schedule-day-header {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .sch-date  { font-size: 13px; font-weight: 600; color: var(--c-dark); }
+    .sch-daytag { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-muted); }
+    .schedule-tag-stay   { background: #ede9e3; color: #4a3f32; }
+    .schedule-tag-meal   { background: #e8eeea; color: #2e4e35; }
+    .schedule-tag-exp    { background: #e6edf4; color: #264a6a; }
+    .schedule-tag-addon  { background: #f0ebe2; color: #5a4523; }
+    .schedule-tag-info   { background: #f5f2ed; color: #6b5c4a; }
+    .schedule-tag-free   { color: var(--c-text-muted); font-style: italic; background: none; padding: 0; }
+
+    /* A4 인쇄 */
+    @media print {
+      @page { size: A4 portrait; margin: 15mm 18mm; }
+      body > *:not(main) { display: none !important; }
+      nav, header, footer, .pkg-hero { display: none !important; }
+      .pkg-builder > *:not(#schedule-section) { display: none !important; }
+      #schedule-section {
+        display: block !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+      .sch-section-top { display: none !important; }
+      .sch-frame {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+      }
+      .schedule-wrap {
+        display: block !important;
+        border: 1px solid #ccc !important;
+      }
+      .schedule-day {
+        page-break-inside: avoid;
+        border-right: none !important;
+        border-bottom: 1px solid #ccc;
+      }
+      .schedule-day:last-child { border-bottom: none; }
+    }
+
+    /* ── 요약 (하단) ── */
+    .pkg-summary {
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      background: var(--c-cream);
+      padding: 32px;
+      margin-top: 48px;
+    }
+    .pkg-summary-title {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--c-dark);
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .summary-rows {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0;
+      margin-bottom: 28px;
+      border-top: 1px solid var(--c-border);
+    }
+    .summary-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--c-border);
+      padding-right: 20px;
+    }
+    .summary-label { font-size: 11px; font-weight: 300; color: var(--c-text-muted); }
+    .summary-value { font-size: 14px; font-weight: 500; color: var(--c-dark); }
+    .summary-value.empty { color: var(--c-text-muted); font-weight: 300; }
+    .summary-footer {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .summary-note {
+      flex: 1;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      line-height: 1.7;
+    }
+    .pkg-inquiry-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--c-dark);
+      color: var(--c-cream);
+      text-align: center;
+      font-family: var(--f-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+      border-radius: 2px;
+    }
+    .pkg-inquiry-btn:hover { background: var(--c-accent); }
+
+    @media (max-width: 760px) {
+      .cal-wrap { grid-template-columns: 1fr; }
+      .opt-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary-footer { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+  <main>
+
+    <!-- 히어로 -->
+    <section class="pkg-hero">
+      <img src="images/package_workshop.jpeg" alt="워크샵 패키지">
+      <div class="pkg-hero-overlay"></div>
+      <div class="pkg-hero-content">
+        <span class="eyebrow">Package</span>
+        <h1>워크샵 패키지</h1>
+        <p>기업 및 관공서의 임직원 워크숍, 세미나, 직원연수에 적합한 패키지입니다.</p>
+      </div>
+    </section>
+
+    <!-- 구성 선택 -->
+    <div class="pkg-builder">
+
+      <!-- 01. 일정 -->
+      <div class="pkg-section">
+        <p class="pkg-section-title">01 &nbsp;일정선택</p>
+        <div class="cal-nav-row">
+          <button class="cal-nav-btn" id="calPrev">&#8592;</button>
+          <span class="cal-nav-label" id="calNavLabel"></span>
+          <button class="cal-nav-btn" id="calNext">&#8594;</button>
+        </div>
+
+        <div class="cal-wrap">
+
+          <!-- 캘린더 패널 -->
+          <div class="cal-panel">
+            <div class="cal-month" id="cal-left"></div>
+          </div>
+
+          <!-- 체크인/체크아웃 + 인원 박스 -->
+          <div class="cal-info">
+            <div class="cal-dates-row">
+              <div class="cal-info-item">
+                <span class="cal-info-label">체크인</span>
+                <span class="cal-info-val cal-info-val--empty" id="cal-checkin">날짜 선택</span>
+              </div>
+              <div class="cal-info-item">
+                <span class="cal-info-label">체크아웃</span>
+                <span class="cal-info-val cal-info-val--empty" id="cal-checkout">날짜 선택</span>
+              </div>
+            </div>
+            <div class="cal-info-nights" id="cal-nights"></div>
+            <button class="cal-clear" id="calClear">선택 초기화</button>
+
+            <!-- 인원 -->
+            <div class="cal-info-people">
+              <span class="cal-info-label">인원</span>
+              <div class="cal-people-row">
+                <div class="people-control">
+                  <button class="people-btn" id="peopleMinus">−</button>
+                  <div class="people-count" id="peopleCount">6</div>
+                  <button class="people-btn" id="peoplePlus">+</button>
+                </div>
+                <span class="cal-people-note">최소 6인 · 최대 100인</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 일정 안내 (달력 하단 별도) -->
+        <div class="cal-stay-guide">
+          <p class="cal-stay-guide-title">안내사항</p>
+          <dl>
+            <div class="cal-stay-guide-row">
+              <dt>일정 확정</dt>
+              <dd>선택하신 날짜는 예약 확정이 아닌 희망 일정입니다. 가용 여부 확인 후 견적과 함께 최종 일정을 안내드립니다.</dd>
+            </div>
+            <div class="cal-stay-guide-row">
+              <dt>객실 기준</dt>
+              <dd>호텔 2인 1실 · 레지던스 최대 6인 1실 (인원 구성에 따라 조정 가능)</dd>
+            </div>
+            <div class="cal-stay-guide-row">
+              <dt>체크인 / 체크아웃</dt>
+              <dd>오후 3시 이후 / 오전 11시 이전</dd>
+            </div>
+            <div class="cal-stay-guide-row">
+              <dt>예약 마감</dt>
+              <dd>입실 7일 전까지</dd>
+            </div>
+            <div class="cal-stay-guide-row">
+              <dt>성수기 안내</dt>
+              <dd>7~8월, 연휴 기간은 객실 확보 및 요금이 별도 협의로 진행됩니다. 주중(일~목) 일정은 보다 여유롭게 구성하실 수 있습니다.</dd>
+            </div>
+            <div class="cal-stay-guide-row">
+              <dt>단체 예약</dt>
+              <dd>최소 6인부터 · 대규모 단체는 별도 협의 후 확정</dd>
+            </div>
+            <div class="cal-stay-guide-row">
+              <dt>취소 · 환불</dt>
+              <dd>입실 14일 전 전액 환불 / 7일 전 50% 환불</dd>
+            </div>
+          </dl>
+        </div>
+
+      </div>
+
+      <!-- 02. 숙박 -->
+      <div class="pkg-section">
+        <p class="pkg-section-title">02 &nbsp;숙박선택</p>
+        <div class="stay-opt-grid">
+
+          <!-- 호텔 -->
+          <div class="stay-opt-item">
+            <div class="stay-slide" id="slide-hotel">
+              <div class="stay-slide-track">
+                <img src="images/hotel_1.jpg" alt="머큐어앰버서더 호텔 1">
+                <img src="images/hotel_2.jpg" alt="머큐어앰버서더 호텔 2">
+                <img src="images/hotel_3.jpg" alt="머큐어앰버서더 호텔 3">
+                <img src="images/hotel_4.jpg" alt="머큐어앰버서더 호텔 4">
+              </div>
+              <button class="slide-btn slide-btn--prev" onclick="slideMove('hotel',-1)">&#8592;</button>
+              <button class="slide-btn slide-btn--next" onclick="slideMove('hotel', 1)">&#8594;</button>
+              <div class="slide-dots" id="dots-hotel"></div>
+            </div>
+            <label class="opt-card">
+              <input type="radio" name="stay" value="hotel" checked>
+              <div class="opt-card-inner">
+                <span class="opt-card-name">머큐어앰버서더 호텔</span>
+                <span class="opt-card-desc">스탠다드룸 기준</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- 레지던스 -->
+          <div class="stay-opt-item">
+            <div class="stay-slide" id="slide-residence">
+              <div class="stay-slide-track">
+                <img src="images/seastay-main.jpg" alt="씨스테이 레지던스">
+                <img src="images/residence-executive-01.jpg" alt="이그제큐티브">
+                <img src="images/residence-ocean-01.jpg" alt="오션뷰">
+                <img src="images/residence-premier-01.jpg" alt="프리미어">
+                <img src="images/residence-junior-01.jpg" alt="주니어">
+              </div>
+              <button class="slide-btn slide-btn--prev" onclick="slideMove('residence',-1)">&#8592;</button>
+              <button class="slide-btn slide-btn--next" onclick="slideMove('residence', 1)">&#8594;</button>
+              <div class="slide-dots" id="dots-residence"></div>
+            </div>
+            <label class="opt-card">
+              <input type="radio" name="stay" value="residence">
+              <div class="opt-card-inner">
+                <span class="opt-card-name">씨스테이 레지던스</span>
+                <span class="opt-card-desc">취사 가능 · 장기 적합</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- 숙박 없음 -->
+          <div class="stay-opt-item">
+            <div class="stay-slide-none">
+              <span>당일 일정</span>
+            </div>
+            <label class="opt-card">
+              <input type="radio" name="stay" value="none">
+              <div class="opt-card-inner">
+                <span class="opt-card-name">숙박 없음</span>
+                <span class="opt-card-desc">당일 일정 선택 시</span>
+              </div>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 04. 식사 -->
+      <div class="pkg-section">
+        <p class="pkg-section-title">03 &nbsp;식사선택</p>
+        <div class="opt-grid">
+          <label class="opt-card">
+            <input type="radio" name="meal" value="full">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">전체 일정 포함</span>
+              <span class="opt-card-desc">조식 · 중식 · 석식 전체</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="radio" name="meal" value="partial">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">일부 포함</span>
+              <span class="opt-card-desc">원하는 끼니만 선택</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="radio" name="meal" value="none">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">미포함</span>
+              <span class="opt-card-desc">식사 별도 진행</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- 일부 포함 펼침 그리드 -->
+        <div class="meal-partial-wrap" id="meal-partial-wrap">
+          <div class="meal-partial-grid" id="meal-partial-grid"></div>
+        </div>
+      </div>
+
+      <!-- 04. 추가 체험 -->
+      <div class="pkg-section">
+        <p class="pkg-section-title">04 &nbsp;추가 체험선택 <span style="font-size:10px; font-weight:300; letter-spacing:0; text-transform:none; margin-left:6px;">중복 선택 가능</span></p>
+        <div class="opt-grid">
+          <label class="opt-card">
+            <input type="checkbox" name="exp" value="horse">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">승마 체험</span>
+              <span class="opt-card-desc">UEF 승마장</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="checkbox" name="exp" value="temple">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">사찰문화 체험</span>
+              <span class="opt-card-desc">신흥사</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="checkbox" name="exp" value="craft">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">공예 체험</span>
+              <span class="opt-card-desc">지역 공방 연계</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="checkbox" name="exp" value="leisure">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">해양레저</span>
+              <span class="opt-card-desc">하절기 운영</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 05. 추가옵션 -->
+      <div class="pkg-section" style="border-bottom: 1px solid var(--c-border);">
+        <p class="pkg-section-title">05 &nbsp;추가옵션 <span style="font-size:10px; font-weight:300; letter-spacing:0; text-transform:none; margin-left:6px;">중복 선택 가능</span></p>
+        <div class="opt-grid">
+          <label class="opt-card">
+            <input type="checkbox" name="addon" value="insurance">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">단체 여행보험</span>
+              <span class="opt-card-desc">국내 여행자보험 일괄 가입</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="checkbox" name="addon" value="vehicle">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">전용 차량</span>
+              <span class="opt-card-desc">버스·밴 등 인원 맞춤 배차</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="checkbox" name="addon" value="hall">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">세미나실 임대</span>
+              <span class="opt-card-desc">빔프로젝터·마이크 포함</span>
+            </div>
+          </label>
+          <label class="opt-card">
+            <input type="checkbox" name="addon" value="photo">
+            <div class="opt-card-inner">
+              <span class="opt-card-name">포토 서비스</span>
+              <span class="opt-card-desc">전문 포토그래퍼 동행</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 06. 일정 미리보기 -->
+      <div class="pkg-section" id="schedule-section" style="display:none; border-bottom: 1px solid var(--c-border);">
+        <div class="sch-section-top">
+          <p class="pkg-section-title">06 &nbsp;일정 미리보기</p>
+          <button class="sch-print-btn" onclick="window.print()">인쇄하기</button>
+        </div>
+
+        <!-- 인쇄 프레임 -->
+        <div class="sch-frame" id="sch-frame">
+          <div class="sch-doc-top">
+            <div>
+              <div class="sch-doc-title">위시풀스테이 워크샵 패키지</div>
+              <div class="sch-doc-subtitle">일정 미리보기</div>
+            </div>
+            <div class="sch-doc-logo">WISHFUL STAY</div>
+          </div>
+
+          <div class="sch-info-grid" id="sch-info-grid"></div>
+
+          <div class="sch-divider"></div>
+
+          <div class="schedule-wrap" id="schedule-wrap"></div>
+
+          <div class="sch-doc-footer">
+            ※ 위 일정은 예시이며, 실제 운영 일정은 예약 확정 후 담당자와 협의하여 조율됩니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- 선택 구성 요약 (하단) -->
+      <div class="pkg-summary">
+        <p class="pkg-summary-title">선택 구성 요약</p>
+        <div class="summary-rows">
+          <div class="summary-row">
+            <span class="summary-label">일정</span>
+            <span class="summary-value empty" id="sum-duration">선택 안 함</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">인원</span>
+            <span class="summary-value" id="sum-people">10명</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">숙박</span>
+            <span class="summary-value" id="sum-stay">머큐어앰버서더 호텔</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">식사</span>
+            <span class="summary-value empty" id="sum-meal">선택 안 함</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">추가 체험</span>
+            <span class="summary-value empty" id="sum-exp">선택 안 함</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">추가옵션</span>
+            <span class="summary-value empty" id="sum-addon">선택 안 함</span>
+          </div>
+        </div>
+        <div class="summary-footer">
+          <p class="summary-note">선택하신 구성을 바탕으로 견적을 안내해 드립니다.<br>인원·일정에 따라 금액이 달라지며, 단체 할인이 적용됩니다.</p>
+          <a href="contact.html" class="pkg-inquiry-btn" id="inquiryBtn">이 구성으로 문의하기</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo"><img src="images/logo-symbol.png" alt="" class="footer-logo-symbol">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav" aria-label="푸터 메뉴">
+          <a href="index.html#about">소개</a>
+          <a href="index.html#packages">패키지</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="contact.html">문의</a>
+          <a href="partner.html">파트너 제휴</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>주식회사 위시풀스테이 &nbsp;|&nbsp; 대표 박성윤 &nbsp;|&nbsp; 사업자등록번호 875-81-03225</p>
+          <p>울산광역시 북구 동해안로 1586, 지하1층 (산하동) &nbsp;|&nbsp; 운영시간 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    /* ── 캘린더 상태 ── */
+    var cal = {
+      start: null,
+      end: null,
+      hover: null,
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()
+    };
+
+    var KO_MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    var KO_DOWS   = ['일','월','화','수','목','금','토'];
+
+    function ts(d) { return d ? d.getTime() : null; }
+    function sameDay(a, b) { return a && b && ts(a) === ts(b); }
+
+    function calRender() {
+      document.getElementById('calNavLabel').textContent =
+        cal.year + '년 ' + KO_MONTHS[cal.month];
+      calRenderMonth(document.getElementById('cal-left'), cal.year, cal.month);
+      calUpdateInfo();
+    }
+
+    function calRenderMonth(container, year, month) {
+      var today = new Date(); today.setHours(0,0,0,0);
+      var firstDow    = new Date(year, month, 1).getDay();
+      var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      var html = '<div class="cal-month-title">' + year + '년 ' + KO_MONTHS[month] + '</div>';
+      html += '<div class="cal-grid">';
+      KO_DOWS.forEach(function(d) { html += '<div class="cal-dow">' + d + '</div>'; });
+      for (var i = 0; i < firstDow; i++) html += '<div class="cal-day cal-day--empty"></div>';
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var date  = new Date(year, month, d);
+        var isPast = date < today;
+        var isStart = sameDay(date, cal.start);
+        var isEnd   = sameDay(date, cal.end);
+
+        var isRange = false;
+        if (cal.start && cal.end) {
+          isRange = date > cal.start && date < cal.end;
+        } else if (cal.start && !cal.end && cal.hover) {
+          var lo = cal.start < cal.hover ? cal.start : cal.hover;
+          var hi = cal.start < cal.hover ? cal.hover : cal.start;
+          isRange = date > lo && date < hi;
+        }
+
+        var isHoverEnd = !cal.end && cal.hover && sameDay(date, cal.hover) && !isStart;
+
+        var cls = 'cal-day';
+        if (isPast) { cls += ' cal-day--past'; }
+        else        { cls += ' cal-day--active'; }
+        if (isStart)    cls += ' cal-day--start';
+        if (isEnd)      cls += ' cal-day--end';
+        if (isRange)    cls += ' cal-day--range';
+        if (isHoverEnd) cls += ' cal-day--hover-end';
+
+        var dataAttr = isPast ? '' : ' data-ts="' + date.getTime() + '"';
+        html += '<div class="' + cls + '"' + dataAttr + '>' + d + '</div>';
+      }
+      html += '</div>';
+      container.innerHTML = html;
+
+      /* 클릭 이벤트 */
+      container.querySelectorAll('.cal-day--active').forEach(function(el) {
+        el.addEventListener('click', function() {
+          var clicked = new Date(+this.dataset.ts);
+          if (!cal.start || (cal.start && cal.end)) {
+            cal.start = clicked; cal.end = null;
+          } else if (sameDay(clicked, cal.start)) {
+            cal.start = null;
+          } else if (clicked < cal.start) {
+            cal.start = clicked; cal.end = null;
+          } else {
+            cal.end = clicked;
+          }
+          cal.hover = null;
+          calRender();
+          update();
+        });
+
+        /* hover: DOM 재생성 없이 클래스만 수정 */
+        el.addEventListener('mouseenter', function() {
+          if (!cal.start || cal.end) return;
+          var hTs = +this.dataset.ts;
+          var sTs = cal.start.getTime();
+          container.querySelectorAll('.cal-day--active').forEach(function(d) {
+            var dTs = +d.dataset.ts;
+            d.classList.remove('cal-day--range', 'cal-day--hover-end');
+            if (dTs > Math.min(sTs, hTs) && dTs < Math.max(sTs, hTs)) {
+              d.classList.add('cal-day--range');
+            }
+            if (dTs === hTs && dTs !== sTs) {
+              d.classList.add('cal-day--hover-end');
+            }
+          });
+        });
+      });
+
+      container.addEventListener('mouseleave', function() {
+        if (!cal.start || cal.end) return;
+        container.querySelectorAll('.cal-day').forEach(function(d) {
+          d.classList.remove('cal-day--range', 'cal-day--hover-end');
+        });
+      });
+    }
+
+    function calUpdateInfo() {
+      var fmt = function(d) {
+        return (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+      };
+      var ciEl     = document.getElementById('cal-checkin');
+      var coEl     = document.getElementById('cal-checkout');
+      var nightsEl = document.getElementById('cal-nights');
+
+      if (cal.start) {
+        ciEl.textContent = fmt(cal.start);
+        ciEl.className = 'cal-info-val';
+      } else {
+        ciEl.textContent = '날짜 선택';
+        ciEl.className = 'cal-info-val cal-info-val--empty';
+      }
+
+      if (cal.end) {
+        coEl.textContent = fmt(cal.end);
+        coEl.className = 'cal-info-val';
+        var nights = Math.round((cal.end - cal.start) / 86400000);
+        nightsEl.textContent = nights + '박 ' + (nights + 1) + '일';
+      } else {
+        coEl.textContent = '날짜 선택';
+        coEl.className = 'cal-info-val cal-info-val--empty';
+        nightsEl.textContent = '';
+      }
+    }
+
+    document.getElementById('calPrev').addEventListener('click', function() {
+      cal.month--;
+      if (cal.month < 0) { cal.month = 11; cal.year--; }
+      calRender();
+    });
+    document.getElementById('calNext').addEventListener('click', function() {
+      cal.month++;
+      if (cal.month > 11) { cal.month = 0; cal.year++; }
+      calRender();
+    });
+    document.getElementById('calClear').addEventListener('click', function() {
+      cal.start = null; cal.end = null; cal.hover = null;
+      calRender(); update();
+    });
+
+    /* ── 숙박 슬라이드 ── */
+    var slides = {
+      hotel:     { cur: 0, total: 4 },
+      residence: { cur: 0, total: 5 }
+    };
+
+    function slideInit(id) {
+      var s = slides[id];
+      var dotsEl = document.getElementById('dots-' + id);
+      dotsEl.innerHTML = '';
+      for (var i = 0; i < s.total; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'slide-dot' + (i === 0 ? ' slide-dot--active' : '');
+        (function(idx){ dot.addEventListener('click', function(){ slideTo(id, idx); }); })(i);
+        dotsEl.appendChild(dot);
+      }
+    }
+
+    function slideTo(id, idx) {
+      var s = slides[id];
+      s.cur = (idx + s.total) % s.total;
+      document.querySelector('#slide-' + id + ' .stay-slide-track').style.transform =
+        'translateX(-' + (s.cur * 100) + '%)';
+      document.querySelectorAll('#dots-' + id + ' .slide-dot').forEach(function(d, i) {
+        d.classList.toggle('slide-dot--active', i === s.cur);
+      });
+    }
+
+    function slideMove(id, dir) { slideTo(id, slides[id].cur + dir); }
+
+    slideInit('hotel');
+    slideInit('residence');
+
+    /* ── 인원 조절 ── */
+    var count = 6;
+    document.getElementById('peopleMinus').addEventListener('click', function() {
+      if (count > 6) { count--; update(); }
+    });
+    document.getElementById('peoplePlus').addEventListener('click', function() {
+      if (count < 100) { count++; update(); }
+    });
+
+    /* ── 요약 업데이트 ── */
+    function update() {
+      document.getElementById('peopleCount').textContent = count;
+      document.getElementById('sum-people').textContent  = count + '명';
+
+      /* 일정 */
+      var durEl = document.getElementById('sum-duration');
+      if (cal.start && cal.end) {
+        var fmtS = function(d) { return (d.getMonth()+1) + '/' + d.getDate(); };
+        var nights = Math.round((cal.end - cal.start) / 86400000);
+        durEl.textContent = fmtS(cal.start) + ' — ' + fmtS(cal.end) + '  (' + nights + '박 ' + (nights+1) + '일)';
+        durEl.className = 'summary-value';
+      } else if (cal.start) {
+        var fmtL = function(d) { return (d.getMonth()+1) + '월 ' + d.getDate() + '일'; };
+        durEl.textContent = fmtL(cal.start) + ' 체크인';
+        durEl.className = 'summary-value';
+      } else {
+        durEl.textContent = '선택 안 함';
+        durEl.className = 'summary-value empty';
+      }
+
+      /* 숙박 */
+      var stay = document.querySelector('input[name="stay"]:checked');
+      var stayMap = { hotel: '머큐어앰버서더 호텔', residence: '씨스테이 레지던스', none: '숙박 없음' };
+      document.getElementById('sum-stay').textContent = stay ? stayMap[stay.value] : '—';
+
+      /* 식사 */
+      var mealRadio = document.querySelector('input[name="meal"]:checked');
+      var mealEl = document.getElementById('sum-meal');
+      var mealLabelMap = { full: '전체 일정 포함', partial: '일부 포함', none: '미포함' };
+      if (mealRadio) {
+        mealEl.textContent = mealLabelMap[mealRadio.value] || '—';
+        mealEl.className = 'summary-value';
+      } else {
+        mealEl.textContent = '선택 안 함';
+        mealEl.className = 'summary-value empty';
+      }
+
+      /* 일부포함 그리드 갱신 */
+      renderMealPartial();
+
+      /* 일정 미리보기 갱신 */
+      renderSchedule();
+
+      /* 추가 체험 */
+      var exps   = Array.from(document.querySelectorAll('input[name="exp"]:checked'));
+      var expMap = { horse: '승마', temple: '사찰문화', craft: '공예', leisure: '해양레저' };
+      var expEl  = document.getElementById('sum-exp');
+      if (exps.length) {
+        expEl.textContent = exps.map(function(e) { return expMap[e.value]; }).join(' · ');
+        expEl.className = 'summary-value';
+      } else {
+        expEl.textContent = '선택 안 함';
+        expEl.className = 'summary-value empty';
+      }
+
+      /* 추가옵션 */
+      var addons   = Array.from(document.querySelectorAll('input[name="addon"]:checked'));
+      var addonMap = { insurance: '여행보험', vehicle: '전용 차량', hall: '세미나실', photo: '포토 서비스' };
+      var addonEl  = document.getElementById('sum-addon');
+      if (addons.length) {
+        addonEl.textContent = addons.map(function(a) { return addonMap[a.value]; }).join(' · ');
+        addonEl.className = 'summary-value';
+      } else {
+        addonEl.textContent = '선택 안 함';
+        addonEl.className = 'summary-value empty';
+      }
+    }
+
+    /* ── 일정 미리보기 렌더 ── */
+    var ACT_POOL = {
+      horse:   { name: '승마 체험',        start: '10:00', end: '12:00', prefer: 'morning',   tag: 'exp' },
+      temple:  { name: '사찰문화 체험',    start: '09:30', end: '11:30', prefer: 'morning',   tag: 'exp' },
+      craft:   { name: '공예 체험',        start: '16:30', end: '18:00', prefer: 'afternoon', tag: 'exp' },
+      leisure: { name: '해양레저',         start: '14:00', end: '16:30', prefer: 'afternoon', tag: 'exp' },
+      hall:    { name: '세미나 · 워크샵',  start: '10:00', end: '17:00', prefer: 'morning',   tag: 'addon' },
+      photo:   { name: '포토 촬영',        start: '16:00', end: '17:30', prefer: 'afternoon', tag: 'addon' },
+    };
+
+    function renderSchedule() {
+      var section = document.getElementById('schedule-section');
+      var wrap    = document.getElementById('schedule-wrap');
+      if (!cal.start) { section.style.display = 'none'; return; }
+      section.style.display = 'block';
+
+      var days       = cal.end ? Math.round((cal.end - cal.start) / 86400000) + 1 : 1;
+      var isOvernight = days > 1;
+      var stayRadio  = document.querySelector('input[name="stay"]:checked');
+      var stayVal    = stayRadio ? stayRadio.value : 'hotel';
+      var hasAccom   = stayVal !== 'none';
+      var hasVehicle = !!document.querySelector('input[name="addon"][value="vehicle"]:checked');
+
+      /* 선택 활동 수집 */
+      var actList = [];
+      ['horse','temple','craft','leisure'].forEach(function(v) {
+        if (document.querySelector('input[name="exp"][value="'+v+'"]:checked'))
+          actList.push({name:ACT_POOL[v].name, start:ACT_POOL[v].start, end:ACT_POOL[v].end, prefer:ACT_POOL[v].prefer, tag:ACT_POOL[v].tag});
+      });
+      ['hall','photo'].forEach(function(v) {
+        if (document.querySelector('input[name="addon"][value="'+v+'"]:checked'))
+          actList.push({name:ACT_POOL[v].name, start:ACT_POOL[v].start, end:ACT_POOL[v].end, prefer:ACT_POOL[v].prefer, tag:ACT_POOL[v].tag});
+      });
+
+      /* 활동 날짜 배분 */
+      var dayActs = [];
+      for (var d = 0; d < days; d++) dayActs.push([]);
+      var morningActs   = actList.filter(function(a){ return a.prefer === 'morning'; });
+      var afternoonActs = actList.filter(function(a){ return a.prefer === 'afternoon'; });
+      if (!isOvernight) {
+        dayActs[0] = actList;
+      } else {
+        afternoonActs.forEach(function(a,i){ dayActs[Math.min(i, days-1)].push(a); });
+        morningActs.forEach(function(a,i){   dayActs[Math.min(i+1, days-1)].push(a); });
+      }
+
+      /* 식사 헬퍼 */
+      var mealRadio = document.querySelector('input[name="meal"]:checked');
+      var mealVal   = mealRadio ? mealRadio.value : 'none';
+      var getMeal   = function(di, mi) {
+        if (mealVal === 'none') return false;
+        if (mealVal === 'full') return !(di === 0 && mi === 0);
+        var boxes = document.querySelectorAll('input[name="meal-detail"]');
+        var idx = di * 3 + mi;
+        return boxes[idx] ? boxes[idx].checked : false;
+      };
+
+      /* 슬롯 빌드 & 렌더 */
+      var html = '';
+      for (var d = 0; d < days; d++) {
+        var slots   = [];
+        var isFirst = d === 0;
+        var isLast  = d === days - 1;
+        var dDate   = new Date(cal.start); dDate.setDate(dDate.getDate() + d);
+        var dow     = ['일','월','화','수','목','금','토'][dDate.getDay()];
+        var dateStr = (dDate.getMonth()+1) + '/' + dDate.getDate() + ' (' + dow + ')';
+        var dayTag  = isFirst && isOvernight ? '1일차 · 체크인'
+                    : isLast  && isOvernight ? days + '일차 · 체크아웃'
+                    : (d+1) + '일차';
+
+        /* 집결·이동 */
+        if (isFirst && hasVehicle && isOvernight)
+          slots.push({ time:'14:00', end:'15:00', name:'이동 · 집결 (전용 차량)', tag:'addon' });
+        else if (isFirst && !isOvernight)
+          slots.push({ time:'09:30', end:'10:00', name:'집결 및 오리엔테이션',    tag:'info' });
+
+        /* 체크인 */
+        if (isFirst && isOvernight && hasAccom) {
+          slots.push({ time:'15:00', end:'16:00', name:'체크인 및 객실 배정', tag:'stay' });
+          slots.push({ time:'16:00', end:'16:30', name:'오리엔테이션',        tag:'info' });
+        }
+
+        /* 오전 오리엔테이션 (중간·마지막날) */
+        if (!isFirst && isOvernight)
+          slots.push({ time:'09:00', end:'09:30', name:'오전 오리엔테이션', tag:'info' });
+
+        /* 체크아웃 */
+        if (isLast && isOvernight && hasAccom)
+          slots.push({ time:'10:00', end:'11:00', name:'체크아웃 및 짐 정리', tag:'stay' });
+
+        /* 식사 */
+        if (getMeal(d,0)) slots.push({ time:'07:30', end:'08:30', name:'조식', tag:'meal' });
+        if (getMeal(d,1)) slots.push({ time:'12:30', end:'13:30', name:'중식', tag:'meal' });
+        if (getMeal(d,2)) slots.push({ time:'18:30', end:'20:00', name:'석식', tag:'meal' });
+
+        /* 활동 */
+        dayActs[d].forEach(function(a){
+          slots.push({ time:a.start, end:a.end, name:a.name, tag:a.tag });
+        });
+
+        /* 자유시간 */
+        if (isOvernight && !isLast && getMeal(d,2))
+          slots.push({ time:'20:00', end:'21:00', name:'자유 시간', tag:'free' });
+
+        /* 시간순 정렬 */
+        slots.sort(function(a,b){ return a.time.localeCompare(b.time); });
+        if (!slots.length)
+          slots.push({ time:'09:00', end:'18:00', name:'자유 일정', tag:'free' });
+
+        html += '<div class="schedule-day">';
+        html += '<div class="schedule-day-header">'
+              + '<span class="sch-date">' + dateStr + '</span>'
+              + '<span class="sch-daytag">' + dayTag + '</span>'
+              + '</div>';
+        slots.forEach(function(s){
+          html += '<div class="schedule-slot">'
+                + '<span class="schedule-time">' + s.time + '&thinsp;~&thinsp;' + s.end + '</span>'
+                + '<span class="schedule-item schedule-tag-' + s.tag + '">' + s.name + '</span>'
+                + '</div>';
+        });
+        html += '</div>';
+      }
+      wrap.innerHTML = html;
+
+      /* ─ 구성 요약 정보 채우기 ─ */
+      var infoGrid = document.getElementById('sch-info-grid');
+      if (infoGrid) {
+        var stayNameMap  = { hotel: '머큐어 앰배서더 호텔', residence: '씨스테이 레지던스', none: '숙박 없음' };
+        var mealLabelMap = { full: '전체 일정 포함', partial: '일부 포함', none: '미포함' };
+        var expNameMap   = { horse: '승마 체험', temple: '사찰문화 체험', craft: '공예 체험', leisure: '해양레저' };
+        var addonNameMap = { insurance: '여행보험', vehicle: '전용 차량', hall: '세미나실', photo: '포토 서비스' };
+
+        var fmtDate = function(d) {
+          return (d.getFullYear()) + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+        };
+        var dateVal = cal.end
+          ? fmtDate(cal.start) + ' ~ ' + fmtDate(cal.end) + ' (' + (days-1) + '박 ' + days + '일)'
+          : fmtDate(cal.start) + ' (당일)';
+        var stayVal2  = stayNameMap[stayVal] || '—';
+        var mealVal2  = mealLabelMap[mealVal] || '—';
+        var expNames  = ['horse','temple','craft','leisure'].filter(function(v){
+          return !!document.querySelector('input[name="exp"][value="'+v+'"]:checked');
+        }).map(function(v){ return expNameMap[v]; });
+        var addonNames = ['insurance','vehicle','hall','photo'].filter(function(v){
+          return !!document.querySelector('input[name="addon"][value="'+v+'"]:checked');
+        }).map(function(v){ return addonNameMap[v]; });
+
+        var cells = [
+          { label: '일정', value: dateVal },
+          { label: '인원', value: count + '명' },
+          { label: '숙박', value: stayVal2 },
+          { label: '식사', value: mealVal2 },
+          { label: '추가 체험', value: expNames.length ? expNames.join(' · ') : '선택 안 함' },
+          { label: '추가 옵션', value: addonNames.length ? addonNames.join(' · ') : '선택 안 함' },
+        ];
+        infoGrid.innerHTML = cells.map(function(c){
+          return '<div class="sch-info-cell">'
+               + '<div class="sch-info-label">' + c.label + '</div>'
+               + '<div class="sch-info-value">' + c.value + '</div>'
+               + '</div>';
+        }).join('');
+      }
+    }
+
+    /* ── 식사 그리드 (전체 / 일부 공용) ── */
+    function renderMealPartial() {
+      var wrap = document.getElementById('meal-partial-wrap');
+      var grid = document.getElementById('meal-partial-grid');
+      var mealRadio = document.querySelector('input[name="meal"]:checked');
+
+      if (!mealRadio || mealRadio.value === 'none') {
+        wrap.classList.remove('open');
+        return;
+      }
+      wrap.classList.add('open');
+
+      var isFull = mealRadio.value === 'full';
+
+      /* 일수 계산 */
+      var days = 1;
+      if (cal.start && cal.end) {
+        days = Math.round((cal.end - cal.start) / 86400000) + 1;
+      }
+
+      /* 날짜 레이블 */
+      var dayLabel = function(i) {
+        if (cal.start) {
+          var d = new Date(cal.start);
+          d.setDate(d.getDate() + i);
+          var dow = ['일','월','화','수','목','금','토'][d.getDay()];
+          return (d.getMonth()+1) + '/' + d.getDate() + ' (' + dow + ')';
+        }
+        return (i+1) + '일차';
+      };
+
+      /* 전체포함일 때 자동 체크 여부:
+         1일차는 조식 제외(체크인 오후), 나머지는 전체 */
+      var isAutoChecked = function(dayIdx, mealIdx) {
+        if (!isFull) return false;
+        if (dayIdx === 0 && mealIdx === 0) return false; /* 1일차 조식 제외 */
+        return true;
+      };
+
+      var meals = ['조식', '중식', '석식'];
+      var html = '';
+      for (var i = 0; i < days; i++) {
+        html += '<div class="meal-day-row">';
+        html += '<span class="meal-day-label">' + dayLabel(i) + '</span>';
+        for (var j = 0; j < 3; j++) {
+          var id = 'mc-' + i + '-' + j;
+          var checked = isAutoChecked(i, j) ? ' checked' : '';
+          var autoClass = (isFull && !(i === 0 && j === 0)) ? ' meal-auto' : '';
+          html += '<label class="meal-check-card' + autoClass + '">';
+          html += '<input type="checkbox" id="' + id + '" name="meal-detail"' + checked + '>';
+          html += '<div class="meal-check-inner">' + meals[j] + '</div>';
+          html += '</label>';
+        }
+        html += '</div>';
+      }
+      grid.innerHTML = html;
+    }
+
+    /* ── 식사 그리드 체크 → 라디오 자동 전환 ── */
+    document.getElementById('meal-partial-wrap').addEventListener('change', function(e) {
+      if (!e.target.matches('input[name="meal-detail"]')) return;
+
+      var checkboxes = Array.from(document.querySelectorAll('input[name="meal-detail"]'));
+      /* 적용 대상: 1일차 조식(idx 0) 제외 */
+      var applicable  = checkboxes.length - 1;
+      var checkedCount = checkboxes.filter(function(cb, idx) {
+        return idx !== 0 && cb.checked;
+      }).length;
+
+      var currentRadio = document.querySelector('input[name="meal"]:checked');
+      var currentVal   = currentRadio ? currentRadio.value : null;
+
+      if (checkedCount === applicable && currentVal !== 'full') {
+        /* 전부 체크됨 → 전체 일정 포함으로 전환 (그리드 유지) */
+        document.querySelector('input[name="meal"][value="full"]').checked = true;
+      } else if (checkedCount < applicable && currentVal !== 'partial') {
+        /* 하나라도 해제됨 → 일부 포함으로 전환 (그리드 유지) */
+        document.querySelector('input[name="meal"][value="partial"]').checked = true;
+      }
+
+      /* 요약 텍스트만 갱신 */
+      var mealLabelMap = { full: '전체 일정 포함', partial: '일부 포함', none: '미포함' };
+      var newRadio = document.querySelector('input[name="meal"]:checked');
+      var mealEl = document.getElementById('sum-meal');
+      if (newRadio) {
+        mealEl.textContent = mealLabelMap[newRadio.value];
+        mealEl.className = 'summary-value';
+      }
+    });
+
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(function(el) {
+      el.addEventListener('change', update);
+    });
+
+    /* 초기 렌더 */
+    calRender();
+    update();
+  </script>
+</body>
+</html>
