@@ -95,15 +95,30 @@
     ═══════════════════════════════════════════════════════════ -->
     <section id="hero" aria-label="메인 히어로">
 
-      <!-- 배경 이미지 영역 -->
-      <!-- 📷 사진 교체 방법:
-           아래 div 전체를 지우고
-           <img src="images/hero.jpg" alt="강동 해안 풍경" style="width:100%;height:100%;object-fit:cover;">
-           로 교체하면 됩니다 -->
-      <div class="hero-bg">
-        <img src="images/hero-main.jpeg" alt="강동 해안 풍경" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+      <!-- 슬라이드 배경 -->
+      <div class="hero-slider" id="heroSlider">
+        <div class="hero-slide is-active">
+          <img src="images/main_hotel_01.JPG" alt="강동 호텔" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="hero-slide">
+          <img src="images/main_horse_01.JPG" alt="승마 체험" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="hero-slide">
+          <img src="images/main_Jade_01.JPG" alt="제이드밀 식사" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="hero-slide">
+          <img src="images/main_busking_01.JPG" alt="버스킹 공연" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
       </div>
       <div class="hero-overlay"></div>
+
+      <!-- 슬라이드 도트 네비게이션 -->
+      <div class="hero-dots" aria-hidden="true">
+        <button class="hero-dot is-active" data-index="0"></button>
+        <button class="hero-dot" data-index="1"></button>
+        <button class="hero-dot" data-index="2"></button>
+        <button class="hero-dot" data-index="3"></button>
+      </div>
 
       <div class="hero-content">
         <!-- ✏️ 수정: 히어로 소제목 (영문 태그라인) -->

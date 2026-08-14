@@ -461,6 +461,42 @@
   }
 
 
+  /* ── Hero Slideshow ─────────────────────────────────────────── */
+
+  function initHeroSlider() {
+    var slides = document.querySelectorAll('.hero-slide');
+    var dots   = document.querySelectorAll('.hero-dot');
+    if (!slides.length) return;
+
+    var current = 0;
+    var timer;
+
+    function goTo(index) {
+      slides[current].classList.remove('is-active');
+      dots[current].classList.remove('is-active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      dots[current].classList.add('is-active');
+    }
+
+    function next() { goTo(current + 1); }
+
+    function startAuto() {
+      timer = setInterval(next, 5000);
+    }
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        clearInterval(timer);
+        goTo(parseInt(this.dataset.index, 10));
+        startAuto();
+      });
+    });
+
+    startAuto();
+  }
+
+
   /* ── 초기화 ─────────────────────────────────────────────────── */
 
   updatePackageNav();
@@ -468,5 +504,6 @@
   initPackagePage();
   initContactForm();
   setTimeout(initImageSliders, 0);
+  initHeroSlider();
 
 })();
