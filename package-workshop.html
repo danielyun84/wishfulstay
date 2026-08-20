@@ -960,10 +960,16 @@
     }
 
     /* ── 기간 선택 ── */
+    .pkg-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .pkg-section-header .pkg-section-title { margin-bottom: 0; }
     .dur-selector {
       display: flex;
       gap: 10px;
-      margin-bottom: 28px;
     }
     .dur-btn {
       padding: 10px 32px;
@@ -1067,11 +1073,12 @@
 
       <!-- 01. 일정 -->
       <div class="pkg-section">
-        <p class="pkg-section-title">01 &nbsp;일정선택</p>
-        <!-- 기간 선택 -->
-        <div class="dur-selector">
-          <button class="dur-btn active" data-nights="1" type="button">1박 2일</button>
-          <button class="dur-btn" data-nights="2" type="button">2박 3일</button>
+        <div class="pkg-section-header">
+          <p class="pkg-section-title">01 &nbsp;일정선택</p>
+          <div class="dur-selector">
+            <button class="dur-btn active" data-nights="1" type="button">1박 2일</button>
+            <button class="dur-btn" data-nights="2" type="button">2박 3일</button>
+          </div>
         </div>
         <div class="cal-nav-row">
           <button class="cal-nav-btn" id="calPrev">&#8592;</button>
