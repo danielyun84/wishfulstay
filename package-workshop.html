@@ -569,6 +569,44 @@
       margin-bottom: 24px;
       line-height: 1.7;
     }
+    /* ── 문의 모달 ── */
+    .inq-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.45); z-index: 900;
+      align-items: center; justify-content: center;
+    }
+    .inq-overlay.open { display: flex; }
+    .inq-modal {
+      background: var(--c-bg); border-radius: 4px;
+      padding: 36px 32px 28px; width: 100%; max-width: 420px;
+      position: relative; box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    }
+    .inq-close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; font-size: 16px;
+      color: var(--c-muted); cursor: pointer;
+    }
+    .inq-title { font-size: 15px; font-weight: 600; margin: 0 0 4px; color: var(--c-dark); }
+    .inq-sub { font-size: 12px; color: var(--c-muted); margin: 0 0 22px; }
+    .inq-field { margin-bottom: 16px; }
+    .inq-label { display: block; font-size: 12px; font-weight: 500; color: var(--c-dark); margin-bottom: 6px; }
+    .inq-req { color: #c0392b; }
+    .inq-input {
+      width: 100%; box-sizing: border-box;
+      border: 1px solid var(--c-border); border-radius: 3px;
+      padding: 9px 12px; font-size: 13px; color: var(--c-dark);
+      background: var(--c-bg); outline: none;
+    }
+    .inq-input:focus { border-color: var(--c-dark); }
+    .inq-submit {
+      width: 100%; padding: 12px; margin-top: 6px;
+      background: var(--c-dark); color: #fff;
+      border: none; border-radius: 3px; font-size: 13px;
+      font-weight: 600; cursor: pointer; letter-spacing: 0.04em;
+    }
+    .inq-submit:disabled { opacity: .5; cursor: default; }
+    .inq-error { font-size: 12px; color: #c0392b; margin: 8px 0 0; min-height: 16px; }
+
     .exp-placeholder { font-size: 13px; color: var(--c-muted); }
     .exp-day-group { margin-bottom: 22px; }
     .exp-day-group:last-child { margin-bottom: 0; }
@@ -787,6 +825,9 @@
       background: var(--c-cream);
       padding: 32px;
       margin-top: 48px;
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
     }
     .pkg-summary-title {
       font-family: var(--f-display);
@@ -1285,6 +1326,29 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- 문의 모달 -->
+    <div class="inq-overlay" id="inqOverlay" aria-hidden="true">
+      <div class="inq-modal" role="dialog" aria-modal="true" aria-labelledby="inqModalTitle">
+        <button class="inq-close" id="inqClose" aria-label="닫기">✕</button>
+        <p class="inq-title" id="inqModalTitle">문의자 정보 입력</p>
+        <p class="inq-sub">선택하신 구성과 함께 전달됩니다.</p>
+        <div class="inq-field">
+          <label class="inq-label" for="inq-company">기업명 / 담당자명 <span class="inq-req">*</span></label>
+          <input class="inq-input" id="inq-company" type="text" placeholder="예) (주)위시풀스테이 홍길동">
+        </div>
+        <div class="inq-field">
+          <label class="inq-label" for="inq-phone">연락처 <span class="inq-req">*</span></label>
+          <input class="inq-input" id="inq-phone" type="tel" placeholder="예) 010-1234-5678">
+        </div>
+        <div class="inq-field">
+          <label class="inq-label" for="inq-email">이메일 <span class="inq-req">*</span></label>
+          <input class="inq-input" id="inq-email" type="email" placeholder="예) contact@company.com">
+        </div>
+        <button class="inq-submit" id="inqSubmit" type="button">문의 전송하기</button>
+        <p class="inq-error" id="inqError"></p>
+      </div>
     </div>
 
   </main>
@@ -2112,41 +2176,75 @@
     calRender();
     update();
 
-    /* ── EmailJS 문의하기 ── */
-    document.getElementById('inquiryBtn').addEventListener('click', function() {
-      var btn = this;
+    /* ── 문의 모달 ── */
+    var inqOverlay = document.getElementById('inqOverlay');
+    var inqClose   = document.getElementById('inqClose');
+    var inqSubmit  = document.getElementById('inqSubmit');
+    var inqError   = document.getElementById('inqError');
 
-      /* 요약 텍스트 수집 */
-      var summaryRows = Array.from(document.querySelectorAll('.summary-row')).map(function(row) {
+    function openInqModal() { inqOverlay.classList.add('open'); inqOverlay.removeAttribute('aria-hidden'); }
+    function closeInqModal() { inqOverlay.classList.remove('open'); inqOverlay.setAttribute('aria-hidden','true'); inqError.textContent = ''; }
+
+    document.getElementById('inquiryBtn').addEventListener('click', openInqModal);
+    inqClose.addEventListener('click', closeInqModal);
+    inqOverlay.addEventListener('click', function(e) { if (e.target === inqOverlay) closeInqModal(); });
+
+    inqSubmit.addEventListener('click', function() {
+      var company = document.getElementById('inq-company').value.trim();
+      var phone   = document.getElementById('inq-phone').value.trim();
+      var email   = document.getElementById('inq-email').value.trim();
+
+      if (!company || !phone || !email) { inqError.textContent = '모든 항목을 입력해주세요.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { inqError.textContent = '이메일 형식을 확인해주세요.'; return; }
+
+      /* 요약 */
+      var contactInfo = '[ 문의자 정보 ]\n기업명 / 담당자 : ' + company + '\n연락처 : ' + phone + '\n이메일 : ' + email;
+      var selectionRows = Array.from(document.querySelectorAll('.summary-row')).map(function(row) {
         var label = (row.querySelector('.summary-label') || {}).textContent || '';
         var value = (row.querySelector('.summary-value') || {}).textContent || '';
-        return label + ': ' + value;
+        return label + ' : ' + value;
       }).join('\n');
+      var summaryText = contactInfo + '\n\n[ 선택 구성 ]\n' + selectionRows;
 
-      /* 일정 텍스트 수집 */
-      var scheduleText = (document.getElementById('schedule-wrap') || {}).innerText || '일정 미선택';
+      /* 일정 포맷 */
+      var schedLines = [];
+      Array.from(document.querySelectorAll('.schedule-day')).forEach(function(day) {
+        var date = (day.querySelector('.sch-date') || {}).textContent || '';
+        var tag  = (day.querySelector('.sch-daytag') || {}).textContent || '';
+        schedLines.push('[ ' + date + '  ' + tag + ' ]');
+        Array.from(day.querySelectorAll('.schedule-slot')).forEach(function(slot) {
+          var time = (slot.querySelector('.schedule-time') || {}).textContent || '';
+          var name = (slot.querySelector('.schedule-item') || {}).textContent || '';
+          schedLines.push('  ' + time + '  ' + name);
+        });
+        schedLines.push('');
+      });
+      var scheduleText = schedLines.length ? schedLines.join('\n') : '일정 미선택';
 
-      /* 발송 */
-      btn.disabled = true;
-      btn.textContent = '발송 중...';
+      inqSubmit.disabled = true;
+      inqSubmit.textContent = '전송 중...';
+      inqError.textContent = '';
 
       emailjs.send('service_zg28jzh', 'template_tuagors', {
-        summary:  summaryRows,
+        summary:  summaryText,
         schedule: scheduleText,
         time:     new Date().toLocaleString('ko-KR')
       }).then(function() {
+        closeInqModal();
+        var btn = document.getElementById('inquiryBtn');
         btn.textContent = '문의가 전송되었습니다 ✓';
         btn.style.background = '#4a7c59';
         setTimeout(function() {
-          btn.disabled = false;
           btn.textContent = '이 구성으로 문의하기';
           btn.style.background = '';
+          inqSubmit.disabled = false;
+          inqSubmit.textContent = '문의 전송하기';
         }, 4000);
       }, function(err) {
         console.error('EmailJS error:', err);
-        btn.disabled = false;
-        btn.textContent = '전송 실패 — 다시 시도해주세요';
-        setTimeout(function() { btn.textContent = '이 구성으로 문의하기'; }, 3000);
+        inqError.textContent = '전송에 실패했습니다. 다시 시도해주세요.';
+        inqSubmit.disabled = false;
+        inqSubmit.textContent = '문의 전송하기';
       });
     });
   </script>
