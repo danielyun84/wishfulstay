@@ -1683,87 +1683,98 @@
       self:        null,
     };
 
+    function minsToTime(m) {
+      var h = Math.floor(m / 60);
+      var mn = m % 60;
+      return h + ':' + (mn < 10 ? '0' + mn : '' + mn);
+    }
+
     function renderSchedule() {
       var section = document.getElementById('schedule-section');
       var wrap    = document.getElementById('schedule-wrap');
       if (!cal.start) { section.style.display = 'none'; return; }
       section.style.display = 'block';
 
-      var days       = cal.end ? Math.round((cal.end - cal.start) / 86400000) + 1 : 1;
+      var days        = cal.end ? Math.round((cal.end - cal.start) / 86400000) + 1 : 1;
       var isOvernight = days > 1;
-      var stayRadio  = document.querySelector('input[name="stay"]:checked');
-      var stayVal    = stayRadio ? stayRadio.value : 'hotel';
-      var hasAccom   = stayVal !== 'none';
-      var hasVehicle = !!document.querySelector('input[name="addon"][value="vehicle"]:checked');
+      var stayRadio   = document.querySelector('input[name="stay"]:checked');
+      var stayVal     = stayRadio ? stayRadio.value : 'hotel';
+      var hasAccom    = stayVal !== 'none';
+      var hasVehicle  = !!document.querySelector('input[name="addon"][value="vehicle"]:checked');
 
-      /* 선택 활동 수집 */
-      var actList = [];
-
-      /* 워크샵 프로그램 → 새 패널 입력값 기준 */
+      /* ── 워크샵 프로그램 수집 (각 1시간짜리 항목 배열) ── */
       var wspCatActive = (document.querySelector('.wsp-cat-btn.active') || {}).dataset || {};
-      var wspCatVal = wspCatActive.cat || 'none';
+      var wspCatVal    = wspCatActive.cat || 'none';
+      var wspItems     = [];
       if (wspCatVal === 'edu') {
         var eduCourseNames = { ai:'AI 기초교육', career:'진로교육', startup:'시니어 창업', lifeplan:'생애설계', retire:'은퇴설계', humanities:'인문학강좌', hobby:'취미교육' };
-        var eduDurRadio = document.querySelector('input[name="edu-duration"]:checked');
-        var eduEnd = (!eduDurRadio || eduDurRadio.value === 'half') ? '13:00' : '17:00';
         var eduCourses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked'));
         if (eduCourses.length) {
-          var courseName = eduCourses.map(function(el){ return eduCourseNames[el.value]; }).join(' · ');
-          actList.push({ name: courseName, start: '10:00', end: eduEnd, prefer: 'morning', tag: 'edu' });
+          eduCourses.slice(0, 3).forEach(function(el) {
+            wspItems.push({ name: eduCourseNames[el.value] || el.value, tag: 'edu' });
+          });
         } else {
-          actList.push({ name: '교육 / 강좌', start: '10:00', end: eduEnd, prefer: 'morning', tag: 'edu' });
+          wspItems.push({ name: '교육 / 강좌', tag: 'edu' });
         }
       } else if (wspCatVal === 'rec') {
         var recProgNames = { teamgame:'팀게임', sports:'스포츠 대항전', outdoor:'야외 레크레이션', dance:'율동·댄스' };
-        var recDurRadio = document.querySelector('input[name="rec-duration"]:checked');
-        var recDurVal = recDurRadio ? recDurRadio.value : '2h';
-        var recEnd = recDurVal === '1h' ? '15:00' : recDurVal === 'half' ? '17:00' : '16:00';
         var recProgs = Array.from(document.querySelectorAll('input[name="rec-prog"]:checked'));
-        var recName = recProgs.length ? recProgs.map(function(el){ return recProgNames[el.value]; }).join(' · ') : '레크레이션';
-        actList.push({ name: recName, start: '14:00', end: recEnd, prefer: 'afternoon', tag: 'edu' });
+        if (recProgs.length) {
+          recProgs.slice(0, 3).forEach(function(el) {
+            wspItems.push({ name: recProgNames[el.value] || el.value, tag: 'edu' });
+          });
+        } else {
+          wspItems.push({ name: '레크레이션', tag: 'edu' });
+        }
       } else if (wspCatVal === 'exp') {
         var wspExpNames = { horse:'승마 체험', temple:'사찰문화 체험', craft:'공예 체험', leisure:'해양레저' };
-        var expTimeRadio = document.querySelector('input[name="wsp-exp-time"]:checked');
-        var expMorning = !expTimeRadio || expTimeRadio.value === 'morning';
-        Array.from(document.querySelectorAll('input[name="wsp-exp"]:checked')).forEach(function(el) {
-          var key = el.value;
-          var a = ACT_POOL[key];
-          if (a) actList.push({ name: a.name, start: a.start, end: a.end, prefer: expMorning ? 'morning' : 'afternoon', tag: 'exp' });
-        });
+        var expChecked  = Array.from(document.querySelectorAll('input[name="wsp-exp"]:checked'));
+        if (expChecked.length) {
+          expChecked.slice(0, 3).forEach(function(el) {
+            wspItems.push({ name: wspExpNames[el.value] || el.value, tag: 'exp' });
+          });
+        } else {
+          wspItems.push({ name: '워크샵 체험', tag: 'exp' });
+        }
       }
+
+      /* ── 추가 체험 수집 (각 2시간짜리) ── */
+      var expNameMap = { horse:'승마 체험', temple:'사찰문화 체험', craft:'공예 체험', leisure:'해양레저' };
+      var expList    = [];
       ['horse','temple','craft','leisure'].forEach(function(v) {
         if (document.querySelector('input[name="exp"][value="'+v+'"]:checked'))
-          actList.push({name:ACT_POOL[v].name, start:ACT_POOL[v].start, end:ACT_POOL[v].end, prefer:ACT_POOL[v].prefer, tag:ACT_POOL[v].tag});
-      });
-      ['hall','photo'].forEach(function(v) {
-        if (document.querySelector('input[name="addon"][value="'+v+'"]:checked'))
-          actList.push({name:ACT_POOL[v].name, start:ACT_POOL[v].start, end:ACT_POOL[v].end, prefer:ACT_POOL[v].prefer, tag:ACT_POOL[v].tag});
+          expList.push({ name: expNameMap[v], tag: 'exp' });
       });
 
-      /* 활동 날짜 배분 */
-      var dayActs = [];
-      for (var d = 0; d < days; d++) dayActs.push([]);
-      var morningActs   = actList.filter(function(a){ return a.prefer === 'morning'; });
-      var afternoonActs = actList.filter(function(a){ return a.prefer === 'afternoon'; });
+      /* ── 추가 체험 날짜 배분 ──
+         첫날: 워크샵 전용 → 체험 없음
+         중간날: 오전1 + 오후1~2 (최대 3개/일)
+         마지막날: 오전 최대 1개 */
+      var expByDay = [];
+      for (var dd = 0; dd < days; dd++) expByDay.push([]);
       if (!isOvernight) {
-        dayActs[0] = actList;
+        expList.slice(0, 3).forEach(function(e) { expByDay[0].push(e); });
       } else {
-        afternoonActs.forEach(function(a,i){ dayActs[Math.min(i, days-1)].push(a); });
-        morningActs.forEach(function(a,i){   dayActs[Math.min(i+1, days-1)].push(a); });
+        var remaining = expList.slice();
+        for (var dd = 1; dd < days && remaining.length; dd++) {
+          var isLastDay = dd === days - 1;
+          var maxSlots  = isLastDay ? 1 : 3;
+          remaining.splice(0, maxSlots).forEach(function(e) { expByDay[dd].push(e); });
+        }
       }
 
-      /* 식사 헬퍼 */
+      /* ── 식사 헬퍼 (mi: 0=조식, 1=중식, 2=석식) ── */
       var mealRadio = document.querySelector('input[name="meal"]:checked');
       var mealVal   = mealRadio ? mealRadio.value : 'none';
       var getMeal   = function(di, mi) {
         if (mealVal === 'none') return false;
-        if (mealVal === 'full') return !(di === 0 && mi === 0);
+        if (mealVal === 'full') return !(di === 0 && mi === 0); // 첫날 조식 제외
         var boxes = document.querySelectorAll('input[name="meal-detail"]');
-        var idx = di * 3 + mi;
+        var idx   = di * 3 + mi;
         return boxes[idx] ? boxes[idx].checked : false;
       };
 
-      /* 슬롯 빌드 & 렌더 */
+      /* ── 슬롯 빌드 & 렌더 ── */
       var html = '';
       for (var d = 0; d < days; d++) {
         var slots   = [];
@@ -1776,39 +1787,78 @@
                     : isLast  && isOvernight ? days + '일차 · 체크아웃'
                     : (d+1) + '일차';
 
-        /* 집결·이동 */
-        if (isFirst && hasVehicle && isOvernight)
-          slots.push({ time:'14:00', end:'15:00', name:'이동 · 집결 (전용 차량)', tag:'addon' });
-        else if (isFirst && !isOvernight)
-          slots.push({ time:'09:30', end:'10:00', name:'집결 및 오리엔테이션',    tag:'info' });
+        if (!isOvernight) {
+          /* ────── 당일치기 ────── */
+          slots.push({ time:'09:30', end:'10:00', name:'집결 및 오리엔테이션', tag:'info' });
+          if (wspCatVal !== 'none' && wspItems.length) {
+            var wst = 10 * 60;
+            wspItems.forEach(function(item) {
+              slots.push({ time: minsToTime(wst), end: minsToTime(wst+60), name: item.name, tag: item.tag });
+              wst += 60;
+            });
+          }
+          if (getMeal(d,1)) slots.push({ time:'12:00', end:'14:00', name:'중식', tag:'meal' });
+          expByDay[0].forEach(function(e, i) {
+            var st = 14*60 + i*120;
+            slots.push({ time: minsToTime(st), end: minsToTime(st+120), name: e.name, tag: e.tag });
+          });
+          if (getMeal(d,2)) slots.push({ time:'18:00', end:'20:00', name:'석식', tag:'meal' });
 
-        /* 체크인 */
-        if (isFirst && isOvernight && hasAccom) {
-          slots.push({ time:'15:00', end:'16:00', name:'체크인 및 객실 배정', tag:'stay' });
-          slots.push({ time:'16:00', end:'16:30', name:'오리엔테이션',        tag:'info' });
+        } else if (isFirst) {
+          /* ────── 첫날 ────── */
+          if (hasVehicle)
+            slots.push({ time:'13:00', end:'14:00', name:'이동 · 집결 (전용 차량)', tag:'addon' });
+          slots.push({ time:'14:00', end:'15:00', name:'오리엔테이션 (제이드밀)', tag:'info' });
+          if (hasAccom)
+            slots.push({ time:'15:00', end:'15:30', name:'체크인 · 객실 배정', tag:'stay' });
+          /* 워크샵 프로그램 15:30~ (각 1시간) */
+          if (wspCatVal !== 'none' && wspItems.length) {
+            var wst = 15*60 + 30;
+            wspItems.forEach(function(item) {
+              slots.push({ time: minsToTime(wst), end: minsToTime(wst+60), name: item.name, tag: item.tag });
+              wst += 60;
+            });
+            /* 저녁: 3개면 18:30, 2개 이하면 18:00 */
+            var dinnerStart = wspItems.length >= 3 ? 18*60+30 : 18*60;
+            var dinnerEnd   = dinnerStart + 120;
+            if (getMeal(d,2))
+              slots.push({ time: minsToTime(dinnerStart), end: minsToTime(dinnerEnd), name: '석식', tag: 'meal' });
+          } else {
+            if (getMeal(d,2))
+              slots.push({ time:'18:00', end:'20:00', name:'석식', tag:'meal' });
+          }
+
+        } else if (isLast) {
+          /* ────── 마지막날 ────── */
+          if (getMeal(d,0)) slots.push({ time:'07:30', end:'09:00', name:'조식', tag:'meal' });
+          slots.push({ time:'09:00', end:'10:00', name:'정비 · 짐 정리', tag:'info' });
+          if (hasAccom)
+            slots.push({ time:'10:00', end:'10:30', name:'체크아웃', tag:'stay' });
+          var lastExps = expByDay[d];
+          if (lastExps.length) {
+            slots.push({ time:'10:30', end:'12:30', name: lastExps[0].name, tag: lastExps[0].tag });
+            slots.push({ time:'12:30', end:'13:00', name:'해산', tag:'info' });
+          } else {
+            slots.push({ time:'10:30', end:'11:00', name:'해산', tag:'info' });
+          }
+
+        } else {
+          /* ────── 중간날 ────── */
+          if (getMeal(d,0)) slots.push({ time:'07:30', end:'09:00', name:'조식', tag:'meal' });
+          var dayExps = expByDay[d];
+          /* 오전 체험 */
+          if (dayExps.length >= 1)
+            slots.push({ time:'10:00', end:'12:00', name: dayExps[0].name, tag: dayExps[0].tag });
+          if (getMeal(d,1)) slots.push({ time:'12:00', end:'14:00', name:'중식', tag:'meal' });
+          /* 오후 체험 1, 2 */
+          if (dayExps.length >= 2)
+            slots.push({ time:'14:00', end:'16:00', name: dayExps[1].name, tag: dayExps[1].tag });
+          if (dayExps.length >= 3)
+            slots.push({ time:'16:00', end:'18:00', name: dayExps[2].name, tag: dayExps[2].tag });
+          /* 연회/석식 */
+          if (getMeal(d,2))
+            slots.push({ time:'18:00', end:'20:00', name:'연회 · 석식', tag:'meal' });
         }
-
-        /* 오전 오리엔테이션 (중간·마지막날) */
-        if (!isFirst && isOvernight)
-          slots.push({ time:'09:00', end:'09:30', name:'오전 오리엔테이션', tag:'info' });
-
-        /* 체크아웃 */
-        if (isLast && isOvernight && hasAccom)
-          slots.push({ time:'10:00', end:'11:00', name:'체크아웃 및 짐 정리', tag:'stay' });
-
-        /* 식사 */
-        if (getMeal(d,0)) slots.push({ time:'07:30', end:'08:30', name:'조식', tag:'meal' });
-        if (getMeal(d,1)) slots.push({ time:'12:30', end:'13:30', name:'중식', tag:'meal' });
-        if (getMeal(d,2)) slots.push({ time:'18:30', end:'20:00', name:'석식', tag:'meal' });
-
-        /* 활동 */
-        dayActs[d].forEach(function(a){
-          slots.push({ time:a.start, end:a.end, name:a.name, tag:a.tag });
-        });
-
-        /* 자유시간 */
-        if (isOvernight && !isLast && getMeal(d,2))
-          slots.push({ time:'20:00', end:'21:00', name:'자유 시간', tag:'free' });
 
         /* 시간순 정렬 */
         slots.sort(function(a,b){ return a.time.localeCompare(b.time); });
@@ -1838,11 +1888,15 @@
         var expNameMap     = { horse: '승마 체험', temple: '사찰문화 체험', craft: '공예 체험', leisure: '해양레저' };
         var addonNameMap   = { insurance: '여행보험', vehicle: '전용 차량', hall: '세미나실', photo: '포토 서비스' };
         var fmtDate = function(d) {
-          return (d.getFullYear()) + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+          return d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일';
         };
-        var dateVal = cal.end
-          ? fmtDate(cal.start) + ' ~ ' + fmtDate(cal.end) + ' (' + (days-1) + '박 ' + days + '일)'
-          : fmtDate(cal.start) + ' (당일)';
+        var nightsLabel = cal.end ? ' (' + (days-1) + '박 ' + days + '일)' : ' (당일)';
+        var dateLines = [];
+        for (var di = 0; di < days; di++) {
+          var dd2 = new Date(cal.start); dd2.setDate(dd2.getDate() + di);
+          dateLines.push((di+1) + '일차 : ' + fmtDate(dd2));
+        }
+        var dateVal = dateLines.join('<br>');
         var stayVal2  = stayNameMap[stayVal] || '—';
         var mealVal2  = mealLabelMap[mealVal] || '—';
 
@@ -1858,7 +1912,7 @@
         }).map(function(v){ return addonNameMap[v]; });
 
         var cells = [
-          { label: '일정', value: dateVal },
+          { label: '일정' + nightsLabel, value: dateVal },
           { label: '인원', value: count + '명' },
           { label: '숙박', value: stayVal2 },
           { label: '워크샵 프로그램', value: wspDisplayVal },
