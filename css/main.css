@@ -1781,7 +1781,7 @@ dd small {
     display: grid;
     grid-template-columns: 120px 1fr;
     gap: 16px;
-    align-items: center;
+    align-items: start;
   }
 
   .about-pkg-shot {
