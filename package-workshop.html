@@ -1862,51 +1862,59 @@
         addonEl.className = 'summary-value empty';
       }
 
-      /* ── 예상 견적 계산 ── */
+      /* ── 예상 견적 계산 (최소단가 ~ 최소×1.3) ── */
       (function() {
-        var nights   = parseInt((document.querySelector('.dur-btn.active') || {}).dataset.nights || 1);
-        var stayEl   = document.querySelector('input[name="stay"]:checked');
-        var stayVal  = stayEl ? stayEl.value : 'hotel';
-        var mealEl2  = document.querySelector('input[name="meal"]:checked');
-        var mealVal  = mealEl2 ? mealEl2.value : 'none';
+        var nights  = parseInt((document.querySelector('.dur-btn.active') || {}).dataset.nights || 1);
+        var stayEl  = document.querySelector('input[name="stay"]:checked');
+        var stayVal = stayEl ? stayEl.value : 'hotel';
+        var mealEl2 = document.querySelector('input[name="meal"]:checked');
+        var mealVal = mealEl2 ? mealEl2.value : 'none';
 
-        /* 숙박 단가/인/박 (제휴단가 × 1.3 마진, 호텔: 2인1실 기준) */
-        // 호텔: 주중 85,000 ~ 극성수기 180,000원/실 ÷ 2인 × 1.3
-        var stayMin = stayVal === 'hotel' ? 56000 : 45000;
-        var stayMax = stayVal === 'hotel' ? 117000 : 72000;
+        /* 숙박: 호텔=2인1실(홀수도 1실 추가), 레지던스=인당 */
+        /* 호텔 제휴단가 85,000원/실(주중) × 1.3 마진 = 110,500원/실/박 */
+        var stayBase;
+        if (stayVal === 'hotel') {
+          var rooms = Math.ceil(count / 2);
+          stayBase = rooms * 110500 * nights;
+        } else {
+          stayBase = count * 45000 * nights;
+        }
 
-        /* 식사 단가/인/일 (20,000원 기준) */
-        var mealMin = mealVal !== 'none' ? 20000 : 0;
-        var mealMax = mealVal !== 'none' ? 20000 : 0;
+        /* 식사: 20,000원/인/일 */
+        var mealBase = mealVal !== 'none' ? count * 20000 * nights : 0;
 
-        /* 워크샵 강좌 단가/인/강좌 */
-        var courses  = document.querySelectorAll('input[name="edu-course"]:checked').length;
-        var wspMin   = courses * 25000;
-        var wspMax   = courses * 45000;
+        /* 워크샵 강좌: 25,000원/인/강좌 */
+        var courses = document.querySelectorAll('input[name="edu-course"]:checked').length;
+        var wspBase = courses * count * 25000;
 
-        /* 추가 체험 단가/인/항목 (승마 70,000 / 기타 50,000) */
-        var expRates = { horse: [70000,70000], temple: [50000,50000], craft: [50000,50000], leisure: [50000,50000] };
-        var expMinPP = 0, expMaxPP = 0;
+        /* 추가 체험: 승마 70,000, 기타 50,000원/인 */
+        var expRateMap = { horse: 70000, temple: 50000, craft: 50000, leisure: 50000 };
+        var expBasePP = 0;
         document.querySelectorAll('input[name^="exp-d"]:checked').forEach(function(cb) {
-          var r = expRates[cb.value] || [50000, 50000];
-          expMinPP += r[0]; expMaxPP += r[1];
+          expBasePP += expRateMap[cb.value] || 50000;
         });
+        var expBase = expBasePP * count;
 
-        /* 기본 고정비: VIP홀 연회장 필수 (400,000원 × 1.3 = 520,000원, 첫날 고정) */
-        var baseMin = 520000, baseMax = 520000;
+        /* VIP홀 연회장 필수 고정 (400,000×1.3=520,000원/첫날) */
+        var fixedBase = 520000;
 
-        var totalMin = (stayMin * nights + mealMin * nights + wspMin + expMinPP) * count + baseMin;
-        var totalMax = (stayMax * nights + mealMax * nights + wspMax + expMaxPP) * count + baseMax;
+        /* 단체여행보험: 2,000원/인 */
+        var insurBase = document.querySelector('input[name="addon"][value="insurance"]:checked')
+          ? count * 2000 : 0;
+
+        /* 전용차량 (10인 이하 기준: 1박=300K, 2박=500K, 3박=700K) */
+        var vehicleMap = { 1: 300000, 2: 500000, 3: 700000 };
+        var vehicleBase = document.querySelector('input[name="addon"][value="vehicle"]:checked')
+          ? (vehicleMap[nights] || 300000) : 0;
+
+        var totalBase = stayBase + mealBase + wspBase + expBase + fixedBase + insurBase + vehicleBase;
 
         /* 50만원 단위 정리 */
         var unit = 500000;
-        totalMin = Math.floor(totalMin / unit) * unit;
-        totalMax = Math.ceil(totalMax / unit) * unit;
+        var totalMin = Math.floor(totalBase / unit) * unit;
+        var totalMax = Math.ceil(totalBase * 1.3 / unit) * unit;
 
-        function fmt(n) {
-          var man = Math.round(n / 10000);
-          return man.toLocaleString() + '만원';
-        }
+        function fmt(n) { return Math.round(n / 10000).toLocaleString() + '만원'; }
 
         document.getElementById('sumPrice').textContent = '약 ' + fmt(totalMin) + ' ~ ' + fmt(totalMax);
       })();
