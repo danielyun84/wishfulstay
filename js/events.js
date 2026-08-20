@@ -9,8 +9,8 @@ const WS_CLUBS = [
     id: 'c001',
     status: 'active',
     name: '위시풀승마클럽',
-    venue: 'UEF 승마장, 강동',
-    desc: '강동 UEF 승마장에서 정기 레슨과 체험을 즐기는 승마 멤버십 클럽.',
+    venue: '',
+    desc: '승마를 배우고 즐기며 열정과 에너지를 충전하는 승마클럽입니다.',
     image: 'images/위시풀승마클럽 앰블럼.png',
     link: 'contact.html'
   }
@@ -49,15 +49,15 @@ const WS_CLUBS = [
       '<div class="ev-card-body">' +
         '<div class="ev-card-top">' +
           '<span class="ev-badge ev-badge--' + club.status + '">' +
-            (isActive ? '멤버 모집' : '준비 중') +
+            (isActive ? '회원 모집' : '준비 중') +
           '</span>' +
         '</div>' +
         '<p class="ev-title">' + club.name + '</p>' +
-        '<p class="ev-venue">' + club.venue + '</p>' +
+        (club.venue ? '<p class="ev-venue">' + club.venue + '</p>' : '') +
         '<p class="ev-desc">' + club.desc + '</p>' +
         '<div class="ev-footer">' +
           '<span class="ev-cta' + (!isActive ? ' ev-cta--muted' : '') + '">' +
-            (isActive ? '문의하기 →' : '오픈 예정') +
+            (isActive ? '클럽페이지 방문하기 →' : '오픈 예정') +
           '</span>' +
         '</div>' +
       '</div>';
