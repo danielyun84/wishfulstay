@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <title>위시풀승마클럽 — WISHFUL STAY</title>
+  <meta name="description" content="승마를 배우고 즐기며 열정과 에너지를 충전하는 위시풀승마클럽. 2026년 창립회원을 모집합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* ── 클럽 페이지 전용 스타일 ── */
+    .club-hero {
+      background: var(--c-bg-dark);
+      padding: var(--sp-2xl) 0 var(--sp-xl);
+      text-align: center;
+    }
+    .club-hero-emblem {
+      width: 160px;
+      height: auto;
+      margin: 0 auto 32px;
+      display: block;
+      filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));
+    }
+    .club-hero .eyebrow { color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+    .club-hero h1 {
+      font-family: var(--f-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .club-hero-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+
+    /* 창립 배너 */
+    .founding-banner {
+      background: #8b2020;
+      color: #fff;
+      text-align: center;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    .founding-banner strong { font-weight: 700; }
+
+    /* 섹션 공통 */
+    .club-section {
+      padding: var(--sp-xl) 0;
+    }
+    .club-section--alt { background: var(--c-bg-alt); }
+    .club-section--dark {
+      background: var(--c-bg-dark);
+      color: #fff;
+    }
+    .club-section--dark .eyebrow { color: rgba(255,255,255,0.45); }
+    .club-section--dark h2 { color: #fff; }
+    .club-section--dark p { color: rgba(255,255,255,0.7); }
+
+    .club-section-header {
+      margin-bottom: var(--sp-lg);
+    }
+    .club-section-header .eyebrow { margin-bottom: 28px; }
+    .club-section-header h2 {
+      font-size: clamp(28px, 2.6vw, 40px);
+      line-height: 1.4;
+      margin: 0 0 28px;
+      color: var(--c-dark);
+    }
+    .club-section-header p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--c-text);
+      margin-bottom: 10px;
+    }
+
+    /* 2컬럼 레이아웃 */
+    .club-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-lg);
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .club-two-col { grid-template-columns: 1fr; }
+    }
+
+    /* 혜택 그리드 */
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: var(--sp-lg);
+    }
+    .benefit-card {
+      background: #fff;
+      border: 1px solid var(--c-border);
+      border-radius: 6px;
+      padding: 24px 20px;
+    }
+    .benefit-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .benefit-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-dark);
+      margin-bottom: 6px;
+    }
+    .benefit-desc {
+      font-size: 13px;
+      color: var(--c-text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .benefit-grid { grid-template-columns: 1fr; }
+    }
+
+    /* 시간표 */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: var(--sp-lg);
+    }
+    .schedule-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .schedule-time {
+      font-family: var(--f-display);
+      font-size: 28px;
+      color: #fff;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .schedule-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 12px;
+    }
+    .schedule-spots {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 10px;
+    }
+    @media (max-width: 600px) {
+      .schedule-grid { grid-template-columns: 1fr; }
+    }
+
+    /* 가입 안내 박스 */
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: var(--sp-lg);
+    }
+    .join-box {
+      background: var(--c-bg-alt);
+      border-radius: 8px;
+      padding: 28px 24px;
+    }
+    .join-box h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 16px;
+    }
+    .join-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--c-border);
+      font-size: 14px;
+    }
+    .join-item:last-child { border-bottom: none; }
+    .join-item-label { color: var(--c-text-muted); }
+    .join-item-value { font-weight: 600; color: var(--c-dark); }
+    .join-item-value.highlight { color: #8b2020; }
+    @media (max-width: 640px) {
+      .join-grid { grid-template-columns: 1fr; }
+    }
+
+    /* 장소 박스 */
+    .location-box {
+      background: var(--c-bg-alt);
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin-top: var(--sp-lg);
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .location-icon { font-size: 24px; flex-shrink: 0; }
+    .location-name { font-size: 16px; font-weight: 600; color: var(--c-dark); margin-bottom: 4px; }
+    .location-addr { font-size: 14px; color: var(--c-text-muted); line-height: 1.6; }
+
+    /* CTA 섹션 */
+    .club-cta {
+      background: var(--c-bg-dark);
+      padding: var(--sp-xl) 0;
+      text-align: center;
+    }
+    .club-cta .eyebrow { color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .club-cta h2 {
+      font-family: var(--f-display);
+      font-size: clamp(28px, 3vw, 44px);
+      color: #fff;
+      font-weight: 300;
+      line-height: 1.35;
+      margin-bottom: 16px;
+    }
+    .club-cta p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-club-primary {
+      display: inline-block;
+      background: #fff;
+      color: var(--c-bg-dark);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+    }
+    .btn-club-primary:hover { opacity: 0.85; }
+    .btn-club-outline {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+      padding: 14px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-club-outline:hover { border-color: #fff; color: #fff; }
+
+    /* 창립회원 강조 박스 */
+    .founding-box {
+      border: 2px solid #8b2020;
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin-top: var(--sp-lg);
+      background: #fff8f8;
+    }
+    .founding-box h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #8b2020;
+      margin-bottom: 12px;
+    }
+    .founding-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .founding-list li {
+      font-size: 14px;
+      color: var(--c-dark);
+      padding: 6px 0;
+      border-bottom: 1px solid #f5dede;
+      display: flex;
+      gap: 8px;
+    }
+    .founding-list li:last-child { border-bottom: none; }
+    .founding-list li::before { content: "★"; color: #8b2020; flex-shrink: 0; }
+    .founding-deadline {
+      margin-top: 16px;
+      background: #8b2020;
+      color: #fff;
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ① 창립 배너 -->
+    <div class="founding-banner">
+      ★ <strong>창립회원 모집 중</strong> — 1970~1999년생 대상, 2026년 8월 31일까지 18명 선착순
+    </div>
+
+    <!-- ② 클럽 히어로 -->
+    <section class="club-hero">
+      <div class="container">
+        <img src="images/위시풀승마클럽 앰블럼.png" alt="위시풀승마클럽 앰블럼" class="club-hero-emblem">
+        <span class="eyebrow">Wishful Horse Club</span>
+        <h1>위시풀승마클럽</h1>
+        <p class="club-hero-sub">
+          승마를 배우고 즐기며 열정과 에너지를 충전하는<br>
+          위시풀스테이의 오프라인 커뮤니티 클럽입니다.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ③ 클럽 소개 -->
+    <section class="club-section">
+      <div class="container">
+        <div class="club-two-col">
+          <div class="club-section-header reveal">
+            <span class="eyebrow">About the Club</span>
+            <h2>2026년, 붉은 말의 해와<br>함께 달립니다.</h2>
+            <p>위시풀승마클럽은 2026년 병오년, 60년 만에 돌아온 붉은 말의 해를 기념하며, 건강과 행복을 넘어 힘차게 달려나갈 기운을 함께 나누어보고자 설립하게 되었습니다.</p>
+            <p>위시풀 승마클럽과 함께 뜨거운 한해를 만들어갈 소중한 회원님을 모집합니다.</p>
+          </div>
+          <div class="reveal reveal-delay-1">
+            <div style="background:var(--c-bg-alt); border-radius:8px; padding:32px 28px;">
+              <p style="font-size:13px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--c-accent); margin-bottom:20px;">승마의 장점</p>
+              <p style="font-size:15px; line-height:1.8; color:var(--c-text);">
+                승마는 말과 호흡을 맞추며 온몸의 균형을 잡는 운동입니다. 평소 쓰지않던 코어와 척추 근육이 자연스럽게 사용되면서 굽은 자세와 굳은 허리가 펴집니다.
+              </p>
+              <p style="font-size:15px; line-height:1.8; color:var(--c-text); margin-top:12px;">
+                격한 충격 없이 몸 전체를 사용하기에 나이와 체력에 관계없이 오래 즐길 수 있는 운동입니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ④ 클럽 활동 시간표 -->
+    <section class="club-section club-section--dark">
+      <div class="container">
+        <div class="club-section-header reveal">
+          <span class="eyebrow">Schedule</span>
+          <h2>클럽 활동 및 모임</h2>
+          <p style="color:rgba(255,255,255,0.6);">매주 1회 승마 모임과 월 1회 정기 바베큐 파티를 운영합니다. 아래 세 가지 시간대 중 원하는 반을 선택하세요.</p>
+        </div>
+        <div class="schedule-grid reveal reveal-delay-1">
+          <div class="schedule-card">
+            <div class="schedule-time">06:00</div>
+            <div class="schedule-label">새벽반</div>
+            <div class="schedule-spots">6명 정원</div>
+          </div>
+          <div class="schedule-card">
+            <div class="schedule-time">10:00</div>
+            <div class="schedule-label">오전반</div>
+            <div class="schedule-spots">6명 정원</div>
+          </div>
+          <div class="schedule-card">
+            <div class="schedule-time">19:00</div>
+            <div class="schedule-label">저녁반</div>
+            <div class="schedule-spots">6명 정원</div>
+          </div>
+        </div>
+        <p style="font-size:13px; color:rgba(255,255,255,0.35); margin-top:20px; text-align:center;">
+          주 1회 승마 모임 (레슨비 별도) &nbsp;·&nbsp; 월 1회 정기모임 (바베큐 파티)
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ⑤ 회원 혜택 -->
+    <section class="club-section club-section--alt">
+      <div class="container">
+        <div class="club-section-header reveal">
+          <span class="eyebrow">Member Benefits</span>
+          <h2>클럽 회원 혜택</h2>
+        </div>
+        <div class="benefit-grid reveal reveal-delay-1">
+          <div class="benefit-card">
+            <div class="benefit-icon">🐴</div>
+            <div class="benefit-title">무료 승마 체험</div>
+            <div class="benefit-desc">최초 가입 시 무료 승마 체험 1회 제공</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">👕</div>
+            <div class="benefit-title">클럽 단체복 지급</div>
+            <div class="benefit-desc">위시풀승마클럽 공식 티셔츠(상의) 증정</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🍖</div>
+            <div class="benefit-title">월 1회 BBQ 파티</div>
+            <div class="benefit-desc">회원 전용 정기 바베큐 파티 참여</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🏷️</div>
+            <div class="benefit-title">제휴사 할인</div>
+            <div class="benefit-desc">강동 관광 제휴사 할인 혜택 적용</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">📉</div>
+            <div class="benefit-title">레슨비 할인</div>
+            <div class="benefit-desc">회원 수 증가에 따라 레슨비 단체 할인 협의</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⭐</div>
+            <div class="benefit-title">창립회원 추가혜택</div>
+            <div class="benefit-desc">창립회원에게 별도 추가 특전 제공 예정</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ⑥ 가입 안내 -->
+    <section class="club-section">
+      <div class="container">
+        <div class="club-section-header reveal">
+          <span class="eyebrow">Membership</span>
+          <h2>가입 안내</h2>
+        </div>
+
+        <div class="join-grid reveal reveal-delay-1">
+          <!-- 비용 -->
+          <div class="join-box">
+            <h3>클럽 비용</h3>
+            <div class="join-item">
+              <span class="join-item-label">입회비 (최초 1회)</span>
+              <span class="join-item-value">100,000원</span>
+            </div>
+            <div class="join-item">
+              <span class="join-item-label">월 정기 회비</span>
+              <span class="join-item-value">50,000원</span>
+            </div>
+            <div class="join-item">
+              <span class="join-item-label">레슨비</span>
+              <span class="join-item-value">개인별도</span>
+            </div>
+          </div>
+          <!-- 자격조건 -->
+          <div class="join-box">
+            <h3>가입 자격</h3>
+            <div class="join-item">
+              <span class="join-item-label">가입 연령</span>
+              <span class="join-item-value">만 27세 ~ 56세</span>
+            </div>
+            <div class="join-item">
+              <span class="join-item-label">출생 연도</span>
+              <span class="join-item-value">1970년 ~ 1999년생</span>
+            </div>
+            <div class="join-item">
+              <span class="join-item-label">성별</span>
+              <span class="join-item-value">무관</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 창립회원 강조 -->
+        <div class="founding-box reveal">
+          <h3>★ 창립회원 추가 혜택</h3>
+          <ul class="founding-list">
+            <li>선착순 18명에게 창립회원 자격 부여</li>
+            <li>창립회원 전용 추가 특전 별도 제공</li>
+            <li>클럽 운영 방향에 대한 의견 반영 우선권</li>
+          </ul>
+          <div class="founding-deadline">
+            창립회원 모집 마감: 2026년 8월 31일 (선착순 18명)
+          </div>
+        </div>
+
+        <!-- 장소 -->
+        <div class="location-box reveal">
+          <div class="location-icon">📍</div>
+          <div>
+            <div class="location-name">UEF 승마파크</div>
+            <div class="location-addr">울산광역시 북구 무룡로 681 (신현동)<br>강동 해안로에서 차로 약 10분</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ⑦ CTA -->
+    <section class="club-cta">
+      <div class="container">
+        <span class="eyebrow">Join Us</span>
+        <h2>지금 창립회원으로<br>함께 달리세요.</h2>
+        <p>문의사항은 인스타그램 DM으로 연락주시면 빠르게 답변드립니다.<br>@WISHFUL_HORSE</p>
+        <div class="cta-buttons">
+          <a href="https://www.instagram.com/wishful_horse" target="_blank" rel="noopener" class="btn-club-primary">인스타그램 문의하기</a>
+          <a href="contact.html" class="btn-club-outline">위시풀스테이 문의</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">
+            <img src="images/logo-symbol.png" alt="" class="footer-logo-symbol">
+            WISHFUL STAY
+          </p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav" aria-label="푸터 메뉴">
+          <a href="index.html">홈</a>
+          <a href="package-workshop.html">패키지</a>
+          <a href="index.html#events-section">커뮤니티</a>
+          <a href="contact.html">문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>주식회사 위시풀스테이 &nbsp;|&nbsp; 대표 박성윤 &nbsp;|&nbsp; 사업자등록번호 875-81-03225</p>
+          <p>울산광역시 북구 동해안로 1586, 지하1층 (산하동) &nbsp;|&nbsp; 운영시간 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

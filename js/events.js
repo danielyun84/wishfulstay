@@ -12,7 +12,7 @@ const WS_CLUBS = [
     venue: '',
     desc: '승마를 배우고 즐기며 열정과 에너지를 충전하는 승마클럽입니다.',
     image: 'images/위시풀승마클럽 앰블럼.png',
-    link: 'contact.html'
+    link: 'club-horse.html'
   }
   /* 추가 클럽은 아래 형식으로 추가
   ,{
