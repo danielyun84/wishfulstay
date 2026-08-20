@@ -676,80 +676,11 @@
     .schedule-tag-edu    { background: #ede8f5; color: #3d2a6b; }
 
     /* ── 워크샵 프로그램 패널 ── */
-    .wsp-panel-wrap {
-      display: grid;
-      grid-template-columns: 160px 1fr;
+    .wsp-edu-wrap {
       border: 1px solid var(--c-border);
       border-radius: 2px;
-      min-height: 240px;
+      padding: 24px 28px;
     }
-    .wsp-cats {
-      border-right: 1px solid var(--c-border);
-      display: flex;
-      flex-direction: column;
-    }
-    .wsp-cat-btn {
-      padding: 16px 20px;
-      text-align: left;
-      border: none;
-      border-bottom: 1px solid var(--c-border);
-      background: none;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: var(--f-body);
-      color: var(--c-text-muted);
-      transition: background 0.15s, color 0.15s;
-      letter-spacing: 0.04em;
-    }
-    .wsp-cat-btn:last-child { border-bottom: none; }
-    .wsp-cat-btn:hover { background: #faf9f7; color: var(--c-dark); }
-    /* 툴팁 */
-    .wsp-cat-btn[data-tip] { position: relative; }
-    .wsp-cat-btn[data-tip]::after {
-      content: attr(data-tip);
-      position: absolute;
-      left: calc(100% + 12px);
-      top: 50%;
-      transform: translateY(-50%);
-      background: #2c2c2c;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      line-height: 1.55;
-      padding: 8px 12px;
-      border-radius: 4px;
-      white-space: pre-line;
-      width: 180px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-      z-index: 20;
-    }
-    .wsp-cat-btn[data-tip]::before {
-      content: '';
-      position: absolute;
-      left: calc(100% + 6px);
-      top: 50%;
-      transform: translateY(-50%);
-      border: 5px solid transparent;
-      border-right-color: #2c2c2c;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-      z-index: 20;
-    }
-    .wsp-cat-btn[data-tip]:hover::after,
-    .wsp-cat-btn[data-tip]:hover::before { opacity: 1; }
-    .wsp-cat-btn.active {
-      background: var(--c-cream);
-      color: var(--c-dark);
-      font-weight: 600;
-      box-shadow: inset 3px 0 0 var(--c-dark);
-    }
-    .wsp-detail { padding: 24px 28px; }
-    .wsp-sub { display: none; }
-    .wsp-sub.active { display: block; }
     .wsp-field { margin-bottom: 20px; }
     .wsp-field:last-child { margin-bottom: 0; }
     .wsp-field-label {
@@ -759,6 +690,19 @@
       text-transform: uppercase;
       color: var(--c-text-muted);
       margin-bottom: 10px;
+    }
+    .wsp-field-label--guide {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      color: var(--c-dark);
+      margin-bottom: 14px;
+    }
+    .wsp-field-hint {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--c-text-muted);
     }
     .wsp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .wsp-chip {
@@ -1053,9 +997,6 @@
       /* 추천 패키지: 1컬럼 */
       .pkg-rec-grid { grid-template-columns: 1fr; }
 
-      /* 워크샵 패널 */
-      .wsp-panel-wrap { grid-template-columns: 120px 1fr; }
-
       /* 요약 */
       .summary-footer { flex-direction: column; align-items: stretch; }
 
@@ -1313,95 +1254,22 @@
 
       <!-- 03. 워크샵 프로그램 -->
       <div class="pkg-section">
-        <p class="pkg-section-title">03 &nbsp;워크샵 프로그램</p>
-        <div class="wsp-panel-wrap">
-
-          <!-- 좌측 카테고리 탭 -->
-          <div class="wsp-cats">
-            <button class="wsp-cat-btn active" data-cat="edu" data-tip="AI·진로·창업·생애설계 등&#10;전문 강사 교육 프로그램">교육 / 강좌</button>
-            <button class="wsp-cat-btn" data-cat="rec" data-tip="팀게임·스포츠·야외활동 등&#10;그룹 레크레이션 프로그램">레크레이션</button>
-            <button class="wsp-cat-btn" data-cat="exp" data-tip="승마·공예·해양레저 등&#10;지역 연계 체험 활동">체험활동</button>
-            <button class="wsp-cat-btn" data-cat="none" data-tip="자체 프로그램으로&#10;직접 운영하시는 경우">선택 안 함</button>
+        <p class="pkg-section-title">03 &nbsp;워크샵 프로그램 선택</p>
+        <div class="wsp-edu-wrap">
+          <div class="wsp-field">
+            <div class="wsp-field-label wsp-field-label--guide">워크숍 프로그램을 선택해주세요. <span class="wsp-field-hint">(최소 2개 ~ 최대 3개)</span></div>
+            <div class="wsp-chips" data-desc-target="edu-desc">
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="ai" data-name="AI 기초교육" data-desc="ChatGPT 등 생성형 AI 실무 활용법을 익히는 강좌입니다. 강의와 실습을 병행하며 입문자도 쉽게 따라올 수 있는 난이도로 진행됩니다."> AI 기초교육</label>
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="career" data-name="진로교육" data-desc="중장년층의 경력전환과 재취업을 위한 진로설계 프로그램입니다. 개인별 강점 분석과 실질적인 취업 전략을 함께 다룹니다."> 진로교육</label>
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="startup" data-name="시니어 창업" data-desc="퇴직 후 소규모 창업을 준비하는 분들을 위한 실전 과정입니다. 아이템 발굴부터 마케팅 전략까지 단계별로 안내합니다."> 시니어 창업</label>
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="lifeplan" data-name="생애설계" data-desc="재정·건강·관계·여가 등 은퇴 후 삶 전반을 설계하는 종합 프로그램입니다. 전문 강사와 함께 나만의 2막을 준비합니다."> 생애설계</label>
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="retire" data-name="은퇴설계" data-desc="재무·세금·연금 전략에 특화된 전문가 강의입니다. 개인 상담 세션이 포함되어 실질적인 은퇴 준비를 도와드립니다."> 은퇴설계</label>
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="humanities" data-name="인문학강좌" data-desc="철학·역사·문학을 통해 삶의 의미를 재발견하는 인문학 특강입니다. 일상에서 벗어나 깊이 생각하는 시간을 드립니다."> 인문학강좌</label>
+              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="hobby" data-name="취미교육" data-desc="원예·사진·요리 등 원하는 분야를 선택해 배우는 체험형 강좌입니다. 새로운 취미를 통해 활력을 찾는 시간이 됩니다."> 취미교육</label>
+            </div>
+            <div class="wsp-desc-panel" id="edu-desc"></div>
           </div>
-
-          <!-- 우측 세부 옵션 -->
-          <div class="wsp-detail">
-
-            <!-- 교육/강좌 -->
-            <div class="wsp-sub active" id="wsp-panel-edu">
-              <div class="wsp-field">
-                <div class="wsp-field-label">강좌명</div>
-                <div class="wsp-chips" data-desc-target="edu-desc">
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="ai" data-name="AI 기초교육" data-desc="ChatGPT 등 생성형 AI 실무 활용법을 익히는 강좌입니다. 강의와 실습을 병행하며 입문자도 쉽게 따라올 수 있는 난이도로 진행됩니다."> AI 기초교육</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="career" data-name="진로교육" data-desc="중장년층의 경력전환과 재취업을 위한 진로설계 프로그램입니다. 개인별 강점 분석과 실질적인 취업 전략을 함께 다룹니다."> 진로교육</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="startup" data-name="시니어 창업" data-desc="퇴직 후 소규모 창업을 준비하는 분들을 위한 실전 과정입니다. 아이템 발굴부터 마케팅 전략까지 단계별로 안내합니다."> 시니어 창업</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="lifeplan" data-name="생애설계" data-desc="재정·건강·관계·여가 등 은퇴 후 삶 전반을 설계하는 종합 프로그램입니다. 전문 강사와 함께 나만의 2막을 준비합니다."> 생애설계</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="retire" data-name="은퇴설계" data-desc="재무·세금·연금 전략에 특화된 전문가 강의입니다. 개인 상담 세션이 포함되어 실질적인 은퇴 준비를 도와드립니다."> 은퇴설계</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="humanities" data-name="인문학강좌" data-desc="철학·역사·문학을 통해 삶의 의미를 재발견하는 인문학 특강입니다. 일상에서 벗어나 깊이 생각하는 시간을 드립니다."> 인문학강좌</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="hobby" data-name="취미교육" data-desc="원예·사진·요리 등 원하는 분야를 선택해 배우는 체험형 강좌입니다. 새로운 취미를 통해 활력을 찾는 시간이 됩니다."> 취미교육</label>
-                </div>
-                <div class="wsp-desc-panel" id="edu-desc"></div>
-              </div>
-              <div class="wsp-field">
-                <div class="wsp-field-label">선택항목</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="radio" name="edu-style" value="lecture"> 강의형</label>
-                  <label class="wsp-chip"><input type="radio" name="edu-style" value="practice"> 실습형</label>
-                  <label class="wsp-chip"><input type="radio" name="edu-style" value="mixed"> 강의 + 실습</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- 레크레이션 -->
-            <div class="wsp-sub" id="wsp-panel-rec">
-              <div class="wsp-field">
-                <div class="wsp-field-label">프로그램</div>
-                <div class="wsp-chips" data-desc-target="rec-desc">
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="teamgame" data-name="팀게임" data-desc="팀별 미션과 게임을 통해 소통과 협력을 끌어내는 프로그램입니다. 부서 간 장벽을 낮추고 팀워크를 강화하는 데 효과적입니다."> 팀게임</label>
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="sports" data-name="스포츠 대항전" data-desc="부서·팀 단위로 즐기는 스포츠 리그 프로그램입니다. 건강한 경쟁과 응원 속에서 구성원 간 유대감을 높입니다."> 스포츠 대항전</label>
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="outdoor" data-name="야외 레크레이션" data-desc="강동 해안과 자연 속에서 진행하는 야외 활동 프로그램입니다. 신선한 공기와 함께 일상의 스트레스를 해소합니다."> 야외 레크레이션</label>
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="dance" data-name="율동 · 댄스" data-desc="전문 강사와 함께하는 그룹 율동·댄스 프로그램입니다. 몸을 움직이며 에너지를 충전하고 분위기를 밝게 만듭니다."> 율동 · 댄스</label>
-                </div>
-                <div class="wsp-desc-panel" id="rec-desc"></div>
-              </div>
-              <div class="wsp-field">
-                <div class="wsp-field-label">운영 시간</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="radio" name="rec-duration" value="1h"> 1시간</label>
-                  <label class="wsp-chip"><input type="radio" name="rec-duration" value="2h"> 2시간</label>
-                  <label class="wsp-chip"><input type="radio" name="rec-duration" value="half"> 반일</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- 체험활동 -->
-            <div class="wsp-sub" id="wsp-panel-exp">
-              <div class="wsp-field">
-                <div class="wsp-field-label">체험 선택</div>
-                <div class="wsp-chips" data-desc-target="exp-desc">
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="horse" data-name="승마 체험" data-desc="UEF 승마장에서 진행하는 기초 승마 체험입니다. 전문 트레이너의 지도 아래 안전하게 말과 교감하며 색다른 경험을 드립니다."> 승마 체험</label>
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="temple" data-name="사찰문화 체험" data-desc="국가지정 보물이 있는 신흥사에서 진행하는 명상과 사찰 문화 체험입니다. 도심을 벗어나 비움과 회복의 시간을 경험합니다."> 사찰문화 체험</label>
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="craft" data-name="공예 체험" data-desc="지역 공방과 연계한 도예·목공·천연염색 등 핸드크래프트 체험입니다. 직접 만드는 작품을 기념품으로 가져갈 수 있습니다."> 공예 체험</label>
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="leisure" data-name="해양레저" data-desc="강동 해안에서 즐기는 카약·SUP·스노클링 등 해양 액티비티입니다. 하절기 운영하며 팀 단위 프로그램으로 구성됩니다."> 해양레저</label>
-                </div>
-                <div class="wsp-desc-panel" id="exp-desc"></div>
-              </div>
-              <div class="wsp-field">
-                <div class="wsp-field-label">시간대</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="radio" name="wsp-exp-time" value="morning"> 오전</label>
-                  <label class="wsp-chip"><input type="radio" name="wsp-exp-time" value="afternoon"> 오후</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- 선택 안 함 -->
-            <div class="wsp-sub" id="wsp-panel-none">
-              <p class="wsp-none-msg">자체 프로그램으로 운영하실 경우 선택하세요.<br>세미나실, 빔프로젝터 등 기자재 지원은 06 추가옵션에서 선택하실 수 있습니다.</p>
-            </div>
-
-          </div><!-- /.wsp-detail -->
-        </div><!-- /.wsp-panel-wrap -->
+        </div><!-- /.wsp-edu-wrap -->
       </div>
 
       <!-- 04. 식사 -->
@@ -1766,14 +1634,6 @@
       var stayInput = document.querySelector('input[name="stay"][value="' + preset.stay + '"]');
       if (stayInput) stayInput.checked = true;
 
-      /* 워크샵 카테고리 */
-      document.querySelectorAll('.wsp-cat-btn').forEach(function(b) {
-        b.classList.toggle('active', b.dataset.cat === preset.wsp);
-      });
-      document.querySelectorAll('.wsp-sub').forEach(function(p) { p.classList.remove('active'); });
-      var panel = document.getElementById('wsp-panel-' + preset.wsp);
-      if (panel) panel.classList.add('active');
-
       /* 식사 */
       var mealInput = document.querySelector('input[name="meal"][value="' + preset.meal + '"]');
       if (mealInput) mealInput.checked = true;
@@ -1840,29 +1700,15 @@
     slideInit('hotel');
     slideInit('residence');
 
-    /* ── 워크샵 패널 탭 전환 ── */
-    document.querySelectorAll('.wsp-cat-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.wsp-cat-btn').forEach(function(b){ b.classList.remove('active'); });
-        document.querySelectorAll('.wsp-sub').forEach(function(p){ p.classList.remove('active'); });
-        btn.classList.add('active');
-        var panel = document.getElementById('wsp-panel-' + btn.dataset.cat);
-        if (panel) panel.classList.add('active');
-        update();
-      });
-    });
-    document.querySelector('.wsp-panel-wrap').addEventListener('change', function(e) {
-      if (e.target.matches('input[name^="edu-"], input[name^="rec-"], input[name^="wsp-"]')) {
-        /* 워크샵 프로그램 최대 3개 제한 */
-        var nameMap = { 'edu-course': 'edu-course', 'rec-prog': 'rec-prog', 'wsp-exp': 'wsp-exp' };
-        var progName = nameMap[e.target.name];
-        if (progName) {
-          var boxes = document.querySelectorAll('input[name="' + progName + '"]');
-          var checked = Array.from(boxes).filter(function(b){ return b.checked; }).length;
-          boxes.forEach(function(b) {
-            if (!b.checked) b.disabled = checked >= 3;
-          });
-        }
+    /* ── 워크샵 프로그램 입력 변경 ── */
+    document.querySelector('.wsp-edu-wrap').addEventListener('change', function(e) {
+      if (e.target.matches('input[name="edu-course"]')) {
+        /* 최대 3개 제한 */
+        var boxes = document.querySelectorAll('input[name="edu-course"]');
+        var checked = Array.from(boxes).filter(function(b){ return b.checked; }).length;
+        boxes.forEach(function(b) {
+          if (!b.checked) b.disabled = checked >= 3;
+        });
         update();
       }
     });
@@ -1949,41 +1795,11 @@
       }
 
       /* 워크샵 프로그램 요약 */
-      var activeWspCat = (document.querySelector('.wsp-cat-btn.active') || {}).dataset || {};
-      var wspCat = activeWspCat.cat || 'none';
-      var wspParts = [];
       var eduCourseMap = { ai:'AI 기초교육', career:'진로교육', startup:'시니어 창업', lifeplan:'생애설계', retire:'은퇴설계', humanities:'인문학강좌', hobby:'취미교육' };
-      var eduStyleMap  = { lecture:'강의형', practice:'실습형', mixed:'강의+실습' };
-      var eduDurMap    = { half:'반일', full:'전일' };
-      var recProgMap   = { teamgame:'팀게임', sports:'스포츠 대항전', outdoor:'야외 레크레이션', dance:'율동·댄스' };
-      var recDurMap    = { '1h':'1시간', '2h':'2시간', half:'반일' };
-      var wspExpMap    = { horse:'승마', temple:'사찰문화', craft:'공예', leisure:'해양레저' };
-
-      if (wspCat === 'edu') {
-        var courses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked')).map(function(el){ return eduCourseMap[el.value]; });
-        var style = document.querySelector('input[name="edu-style"]:checked');
-        if (courses.length) wspParts.push(courses.join(' · '));
-        if (style) wspParts.push(eduStyleMap[style.value]);
-        if (!wspParts.length) wspParts.push('교육/강좌');
-      } else if (wspCat === 'rec') {
-        var progs = Array.from(document.querySelectorAll('input[name="rec-prog"]:checked')).map(function(el){ return recProgMap[el.value]; });
-        var rdur = document.querySelector('input[name="rec-duration"]:checked');
-        if (progs.length) wspParts.push(progs.join(' · '));
-        if (rdur) wspParts.push(recDurMap[rdur.value]);
-        if (!wspParts.length) wspParts.push('레크레이션');
-      } else if (wspCat === 'exp') {
-        var wexps = Array.from(document.querySelectorAll('input[name="wsp-exp"]:checked')).map(function(el){ return wspExpMap[el.value]; });
-        var exptime = document.querySelector('input[name="wsp-exp-time"]:checked');
-        if (wexps.length) wspParts.push(wexps.join(' · '));
-        if (exptime) wspParts.push(exptime.value === 'morning' ? '오전' : '오후');
-        if (!wspParts.length) wspParts.push('체험활동');
-      }
+      var courses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked')).map(function(el){ return eduCourseMap[el.value]; });
       var workshopEl = document.getElementById('sum-workshop');
-      if (wspCat !== 'none' && wspParts.length) {
-        workshopEl.textContent = wspParts.join(' / ');
-        workshopEl.className = 'summary-value';
-      } else if (wspCat === 'none') {
-        workshopEl.textContent = '자체 운영';
+      if (courses.length) {
+        workshopEl.textContent = courses.join(' · ');
         workshopEl.className = 'summary-value';
       } else {
         workshopEl.textContent = '선택 안 함';
@@ -2075,39 +1891,15 @@
       var hasVehicle  = !!document.querySelector('input[name="addon"][value="vehicle"]:checked');
 
       /* ── 워크샵 프로그램 수집 (각 1시간짜리 항목 배열) ── */
-      var wspCatActive = (document.querySelector('.wsp-cat-btn.active') || {}).dataset || {};
-      var wspCatVal    = wspCatActive.cat || 'none';
-      var wspItems     = [];
-      if (wspCatVal === 'edu') {
-        var eduCourseNames = { ai:'AI 기초교육', career:'진로교육', startup:'시니어 창업', lifeplan:'생애설계', retire:'은퇴설계', humanities:'인문학강좌', hobby:'취미교육' };
-        var eduCourses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked'));
-        if (eduCourses.length) {
-          eduCourses.slice(0, 3).forEach(function(el) {
-            wspItems.push({ name: eduCourseNames[el.value] || el.value, tag: 'edu' });
-          });
-        } else {
-          wspItems.push({ name: '교육 / 강좌', tag: 'edu' });
-        }
-      } else if (wspCatVal === 'rec') {
-        var recProgNames = { teamgame:'팀게임', sports:'스포츠 대항전', outdoor:'야외 레크레이션', dance:'율동·댄스' };
-        var recProgs = Array.from(document.querySelectorAll('input[name="rec-prog"]:checked'));
-        if (recProgs.length) {
-          recProgs.slice(0, 3).forEach(function(el) {
-            wspItems.push({ name: recProgNames[el.value] || el.value, tag: 'edu' });
-          });
-        } else {
-          wspItems.push({ name: '레크레이션', tag: 'edu' });
-        }
-      } else if (wspCatVal === 'exp') {
-        var wspExpNames = { horse:'승마 체험', temple:'사찰문화 체험', craft:'공예 체험', leisure:'해양레저' };
-        var expChecked  = Array.from(document.querySelectorAll('input[name="wsp-exp"]:checked'));
-        if (expChecked.length) {
-          expChecked.slice(0, 3).forEach(function(el) {
-            wspItems.push({ name: wspExpNames[el.value] || el.value, tag: 'exp' });
-          });
-        } else {
-          wspItems.push({ name: '워크샵 체험', tag: 'exp' });
-        }
+      var eduCourseNames = { ai:'AI 기초교육', career:'진로교육', startup:'시니어 창업', lifeplan:'생애설계', retire:'은퇴설계', humanities:'인문학강좌', hobby:'취미교육' };
+      var eduCourses2 = Array.from(document.querySelectorAll('input[name="edu-course"]:checked'));
+      var wspItems = [];
+      if (eduCourses2.length) {
+        eduCourses2.slice(0, 3).forEach(function(el) {
+          wspItems.push({ name: eduCourseNames[el.value] || el.value, tag: 'edu' });
+        });
+      } else {
+        wspItems.push({ name: '교육 / 강좌', tag: 'edu' });
       }
 
       /* ── 추가 체험 일차별 수집 ── */
@@ -2164,7 +1956,7 @@
         if (!isOvernight) {
           /* ────── 당일치기 ────── */
           slots.push({ time:'09:30', end:'10:00', name:'집결 및 오리엔테이션', tag:'info' });
-          if (wspCatVal !== 'none' && wspItems.length) {
+          if (wspItems.length) {
             var wst = 10 * 60;
             wspItems.forEach(function(item, wi) {
               slots.push({ time: minsToTime(wst), end: minsToTime(wst+60), name: '워크샵 ' + (wi+1) + ' : ' + item.name, tag: item.tag });
@@ -2186,7 +1978,7 @@
           if (hasAccom)
             slots.push({ time:'15:00', end:'15:30', name:'체크인 · 객실 배정', tag:'stay' });
           /* 워크샵 프로그램 15:30~ (2개=90분씩, 3개=60분씩, 1개=90분) */
-          if (wspCatVal !== 'none' && wspItems.length) {
+          if (wspItems.length) {
             var wspDur = wspItems.length >= 3 ? 60 : 90;
             var wst = 15*60 + 30;
             wspItems.forEach(function(item, wi) {
