@@ -1880,8 +1880,12 @@
           stayBase = count * 45000 * nights;
         }
 
-        /* 식사: 20,000원/인/일 */
-        var mealBase = mealVal !== 'none' ? count * 20000 * nights : 0;
+        /* 식사: 20,000원/인/끼니 (1박=4끼, 2박=7끼, 3박=10끼 / 일부는 절반) */
+        var mealFull    = { 1: 4, 2: 7, 3: 10 };
+        var mealPartial = { 1: 2, 2: 4, 3: 5 };
+        var mealMeals = mealVal === 'full' ? (mealFull[nights] || 4)
+                      : mealVal === 'partial' ? (mealPartial[nights] || 2) : 0;
+        var mealBase = mealMeals * count * 20000;
 
         /* 워크샵 강좌: 25,000원/인/강좌 */
         var courses = document.querySelectorAll('input[name="edu-course"]:checked').length;
@@ -1902,10 +1906,11 @@
         var insurBase = document.querySelector('input[name="addon"][value="insurance"]:checked')
           ? count * 2000 : 0;
 
-        /* 전용차량 (10인 이하 기준: 1박=300K, 2박=500K, 3박=700K) */
-        var vehicleMap = { 1: 300000, 2: 500000, 3: 700000 };
+        /* 전용차량 (10인 이하 기준, 일수=nights+1: 2일=50만, 3일=70만, 4일=90만) */
+        var vehicleMap = { 2: 500000, 3: 700000, 4: 900000 };
+        var vehicleDays = nights + 1;
         var vehicleBase = document.querySelector('input[name="addon"][value="vehicle"]:checked')
-          ? (vehicleMap[nights] || 300000) : 0;
+          ? (vehicleMap[vehicleDays] || 500000) : 0;
 
         var totalBase = stayBase + mealBase + wspBase + expBase + fixedBase + insurBase + vehicleBase;
 
