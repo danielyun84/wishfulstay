@@ -2575,12 +2575,14 @@ dd small {
   border-radius: 2px;
 }
 
-.ev-badge--open {
+.ev-badge--open,
+.ev-badge--active {
   background: var(--c-accent);
   color: #fff;
 }
 
-.ev-badge--soldout {
+.ev-badge--soldout,
+.ev-badge--coming {
   background: var(--c-border);
   color: var(--c-text-muted);
 }
@@ -2677,6 +2679,18 @@ dd small {
   color: var(--c-text-muted);
   border-color: var(--c-border);
   pointer-events: none;
+}
+
+.ev-cta--muted {
+  color: var(--c-text-muted);
+  border-color: var(--c-border);
+}
+
+.ev-venue {
+  font-size: 12px;
+  color: var(--c-text-muted);
+  margin: 0;
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 768px) {

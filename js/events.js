@@ -1,39 +1,30 @@
 /* ================================================================
-   WISHFUL STAY — Events Data
-   이벤트 추가/종료 시 이 파일만 수정하면 됩니다.
-   status: 'open' | 'closed' | 'soldout'
+   WISHFUL STAY — Community Clubs
+   클럽 정보 수정 시 이 파일만 수정하면 됩니다.
+   status: 'active' | 'coming'
    ================================================================ */
 
-const WS_EVENTS = [
+const WS_CLUBS = [
   {
-    id: 'e001',
-    status: 'open',
-    badge: '모집 중',
-    dateLabel: '2026년 9월 13일 (토) — 14일 (일)',
-    dateShort: 'SEP 13–14',
-    title: '직원 힐링 워케이션 1박 2일',
-    desc: '바다를 바라보며 업무 스트레스를 내려놓는 소규모 힐링 워케이션.',
-    tags: ['호텔 숙박', '승마 체험', '전체 식사'],
-    location: '머큐어 앰배서더 울산, 강동',
-    spotsTotal: 20,
-    spotsLeft: 7,
-    poster: 'images/위시풀승마클럽 포스터.jpg',
-    link: 'contact.html'
-  },
-  {
-    id: 'e002',
-    status: 'open',
-    badge: '얼리버드',
-    dateLabel: '2026년 10월 4일 (일) — 6일 (화)',
-    dateShort: 'OCT 4–6',
-    title: '가을 사찰 문화 워케이션 2박 3일',
-    desc: '신흥사에서의 템플스테이와 강동 로컬 체험을 묶은 가을 특별 프로그램.',
-    tags: ['레지던스 숙박', '사찰 문화', '일부 식사'],
-    location: '씨스테이 레지던스 & 신흥사, 강동',
-    spotsTotal: 15,
-    spotsLeft: 15,
+    id: 'c001',
+    status: 'active',
+    name: '위시풀승마클럽',
+    venue: 'UEF 승마장, 강동',
+    desc: '강동 UEF 승마장에서 정기 레슨과 체험을 즐기는 승마 멤버십 클럽.',
+    image: 'images/위시풀승마클럽 앰블럼.png',
     link: 'contact.html'
   }
+  /* 추가 클럽은 아래 형식으로 추가
+  ,{
+    id: 'c002',
+    status: 'coming',
+    name: '위시풀독서클럽',
+    venue: '제이드밀, 강동',
+    desc: '강동 제이드밀에서 만나는 오프라인 정기 독서 모임.',
+    image: '',
+    link: 'contact.html'
+  }
+  */
 ];
 
 (function () {
@@ -41,34 +32,32 @@ const WS_EVENTS = [
   var grid = document.getElementById('events-grid');
   if (!section || !grid) return;
 
-  var active = WS_EVENTS.filter(function (e) { return e.status !== 'closed'; });
-  if (active.length === 0) { section.style.display = 'none'; return; }
+  var visible = WS_CLUBS.filter(function (c) { return c.status !== 'hidden'; });
+  if (visible.length === 0) { section.style.display = 'none'; return; }
 
-  active.forEach(function (ev) {
-    var spotsRatio = ev.spotsLeft / ev.spotsTotal;
-    var spotsClass = spotsRatio <= 0.2 ? 'ev-spots--urgent' : '';
-    var isSoldout = ev.status === 'soldout';
+  visible.forEach(function (club) {
+    var isActive = club.status === 'active';
 
     var card = document.createElement('a');
     card.className = 'ev-card';
-    card.href = ev.link;
+    card.href = club.link;
 
     card.innerHTML =
-      (ev.poster
-        ? '<div class="ev-poster"><img src="' + ev.poster + '" alt="' + ev.title + ' 포스터"></div>'
+      (club.image
+        ? '<div class="ev-poster"><img src="' + club.image + '" alt="' + club.name + '"></div>'
         : '<div class="ev-poster ev-poster--empty"></div>') +
       '<div class="ev-card-body">' +
         '<div class="ev-card-top">' +
-          '<span class="ev-badge ev-badge--' + ev.status + '">' + ev.badge + '</span>' +
-          '<span class="ev-date">' + ev.dateShort + '</span>' +
-        '</div>' +
-        '<p class="ev-title">' + ev.title + '</p>' +
-        '<div class="ev-footer">' +
-          '<span class="ev-spots ' + spotsClass + '">' +
-            (isSoldout ? '마감' : '잔여 <strong>' + ev.spotsLeft + '</strong> / ' + ev.spotsTotal + '명') +
+          '<span class="ev-badge ev-badge--' + club.status + '">' +
+            (isActive ? '멤버 모집' : '준비 중') +
           '</span>' +
-          '<span class="ev-cta' + (isSoldout ? ' ev-cta--disabled' : '') + '">' +
-            (isSoldout ? '마감' : '신청하기 →') +
+        '</div>' +
+        '<p class="ev-title">' + club.name + '</p>' +
+        '<p class="ev-venue">' + club.venue + '</p>' +
+        '<p class="ev-desc">' + club.desc + '</p>' +
+        '<div class="ev-footer">' +
+          '<span class="ev-cta' + (!isActive ? ' ev-cta--muted' : '') + '">' +
+            (isActive ? '문의하기 →' : '오픈 예정') +
           '</span>' +
         '</div>' +
       '</div>';
