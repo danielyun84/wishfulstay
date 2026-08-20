@@ -1900,7 +1900,11 @@
         var expBase = expBasePP * count;
 
         /* VIP홀 연회장 필수 고정 (400,000×1.3=520,000원/첫날) */
-        var fixedBase = 520000;
+        /* 코디네이터 1명 필수 고정 200,000원 */
+        var fixedBase = 520000 + 200000;
+
+        /* 사진촬영 서비스: 300,000원 */
+        var photoBase = document.querySelector('input[name="addon"][value="photo"]:checked') ? 300000 : 0;
 
         /* 단체여행보험: 2,000원/인 */
         var insurBase = document.querySelector('input[name="addon"][value="insurance"]:checked')
@@ -1912,7 +1916,7 @@
         var vehicleBase = document.querySelector('input[name="addon"][value="vehicle"]:checked')
           ? (vehicleMap[vehicleDays] || 500000) : 0;
 
-        var totalBase = stayBase + mealBase + wspBase + expBase + fixedBase + insurBase + vehicleBase;
+        var totalBase = stayBase + mealBase + wspBase + expBase + fixedBase + insurBase + vehicleBase + photoBase;
 
         /* 50만원 단위 정리 */
         var unit = 500000;
