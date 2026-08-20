@@ -538,7 +538,7 @@
       padding: 14px 18px;
       border-right: 1px solid var(--c-border);
     }
-    .sch-info-cell:last-child { border-right: none; }
+    .sch-info-cell:last-child { border-right: none; grid-column: 1 / -1; }
     .sch-info-cell:nth-child(n+4) { border-top: 1px solid var(--c-border); }
     .sch-info-cell:nth-child(3n) { border-right: none; }
     .sch-info-label {
@@ -1007,10 +1007,51 @@
     .dur-btn:not(.active):hover { border-color: rgba(12,23,19,0.5); color: var(--c-dark); }
 
     @media (max-width: 760px) {
+      /* 캘린더 */
       .cal-wrap { grid-template-columns: 1fr; }
+
+      /* 기간 버튼: 월 내비 아래 새 줄로 내리기 */
+      .cal-nav-row { flex-wrap: wrap; }
+      .dur-selector { margin-left: 0; width: 100%; margin-top: 12px; }
+      .dur-btn { flex: 1; text-align: center; padding: 9px 0; white-space: nowrap; font-size: 13px; }
+
+      /* 숙박: 3컬럼 → 1컬럼 */
+      .stay-opt-grid { grid-template-columns: 1fr; }
+      .stay-opt-item { flex-direction: row; gap: 14px; align-items: center; }
+      .stay-opt-item .stay-slide { width: 100px; flex-shrink: 0; aspect-ratio: 4/3; }
+    .stay-opt-item .stay-slide-none { width: 100px; flex-shrink: 0; margin-bottom: 0; }
+      .stay-opt-item .opt-card { flex: 1; }
+      .stay-opt-item .opt-card-inner { border-radius: 2px; padding: 12px 14px; }
+
+      /* opt-grid: 2컬럼 유지, 텍스트 줄바꿈 방지 */
       .opt-grid { grid-template-columns: repeat(2, 1fr); }
-      .summary-footer { flex-direction: column; align-items: stretch; }
+      .opt-card-desc { font-size: 11px; word-break: keep-all; }
+      .opt-card-name { font-size: 13px; }
+
+      /* 추천 패키지: 1컬럼 */
       .pkg-rec-grid { grid-template-columns: 1fr; }
+
+      /* 워크샵 패널 */
+      .wsp-panel-wrap { grid-template-columns: 120px 1fr; }
+
+      /* 요약 */
+      .summary-footer { flex-direction: column; align-items: stretch; }
+
+      /* 일정 미리보기: 1컬럼 */
+      .schedule-wrap { grid-template-columns: 1fr !important; }
+      .schedule-day { border-right: none !important; }
+      .schedule-day:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--c-border) !important; }
+
+      /* sch-frame 모바일 */
+      .sch-frame { padding: 20px 16px; }
+      .sch-doc-title { font-size: 15px; }
+      .sch-doc-subtitle { font-size: 10px; }
+      .sch-doc-logo { font-size: 10px; }
+      .sch-info-grid { grid-template-columns: 1fr; }
+      .sch-info-cell { border-right: none !important; padding: 12px 14px; }
+      .sch-info-cell:nth-child(n+4) { border-top: none; }
+      .sch-info-cell:nth-child(n+2) { border-top: 1px solid var(--c-border); }
+      .sch-info-value { font-size: 13px; line-height: 1.6; }
     }
   </style>
 </head>
