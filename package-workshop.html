@@ -1781,6 +1781,14 @@
         }
       }
 
+      /* ── 체험 전역 순번 테이블 ── */
+      var expGlobalIdx = [];
+      var expCounter = 1;
+      for (var dg = 0; dg < days; dg++) {
+        expGlobalIdx.push([]);
+        expByDay[dg].forEach(function() { expGlobalIdx[dg].push(expCounter++); });
+      }
+
       /* ── 슬롯 빌드 & 렌더 ── */
       var html = '';
       for (var d = 0; d < days; d++) {
@@ -1805,15 +1813,15 @@
           slots.push({ time:'09:30', end:'10:00', name:'집결 및 오리엔테이션', tag:'info' });
           if (wspCatVal !== 'none' && wspItems.length) {
             var wst = 10 * 60;
-            wspItems.forEach(function(item) {
-              slots.push({ time: minsToTime(wst), end: minsToTime(wst+60), name: item.name, tag: item.tag });
+            wspItems.forEach(function(item, wi) {
+              slots.push({ time: minsToTime(wst), end: minsToTime(wst+60), name: '워크샵 ' + (wi+1) + ' : ' + item.name, tag: item.tag });
               wst += 60;
             });
           }
           slots.push(ms(d,1,'중식','12:00','14:00'));
           expByDay[0].forEach(function(e, i) {
             var st = 14*60 + i*120;
-            slots.push({ time: minsToTime(st), end: minsToTime(st+120), name: e.name, tag: e.tag });
+            slots.push({ time: minsToTime(st), end: minsToTime(st+120), name: '체험옵션 ' + expGlobalIdx[0][i] + ' : ' + e.name, tag: e.tag });
           });
           slots.push(ms(d,2,'석식','18:00','20:00'));
 
@@ -1828,8 +1836,8 @@
           if (wspCatVal !== 'none' && wspItems.length) {
             var wspDur = wspItems.length >= 3 ? 60 : 90;
             var wst = 15*60 + 30;
-            wspItems.forEach(function(item) {
-              slots.push({ time: minsToTime(wst), end: minsToTime(wst + wspDur), name: item.name, tag: item.tag });
+            wspItems.forEach(function(item, wi) {
+              slots.push({ time: minsToTime(wst), end: minsToTime(wst + wspDur), name: '워크샵 ' + (wi+1) + ' : ' + item.name, tag: item.tag });
               wst += wspDur;
             });
             var dinnerStart = wspItems.length >= 2 ? wst : 18*60;
@@ -1848,13 +1856,13 @@
           var lastExps = expByDay[d];
           var hasDinner = getMeal(d, 2);
           if (lastExps.length >= 1) {
-            slots.push({ time:'10:30', end:'12:30', name: lastExps[0].name, tag: lastExps[0].tag });
+            slots.push({ time:'10:30', end:'12:30', name: '체험옵션 ' + expGlobalIdx[d][0] + ' : ' + lastExps[0].name, tag: lastExps[0].tag });
             /* 중식 항상 표시 (자유 식사 포함) */
             slots.push(ms(d,1,'중식','12:30','14:00'));
             if (lastExps.length >= 2)
-              slots.push({ time:'14:00', end:'16:00', name: lastExps[1].name, tag: lastExps[1].tag });
+              slots.push({ time:'14:00', end:'16:00', name: '체험옵션 ' + expGlobalIdx[d][1] + ' : ' + lastExps[1].name, tag: lastExps[1].tag });
             if (lastExps.length >= 3)
-              slots.push({ time:'16:00', end:'18:00', name: lastExps[2].name, tag: lastExps[2].tag });
+              slots.push({ time:'16:00', end:'18:00', name: '체험옵션 ' + expGlobalIdx[d][2] + ' : ' + lastExps[2].name, tag: lastExps[2].tag });
             if (hasDinner) {
               slots.push({ time:'18:00', end:'20:00', name:'석식', tag:'meal' });
               slots.push({ time:'20:00', end:'20:30', name:'해산', tag:'info' });
@@ -1876,12 +1884,12 @@
           slots.push(ms(d,0,'조식','07:30','09:00'));
           var dayExps = expByDay[d];
           if (dayExps.length >= 1)
-            slots.push({ time:'10:00', end:'12:00', name: dayExps[0].name, tag: dayExps[0].tag });
+            slots.push({ time:'10:00', end:'12:00', name: '체험옵션 ' + expGlobalIdx[d][0] + ' : ' + dayExps[0].name, tag: dayExps[0].tag });
           slots.push(ms(d,1,'중식','12:00','14:00'));
           if (dayExps.length >= 2)
-            slots.push({ time:'14:00', end:'16:00', name: dayExps[1].name, tag: dayExps[1].tag });
+            slots.push({ time:'14:00', end:'16:00', name: '체험옵션 ' + expGlobalIdx[d][1] + ' : ' + dayExps[1].name, tag: dayExps[1].tag });
           if (dayExps.length >= 3)
-            slots.push({ time:'16:00', end:'18:00', name: dayExps[2].name, tag: dayExps[2].tag });
+            slots.push({ time:'16:00', end:'18:00', name: '체험옵션 ' + expGlobalIdx[d][2] + ' : ' + dayExps[2].name, tag: dayExps[2].tag });
           slots.push(ms(d,2,'연회 · 석식','18:00','20:00'));
         }
 
