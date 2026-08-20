@@ -894,23 +894,17 @@
       border-radius: 2px;
       padding: 28px 32px;
       margin-bottom: 0;
-      border-top: none;
     }
     .pkg-rec-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--c-text-muted);
-      margin-bottom: 4px;
-    }
-    .pkg-rec-heading {
       font-family: var(--f-body);
       font-size: 15px;
       font-weight: 500;
-      color: var(--c-dark);
-      margin-bottom: 4px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 16px;
     }
+    .pkg-rec-heading { display: none; }
     .pkg-rec-sub {
       font-size: 12px;
       color: var(--c-text-muted);
@@ -1053,20 +1047,20 @@
         <p class="pkg-rec-heading">자주 찾는 구성으로 빠르게 시작하세요</p>
         <p class="pkg-rec-sub">패키지를 선택하면 아래 항목이 자동으로 설정됩니다. 이후 개별 항목을 직접 수정할 수 있습니다.</p>
         <div class="pkg-rec-grid">
-          <button class="pkg-rec-card" data-preset="edu1" type="button">
+          <button class="pkg-rec-card" data-preset="emp1" type="button">
             <span class="pkg-rec-badge">1박 2일</span>
-            <span class="pkg-rec-name">임직원 교육</span>
+            <span class="pkg-rec-name">직원 워크샵</span>
             <span class="pkg-rec-desc">호텔 · 교육/강좌 · 전체 식사</span>
           </button>
-          <button class="pkg-rec-card" data-preset="team1" type="button">
+          <button class="pkg-rec-card" data-preset="retire1" type="button">
             <span class="pkg-rec-badge">1박 2일</span>
-            <span class="pkg-rec-name">팀빌딩</span>
-            <span class="pkg-rec-desc">레지던스 · 레크레이션 · 전체 식사</span>
+            <span class="pkg-rec-name">퇴직(은퇴자) 워크샵</span>
+            <span class="pkg-rec-desc">호텔 · 은퇴설계 교육 · 전체 식사</span>
           </button>
-          <button class="pkg-rec-card" data-preset="edu2" type="button">
-            <span class="pkg-rec-badge">2박 3일</span>
-            <span class="pkg-rec-name">심화 연수</span>
-            <span class="pkg-rec-desc">레지던스 · 교육/강좌 · 전체 식사</span>
+          <button class="pkg-rec-card" data-preset="life1" type="button">
+            <span class="pkg-rec-badge">1박 2일</span>
+            <span class="pkg-rec-name">생애설계 워크샵</span>
+            <span class="pkg-rec-desc">레지던스 · 생애설계 교육 · 전체 식사</span>
           </button>
         </div>
       </div>
@@ -1656,9 +1650,9 @@
 
     /* ── 추천 패키지 프리셋 ── */
     var PRESETS = {
-      edu1:  { nights: 1, stay: 'hotel',     wsp: 'edu', meal: 'full' },
-      team1: { nights: 1, stay: 'residence', wsp: 'rec', meal: 'full' },
-      edu2:  { nights: 2, stay: 'residence', wsp: 'edu', meal: 'full' }
+      emp1:    { nights: 1, stay: 'hotel',     wsp: 'edu', meal: 'full' },
+      retire1: { nights: 1, stay: 'hotel',     wsp: 'edu', meal: 'full' },
+      life1:   { nights: 1, stay: 'residence', wsp: 'edu', meal: 'full' }
     };
     document.querySelectorAll('.pkg-rec-card').forEach(function(card) {
       card.addEventListener('click', function() {
