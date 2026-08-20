@@ -1891,10 +1891,11 @@
           return d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일';
         };
         var nightsLabel = cal.end ? ' (' + (days-1) + '박 ' + days + '일)' : ' (당일)';
+        var dowNames = ['일','월','화','수','목','금','토'];
         var dateLines = [];
         for (var di = 0; di < days; di++) {
           var dd2 = new Date(cal.start); dd2.setDate(dd2.getDate() + di);
-          dateLines.push((di+1) + '일차 : ' + fmtDate(dd2));
+          dateLines.push((di+1) + '일차 : ' + fmtDate(dd2) + ' (' + dowNames[dd2.getDay()] + ')');
         }
         var dateVal = dateLines.join('<br>');
         var stayVal2  = stayNameMap[stayVal] || '—';
