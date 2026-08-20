@@ -1072,13 +1072,6 @@
                 </div>
               </div>
               <div class="wsp-field">
-                <div class="wsp-field-label">교육 시간</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="radio" name="edu-duration" value="half"> 반일 (2~3시간)</label>
-                  <label class="wsp-chip"><input type="radio" name="edu-duration" value="full"> 전일 (5~6시간)</label>
-                </div>
-              </div>
-              <div class="wsp-field">
                 <div class="wsp-field-label">선택항목</div>
                 <div class="wsp-chips">
                   <label class="wsp-chip"><input type="radio" name="edu-style" value="lecture"> 강의형</label>
@@ -1611,10 +1604,8 @@
 
       if (wspCat === 'edu') {
         var courses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked')).map(function(el){ return eduCourseMap[el.value]; });
-        var dur = document.querySelector('input[name="edu-duration"]:checked');
         var style = document.querySelector('input[name="edu-style"]:checked');
         if (courses.length) wspParts.push(courses.join(' · '));
-        if (dur) wspParts.push(eduDurMap[dur.value]);
         if (style) wspParts.push(eduStyleMap[style.value]);
         if (!wspParts.length) wspParts.push('교육/강좌');
       } else if (wspCat === 'rec') {
