@@ -834,6 +834,33 @@
       color: var(--c-text-muted);
       line-height: 1.7;
     }
+    .sum-price-wrap {
+      text-align: right;
+      padding-right: 24px;
+      border-right: 1px solid var(--c-border);
+      flex-shrink: 0;
+    }
+    .sum-price-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 5px;
+    }
+    .sum-price-range {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--c-dark);
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+    .sum-price-sub {
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--c-text-muted);
+      margin-top: 4px;
+    }
     .pkg-inquiry-btn {
       display: inline-block;
       padding: 16px 40px;
@@ -1398,6 +1425,11 @@
         </div>
         <div class="summary-footer">
           <p class="summary-note">선택하신 구성을 바탕으로 견적을 안내해 드립니다.<br>인원·일정에 따라 금액이 달라지며, 단체 할인이 적용됩니다.</p>
+          <div class="sum-price-wrap">
+            <div class="sum-price-label">예상 견적</div>
+            <div class="sum-price-range" id="sumPrice">— 원</div>
+            <div class="sum-price-sub">러프 견적 · 확정 견적은 문의 후 안내</div>
+          </div>
           <button class="pkg-inquiry-btn" id="inquiryBtn" type="button">이 구성으로 문의하기</button>
         </div>
       </div>
@@ -1829,6 +1861,54 @@
         addonEl.textContent = '선택 안 함';
         addonEl.className = 'summary-value empty';
       }
+
+      /* ── 예상 견적 계산 ── */
+      (function() {
+        var nights   = parseInt((document.querySelector('.dur-btn.active') || {}).dataset.nights || 1);
+        var stayEl   = document.querySelector('input[name="stay"]:checked');
+        var stayVal  = stayEl ? stayEl.value : 'hotel';
+        var mealEl2  = document.querySelector('input[name="meal"]:checked');
+        var mealVal  = mealEl2 ? mealEl2.value : 'none';
+
+        /* 숙박 단가/인/박 */
+        var stayMin = stayVal === 'hotel' ? 80000 : 55000;
+        var stayMax = stayVal === 'hotel' ? 130000 : 90000;
+
+        /* 식사 단가/인/일 */
+        var mealMin = mealVal === 'full' ? 50000 : mealVal === 'partial' ? 25000 : 0;
+        var mealMax = mealVal === 'full' ? 80000 : mealVal === 'partial' ? 40000 : 0;
+
+        /* 워크샵 강좌 단가/인/강좌 */
+        var courses  = document.querySelectorAll('input[name="edu-course"]:checked').length;
+        var wspMin   = courses * 25000;
+        var wspMax   = courses * 45000;
+
+        /* 추가 체험 단가/인/항목×일 */
+        var expRates = { horse: [30000,50000], temple: [10000,20000], craft: [20000,35000], leisure: [25000,45000] };
+        var expMinPP = 0, expMaxPP = 0;
+        document.querySelectorAll('input[name^="exp-d"]:checked').forEach(function(cb) {
+          var r = expRates[cb.value] || [20000, 40000];
+          expMinPP += r[0]; expMaxPP += r[1];
+        });
+
+        /* 기본 운영비 (장소·진행 등) */
+        var baseMin = 300000, baseMax = 600000;
+
+        var totalMin = (stayMin * nights + mealMin * nights + wspMin + expMinPP) * count + baseMin;
+        var totalMax = (stayMax * nights + mealMax * nights + wspMax + expMaxPP) * count + baseMax;
+
+        /* 50만원 단위 정리 */
+        var unit = 500000;
+        totalMin = Math.floor(totalMin / unit) * unit;
+        totalMax = Math.ceil(totalMax / unit) * unit;
+
+        function fmt(n) {
+          var man = Math.round(n / 10000);
+          return man.toLocaleString() + '만원';
+        }
+
+        document.getElementById('sumPrice').textContent = '약 ' + fmt(totalMin) + ' ~ ' + fmt(totalMax);
+      })();
     }
 
     /* ── 일정 미리보기 렌더 ── */
