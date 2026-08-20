@@ -1887,9 +1887,9 @@
                       : mealVal === 'partial' ? (mealPartial[nights] || 2) : 0;
         var mealBase = mealMeals * count * 20000;
 
-        /* 워크샵 강좌: 25,000원/인/강좌 */
+        /* 워크샵 강좌: 300,000원/강좌 (고정) */
         var courses = document.querySelectorAll('input[name="edu-course"]:checked').length;
-        var wspBase = courses * count * 25000;
+        var wspBase = courses * 300000;
 
         /* 추가 체험: 승마 70,000, 기타 50,000원/인 */
         var expRateMap = { horse: 70000, temple: 50000, craft: 50000, leisure: 50000 };
