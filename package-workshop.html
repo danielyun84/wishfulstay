@@ -1983,6 +1983,12 @@
         return true;
       };
 
+      /* 재생성 전 현재 체크 상태 저장 */
+      var prevChecked = {};
+      Array.from(document.querySelectorAll('input[name="meal-detail"]')).forEach(function(cb) {
+        if (cb.id) prevChecked[cb.id] = cb.checked;
+      });
+
       var meals = ['조식', '중식', '석식'];
       var html = '';
       for (var i = 0; i < days; i++) {
@@ -1990,7 +1996,10 @@
         html += '<span class="meal-day-label">' + dayLabel(i) + '</span>';
         for (var j = 0; j < 3; j++) {
           var id = 'mc-' + i + '-' + j;
-          var checked = isAutoChecked(i, j) ? ' checked' : '';
+          var autoOn = isAutoChecked(i, j);
+          /* 이전 상태 복원: auto-checked 아닌 경우만 사용자 선택 유지 */
+          var wasChecked = (id in prevChecked) ? prevChecked[id] : autoOn;
+          var checked = (autoOn || (!isFull && wasChecked)) ? ' checked' : '';
           var autoClass = (isFull && !(i === 0 && j === 0)) ? ' meal-auto' : '';
           html += '<label class="meal-check-card' + autoClass + '">';
           html += '<input type="checkbox" id="' + id + '" name="meal-detail"' + checked + '>';
