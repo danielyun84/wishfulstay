@@ -781,6 +781,28 @@
       background: var(--c-dark);
       color: #fff;
     }
+    .wsp-desc-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 14px 18px;
+      background: rgba(12,23,19,0.03);
+      border-left: 2px solid var(--c-dark);
+      border-radius: 0 2px 2px 0;
+    }
+    .wsp-desc-panel.visible { display: block; }
+    .wsp-desc-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--c-dark);
+      margin-bottom: 5px;
+      letter-spacing: 0.02em;
+    }
+    .wsp-desc-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--c-text);
+      line-height: 1.75;
+    }
     .wsp-none-msg {
       font-size: 13px;
       color: var(--c-text-muted);
@@ -1309,15 +1331,16 @@
             <div class="wsp-sub active" id="wsp-panel-edu">
               <div class="wsp-field">
                 <div class="wsp-field-label">강좌명</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="ai"> AI 기초교육</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="career"> 진로교육</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="startup"> 시니어 창업</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="lifeplan"> 생애설계</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="retire"> 은퇴설계</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="humanities"> 인문학강좌</label>
-                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="hobby"> 취미교육</label>
+                <div class="wsp-chips" data-desc-target="edu-desc">
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="ai" data-name="AI 기초교육" data-desc="ChatGPT 등 생성형 AI 실무 활용법을 익히는 강좌입니다. 강의와 실습을 병행하며 입문자도 쉽게 따라올 수 있는 난이도로 진행됩니다."> AI 기초교육</label>
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="career" data-name="진로교육" data-desc="중장년층의 경력전환과 재취업을 위한 진로설계 프로그램입니다. 개인별 강점 분석과 실질적인 취업 전략을 함께 다룹니다."> 진로교육</label>
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="startup" data-name="시니어 창업" data-desc="퇴직 후 소규모 창업을 준비하는 분들을 위한 실전 과정입니다. 아이템 발굴부터 마케팅 전략까지 단계별로 안내합니다."> 시니어 창업</label>
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="lifeplan" data-name="생애설계" data-desc="재정·건강·관계·여가 등 은퇴 후 삶 전반을 설계하는 종합 프로그램입니다. 전문 강사와 함께 나만의 2막을 준비합니다."> 생애설계</label>
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="retire" data-name="은퇴설계" data-desc="재무·세금·연금 전략에 특화된 전문가 강의입니다. 개인 상담 세션이 포함되어 실질적인 은퇴 준비를 도와드립니다."> 은퇴설계</label>
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="humanities" data-name="인문학강좌" data-desc="철학·역사·문학을 통해 삶의 의미를 재발견하는 인문학 특강입니다. 일상에서 벗어나 깊이 생각하는 시간을 드립니다."> 인문학강좌</label>
+                  <label class="wsp-chip"><input type="checkbox" name="edu-course" value="hobby" data-name="취미교육" data-desc="원예·사진·요리 등 원하는 분야를 선택해 배우는 체험형 강좌입니다. 새로운 취미를 통해 활력을 찾는 시간이 됩니다."> 취미교육</label>
                 </div>
+                <div class="wsp-desc-panel" id="edu-desc"></div>
               </div>
               <div class="wsp-field">
                 <div class="wsp-field-label">선택항목</div>
@@ -1333,12 +1356,13 @@
             <div class="wsp-sub" id="wsp-panel-rec">
               <div class="wsp-field">
                 <div class="wsp-field-label">프로그램</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="teamgame"> 팀게임</label>
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="sports"> 스포츠 대항전</label>
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="outdoor"> 야외 레크레이션</label>
-                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="dance"> 율동 · 댄스</label>
+                <div class="wsp-chips" data-desc-target="rec-desc">
+                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="teamgame" data-name="팀게임" data-desc="팀별 미션과 게임을 통해 소통과 협력을 끌어내는 프로그램입니다. 부서 간 장벽을 낮추고 팀워크를 강화하는 데 효과적입니다."> 팀게임</label>
+                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="sports" data-name="스포츠 대항전" data-desc="부서·팀 단위로 즐기는 스포츠 리그 프로그램입니다. 건강한 경쟁과 응원 속에서 구성원 간 유대감을 높입니다."> 스포츠 대항전</label>
+                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="outdoor" data-name="야외 레크레이션" data-desc="강동 해안과 자연 속에서 진행하는 야외 활동 프로그램입니다. 신선한 공기와 함께 일상의 스트레스를 해소합니다."> 야외 레크레이션</label>
+                  <label class="wsp-chip"><input type="checkbox" name="rec-prog" value="dance" data-name="율동 · 댄스" data-desc="전문 강사와 함께하는 그룹 율동·댄스 프로그램입니다. 몸을 움직이며 에너지를 충전하고 분위기를 밝게 만듭니다."> 율동 · 댄스</label>
                 </div>
+                <div class="wsp-desc-panel" id="rec-desc"></div>
               </div>
               <div class="wsp-field">
                 <div class="wsp-field-label">운영 시간</div>
@@ -1354,12 +1378,13 @@
             <div class="wsp-sub" id="wsp-panel-exp">
               <div class="wsp-field">
                 <div class="wsp-field-label">체험 선택</div>
-                <div class="wsp-chips">
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="horse"> 승마 체험</label>
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="temple"> 사찰문화 체험</label>
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="craft"> 공예 체험</label>
-                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="leisure"> 해양레저</label>
+                <div class="wsp-chips" data-desc-target="exp-desc">
+                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="horse" data-name="승마 체험" data-desc="UEF 승마장에서 진행하는 기초 승마 체험입니다. 전문 트레이너의 지도 아래 안전하게 말과 교감하며 색다른 경험을 드립니다."> 승마 체험</label>
+                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="temple" data-name="사찰문화 체험" data-desc="국가지정 보물이 있는 신흥사에서 진행하는 명상과 사찰 문화 체험입니다. 도심을 벗어나 비움과 회복의 시간을 경험합니다."> 사찰문화 체험</label>
+                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="craft" data-name="공예 체험" data-desc="지역 공방과 연계한 도예·목공·천연염색 등 핸드크래프트 체험입니다. 직접 만드는 작품을 기념품으로 가져갈 수 있습니다."> 공예 체험</label>
+                  <label class="wsp-chip"><input type="checkbox" name="wsp-exp" value="leisure" data-name="해양레저" data-desc="강동 해안에서 즐기는 카약·SUP·스노클링 등 해양 액티비티입니다. 하절기 운영하며 팀 단위 프로그램으로 구성됩니다."> 해양레저</label>
                 </div>
+                <div class="wsp-desc-panel" id="exp-desc"></div>
               </div>
               <div class="wsp-field">
                 <div class="wsp-field-label">시간대</div>
@@ -1840,6 +1865,40 @@
         }
         update();
       }
+    });
+
+    /* ── 프로그램 설명 패널 ── */
+    function showWspDesc(panel, inp) {
+      if (!panel || !inp) return;
+      var name = inp.dataset.name;
+      var desc = inp.dataset.desc;
+      if (!name || !desc) { panel.classList.remove('visible'); return; }
+      panel.innerHTML = '<div class="wsp-desc-name">' + name + '</div>'
+                      + '<div class="wsp-desc-text">' + desc + '</div>';
+      panel.classList.add('visible');
+    }
+    document.querySelectorAll('.wsp-chips[data-desc-target]').forEach(function(chipsWrap) {
+      var panelId = chipsWrap.dataset.descTarget;
+      var panel = document.getElementById(panelId);
+      chipsWrap.querySelectorAll('.wsp-chip').forEach(function(lbl) {
+        var inp = lbl.querySelector('input');
+        lbl.addEventListener('mouseenter', function() { showWspDesc(panel, inp); });
+        lbl.addEventListener('mouseleave', function() {
+          var anyChecked = Array.from(chipsWrap.querySelectorAll('input')).some(function(i){ return i.checked; });
+          if (!anyChecked) panel.classList.remove('visible');
+          else {
+            var lastChecked = Array.from(chipsWrap.querySelectorAll('input:checked')).pop();
+            showWspDesc(panel, lastChecked);
+          }
+        });
+        inp.addEventListener('change', function() {
+          if (this.checked) showWspDesc(panel, this);
+          else {
+            var lastChecked = Array.from(chipsWrap.querySelectorAll('input:checked')).pop();
+            lastChecked ? showWspDesc(panel, lastChecked) : panel.classList.remove('visible');
+          }
+        });
+      });
     });
 
     /* ── 인원 조절 ── */
