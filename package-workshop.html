@@ -1700,6 +1700,10 @@
       var mn = m % 60;
       return h + ':' + (mn < 10 ? '0' + mn : '' + mn);
     }
+    function timeToMins(t) {
+      var p = t.split(':');
+      return parseInt(p[0]) * 60 + parseInt(p[1]);
+    }
 
     function renderSchedule() {
       var section = document.getElementById('schedule-section');
@@ -1781,7 +1785,7 @@
         var remaining = expList.slice();
         for (var dd = 1; dd < days && remaining.length; dd++) {
           var isLastDay = dd === days - 1;
-          var maxSlots  = isLastDay ? (getMeal(dd, 1) ? 2 : 1) : 3;
+          var maxSlots  = isLastDay ? (getMeal(dd, 1) ? 3 : 1) : 3;
           remaining.splice(0, maxSlots).forEach(function(e) { expByDay[dd].push(e); });
         }
       }
@@ -1851,10 +1855,14 @@
           if (lastExps.length >= 1) {
             slots.push({ time:'10:30', end:'12:30', name: lastExps[0].name, tag: lastExps[0].tag });
             if (getMeal(d,1)) {
-              slots.push({ time:'12:30', end:'14:30', name:'중식', tag:'meal' });
+              /* 중식 1시간 30분 → 12:30~14:00 */
+              slots.push({ time:'12:30', end:'14:00', name:'중식', tag:'meal' });
               if (lastExps.length >= 2)
-                slots.push({ time:'14:30', end:'16:30', name: lastExps[1].name, tag: lastExps[1].tag });
-              slots.push({ time: lastExps.length >= 2 ? '16:30' : '14:30', end: lastExps.length >= 2 ? '17:00' : '15:00', name:'해산', tag:'info' });
+                slots.push({ time:'14:00', end:'16:00', name: lastExps[1].name, tag: lastExps[1].tag });
+              if (lastExps.length >= 3)
+                slots.push({ time:'16:00', end:'18:00', name: lastExps[2].name, tag: lastExps[2].tag });
+              var dissolveTime = lastExps.length >= 3 ? '18:00' : lastExps.length >= 2 ? '16:00' : '14:00';
+              slots.push({ time: dissolveTime, end: minsToTime(timeToMins(dissolveTime) + 30), name:'해산', tag:'info' });
             } else {
               slots.push({ time:'12:30', end:'13:00', name:'해산', tag:'info' });
             }
