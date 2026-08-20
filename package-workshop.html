@@ -569,9 +569,15 @@
       margin-bottom: 24px;
       line-height: 1.7;
     }
+    .exp-placeholder { font-size: 13px; color: var(--c-muted); }
+    .exp-day-group { margin-bottom: 22px; }
+    .exp-day-group:last-child { margin-bottom: 0; }
+    .exp-day-label { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--c-dark); margin: 0 0 10px; }
+    .exp-day-hint { font-size: 10px; font-weight: 300; color: var(--c-muted); margin-left: 6px; letter-spacing: 0; }
+
     .schedule-wrap {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       border: 1px solid var(--c-border);
       border-radius: 2px;
       overflow: hidden;
@@ -579,8 +585,12 @@
     .schedule-day {
       padding: 20px 18px;
       border-right: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
     }
-    .schedule-day:last-child { border-right: none; }
+    .schedule-day:only-child { grid-column: 1 / -1; border-right: none; }
+    .schedule-day:nth-child(2n) { border-right: none; }
+    .schedule-day:last-child { border-bottom: none; }
+    .schedule-day:nth-last-child(2):nth-child(odd) { border-bottom: none; }
     .schedule-day-header {
       font-size: 12px; font-weight: 600;
       color: var(--c-dark);
@@ -1166,36 +1176,9 @@
 
       <!-- 05. 추가 체험 -->
       <div class="pkg-section">
-        <p class="pkg-section-title">05 &nbsp;추가 체험선택 <span style="font-size:10px; font-weight:300; letter-spacing:0; text-transform:none; margin-left:6px;">중복 선택 가능</span></p>
-        <div class="opt-grid">
-          <label class="opt-card">
-            <input type="checkbox" name="exp" value="horse">
-            <div class="opt-card-inner">
-              <span class="opt-card-name">승마 체험</span>
-              <span class="opt-card-desc">UEF 승마장</span>
-            </div>
-          </label>
-          <label class="opt-card">
-            <input type="checkbox" name="exp" value="temple">
-            <div class="opt-card-inner">
-              <span class="opt-card-name">사찰문화 체험</span>
-              <span class="opt-card-desc">신흥사</span>
-            </div>
-          </label>
-          <label class="opt-card">
-            <input type="checkbox" name="exp" value="craft">
-            <div class="opt-card-inner">
-              <span class="opt-card-name">공예 체험</span>
-              <span class="opt-card-desc">지역 공방 연계</span>
-            </div>
-          </label>
-          <label class="opt-card">
-            <input type="checkbox" name="exp" value="leisure">
-            <div class="opt-card-inner">
-              <span class="opt-card-name">해양레저</span>
-              <span class="opt-card-desc">하절기 운영</span>
-            </div>
-          </label>
+        <p class="pkg-section-title">05 &nbsp;추가 체험선택 <span style="font-size:10px; font-weight:300; letter-spacing:0; text-transform:none; margin-left:6px;">일차별 · 중복 선택 가능</span></p>
+        <div id="exp-days-wrap">
+          <p class="exp-placeholder">날짜를 먼저 선택해주세요.</p>
         </div>
       </div>
 
@@ -1636,15 +1619,23 @@
       /* 일부포함 그리드 갱신 */
       renderMealPartial();
 
+      /* 추가 체험 일차별 그리드 갱신 */
+      renderExpPartial();
+
       /* 일정 미리보기 갱신 */
       renderSchedule();
 
       /* 추가 체험 */
-      var exps   = Array.from(document.querySelectorAll('input[name="exp"]:checked'));
-      var expMap = { horse: '승마', temple: '사찰문화', craft: '공예', leisure: '해양레저' };
-      var expEl  = document.getElementById('sum-exp');
-      if (exps.length) {
-        expEl.textContent = exps.map(function(e) { return expMap[e.value]; }).join(' · ');
+      var expMapShort = { horse: '승마', temple: '사찰문화', craft: '공예', leisure: '해양레저' };
+      var expEl = document.getElementById('sum-exp');
+      var allExpChecked = Array.from(document.querySelectorAll('input[name^="exp-d"]:checked'));
+      if (allExpChecked.length) {
+        var seenExp = {}, expNames = [];
+        allExpChecked.forEach(function(cb) {
+          var n = expMapShort[cb.value];
+          if (n && !seenExp[n]) { seenExp[n] = true; expNames.push(n); }
+        });
+        expEl.textContent = expNames.join(' · ');
         expEl.className = 'summary-value';
       } else {
         expEl.textContent = '선택 안 함';
@@ -1745,13 +1736,8 @@
         }
       }
 
-      /* ── 추가 체험 수집 (각 2시간짜리) ── */
+      /* ── 추가 체험 일차별 수집 ── */
       var expNameMap = { horse:'승마 체험', temple:'사찰문화 체험', craft:'공예 체험', leisure:'해양레저' };
-      var expList    = [];
-      ['horse','temple','craft','leisure'].forEach(function(v) {
-        if (document.querySelector('input[name="exp"][value="'+v+'"]:checked'))
-          expList.push({ name: expNameMap[v], tag: 'exp' });
-      });
 
       /* ── 식사 헬퍼 (mi: 0=조식, 1=중식, 2=석식) ── */
       var mealRadio = document.querySelector('input[name="meal"]:checked');
@@ -1764,21 +1750,14 @@
         return boxes[idx] ? boxes[idx].checked : false;
       };
 
-      /* ── 추가 체험 날짜 배분 ──
-         첫날: 워크샵 전용 → 체험 없음
-         중간날: 오전1 + 오후1~2 (최대 3개/일)
-         마지막날: 중식 없으면 오전 1개, 중식 있으면 오전+오후 2개 */
+      /* ── 추가 체험 일차별 수집 ── */
       var expByDay = [];
-      for (var dd = 0; dd < days; dd++) expByDay.push([]);
-      if (!isOvernight) {
-        expList.slice(0, 3).forEach(function(e) { expByDay[0].push(e); });
-      } else {
-        var remaining = expList.slice();
-        for (var dd = 1; dd < days && remaining.length; dd++) {
-          var isLastDay = dd === days - 1;
-          var maxSlots  = 3; // 마지막날도 최대 3개 (점심 자유식사 포함)
-          remaining.splice(0, maxSlots).forEach(function(e) { expByDay[dd].push(e); });
-        }
+      for (var dd = 0; dd < days; dd++) {
+        var dayExpsRaw = [];
+        Array.from(document.querySelectorAll('input[name="exp-d' + dd + '"]:checked')).forEach(function(cb) {
+          dayExpsRaw.push({ name: expNameMap[cb.value] || cb.value, tag: 'exp' });
+        });
+        expByDay.push(dayExpsRaw);
       }
 
       /* ── 체험 전역 순번 테이블 ── */
@@ -1964,6 +1943,69 @@
     }
 
     /* ── 식사 그리드 (전체 / 일부 공용) ── */
+    function renderExpPartial() {
+      var wrap = document.getElementById('exp-days-wrap');
+      if (!wrap) return;
+
+      var expOpts = [
+        { value: 'horse',   name: '승마 체험',      desc: 'UEF 승마장' },
+        { value: 'temple',  name: '사찰문화 체험',  desc: '신흥사' },
+        { value: 'craft',   name: '공예 체험',      desc: '지역 공방 연계' },
+        { value: 'leisure', name: '해양레저',        desc: '하절기 운영' }
+      ];
+
+      /* 재생성 전 체크 상태 저장 */
+      var prevChecked = {};
+      Array.from(document.querySelectorAll('input[name^="exp-d"]')).forEach(function(cb) {
+        if (cb.id) prevChecked[cb.id] = cb.checked;
+      });
+
+      if (!cal.start) {
+        wrap.innerHTML = '<p class="exp-placeholder">날짜를 먼저 선택해주세요.</p>';
+        return;
+      }
+
+      var days = 1;
+      if (cal.end) days = Math.round((cal.end - cal.start) / 86400000) + 1;
+      var isOvn = days > 1;
+      var startDay = isOvn ? 1 : 0;
+      var KO_DOWS = ['일','월','화','수','목','금','토'];
+
+      var html = '';
+      for (var d = startDay; d < days; d++) {
+        var dDate = new Date(cal.start);
+        dDate.setDate(dDate.getDate() + d);
+        var isLast = d === days - 1;
+        var dayTitle = (d+1) + '일차 · ' + (dDate.getMonth()+1) + '/' + dDate.getDate() + ' (' + KO_DOWS[dDate.getDay()] + ')';
+        var hint = isLast ? '오전 1 + 오후 최대 2개' : '최대 3개';
+
+        html += '<div class="exp-day-group">';
+        html += '<p class="exp-day-label">' + dayTitle + '<span class="exp-day-hint">(' + hint + ')</span></p>';
+        html += '<div class="opt-grid">';
+        expOpts.forEach(function(opt) {
+          var id = 'exp-d' + d + '-' + opt.value;
+          var checked = prevChecked[id] ? ' checked' : '';
+          html += '<label class="opt-card">';
+          html += '<input type="checkbox" name="exp-d' + d + '" value="' + opt.value + '" id="' + id + '"' + checked + '>';
+          html += '<div class="opt-card-inner">';
+          html += '<span class="opt-card-name">' + opt.name + '</span>';
+          html += '<span class="opt-card-desc">' + opt.desc + '</span>';
+          html += '</div></label>';
+        });
+        html += '</div></div>';
+      }
+
+      if (!html) {
+        wrap.innerHTML = '<p class="exp-placeholder">체험 선택 가능한 일차가 없습니다.</p>';
+        return;
+      }
+      wrap.innerHTML = html;
+    }
+
+    document.getElementById('exp-days-wrap').addEventListener('change', function(e) {
+      if (e.target.matches('input[name^="exp-d"]')) update();
+    });
+
     function renderMealPartial() {
       var wrap = document.getElementById('meal-partial-wrap');
       var grid = document.getElementById('meal-partial-grid');
