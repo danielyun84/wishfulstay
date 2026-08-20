@@ -2505,6 +2505,11 @@ dd small {
   background: var(--c-cream);
 }
 
+.ev-header {
+  text-align: left;
+  margin-bottom: var(--sp-lg);
+}
+
 .section-sub {
   font-size: 14px;
   color: var(--c-text-muted);
@@ -2512,63 +2517,48 @@ dd small {
 }
 
 .ev-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
   margin-top: 48px;
 }
 
 .ev-card {
-  background: var(--c-bg);
-  border: 1px solid var(--c-border);
-  border-radius: 2px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: box-shadow var(--t-base);
-}
-
-.ev-card--has-poster {
-  flex-direction: row;
-  align-items: stretch;
+  gap: 0;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .ev-poster {
-  flex: 0 0 28%;
-  max-width: 28%;
+  position: relative;
   overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 16px;
 }
 
 .ev-poster img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.ev-poster--empty {
+  aspect-ratio: 3 / 4;
+  background: var(--c-border);
+}
+
+.ev-card:hover .ev-poster img {
+  transform: scale(1.02);
 }
 
 .ev-card-body {
-  padding: 28px 28px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  flex: 1;
-}
-
-@media (max-width: 640px) {
-  .ev-card--has-poster {
-    flex-direction: column;
-  }
-  .ev-poster {
-    flex: none;
-    max-width: 100%;
-  }
-  .ev-poster img {
-    height: auto;
-  }
-}
-
-.ev-card:hover {
-  box-shadow: 0 6px 24px rgba(15,25,22,0.08);
+  gap: 10px;
 }
 
 .ev-card-top {
@@ -2603,10 +2593,10 @@ dd small {
 }
 
 .ev-title {
-  font-family: var(--f-display);
-  font-size: clamp(20px, 2.2vw, 26px);
-  font-weight: 400;
-  line-height: 1.3;
+  font-family: var(--f-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
   color: var(--c-dark);
   margin: 0;
 }
@@ -2638,8 +2628,7 @@ dd small {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  padding-top: 4px;
-  border-top: 1px solid var(--c-border);
+  padding-top: 8px;
 }
 
 .ev-location,
@@ -2692,7 +2681,13 @@ dd small {
 
 @media (max-width: 768px) {
   .ev-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ev-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 }

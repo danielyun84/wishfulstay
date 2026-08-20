@@ -49,32 +49,28 @@ const WS_EVENTS = [
     var spotsClass = spotsRatio <= 0.2 ? 'ev-spots--urgent' : '';
     var isSoldout = ev.status === 'soldout';
 
-    var card = document.createElement('div');
-    card.className = 'ev-card' + (ev.poster ? ' ev-card--has-poster' : '');
+    var card = document.createElement('a');
+    card.className = 'ev-card';
+    card.href = ev.link;
+
     card.innerHTML =
-      (ev.poster ? '<div class="ev-poster"><img src="' + ev.poster + '" alt="' + ev.title + ' 포스터"></div>' : '') +
+      (ev.poster
+        ? '<div class="ev-poster"><img src="' + ev.poster + '" alt="' + ev.title + ' 포스터"></div>'
+        : '<div class="ev-poster ev-poster--empty"></div>') +
       '<div class="ev-card-body">' +
-      '<div class="ev-card-top">' +
-        '<span class="ev-badge ev-badge--' + ev.status + '">' + ev.badge + '</span>' +
-        '<span class="ev-date">' + ev.dateShort + '</span>' +
-      '</div>' +
-      '<h3 class="ev-title">' + ev.title + '</h3>' +
-      '<p class="ev-desc">' + ev.desc + '</p>' +
-      '<div class="ev-tags">' +
-        ev.tags.map(function (t) { return '<span class="ev-tag">' + t + '</span>'; }).join('') +
-      '</div>' +
-      '<div class="ev-meta">' +
-        '<span class="ev-location">' + ev.location + '</span>' +
-        '<span class="ev-date-full">' + ev.dateLabel + '</span>' +
-      '</div>' +
-      '<div class="ev-footer">' +
-        '<span class="ev-spots ' + spotsClass + '">' +
-          (isSoldout ? '마감' : '잔여 <strong>' + ev.spotsLeft + '</strong> / ' + ev.spotsTotal + '명') +
-        '</span>' +
-        '<a href="' + ev.link + '" class="ev-cta' + (isSoldout ? ' ev-cta--disabled' : '') + '">' +
-          (isSoldout ? '마감되었습니다' : '신청하기 →') +
-        '</a>' +
-      '</div>' +
+        '<div class="ev-card-top">' +
+          '<span class="ev-badge ev-badge--' + ev.status + '">' + ev.badge + '</span>' +
+          '<span class="ev-date">' + ev.dateShort + '</span>' +
+        '</div>' +
+        '<p class="ev-title">' + ev.title + '</p>' +
+        '<div class="ev-footer">' +
+          '<span class="ev-spots ' + spotsClass + '">' +
+            (isSoldout ? '마감' : '잔여 <strong>' + ev.spotsLeft + '</strong> / ' + ev.spotsTotal + '명') +
+          '</span>' +
+          '<span class="ev-cta' + (isSoldout ? ' ev-cta--disabled' : '') + '">' +
+            (isSoldout ? '마감' : '신청하기 →') +
+          '</span>' +
+        '</div>' +
       '</div>';
 
     grid.appendChild(card);
