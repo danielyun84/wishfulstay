@@ -599,8 +599,8 @@ h4 {
 /* ── About ────────────────────────────────────────────────────── */
 
 #about {
-  padding: var(--sp-2xl) 0;
-  background: var(--c-bg);
+  padding: var(--sp-xl) 0;
+  background: #fff;
 }
 
 .about-grid {
@@ -616,18 +616,20 @@ h4 {
   gap: 24px;
 }
 
+.about-text .eyebrow { margin-bottom: 28px; }
+
 .about-text h2 {
   font-size: clamp(28px, 2.6vw, 40px);
   line-height: 1.4;
   color: var(--c-dark);
-  margin: 16px 0 28px;
+  margin: 0 0 28px;
 }
 
 .about-text > p {
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.65;
   color: var(--c-text);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .about-text > p strong {
@@ -2502,12 +2504,28 @@ dd small {
 
 #events-section {
   padding: var(--sp-xl) 0;
-  background: var(--c-cream);
+  background: var(--c-bg-alt);
 }
 
 .ev-header {
   text-align: left;
   margin-bottom: var(--sp-lg);
+}
+
+.ev-header .eyebrow { margin-bottom: 28px; }
+
+.ev-header h2 {
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.4;
+  color: var(--c-dark);
+  margin: 0 0 28px;
+}
+
+.ev-header .section-sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--c-text);
+  margin-bottom: 10px;
 }
 
 .section-sub {
