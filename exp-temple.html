@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <title>사찰 문화체험 — WISHFUL STAY</title>
+  <meta name="description" content="아동·청소년·성인·실버 연령별 맞춤 사찰 체험 프로그램. 입재–체험–회향의 의례적 프레임으로 사찰에서만 가능한 경험을 제공합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* 트랙 탭 */
+    .track-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--c-border);
+      margin-bottom: 40px;
+    }
+    .track-tab {
+      padding: 12px 24px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: var(--f-body);
+      color: var(--c-text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .track-tab:hover { color: var(--c-dark); }
+    .track-tab.active {
+      color: var(--c-dark);
+      border-bottom-color: var(--c-dark);
+      font-weight: 600;
+    }
+    /* 트랙 패널 */
+    .track-panel { display: none; }
+    .track-panel.active { display: block; }
+    .track-intro {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      margin-bottom: 36px;
+      padding: 24px 28px;
+      background: rgba(12,23,19,0.03);
+      border-left: 3px solid var(--c-dark);
+    }
+    .track-intro-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 6px;
+    }
+    .track-intro-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--c-dark);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+    .track-intro-theme {
+      font-size: 12px;
+      color: var(--c-text-muted);
+      font-style: italic;
+    }
+    /* 프로그램 그리드 */
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .program-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px 18px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .program-item:hover {
+      border-color: var(--c-text-muted);
+      background: rgba(12,23,19,0.02);
+    }
+    .program-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--c-dark);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .program-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-dark);
+      line-height: 1.4;
+      margin-bottom: 3px;
+    }
+    .program-sub {
+      font-size: 11px;
+      color: var(--c-text-muted);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    /* 계절 섹션 */
+    .seasonal-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .seasonal-card {
+      padding: 20px 18px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+    }
+    .seasonal-season {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-text-muted);
+      margin-bottom: 6px;
+    }
+    .seasonal-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .seasonal-desc {
+      font-size: 11px;
+      color: var(--c-text-muted);
+      line-height: 1.65;
+    }
+    /* 구조 배너 */
+    .flow-banner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 48px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .flow-step {
+      flex: 1;
+      padding: 20px 22px;
+      text-align: center;
+    }
+    .flow-step:nth-child(2) {
+      background: var(--c-dark);
+      color: #fff;
+    }
+    .flow-step-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      font-weight: 600;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 4px;
+    }
+    .flow-step-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .flow-step-time {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    .flow-arrow {
+      font-size: 16px;
+      color: var(--c-text-muted);
+      padding: 0 4px;
+    }
+    @media (max-width: 640px) {
+      .program-grid { grid-template-columns: 1fr; }
+      .seasonal-grid { grid-template-columns: 1fr 1fr; }
+      .track-tab { padding: 10px 14px; font-size: 12px; }
+      .flow-banner { flex-direction: column; }
+      .flow-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="index.html">위시풀스테이</a></li>
+          <li><a href="workcation.html">워케이션</a></li>
+          <li><a href="stay.html">숙박</a></li>
+          <li><a href="experience.html" class="is-active">체험</a></li>
+          <li><a href="dining.html">식사</a></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="index.html">위시풀스테이</a></li>
+      <li><a href="workcation.html">워케이션</a></li>
+      <li><a href="stay.html">숙박</a></li>
+      <li><a href="experience.html">체험</a></li>
+      <li><a href="dining.html">식사</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="ph-image ph-page-experience"
+             data-concept="[ 사진 교체 예정 ] 사찰 전경 — 연꽃, 단청, 고즈넉한 사찰 마당. 맑고 고요한 분위기"
+             role="img" aria-label="사찰 문화체험"></div>
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <span class="eyebrow"><a href="experience.html" style="color:inherit;text-decoration:none;">체험</a> / Temple Stay</span>
+        <h1>사찰<br>문화체험</h1>
+        <p>전 연령 맞춤형 사찰 체험 · 템플스테이 연계 운영</p>
+      </div>
+    </section>
+
+
+    <section class="content-section content-section--alt">
+      <div class="container">
+
+        <!-- 운영 구조 -->
+        <div class="section-header reveal" style="margin-bottom:28px;">
+          <span class="eyebrow">Program Structure</span>
+          <h2>모든 프로그램의 공통 구조</h2>
+          <p style="margin-top:10px; font-size:13px; color:var(--c-text-muted);">입재–체험–회향의 의례적 프레임이 단순 체험을 '사찰에서만 가능한 경험'으로 전환합니다.</p>
+        </div>
+
+        <div class="flow-banner reveal">
+          <div class="flow-step">
+            <div class="flow-step-label">入 齋</div>
+            <div class="flow-step-name">입재식</div>
+            <div class="flow-step-time">20분 · 합장 인사, 사찰 예절, 오늘의 화두</div>
+          </div>
+          <div class="flow-arrow">▶</div>
+          <div class="flow-step">
+            <div class="flow-step-label">體 驗</div>
+            <div class="flow-step-name">본 체험</div>
+            <div class="flow-step-time">60~180분 · 연령별 맞춤 체험</div>
+          </div>
+          <div class="flow-arrow">▶</div>
+          <div class="flow-step">
+            <div class="flow-step-label">回 向</div>
+            <div class="flow-step-name">회향식</div>
+            <div class="flow-step-time">20분 · 소감 나눔, 수료증, 기념 촬영</div>
+          </div>
+        </div>
+
+        <!-- 트랙 탭 -->
+        <div class="section-header reveal" style="margin-bottom:24px;">
+          <span class="eyebrow">Age Tracks</span>
+          <h2>연령별 4개 트랙 · 48개 체험</h2>
+          <p style="margin-top:10px; font-size:13px; color:var(--c-text-muted);">각 트랙은 12개 체험 중 사찰 여건과 일정에 맞춰 3~6개를 선택 조합해 운영합니다.</p>
+        </div>
+
+        <div class="track-tabs reveal">
+          <button class="track-tab active" data-track="child">아동</button>
+          <button class="track-tab" data-track="teen">청소년</button>
+          <button class="track-tab" data-track="adult">성인</button>
+          <button class="track-tab" data-track="silver">실버</button>
+        </div>
+
+        <!-- 아동 -->
+        <div class="track-panel active" id="track-child">
+          <div class="track-intro reveal">
+            <div>
+              <div class="track-intro-label">아동 · 초등 1~6학년</div>
+              <div class="track-intro-title">오감으로 만나는 절 이야기</div>
+              <div class="track-intro-theme">오감·놀이 테마 / 2~3시간 (반나절)</div>
+            </div>
+          </div>
+          <div class="program-grid reveal">
+            <div class="program-item">
+              <span class="program-num">1</span>
+              <div><div class="program-name">꼬마스님의 하루</div><div class="program-sub">승복 체험 · 사찰 예절 배우기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">2</span>
+              <div><div class="program-name">절에서 찾은 보물지도</div><div class="program-sub">일주문 · 범종 · 석탑 스탬프 미션</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">3</span>
+              <div><div class="program-name">내 소원을 담은 한지 연등</div><div class="program-sub">한지공예 연등 만들기 · 점등</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">4</span>
+              <div><div class="program-name">기왓장에 쓰는 소원 한 줄</div><div class="program-sub">소원 기와 쓰기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">5</span>
+              <div><div class="program-name">문살무늬 탁본 놀이터</div><div class="program-sub">전각 문양 탁본 뜨기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">6</span>
+              <div><div class="program-name">밥알 한 톨의 약속</div><div class="program-sub">미니 발우공양 · 밥상머리 교육</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">7</span>
+              <div><div class="program-name">댕~ 소리를 만지다</div><div class="program-sub">범종 · 목탁 직접 쳐보기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">8</span>
+              <div><div class="program-name">연꽃이 피어나는 클레이</div><div class="program-sub">클레이 연꽃 만들기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">9</span>
+              <div><div class="program-name">알록달록 단청 색칠놀이</div><div class="program-sub">단청 문양 컬러링</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">10</span>
+              <div><div class="program-name">숲속 스님과 걷는 길</div><div class="program-sub">생태 숲길 탐방</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">11</span>
+              <div><div class="program-name">부처님 손바닥 펄러비즈</div><div class="program-sub">펄러비즈 키링 만들기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">12</span>
+              <div><div class="program-name">나만의 연꽃 풍선정원</div><div class="program-sub">풍선아트 연꽃 만들기</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 청소년 -->
+        <div class="track-panel" id="track-teen">
+          <div class="track-intro reveal">
+            <div>
+              <div class="track-intro-label">청소년 · 중·고등학생</div>
+              <div class="track-intro-title">스마트폰을 내려놓는 반나절</div>
+              <div class="track-intro-theme">디지털 디톡스 테마 / 4~6시간 (1일)</div>
+            </div>
+          </div>
+          <div class="program-grid reveal">
+            <div class="program-item">
+              <span class="program-num">1</span>
+              <div><div class="program-name">폰을 내려놓는 반나절</div><div class="program-sub">스마트폰 봉인 디지털 디톡스</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">2</span>
+              <div><div class="program-name">묵언, 말없이 걷는 3km</div><div class="program-sub">묵언 숲길 걷기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">3</span>
+              <div><div class="program-name">108배 완주 프로젝트</div><div class="program-sub">도전 · 완주 인증서 수여</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">4</span>
+              <div><div class="program-name">한 글자씩 나를 쓰다</div><div class="program-sub">사경 + 캘리그라피</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">5</span>
+              <div><div class="program-name">10년 뒤 나에게 보내는 편지</div><div class="program-sub">타임캡슐 봉인</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">6</span>
+              <div><div class="program-name">스님과의 차담 : 인생 선배 토크</div><div class="program-sub">진로 · 관계 고민 나눔</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">7</span>
+              <div><div class="program-name">공양간 셰프 되기</div><div class="program-sub">사찰음식 직접 조리</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">8</span>
+              <div><div class="program-name">템플 진로캠프 : 나를 찾아서</div><div class="program-sub">진로적성검사 + 집단상담</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">9</span>
+              <div><div class="program-name">숨을 고르는 시간, 좌선 입문</div><div class="program-sub">호흡 명상 기초</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">10</span>
+              <div><div class="program-name">단청 컬러링 : 몰입의 90분</div><div class="program-sub">미술분과 연계 몰입 활동</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">11</span>
+              <div><div class="program-name">내 손으로 만드는 단주</div><div class="program-sub">비즈공예 단주</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">12</span>
+              <div><div class="program-name">산사 새벽 4시, 예불 도전기</div><div class="program-sub">1박 2일형 새벽예불</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 성인 -->
+        <div class="track-panel" id="track-adult">
+          <div class="track-intro reveal">
+            <div>
+              <div class="track-intro-label">성인 · 직장인 · 기업연수 · 동호회</div>
+              <div class="track-intro-title">번아웃을 내려놓는 산사 리트릿</div>
+              <div class="track-intro-theme">번아웃 회복 테마 / 1일 ~ 1박 2일</div>
+            </div>
+          </div>
+          <div class="program-grid reveal">
+            <div class="program-item">
+              <span class="program-num">1</span>
+              <div><div class="program-name">산사에서의 하루 쉼표</div><div class="program-sub">리트릿 기본 과정</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">2</span>
+              <div><div class="program-name">새벽 4시의 고요, 도량석 체험</div><div class="program-sub">새벽예불 참여</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">3</span>
+              <div><div class="program-name">차 한 잔의 명상, 다선일미</div><div class="program-sub">차명상</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">4</span>
+              <div><div class="program-name">발효를 배우는 시간, 사찰 장 담그기</div><div class="program-sub">장 · 발효 클래스</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">5</span>
+              <div><div class="program-name">제철을 먹다, 사찰음식 쿠킹클래스</div><div class="program-sub">조리 실습 · 공양</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">6</span>
+              <div><div class="program-name">쪽빛에 물들다 : 천연염색</div><div class="program-sub">스카프 · 손수건 염색</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">7</span>
+              <div><div class="program-name">향으로 마음을 정돈하다</div><div class="program-sub">천연 향 · 인센스 만들기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">8</span>
+              <div><div class="program-name">단청, 색으로 하는 명상</div><div class="program-sub">단청 문양 채색</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">9</span>
+              <div><div class="program-name">걷는 것이 곧 수행, 산사 트레킹</div><div class="program-sub">계절별 코스 운영</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">10</span>
+              <div><div class="program-name">필사의 밤, 마음을 베끼다</div><div class="program-sub">야간 사경 프로그램</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">11</span>
+              <div><div class="program-name">번아웃 리셋 워크숍</div><div class="program-sub">기업 임직원 연수형</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">12</span>
+              <div><div class="program-name">연꽃 비누 만들기</div><div class="program-sub">천연비누 공예</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 실버 -->
+        <div class="track-panel" id="track-silver">
+          <div class="track-intro reveal">
+            <div>
+              <div class="track-intro-label">실버 · 60세 이상 · 경로당 · 복지관</div>
+              <div class="track-intro-title">지나온 길을 돌아보는 시간</div>
+              <div class="track-intro-theme">회고 · 건강 테마 / 2~3시간 (반나절)</div>
+            </div>
+          </div>
+          <div class="program-grid reveal">
+            <div class="program-item">
+              <span class="program-num">1</span>
+              <div><div class="program-name">무릎이 편한 의자요가</div><div class="program-sub">좌식 · 의자 요가</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">2</span>
+              <div><div class="program-name">약차 한 잔, 몸을 데우다</div><div class="program-sub">제철 약재 약차 만들기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">3</span>
+              <div><div class="program-name">내 인생의 한 페이지</div><div class="program-sub">자서전 한 쪽 쓰기 · 낭독</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">4</span>
+              <div><div class="program-name">살아온 이야기 나눔 서클</div><div class="program-sub">집단 회상 프로그램</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">5</span>
+              <div><div class="program-name">손끝으로 물들이는 손수건</div><div class="program-sub">천연염색</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">6</span>
+              <div><div class="program-name">한 알 한 알, 나의 단주</div><div class="program-sub">단주 · 염주 만들기</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">7</span>
+              <div><div class="program-name">천천히 걷는 절 마당 한 바퀴</div><div class="program-sub">무장애 동선 산책</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">8</span>
+              <div><div class="program-name">소리로 쉬는 시간, 범종 명상</div><div class="program-sub">종소리 사운드 명상</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">9</span>
+              <div><div class="program-name">고운 글씨로 쓰는 반야심경</div><div class="program-sub">큰 글씨 사경</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">10</span>
+              <div><div class="program-name">웰다잉 : 잘 마무리하는 연습</div><div class="program-sub">유언장 쓰기 · 삶 정리</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">11</span>
+              <div><div class="program-name">손자에게 주는 팬시우드 액자</div><div class="program-sub">팬시우드 공예</div></div>
+            </div>
+            <div class="program-item">
+              <span class="program-num">12</span>
+              <div><div class="program-name">연꽃 한 송이, 지화 만들기</div><div class="program-sub">종이 연꽃(지화) 공예</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- 계절 특화 -->
+    <section class="content-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Seasonal</span>
+          <h2>계절 특화 프로그램</h2>
+          <p style="margin-top:10px; font-size:13px; color:var(--c-text-muted);">동일 대상이 계절마다 다시 찾는 구조, 연간 4회 재방문 상품으로 확장합니다.</p>
+        </div>
+        <div class="seasonal-grid reveal">
+          <div class="seasonal-card">
+            <div class="seasonal-season">봄</div>
+            <div class="seasonal-title">연등 · 꽃공양</div>
+            <div class="seasonal-desc">부처님오신날 연계 연등 만들기<br>야생화 꽃꽂이 · 봄나물 공양</div>
+          </div>
+          <div class="seasonal-card">
+            <div class="seasonal-season">여름</div>
+            <div class="seasonal-title">계곡 명상 · 수박 공양</div>
+            <div class="seasonal-desc">숲 그늘 명상 · 물소리 테라피<br>여름방학 어린이 사찰학교</div>
+          </div>
+          <div class="seasonal-card">
+            <div class="seasonal-season">가을</div>
+            <div class="seasonal-title">단풍 트레킹 · 감사 편지</div>
+            <div class="seasonal-desc">단풍길 걷기 명상 · 낙엽 압화<br>가을 사찰음식 축제</div>
+          </div>
+          <div class="seasonal-card">
+            <div class="seasonal-season">겨울</div>
+            <div class="seasonal-title">동안거 체험 · 새해 발원</div>
+            <div class="seasonal-desc">묵언 · 필사 집중 프로그램<br>제야의 종 · 새해 소원지 쓰기</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="cta-banner reveal">
+      <h2>사찰 문화체험 문의</h2>
+      <p>단체 규모와 연령대를 알려주시면 맞춤 프로그램을 구성해 드립니다.</p>
+      <a href="contact.html" class="btn btn-light-fill">예약 문의하기</a>
+    </div>
+
+  </main>
+
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo"><img src="images/logo-symbol.png" alt="" class="footer-logo-symbol">WISHFUL STAY</p>
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>주식회사 위시풀스테이 &nbsp;|&nbsp; 대표 박성윤 &nbsp;|&nbsp; 사업자등록번호 875-81-03225</p>
+          <p>울산광역시 북구 동해안로 1586, 지하1층 (산하동) &nbsp;|&nbsp; 운영시간 09:00 — 21:00</p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    /* 트랙 탭 전환 */
+    document.querySelectorAll('.track-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.track-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.track-panel').forEach(function(p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        document.getElementById('track-' + tab.dataset.track).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

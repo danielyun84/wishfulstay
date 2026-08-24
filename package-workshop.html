@@ -704,49 +704,93 @@
       font-weight: 400;
       color: var(--c-text-muted);
     }
-    .wsp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .wsp-chip {
-      display: inline-flex;
+    .wsp-cat-list { display: flex; flex-direction: column; }
+    .wsp-cat { border-bottom: 1px solid var(--c-border); }
+    .wsp-cat:last-child { border-bottom: none; }
+    .wsp-cat-hd {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 6px;
-      padding: 6px 13px;
-      border: 1px solid var(--c-border);
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 12px;
-      color: var(--c-text);
-      font-family: var(--f-body);
-      transition: border-color 0.15s, background 0.15s, color 0.15s;
-      user-select: none;
+      padding: 13px 0;
     }
-    .wsp-chip input { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
-    .wsp-chip:has(input:checked) {
-      border-color: var(--c-dark);
-      background: var(--c-dark);
-      color: #fff;
-    }
-    .wsp-desc-panel {
-      display: none;
-      margin-top: 12px;
-      padding: 14px 18px;
-      background: rgba(12,23,19,0.03);
-      border-left: 2px solid var(--c-dark);
-      border-radius: 0 2px 2px 0;
-    }
-    .wsp-desc-panel.visible { display: block; }
-    .wsp-desc-name {
-      font-size: 12px;
+    .wsp-cat-hd--toggle { cursor: pointer; user-select: none; }
+    .wsp-cat-name {
+      font-size: 13px;
       font-weight: 600;
       color: var(--c-dark);
-      margin-bottom: 5px;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
     }
-    .wsp-desc-text {
-      font-size: 12px;
+    .wsp-cat-meta {
+      font-size: 11px;
+      color: var(--c-text-muted);
       font-weight: 300;
-      color: var(--c-text);
-      line-height: 1.75;
     }
+    .wsp-cat-arrow { display: inline-block; transition: transform 0.2s; margin-left: 4px; }
+    .wsp-cat.open .wsp-cat-arrow { transform: rotate(180deg); }
+    .wsp-course-rows { padding-bottom: 10px; }
+    .wsp-course-rows--hidden { display: none; }
+    .wsp-course-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 6px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .wsp-course-row:hover { background: rgba(12,23,19,0.04); }
+    .wsp-course-row input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+    .wsp-chk {
+      width: 14px; height: 14px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .wsp-course-row:has(input:checked) .wsp-chk {
+      background: var(--c-dark);
+      border-color: var(--c-dark);
+    }
+    .wsp-course-row:has(input:checked) .wsp-chk::after {
+      content: '';
+      position: absolute;
+      left: 3px; top: 1px;
+      width: 5px; height: 8px;
+      border: 2px solid #fff;
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .wsp-course-row:has(input:disabled):not(:has(input:checked)) {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .wsp-course-letter {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--c-text-muted);
+      width: 14px;
+      flex-shrink: 0;
+      text-align: center;
+      letter-spacing: 0;
+    }
+    .wsp-course-title {
+      font-size: 13px;
+      color: var(--c-dark);
+      flex: 1;
+      line-height: 1.45;
+    }
+    .wsp-course-who {
+      font-size: 11px;
+      color: var(--c-text-muted);
+      white-space: nowrap;
+    }
+    .wsp-hobby-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px 0;
+    }
+    .wsp-hobby-grid .wsp-course-who { display: none; }
     .wsp-none-msg {
       font-size: 13px;
       color: var(--c-text-muted);
@@ -1269,19 +1313,113 @@
       <div class="pkg-section">
         <p class="pkg-section-title">03 &nbsp;워크샵 프로그램 선택</p>
         <div class="wsp-edu-wrap">
-          <div class="wsp-field">
-            <div class="wsp-field-label wsp-field-label--guide">워크숍 프로그램을 선택해주세요. <span class="wsp-field-hint">(최소 2개 ~ 최대 3개)</span></div>
-            <div class="wsp-chips" data-desc-target="edu-desc">
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="ai" data-name="AI 기초교육 — 3개 과정 (각 120분)" data-desc="AI 활용교육 전문강사 초빙, 실습 중심으로 진행됩니다. 6~60명 기준. ㅣ A. 생성형 AI 첫걸음 — 업무 프롬프트 실습 (전 직원·관공서) ㅣ B. AI로 만드는 홍보 콘텐츠 — 이미지·숏폼 직접 제작 (홍보·기획 담당) ㅣ C. 업무 자동화와 AI 활용 윤리·보안 — 반복 업무 자동화 + 조직 내 AI 사용 기준 수립 (관리자·실무 담당)"> AI 기초교육</label>
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="career" data-name="진로교육 — 3개 과정 (각 120분)" data-desc="직업카드·표준 진단·현직자 인터뷰 도구를 활용한 체험형 강좌입니다. 6~100명 기준. ㅣ A. 직업카드 분류로 찾는 나의 일 성향 (청소년·신입·저연차) ㅣ B. 표준 진단으로 읽는 흥미와 강점 — 6가지 유형·직무 매칭 (청소년·재직자) ㅣ C. 현장 직업인 인터뷰와 3년 진로 로드맵 — 현직자 인터뷰 후 로드맵 포스터 제작 (청소년·전환기 재직자)"> 진로교육</label>
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="startup" data-name="시니어 창업 — 3개 과정 (각 120분)" data-desc="중장년 창업 실패의 핵심인 아이템 선정부터 온라인 판로까지 단계적으로 다룹니다. 6~40명 기준. ㅣ A. 창업 적성 진단과 아이템 발굴 — 경력 자산 환산표 작성·아이템 후보 스크리닝 (40대 이상·퇴직예정자) ㅣ B. 1인 기업 수익모델과 손익 설계 — BM 캔버스 작성·손익분기점 산출 (창업 준비 단계) ㅣ C. 온라인 판로 개척과 1인 브랜딩 — 스마트스토어·SNS 실제 개설 실습 (예비·초기 창업자)"> 시니어 창업</label>
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="lifeplan" data-name="생애설계 — 3개 과정 (각 120분)" data-desc="삶의 고점·저점을 돌아보고 10년 실행계획까지 완성하는 3단계 과정입니다. 6~100명 기준. ㅣ A. 생애곡선 그리기 — 인생의 고점과 저점을 한 장에 정리 (전 연령·전 직급) ㅣ B. 인생 5대 영역 밸런스 진단 — 일·건강·관계·재무·배움 점수화 (전 연령·전 직급) ㅣ C. 10년 실행계획과 미래편지 — 3년·1년 단위로 분해 후 미래의 나에게 편지 발송 (전 연령·전 직급)"> 생애설계</label>
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="retire" data-name="은퇴설계 — 3개 과정 (각 120분)" data-desc="시간·돈·일을 순서대로 짚는 완결 트랙. 기업 전직지원 예산 연계에 최적입니다. 6~100명 기준. ㅣ A. 퇴직 후 시간 설계 — 하루 24시간 재배분 시뮬레이션 (퇴직예정자·은퇴자) ㅣ B. 연금 구조 점검과 노후 생활비 계산 — 3층 연금 조회·부족액 계산 (50대 이상·퇴직예정자) ㅣ C. 앙코르 커리어 — 재취업·창업·사회공헌 3트랙 비교 후 경력기술서 재작성 (퇴직예정자·은퇴자)"> 은퇴설계</label>
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="humanities" data-name="인문학강좌 — 3개 과정 (각 90분)" data-desc="강의·체험 병행, 앉아서 듣는 시간은 전체의 45% 이하입니다. 6~100명 기준. ㅣ A. 고전에서 찾는 리더의 질문 — 논어·아리스토텔레스로 조직 신뢰·결정·책임 토론 (관리자·전 직급) ㅣ B. 예술로 읽는 나의 시간 — 명화·음악 감상하며 자기 감각 회복, 감상 노트 지참 (전 연령) ㅣ C. 여섯 단어 자서전 — 짧은 글쓰기로 핵심 문장 완성, 캘리그라피 엽서 지참 (전 연령)"> 인문학강좌</label>
-              <label class="wsp-chip"><input type="checkbox" name="edu-course" value="hobby" data-name="취미교육 — 15개 과정 중 선택 (90~120분)" data-desc="저녁 시간과 둘째 날 오전에 가장 반응이 좋습니다. 재료 전량 제공, 완성 작품 지참. 6~50명 기준. ㅣ 선택 가능 과정: 핸드드립 커피 · 컬러테라피 백드롭 페인팅 · 천연비누 만들기 · 아로마 캔들 · 석고 방향제 · 플라워 어레인지먼트 · 테라리움 · 마크라메 소품 · 북아트 여행노트 · 가죽 카드지갑 · 선캐처 · 비즈·와이어 액세서리 · 우드 타일 트레이 · 디저트 데코 클래스 · 한지 조명 무드등"> 취미교육</label>
+          <div class="wsp-field-label wsp-field-label--guide">원하시는 프로그램을 선택해주세요. <span class="wsp-field-hint">(최소 2개 ~ 최대 3개)</span></div>
+          <div class="wsp-cat-list">
+
+            <!-- P-01 AI 기초교육 -->
+            <div class="wsp-cat">
+              <div class="wsp-cat-hd">
+                <span class="wsp-cat-name">P-01 · AI 기초교육</span>
+                
+              </div>
+              <div class="wsp-course-rows">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="ai-a"><span class="wsp-chk"></span><span class="wsp-course-letter">A</span><span class="wsp-course-title">생성형 AI 첫걸음 — 업무 프롬프트 실습</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="ai-b"><span class="wsp-chk"></span><span class="wsp-course-letter">B</span><span class="wsp-course-title">AI로 만드는 홍보 콘텐츠 — 이미지·숏폼 직접 제작</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="ai-c"><span class="wsp-chk"></span><span class="wsp-course-letter">C</span><span class="wsp-course-title">업무 자동화와 AI 활용 윤리·보안</span></label>
+              </div>
             </div>
-            <div class="wsp-desc-panel" id="edu-desc"></div>
-          </div>
+
+            <!-- P-02 진로교육 -->
+            <div class="wsp-cat">
+              <div class="wsp-cat-hd">
+                <span class="wsp-cat-name">P-02 · 진로교육</span>
+                
+              </div>
+              <div class="wsp-course-rows">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="career-a"><span class="wsp-chk"></span><span class="wsp-course-letter">A</span><span class="wsp-course-title">직업카드 분류로 찾는 나의 일 성향</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="career-b"><span class="wsp-chk"></span><span class="wsp-course-letter">B</span><span class="wsp-course-title">표준 진단으로 읽는 흥미와 강점 — 6가지 유형·직무 매칭</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="career-c"><span class="wsp-chk"></span><span class="wsp-course-letter">C</span><span class="wsp-course-title">현장 직업인 인터뷰와 3년 진로 로드맵</span></label>
+              </div>
+            </div>
+
+            <!-- P-03 시니어 창업 -->
+            <div class="wsp-cat">
+              <div class="wsp-cat-hd">
+                <span class="wsp-cat-name">P-03 · 시니어 창업</span>
+                
+              </div>
+              <div class="wsp-course-rows">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="startup-a"><span class="wsp-chk"></span><span class="wsp-course-letter">A</span><span class="wsp-course-title">창업 적성 진단과 아이템 발굴</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="startup-b"><span class="wsp-chk"></span><span class="wsp-course-letter">B</span><span class="wsp-course-title">1인 기업 수익모델과 손익 설계</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="startup-c"><span class="wsp-chk"></span><span class="wsp-course-letter">C</span><span class="wsp-course-title">온라인 판로 개척과 1인 브랜딩 실습</span></label>
+              </div>
+            </div>
+
+            <!-- P-04 생애설계 -->
+            <div class="wsp-cat">
+              <div class="wsp-cat-hd">
+                <span class="wsp-cat-name">P-04 · 생애설계</span>
+                
+              </div>
+              <div class="wsp-course-rows">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="life-a"><span class="wsp-chk"></span><span class="wsp-course-letter">A</span><span class="wsp-course-title">생애곡선 그리기 — 나의 고점과 저점</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="life-b"><span class="wsp-chk"></span><span class="wsp-course-letter">B</span><span class="wsp-course-title">인생 5대 영역 밸런스 진단 — 일·건강·관계·재무·배움</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="life-c"><span class="wsp-chk"></span><span class="wsp-course-letter">C</span><span class="wsp-course-title">10년 실행계획과 미래편지 쓰기</span></label>
+              </div>
+            </div>
+
+            <!-- P-05 은퇴설계 -->
+            <div class="wsp-cat">
+              <div class="wsp-cat-hd">
+                <span class="wsp-cat-name">P-05 · 은퇴설계</span>
+                
+              </div>
+              <div class="wsp-course-rows">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="retire-a"><span class="wsp-chk"></span><span class="wsp-course-letter">A</span><span class="wsp-course-title">퇴직 후 시간 설계 — 시간가계부 작성</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="retire-b"><span class="wsp-chk"></span><span class="wsp-course-letter">B</span><span class="wsp-course-title">연금 구조 점검과 노후 생활비 계산</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="retire-c"><span class="wsp-chk"></span><span class="wsp-course-letter">C</span><span class="wsp-course-title">앙코르 커리어 — 재취업·창업·사회공헌</span></label>
+              </div>
+            </div>
+
+            <!-- P-06 인문학강좌 -->
+            <div class="wsp-cat">
+              <div class="wsp-cat-hd">
+                <span class="wsp-cat-name">P-06 · 인문학강좌</span>
+                
+              </div>
+              <div class="wsp-course-rows">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hum-a"><span class="wsp-chk"></span><span class="wsp-course-letter">A</span><span class="wsp-course-title">고전에서 찾는 리더의 질문</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hum-b"><span class="wsp-chk"></span><span class="wsp-course-letter">B</span><span class="wsp-course-title">예술로 읽는 나의 시간</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hum-c"><span class="wsp-chk"></span><span class="wsp-course-letter">C</span><span class="wsp-course-title">여섯 단어 자서전 — 나를 쓰는 글쓰기</span></label>
+              </div>
+            </div>
+
+            <!-- P-07 취미교육 (accordion) -->
+            <div class="wsp-cat" id="wsp-cat-hobby">
+              <div class="wsp-cat-hd wsp-cat-hd--toggle" id="wsp-hobby-toggle">
+                <span class="wsp-cat-name">P-07 · 취미교육</span>
+                <span class="wsp-cat-arrow">▾</span>
+              </div>
+              <div class="wsp-course-rows wsp-hobby-grid wsp-course-rows--hidden" id="wsp-hobby-list">
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-coffee"><span class="wsp-chk"></span><span class="wsp-course-title">핸드드립 커피</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-color"><span class="wsp-chk"></span><span class="wsp-course-title">컬러테라피 백드롭 페인팅</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-soap"><span class="wsp-chk"></span><span class="wsp-course-title">천연비누 만들기</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-candle"><span class="wsp-chk"></span><span class="wsp-course-title">아로마 캔들</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-plaster"><span class="wsp-chk"></span><span class="wsp-course-title">석고 방향제 드라이플라워</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-flower"><span class="wsp-chk"></span><span class="wsp-course-title">플라워 어레인지먼트</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-terra"><span class="wsp-chk"></span><span class="wsp-course-title">테라리움</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-macra"><span class="wsp-chk"></span><span class="wsp-course-title">마크라메 컵받침·벽걸이</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-book"><span class="wsp-chk"></span><span class="wsp-course-title">북아트 여행노트 제본</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-leather"><span class="wsp-chk"></span><span class="wsp-course-title">가죽 카드지갑</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-sun"><span class="wsp-chk"></span><span class="wsp-course-title">선캐처</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-beads"><span class="wsp-chk"></span><span class="wsp-course-title">비즈·와이어 액세서리</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-wood"><span class="wsp-chk"></span><span class="wsp-course-title">우드 타일 트레이</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-dessert"><span class="wsp-chk"></span><span class="wsp-course-title">디저트 데코 클래스</span></label>
+                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-hanji"><span class="wsp-chk"></span><span class="wsp-course-title">한지 조명 무드등</span></label>
+              </div>
+            </div>
+
+          </div><!-- /.wsp-cat-list -->
         </div><!-- /.wsp-edu-wrap -->
       </div>
 
@@ -1731,39 +1869,17 @@
       }
     });
 
-    /* ── 프로그램 설명 패널 ── */
-    function showWspDesc(panel, inp) {
-      if (!panel || !inp) return;
-      var name = inp.dataset.name;
-      var desc = inp.dataset.desc;
-      if (!name || !desc) { panel.classList.remove('visible'); return; }
-      panel.innerHTML = '<div class="wsp-desc-name">' + name + '</div>'
-                      + '<div class="wsp-desc-text">' + desc + '</div>';
-      panel.classList.add('visible');
-    }
-    document.querySelectorAll('.wsp-chips[data-desc-target]').forEach(function(chipsWrap) {
-      var panelId = chipsWrap.dataset.descTarget;
-      var panel = document.getElementById(panelId);
-      chipsWrap.querySelectorAll('.wsp-chip').forEach(function(lbl) {
-        var inp = lbl.querySelector('input');
-        lbl.addEventListener('mouseenter', function() { showWspDesc(panel, inp); });
-        lbl.addEventListener('mouseleave', function() {
-          var anyChecked = Array.from(chipsWrap.querySelectorAll('input')).some(function(i){ return i.checked; });
-          if (!anyChecked) panel.classList.remove('visible');
-          else {
-            var lastChecked = Array.from(chipsWrap.querySelectorAll('input:checked')).pop();
-            showWspDesc(panel, lastChecked);
-          }
-        });
-        inp.addEventListener('change', function() {
-          if (this.checked) showWspDesc(panel, this);
-          else {
-            var lastChecked = Array.from(chipsWrap.querySelectorAll('input:checked')).pop();
-            lastChecked ? showWspDesc(panel, lastChecked) : panel.classList.remove('visible');
-          }
-        });
+    /* ── 취미교육 아코디언 ── */
+    var hobbyToggle = document.getElementById('wsp-hobby-toggle');
+    var hobbyCat = document.getElementById('wsp-cat-hobby');
+    var hobbyList = document.getElementById('wsp-hobby-list');
+    if (hobbyToggle && hobbyList) {
+      hobbyToggle.addEventListener('click', function() {
+        var isOpen = !hobbyList.classList.contains('wsp-course-rows--hidden');
+        hobbyList.classList.toggle('wsp-course-rows--hidden', isOpen);
+        hobbyCat.classList.toggle('open', !isOpen);
       });
-    });
+    }
 
     /* ── 인원 조절 ── */
     var count = 6;
