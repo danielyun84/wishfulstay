@@ -1925,14 +1925,20 @@
       renderSchedule();
 
       /* 추가 체험 */
-      var expMapShort = { horse: '승마', temple: '사찰문화', craft: '공예', leisure: '해양레저' };
+      var expMapShort = { horse: '승마', temple: '사찰문화', leisure: '해양레저' };
       var expEl = document.getElementById('sum-exp');
       var allExpChecked = Array.from(document.querySelectorAll('input[name^="exp-d"]:checked'));
       if (allExpChecked.length) {
         var seenExp = {}, expNames = [];
         allExpChecked.forEach(function(cb) {
-          var n = expMapShort[cb.value];
-          if (n && !seenExp[n]) { seenExp[n] = true; expNames.push(n); }
+          if (cb.value === 'craft') {
+            var craftProg = document.querySelector('input[name^="craft-prog-d' + cb.name.replace('exp-d','') + '"]:checked');
+            var craftLabel = craftProg ? '공예(' + craftProg.value + ')' : '공예';
+            if (!seenExp[craftLabel]) { seenExp[craftLabel] = true; expNames.push(craftLabel); }
+          } else {
+            var n = expMapShort[cb.value];
+            if (n && !seenExp[n]) { seenExp[n] = true; expNames.push(n); }
+          }
         });
         expEl.textContent = expNames.join(' · ');
         expEl.className = 'summary-value';
@@ -1982,13 +1988,17 @@
         var courses = document.querySelectorAll('input[name="edu-course"]:checked').length;
         var wspBase = courses * 300000;
 
-        /* 추가 체험: 승마 70,000, 기타 50,000원/인 */
-        var expRateMap = { horse: 70000, temple: 50000, craft: 50000, leisure: 50000 };
+        /* 추가 체험: 승마 70,000, 사찰·해양레저 50,000원/인, 공예 30,000~50,000원/인 */
+        var expRateMap = { horse: 70000, temple: 50000, leisure: 50000 };
         var expBasePP = 0;
+        var craftCount = 0;
         document.querySelectorAll('input[name^="exp-d"]:checked').forEach(function(cb) {
-          expBasePP += expRateMap[cb.value] || 50000;
+          if (cb.value === 'craft') craftCount++;
+          else expBasePP += expRateMap[cb.value] || 50000;
         });
         var expBase = expBasePP * count;
+        var craftMinBase = craftCount * 30000 * count;
+        var craftMaxBase = craftCount * 50000 * count;
 
         /* VIP홀 연회장 필수 고정 (400,000×1.3=520,000원/첫날) */
         /* 코디네이터 1명 필수 고정 200,000원 */
@@ -2009,10 +2019,10 @@
 
         var totalBase = stayBase + mealBase + wspBase + expBase + fixedBase + insurBase + vehicleBase + photoBase;
 
-        /* 50만원 단위 정리 */
+        /* 50만원 단위 정리 (공예는 별도 범위 적용) */
         var unit = 500000;
-        var totalMin = Math.floor(totalBase / unit) * unit;
-        var totalMax = Math.ceil(totalBase * 1.3 / unit) * unit;
+        var totalMin = Math.floor((totalBase + craftMinBase) / unit) * unit;
+        var totalMax = Math.ceil((totalBase * 1.3 + craftMaxBase) / unit) * unit;
 
         function fmt(n) { return Math.round(n / 10000).toLocaleString() + '만원'; }
 
@@ -2264,9 +2274,7 @@
         var wspEl2 = document.getElementById('sum-workshop');
         var wspDisplayVal = wspEl2 ? wspEl2.textContent : '선택 안 함';
 
-        var expNames  = ['horse','temple','craft','leisure'].filter(function(v){
-          return !!document.querySelector('input[name="exp"][value="'+v+'"]:checked');
-        }).map(function(v){ return expNameMap[v]; });
+        var expDisplayVal = (document.getElementById('sum-exp') || {}).textContent || '선택 안 함';
         var addonNames = ['insurance','vehicle','hall','photo'].filter(function(v){
           return !!document.querySelector('input[name="addon"][value="'+v+'"]:checked');
         }).map(function(v){ return addonNameMap[v]; });
@@ -2277,7 +2285,7 @@
           { label: '숙박', value: stayVal2 },
           { label: '워크샵 프로그램', value: wspDisplayVal },
           { label: '식사', value: mealVal2 },
-          { label: '추가 체험', value: expNames.length ? expNames.join(' · ') : '선택 안 함' },
+          { label: '추가 체험', value: expDisplayVal },
           { label: '추가 옵션', value: addonNames.length ? addonNames.join(' · ') : '선택 안 함' },
         ];
         infoGrid.innerHTML = cells.map(function(c){
