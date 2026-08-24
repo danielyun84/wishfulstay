@@ -391,6 +391,15 @@
     .opt-card-name { font-family: var(--f-body); font-size: 14px; font-weight: 500; color: var(--c-dark); }
     .opt-card-desc { font-family: var(--f-body); font-size: 12px; font-weight: 300; color: var(--c-text-muted); }
 
+    /* 공예 세부선택 */
+    .craft-sub { margin-top: 12px; padding: 16px; background: var(--c-bg-alt, #f7f5f2); border-radius: 8px; }
+    .craft-sub-label { font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--c-dark); margin-bottom: 12px; }
+    .craft-sub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+    .craft-sub-item { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--c-border); background: var(--c-surface, #fff); transition: border-color .15s, background .15s; }
+    .craft-sub-item:has(input:checked) { border-color: var(--c-accent, #5c6b4a); background: color-mix(in srgb, var(--c-accent,#5c6b4a) 8%, transparent); }
+    .craft-sub-item input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .craft-sub-name { font-size: 12px; color: var(--c-text); line-height: 1.4; }
+
     /* ── 식사 일부포함 그리드 ── */
     .meal-partial-wrap {
       max-height: 0;
@@ -785,13 +794,7 @@
       color: var(--c-text-muted);
       white-space: nowrap;
     }
-    .wsp-hobby-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px 0;
-    }
-    .wsp-hobby-grid .wsp-course-who { display: none; }
-    .wsp-none-msg {
+.wsp-none-msg {
       font-size: 13px;
       color: var(--c-text-muted);
       line-height: 1.7;
@@ -1394,30 +1397,6 @@
               </div>
             </div>
 
-            <!-- P-07 취미교육 (accordion) -->
-            <div class="wsp-cat" id="wsp-cat-hobby">
-              <div class="wsp-cat-hd wsp-cat-hd--toggle" id="wsp-hobby-toggle">
-                <span class="wsp-cat-name">P-07 · 취미교육</span>
-                <span class="wsp-cat-arrow">▾</span>
-              </div>
-              <div class="wsp-course-rows wsp-hobby-grid wsp-course-rows--hidden" id="wsp-hobby-list">
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-coffee"><span class="wsp-chk"></span><span class="wsp-course-title">핸드드립 커피</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-color"><span class="wsp-chk"></span><span class="wsp-course-title">컬러테라피 백드롭 페인팅</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-soap"><span class="wsp-chk"></span><span class="wsp-course-title">천연비누 만들기</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-candle"><span class="wsp-chk"></span><span class="wsp-course-title">아로마 캔들</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-plaster"><span class="wsp-chk"></span><span class="wsp-course-title">석고 방향제 드라이플라워</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-flower"><span class="wsp-chk"></span><span class="wsp-course-title">플라워 어레인지먼트</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-terra"><span class="wsp-chk"></span><span class="wsp-course-title">테라리움</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-macra"><span class="wsp-chk"></span><span class="wsp-course-title">마크라메 컵받침·벽걸이</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-book"><span class="wsp-chk"></span><span class="wsp-course-title">북아트 여행노트 제본</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-leather"><span class="wsp-chk"></span><span class="wsp-course-title">가죽 카드지갑</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-sun"><span class="wsp-chk"></span><span class="wsp-course-title">선캐처</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-beads"><span class="wsp-chk"></span><span class="wsp-course-title">비즈·와이어 액세서리</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-wood"><span class="wsp-chk"></span><span class="wsp-course-title">우드 타일 트레이</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-dessert"><span class="wsp-chk"></span><span class="wsp-course-title">디저트 데코 클래스</span></label>
-                <label class="wsp-course-row"><input type="checkbox" name="edu-course" value="hobby-hanji"><span class="wsp-chk"></span><span class="wsp-course-title">한지 조명 무드등</span></label>
-              </div>
-            </div>
 
           </div><!-- /.wsp-cat-list -->
         </div><!-- /.wsp-edu-wrap -->
@@ -1869,17 +1848,6 @@
       }
     });
 
-    /* ── 취미교육 아코디언 ── */
-    var hobbyToggle = document.getElementById('wsp-hobby-toggle');
-    var hobbyCat = document.getElementById('wsp-cat-hobby');
-    var hobbyList = document.getElementById('wsp-hobby-list');
-    if (hobbyToggle && hobbyList) {
-      hobbyToggle.addEventListener('click', function() {
-        var isOpen = !hobbyList.classList.contains('wsp-course-rows--hidden');
-        hobbyList.classList.toggle('wsp-course-rows--hidden', isOpen);
-        hobbyCat.classList.toggle('open', !isOpen);
-      });
-    }
 
     /* ── 인원 조절 ── */
     var count = 6;
@@ -1935,12 +1903,7 @@
         'startup-a':'시니어창업 A','startup-b':'시니어창업 B','startup-c':'시니어창업 C',
         'life-a':'생애설계 A','life-b':'생애설계 B','life-c':'생애설계 C',
         'retire-a':'은퇴설계 A','retire-b':'은퇴설계 B','retire-c':'은퇴설계 C',
-        'hum-a':'인문학강좌 A','hum-b':'인문학강좌 B','hum-c':'인문학강좌 C',
-        'hobby-coffee':'취미(커피)','hobby-color':'취미(페인팅)','hobby-soap':'취미(비누)',
-        'hobby-candle':'취미(캔들)','hobby-plaster':'취미(석고)','hobby-flower':'취미(플라워)',
-        'hobby-terra':'취미(테라리움)','hobby-macra':'취미(마크라메)','hobby-book':'취미(북아트)',
-        'hobby-leather':'취미(가죽)','hobby-sun':'취미(선캐처)','hobby-beads':'취미(비즈)',
-        'hobby-wood':'취미(우드)','hobby-dessert':'취미(디저트)','hobby-hanji':'취미(한지등)'
+        'hum-a':'인문학강좌 A','hum-b':'인문학강좌 B','hum-c':'인문학강좌 C'
       };
       var courses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked')).map(function(el){ return eduCourseMap[el.value] || el.value; });
       var workshopEl = document.getElementById('sum-workshop');
@@ -2075,7 +2038,6 @@
       retire:      { name: '은퇴설계',      start: '10:00', end: '12:00', tag: 'edu' },
       recreation:  { name: '레크레이션',    start: '14:00', end: '16:30', tag: 'edu' },
       humanities:  { name: '인문학강좌',    start: '10:00', end: '12:00', tag: 'edu' },
-      hobby:       { name: '취미교육',      start: '14:00', end: '16:00', tag: 'edu' },
       self:        null,
     };
 
@@ -2109,12 +2071,7 @@
         'startup-a':'시니어창업 A','startup-b':'시니어창업 B','startup-c':'시니어창업 C',
         'life-a':'생애설계 A','life-b':'생애설계 B','life-c':'생애설계 C',
         'retire-a':'은퇴설계 A','retire-b':'은퇴설계 B','retire-c':'은퇴설계 C',
-        'hum-a':'인문학강좌 A','hum-b':'인문학강좌 B','hum-c':'인문학강좌 C',
-        'hobby-coffee':'취미(커피)','hobby-color':'취미(페인팅)','hobby-soap':'취미(비누)',
-        'hobby-candle':'취미(캔들)','hobby-plaster':'취미(석고)','hobby-flower':'취미(플라워)',
-        'hobby-terra':'취미(테라리움)','hobby-macra':'취미(마크라메)','hobby-book':'취미(북아트)',
-        'hobby-leather':'취미(가죽)','hobby-sun':'취미(선캐처)','hobby-beads':'취미(비즈)',
-        'hobby-wood':'취미(우드)','hobby-dessert':'취미(디저트)','hobby-hanji':'취미(한지등)'
+        'hum-a':'인문학강좌 A','hum-b':'인문학강좌 B','hum-c':'인문학강좌 C'
       };
       var eduCourses2 = Array.from(document.querySelectorAll('input[name="edu-course"]:checked'));
       var wspItems = [];
@@ -2349,6 +2306,10 @@
       Array.from(document.querySelectorAll('input[name^="exp-d"]')).forEach(function(cb) {
         if (cb.id) prevChecked[cb.id] = cb.checked;
       });
+      var prevCraftProg = {};
+      Array.from(document.querySelectorAll('input[name^="craft-prog-d"]')).forEach(function(r) {
+        if (r.checked) prevCraftProg[r.name] = r.value;
+      });
 
       if (!cal.start) {
         wrap.innerHTML = '<p class="exp-placeholder">날짜를 먼저 선택해주세요.</p>';
@@ -2382,7 +2343,28 @@
           html += '<span class="opt-card-desc">' + opt.desc + '</span>';
           html += '</div></label>';
         });
-        html += '</div></div>';
+        html += '</div>';  /* close opt-grid */
+
+        /* 공예 세부선택 패널 — opt-grid 밖, exp-day-group 안 */
+        html += '<div class="craft-sub" id="craft-sub-d' + d + '" style="display:none;">';
+        html += '<p class="craft-sub-label">공예 프로그램 선택 <span style="font-weight:300;color:var(--c-text-muted);">(1개 선택)</span></p>';
+        html += '<div class="craft-sub-grid">';
+        var craftPrograms = [
+          '핸드드립 커피','컬러테라피 백드롭 페인팅','천연비누 만들기','아로마 캔들',
+          '석고 방향제 드라이플라워','플라워 어레인지먼트','테라리움','마크라메 컵받침·벽걸이',
+          '북아트 여행노트 제본','가죽 카드지갑','선캐처','비즈·와이어 액세서리',
+          '우드 타일 트레이','디저트 데코 클래스','한지 조명 무드등'
+        ];
+        craftPrograms.forEach(function(prog, idx) {
+          var cid = 'craft-prog-d' + d + '-' + idx;
+          html += '<label class="craft-sub-item">';
+          html += '<input type="radio" name="craft-prog-d' + d + '" value="' + prog + '" id="' + cid + '">';
+          html += '<span class="craft-sub-name">' + prog + '</span>';
+          html += '</label>';
+        });
+        html += '</div></div>';  /* close craft-sub-grid + craft-sub */
+
+        html += '</div>';  /* close exp-day-group */
       }
 
       if (!html) {
@@ -2390,10 +2372,31 @@
         return;
       }
       wrap.innerHTML = html;
+
+      /* craft-prog 이전 선택 복원 */
+      Object.keys(prevCraftProg).forEach(function(name) {
+        var r = wrap.querySelector('input[name="' + name + '"][value="' + prevCraftProg[name] + '"]');
+        if (r) r.checked = true;
+      });
+
+      /* 공예 체크박스 변경 시 세부 패널 토글 */
+      document.querySelectorAll('input[name^="exp-d"][value="craft"]').forEach(function(cb) {
+        var dayIdx = cb.name.replace('exp-d','');
+        var panel = document.getElementById('craft-sub-d' + dayIdx);
+        cb.addEventListener('change', function() {
+          if (panel) panel.style.display = this.checked ? 'block' : 'none';
+          if (!this.checked && panel) {
+            panel.querySelectorAll('input[type="radio"]').forEach(function(r){ r.checked = false; });
+          }
+          update();
+        });
+        /* 초기 상태 반영 */
+        if (cb.checked && panel) panel.style.display = 'block';
+      });
     }
 
     document.getElementById('exp-days-wrap').addEventListener('change', function(e) {
-      if (e.target.matches('input[name^="exp-d"]')) update();
+      if (e.target.matches('input[name^="exp-d"]') || e.target.matches('input[name^="craft-prog-d"]')) update();
     });
 
     function renderMealPartial() {

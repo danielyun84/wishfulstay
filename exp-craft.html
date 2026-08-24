@@ -71,90 +71,96 @@
 
         <div class="section-header reveal">
           <span class="eyebrow">Programs</span>
-          <h2>프로그램 목록</h2>
+          <h2>공예 · 취미 프로그램</h2>
           <p style="margin-top:12px; font-size:14px; color:var(--c-text-muted);">
-            원하는 프로그램을 패키지에 담고 예약 문의 시 일정을 조율합니다.
+            원하는 프로그램을 선택하여 예약 문의 시 일정을 조율합니다. 재료비 포함, 완성 작품 수령.
           </p>
         </div>
 
-        <div class="item-list">
+        <style>
+          .craft-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin-top:32px; }
+          .craft-label { display:block; position:relative; cursor:pointer; }
+          .craft-label input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
+          .craft-item {
+            border:1px solid var(--c-border); border-radius:8px; padding:20px 16px;
+            transition:border-color .2s, background .2s;
+          }
+          .craft-label input:checked ~ .craft-item {
+            border-color:var(--c-accent, #5c6b4a);
+            background:color-mix(in srgb, var(--c-accent, #5c6b4a) 8%, transparent);
+          }
+          .craft-item::after {
+            content:'';
+            display:block; width:16px; height:16px;
+            border:1.5px solid var(--c-border); border-radius:50%;
+            position:absolute; top:14px; right:14px;
+            transition:border-color .2s;
+          }
+          .craft-label { position:relative; }
+          .craft-label input:checked ~ .craft-item::after {
+            border-color:var(--c-accent, #5c6b4a);
+            background:var(--c-accent, #5c6b4a);
+            box-shadow:inset 0 0 0 3px var(--c-bg, #fff);
+          }
+          .craft-num { font-size:11px; color:var(--c-text-muted); margin-bottom:6px; letter-spacing:.05em; }
+          .craft-name { font-size:15px; font-weight:500; color:var(--c-text); line-height:1.4; padding-right:20px; }
 
-          <!-- 도예 공방 -->
-          <div class="item-row reveal"
-               data-pkg-id="exp-craft-pottery"
-               data-pkg-category="체험"
-               data-pkg-title="공예 — 도예 공방"
-               data-pkg-tag="Craft & Art">
-            <div class="item-row-image">
-              <div class="ph-image ph-exp"
-                   data-concept="[ 사진 교체 예정 ] 도예 공방 작업 장면 — 물레질, 흙과 손의 디테일"
-                   role="img" aria-label="도예 공방"></div>
-            </div>
-            <div class="item-row-body">
-              <span class="gallery-tag">Pottery</span>
-              <h3 class="item-row-title">도예 공방</h3>
-              <p class="item-row-desc">강동 지역 도예 공방에서 직접 물레를 돌려 나만의 작품을 만드는 체험. 완성된 작품은 소성 후 택배로 수령 가능합니다.</p>
-              <ul class="gallery-specs">
-                <li>소요 시간: 약 2시간</li>
-                <li>작품 소성 및 배송 포함</li>
-                <li>1인~소규모 그룹</li>
-                <li>파트너: [확정 예정]</li>
-              </ul>
-              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
-            </div>
-          </div>
+          /* 하단 선택 바 */
+          .craft-bar {
+            position:fixed; bottom:0; left:0; right:0;
+            background:var(--c-surface, #fff); border-top:1px solid var(--c-border);
+            padding:14px 24px; display:flex; align-items:center; justify-content:space-between;
+            transform:translateY(100%); transition:transform .3s ease;
+            z-index:100;
+          }
+          .craft-bar.show { transform:translateY(0); }
+          .craft-bar-label { font-size:13px; color:var(--c-text-muted); }
+          .craft-bar-name { font-size:15px; font-weight:500; color:var(--c-text); margin-top:2px; }
+          .craft-bar-btn {
+            display:inline-block; padding:10px 20px;
+            background:var(--c-accent, #5c6b4a); color:#fff;
+            border-radius:6px; text-decoration:none; font-size:14px;
+            white-space:nowrap;
+          }
+        </style>
 
-          <!-- 목공 클래스 -->
-          <div class="item-row reveal"
-               data-pkg-id="exp-craft-woodwork"
-               data-pkg-category="체험"
-               data-pkg-title="공예 — 목공 클래스"
-               data-pkg-tag="Craft & Art">
-            <div class="item-row-image">
-              <div class="ph-image ph-stay"
-                   data-concept="[ 사진 교체 예정 ] 목공 클래스 장면 — 나무 작업대, 도구와 손의 디테일"
-                   role="img" aria-label="목공 클래스"></div>
-            </div>
-            <div class="item-row-body">
-              <span class="gallery-tag">Woodworking</span>
-              <h3 class="item-row-title">목공 클래스</h3>
-              <p class="item-row-desc">나무를 직접 다듬어 소품을 만드는 목공 체험. 미니 선반, 트레이 등 실용적인 소품을 완성해 가져갑니다.</p>
-              <ul class="gallery-specs">
-                <li>소요 시간: 약 2~3시간</li>
-                <li>완성 작품 수령</li>
-                <li>재료비 포함</li>
-                <li>파트너: [확정 예정]</li>
-              </ul>
-              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
-            </div>
-          </div>
-
-          <!-- 지역 예술 워크숍 -->
-          <div class="item-row reveal"
-               data-pkg-id="exp-craft-art"
-               data-pkg-category="체험"
-               data-pkg-title="공예 — 지역 예술 워크숍"
-               data-pkg-tag="Craft & Art">
-            <div class="item-row-image">
-              <div class="ph-image ph-work"
-                   data-concept="[ 사진 교체 예정 ] 예술 워크숍 장면 — 캔버스 작업, 밝고 창의적인 공간"
-                   role="img" aria-label="예술 워크숍"></div>
-            </div>
-            <div class="item-row-body">
-              <span class="gallery-tag">Art Workshop</span>
-              <h3 class="item-row-title">지역 예술 워크숍</h3>
-              <p class="item-row-desc">강동을 기반으로 활동하는 지역 작가와 함께하는 예술 워크숍. 회화, 드로잉 등 다양한 매체로 강동을 표현합니다.</p>
-              <ul class="gallery-specs">
-                <li>소요 시간: 약 2시간</li>
-                <li>재료 일체 포함</li>
-                <li>완성 작품 수령</li>
-                <li>파트너: [확정 예정]</li>
-              </ul>
-              <p class="item-row-notice">파트너사 확정 시 상세 정보 업데이트 예정</p>
-            </div>
-          </div>
-
+        <div class="craft-grid reveal" id="craftGrid">
+          <label class="craft-label"><input type="radio" name="craft" value="핸드드립 커피"><div class="craft-item"><p class="craft-num">01</p><p class="craft-name">핸드드립 커피</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="컬러테라피 백드롭 페인팅"><div class="craft-item"><p class="craft-num">02</p><p class="craft-name">컬러테라피 백드롭 페인팅</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="천연비누 만들기"><div class="craft-item"><p class="craft-num">03</p><p class="craft-name">천연비누 만들기</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="아로마 캔들"><div class="craft-item"><p class="craft-num">04</p><p class="craft-name">아로마 캔들</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="석고 방향제 드라이플라워"><div class="craft-item"><p class="craft-num">05</p><p class="craft-name">석고 방향제 드라이플라워</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="플라워 어레인지먼트"><div class="craft-item"><p class="craft-num">06</p><p class="craft-name">플라워 어레인지먼트</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="테라리움"><div class="craft-item"><p class="craft-num">07</p><p class="craft-name">테라리움</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="마크라메 컵받침·벽걸이"><div class="craft-item"><p class="craft-num">08</p><p class="craft-name">마크라메 컵받침·벽걸이</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="북아트 여행노트 제본"><div class="craft-item"><p class="craft-num">09</p><p class="craft-name">북아트 여행노트 제본</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="가죽 카드지갑"><div class="craft-item"><p class="craft-num">10</p><p class="craft-name">가죽 카드지갑</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="선캐처"><div class="craft-item"><p class="craft-num">11</p><p class="craft-name">선캐처</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="비즈·와이어 액세서리"><div class="craft-item"><p class="craft-num">12</p><p class="craft-name">비즈·와이어 액세서리</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="우드 타일 트레이"><div class="craft-item"><p class="craft-num">13</p><p class="craft-name">우드 타일 트레이</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="디저트 데코 클래스"><div class="craft-item"><p class="craft-num">14</p><p class="craft-name">디저트 데코 클래스</p></div></label>
+          <label class="craft-label"><input type="radio" name="craft" value="한지 조명 무드등"><div class="craft-item"><p class="craft-num">15</p><p class="craft-name">한지 조명 무드등</p></div></label>
         </div>
+
+        <!-- 선택 확인 바 -->
+        <div class="craft-bar" id="craftBar">
+          <div>
+            <p class="craft-bar-label">선택한 프로그램</p>
+            <p class="craft-bar-name" id="craftBarName"></p>
+          </div>
+          <a href="contact.html" class="craft-bar-btn">문의하기</a>
+        </div>
+
+        <script>
+          document.querySelectorAll('input[name="craft"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+              var bar = document.getElementById('craftBar');
+              var barName = document.getElementById('craftBarName');
+              barName.textContent = this.value;
+              bar.classList.add('show');
+            });
+          });
+        </script>
       </div>
     </section>
 
