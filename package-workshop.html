@@ -1933,7 +1933,11 @@
         var seenExp = {}, expNames = [];
         allExpChecked.forEach(function(cb) {
           var di = cb.name.replace('exp-d','');
-          if (cb.value === 'craft') {
+          if (cb.value === 'horse') {
+            var horseProg = document.querySelector('input[name="horse-prog-d' + di + '"]:checked');
+            var horseLabel = horseProg ? '승마(' + horseProg.value + ')' : '승마';
+            if (!seenExp[horseLabel]) { seenExp[horseLabel] = true; expNames.push(horseLabel); }
+          } else if (cb.value === 'craft') {
             var craftProg = document.querySelector('input[name="craft-prog-d' + di + '"]:checked');
             var craftLabel = craftProg ? '공예(' + craftProg.value + ')' : '공예';
             if (!seenExp[craftLabel]) { seenExp[craftLabel] = true; expNames.push(craftLabel); }
@@ -2320,6 +2324,10 @@
       Array.from(document.querySelectorAll('input[name^="exp-d"]')).forEach(function(cb) {
         if (cb.id) prevChecked[cb.id] = cb.checked;
       });
+      var prevHorseProg = {};
+      Array.from(document.querySelectorAll('input[name^="horse-prog-d"]')).forEach(function(r) {
+        if (r.checked) prevHorseProg[r.name] = r.value;
+      });
       var prevCraftProg = {};
       Array.from(document.querySelectorAll('input[name^="craft-prog-d"]')).forEach(function(r) {
         if (r.checked) prevCraftProg[r.name] = r.value;
@@ -2366,13 +2374,15 @@
         /* ── 세부 패널 (선택 순서 고정: horse → temple → craft) ── */
 
         /* 승마 패널 */
+        var horsePrograms = ['말 교감 체험', '승마 체험', '트래킹 체험'];
         html += '<div class="craft-sub exp-sub-panel" id="horse-sub-d' + d + '" style="display:none;">';
-        html += '<p class="craft-sub-label">승마 체험 <a href="club-horse.html" target="_blank" style="font-weight:300;font-size:11px;color:var(--c-text-muted);text-decoration:underline;margin-left:8px;">자세히 보기 →</a></p>';
-        html += '<div class="exp-info-grid">';
-        html += '<div class="exp-info-item"><span class="exp-info-key">장소</span><span class="exp-info-val">UEF 승마장</span></div>';
-        html += '<div class="exp-info-item"><span class="exp-info-key">코스</span><span class="exp-info-val">기초 승마 / 심화 승마</span></div>';
-        html += '<div class="exp-info-item"><span class="exp-info-key">소요</span><span class="exp-info-val">약 2시간</span></div>';
-        html += '<div class="exp-info-item"><span class="exp-info-key">인당</span><span class="exp-info-val">70,000원</span></div>';
+        html += '<p class="craft-sub-label">승마 프로그램 선택 <span style="font-weight:300;color:var(--c-text-muted);">(1개 선택)</span></p>';
+        html += '<div class="craft-sub-grid">';
+        horsePrograms.forEach(function(prog) {
+          html += '<label class="craft-sub-item">';
+          html += '<input type="radio" name="horse-prog-d' + d + '" value="' + prog + '">';
+          html += '<span class="craft-sub-name">' + prog + '</span></label>';
+        });
         html += '</div></div>';
 
         /* 사찰 패널 */
@@ -2424,6 +2434,11 @@
       }
       wrap.innerHTML = html;
 
+      /* horse-prog 이전 선택 복원 */
+      Object.keys(prevHorseProg).forEach(function(name) {
+        var r = wrap.querySelector('input[name="' + name + '"][value="' + prevHorseProg[name] + '"]');
+        if (r) r.checked = true;
+      });
       /* craft-prog 이전 선택 복원 */
       Object.keys(prevCraftProg).forEach(function(name) {
         var r = wrap.querySelector('input[name="' + name + '"][value="' + prevCraftProg[name] + '"]');
@@ -2455,7 +2470,7 @@
     }
 
     document.getElementById('exp-days-wrap').addEventListener('change', function(e) {
-      if (e.target.matches('input[name^="exp-d"]') || e.target.matches('input[name^="craft-prog-d"]') || e.target.matches('input[name^="temple-prog-d"]')) update();
+      if (e.target.matches('input[name^="exp-d"]') || e.target.matches('input[name^="horse-prog-d"]') || e.target.matches('input[name^="craft-prog-d"]') || e.target.matches('input[name^="temple-prog-d"]')) update();
     });
 
     function renderMealPartial() {
