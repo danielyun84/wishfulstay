@@ -1929,8 +1929,20 @@
       }
 
       /* 워크샵 프로그램 요약 */
-      var eduCourseMap = { ai:'AI 기초교육', career:'진로교육', startup:'시니어 창업', lifeplan:'생애설계', retire:'은퇴설계', humanities:'인문학강좌', hobby:'취미교육' };
-      var courses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked')).map(function(el){ return eduCourseMap[el.value]; });
+      var eduCourseMap = {
+        'ai-a':'AI 기초교육 A','ai-b':'AI 기초교육 B','ai-c':'AI 기초교육 C',
+        'career-a':'진로교육 A','career-b':'진로교육 B','career-c':'진로교육 C',
+        'startup-a':'시니어창업 A','startup-b':'시니어창업 B','startup-c':'시니어창업 C',
+        'life-a':'생애설계 A','life-b':'생애설계 B','life-c':'생애설계 C',
+        'retire-a':'은퇴설계 A','retire-b':'은퇴설계 B','retire-c':'은퇴설계 C',
+        'hum-a':'인문학강좌 A','hum-b':'인문학강좌 B','hum-c':'인문학강좌 C',
+        'hobby-coffee':'취미(커피)','hobby-color':'취미(페인팅)','hobby-soap':'취미(비누)',
+        'hobby-candle':'취미(캔들)','hobby-plaster':'취미(석고)','hobby-flower':'취미(플라워)',
+        'hobby-terra':'취미(테라리움)','hobby-macra':'취미(마크라메)','hobby-book':'취미(북아트)',
+        'hobby-leather':'취미(가죽)','hobby-sun':'취미(선캐처)','hobby-beads':'취미(비즈)',
+        'hobby-wood':'취미(우드)','hobby-dessert':'취미(디저트)','hobby-hanji':'취미(한지등)'
+      };
+      var courses = Array.from(document.querySelectorAll('input[name="edu-course"]:checked')).map(function(el){ return eduCourseMap[el.value] || el.value; });
       var workshopEl = document.getElementById('sum-workshop');
       if (courses.length) {
         workshopEl.textContent = courses.join(' · ');
@@ -2091,7 +2103,19 @@
       var hasVehicle  = !!document.querySelector('input[name="addon"][value="vehicle"]:checked');
 
       /* ── 워크샵 프로그램 수집 (각 1시간짜리 항목 배열) ── */
-      var eduCourseNames = { ai:'AI 기초교육', career:'진로교육', startup:'시니어 창업', lifeplan:'생애설계', retire:'은퇴설계', humanities:'인문학강좌', hobby:'취미교육' };
+      var eduCourseNames = {
+        'ai-a':'AI 기초교육 A','ai-b':'AI 기초교육 B','ai-c':'AI 기초교육 C',
+        'career-a':'진로교육 A','career-b':'진로교육 B','career-c':'진로교육 C',
+        'startup-a':'시니어창업 A','startup-b':'시니어창업 B','startup-c':'시니어창업 C',
+        'life-a':'생애설계 A','life-b':'생애설계 B','life-c':'생애설계 C',
+        'retire-a':'은퇴설계 A','retire-b':'은퇴설계 B','retire-c':'은퇴설계 C',
+        'hum-a':'인문학강좌 A','hum-b':'인문학강좌 B','hum-c':'인문학강좌 C',
+        'hobby-coffee':'취미(커피)','hobby-color':'취미(페인팅)','hobby-soap':'취미(비누)',
+        'hobby-candle':'취미(캔들)','hobby-plaster':'취미(석고)','hobby-flower':'취미(플라워)',
+        'hobby-terra':'취미(테라리움)','hobby-macra':'취미(마크라메)','hobby-book':'취미(북아트)',
+        'hobby-leather':'취미(가죽)','hobby-sun':'취미(선캐처)','hobby-beads':'취미(비즈)',
+        'hobby-wood':'취미(우드)','hobby-dessert':'취미(디저트)','hobby-hanji':'취미(한지등)'
+      };
       var eduCourses2 = Array.from(document.querySelectorAll('input[name="edu-course"]:checked'));
       var wspItems = [];
       if (eduCourses2.length) {
