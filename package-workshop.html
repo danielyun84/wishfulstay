@@ -400,6 +400,14 @@
     .craft-sub-item input { position: absolute; opacity: 0; width: 0; height: 0; }
     .craft-sub-name { font-size: 12px; color: var(--c-text); line-height: 1.4; }
 
+    /* 사찰 트랙 선택 */
+    .temple-track-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .temple-track-btn { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid var(--c-border); border-radius: 20px; cursor: pointer; font-size: 12px; color: var(--c-text); background: var(--c-surface, #fff); transition: border-color .15s, background .15s; }
+    .temple-track-btn input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .temple-track-btn:has(input:checked) { border-color: var(--c-accent, #5c6b4a); background: color-mix(in srgb, var(--c-accent,#5c6b4a) 8%, transparent); color: var(--c-accent, #5c6b4a); font-weight: 500; }
+    .temple-prog-group { display: none; }
+    .temple-prog-group.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; }
+
     /* ── 식사 일부포함 그리드 ── */
     .meal-partial-wrap {
       max-height: 0;
@@ -1931,10 +1939,15 @@
       if (allExpChecked.length) {
         var seenExp = {}, expNames = [];
         allExpChecked.forEach(function(cb) {
+          var di = cb.name.replace('exp-d','');
           if (cb.value === 'craft') {
-            var craftProg = document.querySelector('input[name^="craft-prog-d' + cb.name.replace('exp-d','') + '"]:checked');
+            var craftProg = document.querySelector('input[name="craft-prog-d' + di + '"]:checked');
             var craftLabel = craftProg ? '공예(' + craftProg.value + ')' : '공예';
             if (!seenExp[craftLabel]) { seenExp[craftLabel] = true; expNames.push(craftLabel); }
+          } else if (cb.value === 'temple') {
+            var templeProg = document.querySelector('input[name="temple-prog-d' + di + '"]:checked');
+            var templeLabel = templeProg ? '사찰(' + templeProg.value + ')' : '사찰문화';
+            if (!seenExp[templeLabel]) { seenExp[templeLabel] = true; expNames.push(templeLabel); }
           } else {
             var n = expMapShort[cb.value];
             if (n && !seenExp[n]) { seenExp[n] = true; expNames.push(n); }
@@ -2318,6 +2331,14 @@
       Array.from(document.querySelectorAll('input[name^="craft-prog-d"]')).forEach(function(r) {
         if (r.checked) prevCraftProg[r.name] = r.value;
       });
+      var prevTempleTrack = {};
+      Array.from(document.querySelectorAll('input[name^="temple-track-d"]')).forEach(function(r) {
+        if (r.checked) prevTempleTrack[r.name] = r.value;
+      });
+      var prevTempleProg = {};
+      Array.from(document.querySelectorAll('input[name^="temple-prog-d"]')).forEach(function(r) {
+        if (r.checked) prevTempleProg[r.name] = r.value;
+      });
 
       if (!cal.start) {
         wrap.innerHTML = '<p class="exp-placeholder">날짜를 먼저 선택해주세요.</p>';
@@ -2353,9 +2374,48 @@
         });
         html += '</div>';  /* close opt-grid */
 
-        /* 공예 세부선택 패널 — opt-grid 밖, exp-day-group 안 */
-        html += '<div class="craft-sub" id="craft-sub-d' + d + '" style="display:none;">';
-        html += '<p class="craft-sub-label">공예 프로그램 선택 <span style="font-weight:300;color:var(--c-text-muted);">(1개 선택)</span></p>';
+        /* ── 세부 패널 (선택 순서 고정: horse → temple → craft) ── */
+
+        /* 승마 패널 */
+        html += '<div class="craft-sub exp-sub-panel" id="horse-sub-d' + d + '" style="display:none;">';
+        html += '<p class="craft-sub-label">승마 체험 <a href="club-horse.html" target="_blank" style="font-weight:300;font-size:11px;color:var(--c-text-muted);text-decoration:underline;margin-left:8px;">자세히 보기 →</a></p>';
+        html += '<div class="exp-info-grid">';
+        html += '<div class="exp-info-item"><span class="exp-info-key">장소</span><span class="exp-info-val">UEF 승마장</span></div>';
+        html += '<div class="exp-info-item"><span class="exp-info-key">코스</span><span class="exp-info-val">기초 승마 / 심화 승마</span></div>';
+        html += '<div class="exp-info-item"><span class="exp-info-key">소요</span><span class="exp-info-val">약 2시간</span></div>';
+        html += '<div class="exp-info-item"><span class="exp-info-key">인당</span><span class="exp-info-val">70,000원</span></div>';
+        html += '</div></div>';
+
+        /* 사찰 패널 */
+        var templeData = {
+          child:  { label:'아동', progs:['꼬마스님의 하루','절에서 찾은 보물지도','내 소원을 담은 한지 연등','기왓장에 쓰는 소원 한 줄','문살무늬 탁본 놀이터','밥알 한 톨의 약속','댕~ 소리를 만지다','연꽃이 피어나는 클레이','알록달록 단청 색칠놀이','숲속 스님과 걷는 길','부처님 손바닥 펄러비즈','나만의 연꽃 풍선정원'] },
+          teen:   { label:'청소년', progs:['폰을 내려놓는 반나절','묵언, 말없이 걷는 3km','108배 완주 프로젝트','한 글자씩 나를 쓰다','10년 뒤 나에게 보내는 편지','스님과의 차담 : 인생 선배 토크','공양간 셰프 되기','템플 진로캠프 : 나를 찾아서','숨을 고르는 시간, 좌선 입문','단청 컬러링 : 몰입의 90분','내 손으로 만드는 단주','산사 새벽 4시, 예불 도전기'] },
+          adult:  { label:'성인', progs:['산사에서의 하루 쉼표','새벽 4시의 고요, 도량석 체험','차 한 잔의 명상, 다선일미','발효를 배우는 시간, 사찰 장 담그기','제철을 먹다, 사찰음식 쿠킹클래스','쪽빛에 물들다 : 천연염색','향으로 마음을 정돈하다','단청, 색으로 하는 명상','걷는 것이 곧 수행, 산사 트레킹','필사의 밤, 마음을 베끼다','번아웃 리셋 워크숍','연꽃 비누 만들기'] },
+          silver: { label:'실버', progs:['무릎이 편한 의자요가','약차 한 잔, 몸을 데우다','내 인생의 한 페이지','살아온 이야기 나눔 서클','손끝으로 물들이는 손수건','한 알 한 알, 나의 단주','천천히 걷는 절 마당 한 바퀴','소리로 쉬는 시간, 범종 명상','고운 글씨로 쓰는 반야심경','웰다잉 : 잘 마무리하는 연습','손자에게 주는 팬시우드 액자','연꽃 한 송이, 지화 만들기'] }
+        };
+        html += '<div class="craft-sub exp-sub-panel" id="temple-sub-d' + d + '" style="display:none;">';
+        html += '<p class="craft-sub-label">사찰문화 체험 <span style="font-weight:300;color:var(--c-text-muted);">(트랙 선택 후 프로그램 선택 · 인당 50,000원)</span></p>';
+        html += '<div class="temple-track-row">';
+        Object.keys(templeData).forEach(function(key) {
+          html += '<label class="temple-track-btn">';
+          html += '<input type="radio" name="temple-track-d' + d + '" value="' + key + '">';
+          html += templeData[key].label + '</label>';
+        });
+        html += '</div>';
+        Object.keys(templeData).forEach(function(key) {
+          html += '<div class="temple-prog-group" id="temple-prog-d' + d + '-' + key + '">';
+          templeData[key].progs.forEach(function(prog) {
+            html += '<label class="craft-sub-item">';
+            html += '<input type="radio" name="temple-prog-d' + d + '" value="' + prog + '">';
+            html += '<span class="craft-sub-name">' + prog + '</span></label>';
+          });
+          html += '</div>';
+        });
+        html += '</div>';
+
+        /* 공예 패널 */
+        html += '<div class="craft-sub exp-sub-panel" id="craft-sub-d' + d + '" style="display:none;">';
+        html += '<p class="craft-sub-label">공예 프로그램 선택 <span style="font-weight:300;color:var(--c-text-muted);">(1개 선택 · 인당 3~5만원)</span></p>';
         html += '<div class="craft-sub-grid">';
         var craftPrograms = [
           '핸드드립 커피','컬러테라피 백드롭 페인팅','천연비누 만들기','아로마 캔들',
@@ -2370,7 +2430,7 @@
           html += '<span class="craft-sub-name">' + prog + '</span>';
           html += '</label>';
         });
-        html += '</div></div>';  /* close craft-sub-grid + craft-sub */
+        html += '</div></div>';
 
         html += '</div>';  /* close exp-day-group */
       }
@@ -2387,24 +2447,49 @@
         if (r) r.checked = true;
       });
 
-      /* 공예 체크박스 변경 시 세부 패널 토글 */
-      document.querySelectorAll('input[name^="exp-d"][value="craft"]').forEach(function(cb) {
-        var dayIdx = cb.name.replace('exp-d','');
-        var panel = document.getElementById('craft-sub-d' + dayIdx);
-        cb.addEventListener('change', function() {
-          if (panel) panel.style.display = this.checked ? 'block' : 'none';
-          if (!this.checked && panel) {
-            panel.querySelectorAll('input[type="radio"]').forEach(function(r){ r.checked = false; });
-          }
+      /* temple 트랙 복원 + 토글 */
+      document.querySelectorAll('input[name^="temple-track-d"]').forEach(function(radio) {
+        var dayIdx = radio.name.replace('temple-track-d','');
+        /* 이전 트랙 복원 */
+        if (prevTempleTrack[radio.name] && radio.value === prevTempleTrack[radio.name]) {
+          radio.checked = true;
+          var g = document.getElementById('temple-prog-d' + dayIdx + '-' + radio.value);
+          if (g) g.classList.add('active');
+        }
+        radio.addEventListener('change', function() {
+          wrap.querySelectorAll('[id^="temple-prog-d' + dayIdx + '-"]').forEach(function(g) { g.classList.remove('active'); });
+          var active = document.getElementById('temple-prog-d' + dayIdx + '-' + this.value);
+          if (active) active.classList.add('active');
+          wrap.querySelectorAll('input[name="temple-prog-d' + dayIdx + '"]').forEach(function(r){ r.checked = false; });
           update();
         });
-        /* 초기 상태 반영 */
-        if (cb.checked && panel) panel.style.display = 'block';
+      });
+      /* temple 프로그램 복원 */
+      Object.keys(prevTempleProg).forEach(function(name) {
+        var r = wrap.querySelector('input[name="' + name + '"][value="' + prevTempleProg[name] + '"]');
+        if (r) r.checked = true;
+      });
+
+      /* 체크박스 변경 시 세부 패널 토글 (horse / temple / craft) */
+      var panelMap = { horse: 'horse-sub-d', temple: 'temple-sub-d', craft: 'craft-sub-d' };
+      Object.keys(panelMap).forEach(function(val) {
+        document.querySelectorAll('input[name^="exp-d"][value="' + val + '"]').forEach(function(cb) {
+          var dayIdx = cb.name.replace('exp-d','');
+          var panel = document.getElementById(panelMap[val] + dayIdx);
+          cb.addEventListener('change', function() {
+            if (panel) panel.style.display = this.checked ? 'block' : 'none';
+            if (!this.checked && panel && val === 'craft') {
+              panel.querySelectorAll('input[type="radio"]').forEach(function(r){ r.checked = false; });
+            }
+            update();
+          });
+          if (cb.checked && panel) panel.style.display = 'block';
+        });
       });
     }
 
     document.getElementById('exp-days-wrap').addEventListener('change', function(e) {
-      if (e.target.matches('input[name^="exp-d"]') || e.target.matches('input[name^="craft-prog-d"]')) update();
+      if (e.target.matches('input[name^="exp-d"]') || e.target.matches('input[name^="craft-prog-d"]') || e.target.matches('input[name^="temple-prog-d"]')) update();
     });
 
     function renderMealPartial() {
