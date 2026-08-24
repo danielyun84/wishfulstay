@@ -1463,13 +1463,6 @@
             </div>
           </label>
           <label class="opt-card">
-            <input type="checkbox" name="addon" value="hall">
-            <div class="opt-card-inner">
-              <span class="opt-card-name">세미나실 임대</span>
-              <span class="opt-card-desc">빔프로젝터·마이크 포함</span>
-            </div>
-          </label>
-          <label class="opt-card">
             <input type="checkbox" name="addon" value="photo">
             <div class="opt-card-inner">
               <span class="opt-card-name">포토 서비스</span>
@@ -1594,6 +1587,24 @@
           <a href="contact.html">문의</a>
           <a href="partner.html">파트너 제휴</a>
         </nav>
+      </div>
+      <div class="footer-social">
+        <a href="http://pf.kakao.com/_DqYxlX/chat" target="_blank" class="footer-social-link" aria-label="카카오톡 채널">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.7 1.6 5.1 4 6.6l-1 3.6 4.2-2.7c.9.1 1.8.2 2.8.2 5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+          카카오톡
+        </a>
+        <a href="#" target="_blank" class="footer-social-link" aria-label="인스타그램">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          인스타그램
+        </a>
+        <a href="mailto:info@wishfulstay.com" class="footer-social-link" aria-label="이메일">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          info@wishfulstay.com
+        </a>
+        <a href="tel:052-282-3155" class="footer-social-link" aria-label="전화">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.6 10.8a15.2 15.2 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          052-282-3155
+        </a>
       </div>
       <div class="footer-bottom">
         <div class="footer-info">
@@ -1856,7 +1867,7 @@
       if (count > 6) { count--; update(); }
     });
     document.getElementById('peoplePlus').addEventListener('click', function() {
-      if (count < 100) { count++; update(); }
+      if (count < 40) { count++; update(); }
     });
 
     /* ── 요약 업데이트 ── */
@@ -1959,7 +1970,7 @@
 
       /* 추가옵션 */
       var addons   = Array.from(document.querySelectorAll('input[name="addon"]:checked'));
-      var addonMap = { insurance: '여행보험', vehicle: '전용 차량', hall: '세미나실', photo: '포토 서비스' };
+      var addonMap = { insurance: '여행보험', vehicle: '전용 차량', photo: '포토 서비스' };
       var addonEl  = document.getElementById('sum-addon');
       if (addons.length) {
         addonEl.textContent = addons.map(function(a) { return addonMap[a.value]; }).join(' · ');
@@ -2337,23 +2348,20 @@
         if (r.checked) prevTempleProg[r.name] = r.value;
       });
 
-      if (!cal.start) {
-        wrap.innerHTML = '<p class="exp-placeholder">날짜를 먼저 선택해주세요.</p>';
-        return;
-      }
-
       var days = 1;
-      if (cal.end) days = Math.round((cal.end - cal.start) / 86400000) + 1;
+      if (cal.start && cal.end) days = Math.round((cal.end - cal.start) / 86400000) + 1;
       var isOvn = days > 1;
       var startDay = isOvn ? 1 : 0;
       var KO_DOWS = ['일','월','화','수','목','금','토'];
 
       var html = '';
       for (var d = startDay; d < days; d++) {
-        var dDate = new Date(cal.start);
+        var dDate = cal.start ? new Date(cal.start) : new Date();
         dDate.setDate(dDate.getDate() + d);
         var isLast = d === days - 1;
-        var dayTitle = (d+1) + '일차 · ' + (dDate.getMonth()+1) + '/' + dDate.getDate() + ' (' + KO_DOWS[dDate.getDay()] + ')';
+        var dayTitle = cal.start
+          ? ((d+1) + '일차 · ' + (dDate.getMonth()+1) + '/' + dDate.getDate() + ' (' + KO_DOWS[dDate.getDay()] + ')')
+          : ((d+1) + '일차');
         var hint = isLast ? '오전 1 + 오후 최대 2개' : '최대 3개';
 
         html += '<div class="exp-day-group">';
@@ -2629,6 +2637,7 @@
       inqError.textContent = '';
 
       emailjs.send('service_zg28jzh', 'template_tuagors', {
+        to_email: 'info@wishfulstay.com',
         summary:  summaryText,
         schedule: scheduleText,
         time:     new Date().toLocaleString('ko-KR')

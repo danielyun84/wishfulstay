@@ -1319,6 +1319,30 @@ dd small {
   letter-spacing: 0.06em;
 }
 
+.footer-social {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  border-top: 1px solid rgba(253,251,248,0.08);
+  border-bottom: 1px solid rgba(253,251,248,0.08);
+  margin-bottom: 20px;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(253,251,248,0.5);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.footer-social-link:hover { color: rgba(253,251,248,0.9); }
+
 
 /* ── Scroll Reveal Animations ────────────────────────────────── */
 
