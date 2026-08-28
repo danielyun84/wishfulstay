@@ -2632,6 +2632,9 @@
       });
       var scheduleText = schedLines.length ? schedLines.join('\n') : '일정 미선택';
 
+      /* 예상 견적 */
+      var estimateText = (document.getElementById('sumPrice') || {}).textContent || '미계산';
+
       inqSubmit.disabled = true;
       inqSubmit.textContent = '전송 중...';
       inqError.textContent = '';
@@ -2640,6 +2643,7 @@
         to_email: 'info@wishfulstay.com',
         summary:  summaryText,
         schedule: scheduleText,
+        estimate: estimateText,
         time:     new Date().toLocaleString('ko-KR')
       }).then(function() {
         closeInqModal();
