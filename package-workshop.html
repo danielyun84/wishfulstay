@@ -2633,7 +2633,9 @@
       var scheduleText = schedLines.length ? schedLines.join('\n') : '일정 미선택';
 
       /* 예상 견적 */
-      var estimateText = (document.getElementById('sumPrice') || {}).textContent || '미계산';
+      var estimateEl = document.getElementById('sumPrice');
+      var estimateText = estimateEl ? estimateEl.textContent.trim() : '';
+      if (!estimateText || estimateText === '— 원') estimateText = '미계산 (구성 선택 후 재문의 가능)';
 
       inqSubmit.disabled = true;
       inqSubmit.textContent = '전송 중...';
