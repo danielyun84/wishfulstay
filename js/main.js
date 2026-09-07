@@ -357,8 +357,18 @@
       message  ? '\n요청사항:\n' + message : ''
     ].filter(Boolean).join('\n');
 
-    /* ✏️ 수정: 실제 이메일 주소로 교체 */
-    window.location.href = 'mailto:hello@wishfulstay.com?subject=워케이션%20패키지%20문의&body=' + encodeURIComponent(body);
+    /* EmailJS로 전송 (package-workshop과 동일 서비스) */
+    if (window.emailjs) {
+      emailjs.send('service_zg28jzh', 'template_tuagors', {
+        to_email: 'info@wishfulstay.com',
+        summary:  body,
+        schedule: '',
+        estimate: '',
+        time:     new Date().toLocaleString('ko-KR')
+      }).catch(function (err) { console.error('EmailJS error:', err); });
+    } else {
+      window.location.href = 'mailto:info@wishfulstay.com?subject=%EC%9B%8C%EC%BC%80%EC%9D%B4%EC%85%98%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%AC%B8%EC%9D%98&body=' + encodeURIComponent(body);
+    }
 
     form.style.display = 'none';
     if (success) success.style.display = '';
