@@ -425,6 +425,26 @@
       var total = imgs.length;
       var dotsContainer = container.querySelector('.slider-dots');
 
+      /* 슬라이더 안 사진은 loading="lazy" 가 걸려 있어도 옆 슬라이드가
+         overflow:hidden 밖에 있어 화면에 들어오지 않는다. 그대로 두면
+         넘길 때마다 그제서야 받느라 빈칸이 보인다.
+         슬라이더가 화면에 들어오는 순간 그 슬라이더의 사진만 미리 받는다.
+         페이지를 열 때 전부 받지는 않으므로 초기 로딩 이득은 그대로 유지된다. */
+      if ('IntersectionObserver' in window) {
+        var preload = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('img[loading="lazy"]').forEach(function (im) {
+              im.loading = 'eager';
+            });
+            obs.unobserve(entry.target);
+          });
+        }, { rootMargin: '300px' });
+        preload.observe(container);
+      } else {
+        imgs.forEach(function (im) { im.loading = 'eager'; });
+      }
+
       // 사진 1장이면 버튼 숨김
       if (total <= 1) {
         container.querySelectorAll('.slider-btn').forEach(function(b) { b.style.display = 'none'; });
