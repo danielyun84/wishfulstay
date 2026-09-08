@@ -1317,14 +1317,26 @@ dd small {
    푸터 기본 문구는 0.3(2.66:1)이라 그대로 두면 링크가 배경에 묻힌다. */
 .footer-info a {
   color: rgba(253,251,248,0.75);
-  border-bottom: 1px solid rgba(253,251,248,0.28);
-  padding-bottom: 1px;
-  transition: color var(--t-fast), border-color var(--t-fast);
+  /* 전화·메일은 누르라고 넣은 링크다. 손가락 터치 영역을 44px 로 확보한다
+     (Apple HIG · Material 권장치). 글자 크기와 색은 그대로 두고 여백만 준다.
+     밑줄을 border-bottom 이 아니라 text-decoration 으로 그어야
+     여백을 줘도 밑줄이 글자에 붙어 있는다. */
+  display: inline-block;
+  padding: 13px 6px;
+  text-decoration: underline;
+  text-decoration-color: rgba(253,251,248,0.28);
+  text-underline-offset: 3px;
+  transition: color var(--t-fast), text-decoration-color var(--t-fast);
 }
 
 .footer-info a:hover {
   color: var(--c-cream);
-  border-bottom-color: rgba(253,251,248,0.6);
+  text-decoration-color: rgba(253,251,248,0.6);
+}
+
+/* 여백이 붙으면서 줄 간격이 벌어지지 않도록 연락처 줄만 보정 */
+.footer-info p:has(a) {
+  margin: -13px 0;
 }
 
 .footer-copy {
