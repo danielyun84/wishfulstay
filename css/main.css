@@ -1312,17 +1312,19 @@ dd small {
   letter-spacing: 0.04em;
 }
 
-/* 푸터 연락처 — 주변 문구보다 밝게 해서 누를 수 있음을 알린다 */
+/* 푸터 연락처 — 주변 문구보다 밝게 해서 누를 수 있음을 알린다
+   0.75 는 배경 #0F1916 기준 대비율 10.05:1 로 WCAG AA(4.5:1)를 넘긴다.
+   푸터 기본 문구는 0.3(2.66:1)이라 그대로 두면 링크가 배경에 묻힌다. */
 .footer-info a {
-  color: rgba(253,251,248,0.6);
-  border-bottom: 1px solid rgba(253,251,248,0.22);
+  color: rgba(253,251,248,0.75);
+  border-bottom: 1px solid rgba(253,251,248,0.28);
   padding-bottom: 1px;
   transition: color var(--t-fast), border-color var(--t-fast);
 }
 
 .footer-info a:hover {
-  color: rgba(253,251,248,0.92);
-  border-bottom-color: rgba(253,251,248,0.5);
+  color: var(--c-cream);
+  border-bottom-color: rgba(253,251,248,0.6);
 }
 
 .footer-copy {
