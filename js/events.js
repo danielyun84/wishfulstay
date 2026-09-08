@@ -44,7 +44,7 @@ const WS_CLUBS = [
 
     card.innerHTML =
       (club.image
-        ? '<div class="ev-poster"><img src="' + club.image + '" alt="' + club.name + '"></div>'
+        ? '<div class="ev-poster"><img loading="lazy" src="' + club.image + '" alt="' + club.name + '"></div>'
         : '<div class="ev-poster ev-poster--empty"></div>') +
       '<div class="ev-card-body">' +
         '<div class="ev-card-top">' +
