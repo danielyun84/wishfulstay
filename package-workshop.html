@@ -2648,7 +2648,8 @@
       var estimateText = estimateEl ? estimateEl.textContent.trim() : '';
       if (!estimateText || estimateText === '— 원') estimateText = '미계산';
 
-      var summaryText = contactInfo + '\n\n[ 선택 구성 ]\n' + selectionRows + '\n\n[ 예상 견적 ]\n' + estimateText;
+      var summaryText = '문의 경로: 워크샵 패키지 페이지 (package-workshop)\n\n'
+                      + contactInfo + '\n\n[ 선택 구성 ]\n' + selectionRows + '\n\n[ 예상 견적 ]\n' + estimateText;
 
       /* 일정 포맷 */
       var schedLines = [];

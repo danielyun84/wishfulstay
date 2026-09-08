@@ -348,6 +348,7 @@
     var pkg     = document.getElementById('hiddenPackage').value;
 
     var body = [
+      '문의 경로: 예약문의 페이지 (contact)',
       '이름: ' + name,
       '연락처: ' + contact,
       checkin  ? '체크인: ' + checkin   : '',
@@ -357,21 +358,59 @@
       message  ? '\n요청사항:\n' + message : ''
     ].filter(Boolean).join('\n');
 
+    var btn = form.querySelector('button[type="submit"]');
+
+    /* 실패 안내는 폼 바로 위에 만들어 쓴다 (없으면 생성) */
+    function errorBox() {
+      var el = document.getElementById('formError');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'formError';
+        el.setAttribute('role', 'alert');
+        el.style.cssText = 'display:none;padding:16px 20px;margin-bottom:20px;' +
+          'border:1px solid #c0392b;color:#c0392b;font-size:15px;line-height:1.7;text-align:center;';
+        form.parentNode.insertBefore(el, form);
+      }
+      return el;
+    }
+
+    function showSuccess() {
+      errorBox().style.display = 'none';
+      form.style.display = 'none';
+      /* CSS에 display:none 이 걸려 있어 빈 문자열로는 안 보인다. 값을 명시한다 */
+      if (success) {
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function showError(err) {
+      console.error('EmailJS error:', err);
+      var el = errorBox();
+      el.innerHTML = '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.<br>' +
+        '계속 실패하면 052-282-3155 또는 info@wishfulstay.com 으로 연락 주세요.';
+      el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (btn) { btn.disabled = false; btn.textContent = '문의 접수하기'; }
+    }
+
     /* EmailJS로 전송 (package-workshop과 동일 서비스) */
     if (window.emailjs) {
+      if (btn) { btn.disabled = true; btn.textContent = '전송 중...'; }
       emailjs.send('service_zg28jzh', 'template_tuagors', {
         to_email: 'info@wishfulstay.com',
         summary:  body,
         schedule: '',
         estimate: '',
         time:     new Date().toLocaleString('ko-KR')
-      }).catch(function (err) { console.error('EmailJS error:', err); });
+      }).then(showSuccess, showError);
     } else {
-      window.location.href = 'mailto:info@wishfulstay.com?subject=%EC%9B%8C%EC%BC%80%EC%9D%B4%EC%85%98%20%ED%8C%A8%ED%82%A4%EC%A7%80%20%EB%AC%B8%EC%9D%98&body=' + encodeURIComponent(body);
+      /* EmailJS 미로드 시 메일 프로그램으로 넘김 */
+      window.location.href = 'mailto:info@wishfulstay.com?subject=' +
+        encodeURIComponent('[홈페이지] 예약·문의 접수') +
+        '&body=' + encodeURIComponent(body);
+      showSuccess();
     }
-
-    form.style.display = 'none';
-    if (success) success.style.display = '';
   };
 
 

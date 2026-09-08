@@ -2462,7 +2462,8 @@
         var value = (row.querySelector('.summary-value') || {}).textContent || '';
         return label + ' : ' + value;
       }).join('\n');
-      var summaryText = contactInfo + '\n\n[ 선택 구성 ]\n' + selectionRows;
+      var summaryText = '문의 경로: 승마 패키지 페이지 (package-horse)\n\n'
+                      + contactInfo + '\n\n[ 선택 구성 ]\n' + selectionRows;
 
       /* 일정 포맷 */
       var schedLines = [];
