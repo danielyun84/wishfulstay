@@ -210,6 +210,22 @@ h4 {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+/* 헤더가 투명한 상태(사진 위)일 때 글자가 묻히지 않도록 음영을 깐다.
+   그라데이션 없이 헤더 높이만큼만 딱 떨어지게 깐다 */
+#header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity var(--t-base);
+}
+
+/* 스크롤해서 크림색 배경이 되면 음영은 필요 없다 */
+#header.is-scrolled::before {
+  opacity: 0;
+}
 
 .header-inner {
   max-width: var(--container);
@@ -258,18 +274,30 @@ h4 {
 
 .nav-main ul {
   display: flex;
+  align-items: center;
   gap: 36px;
+}
+
+/* li 안에서 글자가 기준선에 얹히면 아래로 처진다.
+   li 자체를 flex 로 만들어 기준선 정렬을 없앤다 */
+.nav-main li {
+  display: flex;
+  align-items: center;
 }
 
 .nav-main a {
   font-family: var(--f-body);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.1em;
   color: rgba(253,251,248,0.75);
   transition: color var(--t-fast);
   position: relative;
   white-space: nowrap;
+  /* 인라인이면 글자 상자가 글꼴 여백만큼 아래로 처진다.
+     블록으로 바꾸고 줄높이를 1로 맞춰야 로고와 중심선이 맞는다 */
+  display: inline-block;
+  line-height: 1;
 }
 
 .nav-main a::after {
@@ -302,7 +330,7 @@ h4 {
 .header-cta {
   flex-shrink: 0;
   font-family: var(--f-body);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -488,14 +516,12 @@ h4 {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 80% 55% at 50% 52%, rgba(0,0,0,0.38) 0%, transparent 100%),
-    linear-gradient(
-      to bottom,
-      rgba(12,23,19,0.3) 0%,
-      rgba(12,23,19,0.15) 40%,
-      rgba(12,23,19,0.5) 100%
-    );
+  /* 2026-09-09 대장 지시 — 사진을 찍힌 그대로 보여준다.
+     원래는 가운데 타원 38% + 위아래 세로 그라데이션이 깔려 있었고,
+     그것은 히어로 글자를 읽히게 하려던 것이다.
+     글자를 감춘 지금은 사진만 어둡게 만들 뿐이라 걷어냈다.
+     글자를 되살리면 이 음영도 같이 되살려야 한다 */
+  background: none;
   z-index: 1;
 }
 
@@ -505,6 +531,41 @@ h4 {
   text-align: center;
   padding: 0 var(--gutter);
   max-width: 860px;
+  /* 2026-09-09 대장 지시 — 히어로 가운데 글자·버튼·음영 띠를 모두 감춘다.
+     마크업은 남겨두었으므로 이 한 줄만 지우면 그대로 되살아난다 */
+  display: none;
+}
+
+/* 글자 뒤에만 깔리는 음영 띠.
+   가로는 사진 전체를 쓰고, 세로는 글자 높이만큼만 차지한다 */
+.hero-textbox {
+  position: relative;
+  padding: 56px 0 60px;
+}
+
+.hero-textbox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  /* 위아래 끝을 흐리게 풀어 사진과 자연스럽게 이어지게 한다.
+     경계가 딱 떨어지면 사진 위에 판을 얹은 것처럼 보인다 */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.5) 14%,
+    rgba(0,0,0,0.5) 86%,
+    rgba(0,0,0,0) 100%
+  );
+  /* 글자보다는 뒤, 사진보다는 앞 */
+  z-index: -1;
+}
+
+.hero-textbox .hero-ctas {
+  margin-bottom: 0;
 }
 
 .hero-eyebrow {
