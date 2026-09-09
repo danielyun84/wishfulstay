@@ -1166,9 +1166,10 @@ dd small {
 
 .contact-channels {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2px;
 }
+
 
 .contact-card {
   display: flex;
@@ -1224,9 +1225,69 @@ dd small {
 .contact-detail {
   font-size: 13px;
   font-weight: 300;
-  color: rgba(253,251,248,0.45);
+  color: rgba(253,251,248,0.75);
   letter-spacing: 0.03em;
+  /* 한글 낱말은 안 자르되, 이메일처럼 띄어쓰기 없는 긴 문자열은 넘칠 때만 자른다 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
+/* 패키지 선택은 맨 윗줄을 혼자 다 쓰고, 아이콘·글자를 가로로 눕혀 높이를 줄인다 */
+.contact-card--package {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 16px;
+  padding: 30px 32px;
+}
+
+.contact-card--package .contact-icon {
+  margin-bottom: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.contact-card--package .contact-method,
+.contact-card--package .contact-detail {
+  margin-bottom: 0;
+}
+
+/* 아래 세 칸은 작은 박스 */
+.contact-card--kakao,
+.contact-card--phone,
+.contact-card--email {
+  padding: 34px 16px;
+}
+
+/* 폰에서는 칸이 110px 남짓이라 전화번호·이메일이 두 동강 난다.
+   아이콘과 제목만 남긴다 (탭하면 바로 걸리므로 문구는 없어도 된다) */
+@media (max-width: 600px) {
+  .contact-card--kakao,
+  .contact-card--phone,
+  .contact-card--email {
+    padding: 26px 6px;
+  }
+
+  .contact-card--kakao .contact-detail,
+  .contact-card--phone .contact-detail,
+  .contact-card--email .contact-detail {
+    display: none;
+  }
+
+  .contact-method {
+    font-size: 11px;
+    letter-spacing: 0.01em;
+    margin-bottom: 0;
+    /* 「상담」이 「상/담」으로 잘리지 않게 */
+    word-break: keep-all;
+  }
+
+  .contact-card--package {
+    padding: 24px 16px;
+  }
+}
+
 
 
 /* ── Footer ───────────────────────────────────────────────────── */
@@ -1268,7 +1329,7 @@ dd small {
 .footer-tagline {
   font-size: 12px;
   font-weight: 300;
-  color: rgba(253,251,248,0.35);
+  color: rgba(253,251,248,0.75);
   letter-spacing: 0.05em;
 }
 
@@ -1283,7 +1344,7 @@ dd small {
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.06em;
-  color: rgba(253,251,248,0.45);
+  color: rgba(253,251,248,0.75);
   transition: color var(--t-fast);
 }
 
@@ -1308,7 +1369,7 @@ dd small {
 .footer-info p {
   font-size: 12px;
   font-weight: 300;
-  color: rgba(253,251,248,0.3);
+  color: rgba(253,251,248,0.75);
   letter-spacing: 0.04em;
 }
 
@@ -1323,15 +1384,12 @@ dd small {
      여백을 줘도 밑줄이 글자에 붙어 있는다. */
   display: inline-block;
   padding: 13px 6px;
-  text-decoration: underline;
-  text-decoration-color: rgba(253,251,248,0.28);
-  text-underline-offset: 3px;
-  transition: color var(--t-fast), text-decoration-color var(--t-fast);
+  text-decoration: none;
+  transition: color var(--t-fast);
 }
 
 .footer-info a:hover {
   color: var(--c-cream);
-  text-decoration-color: rgba(253,251,248,0.6);
 }
 
 /* 여백이 붙으면서 줄 간격이 벌어지지 않도록 연락처 줄만 보정 */
@@ -1342,7 +1400,7 @@ dd small {
 .footer-copy {
   font-size: 11px;
   font-weight: 300;
-  color: rgba(253,251,248,0.2);
+  color: rgba(253,251,248,0.75);
   letter-spacing: 0.06em;
 }
 
@@ -1770,7 +1828,7 @@ dd small {
   }
 
   .contact-channels {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
