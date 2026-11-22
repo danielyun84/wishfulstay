@@ -16,7 +16,7 @@ var WS_EVENTS = [
     link: 'event-lecture01.html'
   },
   {
-    kind: 'club', status: 'open',
+    kind: 'club', status: 'hidden',   // 2026-11-23 대장 : 메인 진행 중인 행사에서 뺌. 다시 띄우려면 'open'
     series: '클럽 회원 모집', label: '위시풀승마클럽',
     title: '위시풀승마클럽',
     when: '상시 모집', where: 'UEF 승마파크',
