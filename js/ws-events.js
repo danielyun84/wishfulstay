@@ -13,7 +13,7 @@ var WS_EVENTS = [
     when: '2026. 11. 29 (일) 17:00', where: '제이드밀 지하 1층',
     who: '인경 스님 (신흥사 주지) · 선착순 30명 · 무료',
     image: 'images/events/lecture01_card.jpg',
-    link: 'event01.html'
+    link: 'event_01.html'
   },
   {
     kind: 'club', status: 'hidden',   // 2026-11-23 대장 : 메인 진행 중인 행사에서 뺌. 다시 띄우려면 'open'
