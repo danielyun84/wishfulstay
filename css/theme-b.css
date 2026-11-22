@@ -1,0 +1,42 @@
+/* ══════════════════════════════════════════════════════════════
+   2026-11 리뉴얼 시안 B — 홍보패키지 톤으로 통일 (전무이사)
+   홍보패키지 : 흰 / 짙은 바탕 + 주황 #E0702A 하나 + 프리텐다드
+   홍보부 벤치마킹 조건 : 주황은 신청 버튼과 작은 강조에만. 큰 면에는 쓰지 않는다
+   이 파일 한 장을 빼면 A안(현재 톤)으로 돌아간다
+══════════════════════════════════════════════════════════════ */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+:root {
+  --c-bg:          #FFFFFF;
+  --c-bg-alt:      #F4F4F2;
+  --c-dark:        #121417;
+  --c-bg-dark:     #1B1E22;
+  --c-text:        #22252A;
+  --c-text-muted:  #6E737A;
+  --c-accent:      #22252A;
+  --c-accent-warm: #E0702A;
+  --c-cream:       #FFFFFF;
+  --c-border:      #E3E3E0;
+
+  --f-display: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+  --f-body:    'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+
+  --cta-bg: #E0702A;
+  --cta-fg: #FFFFFF;
+}
+
+body { background: var(--c-bg); }
+
+/* 제목은 굵기로 위계를 준다 (세리프 → 고딕) */
+#hero .hero-title { font-weight: 700; letter-spacing: -0.03em; }
+#hero .hero-eyebrow { font-weight: 600; }
+h1, h2, h3 { letter-spacing: -0.02em; }
+.entry-card h3 { font-weight: 700; letter-spacing: -0.02em; }
+
+/* 행사 띠 : 짙은 바탕 + 주황 작은 표시 */
+.event-strip .tag { color: #E0702A; opacity: 1; font-weight: 700; }
+.event-strip a { color: #FFFFFF; }
+
+/* 스크롤 뒤 헤더 바탕도 흰색으로 */
+#header.is-scrolled { background: rgba(255,255,255,0.97); }
+.mobile-nav { background: rgba(255,255,255,0.98); }
