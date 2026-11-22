@@ -92,7 +92,7 @@
 
         <!-- [이번 행사] -->
         <article class="ev-now">
-          <a class="ev-banner" href="https://m.site.naver.com/2lwmE" target="_blank" rel="noopener"><img src="images/events/lecture01_banner.jpg" alt="위시풀스테이 인문학 강연 #01 — 이 시대에 나는 왜 불안을 느끼는가"></a>
+          <a class="ev-banner" href="#apply" data-apply="lecture01"><img src="images/events/lecture01_banner.jpg" alt="위시풀스테이 인문학 강연 #01 — 이 시대에 나는 왜 불안을 느끼는가"></a>
           <div class="evl-badge">모집 중</div>
           <h3 class="ev-title">인문학 강연 #01 · 이 시대에 나는 왜 불안을 느끼는가</h3>
 
@@ -107,8 +107,8 @@
             </div>
             <aside class="ev-apply">
               <img src="images/events/lecture01_qr.jpg" alt="온라인 신청 QR">
-              <p>휴대폰 카메라로 찍으면<br>신청서가 열립니다</p>
-              <a class="ev-btn" href="https://m.site.naver.com/2lwmE" target="_blank" rel="noopener">온라인 신청하기</a>
+              <p>휴대폰 카메라로 찍거나<br>아래 버튼을 눌러 신청하세요</p>
+              <a class="ev-btn" href="#apply" data-apply="lecture01">온라인 신청하기</a>
             </aside>
           </div>
 
@@ -168,5 +168,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('hwNs16XJUZ63WZZhu');</script>
+  <script src="js/apply-popup.js"></script>
 </body>
 </html>
