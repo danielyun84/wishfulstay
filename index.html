@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/main.css?v=2">
+  <link rel="stylesheet" href="css/renewal.css?v=1">
 </head>
 <body>
 
@@ -63,7 +64,7 @@
       </nav>
 
       <!-- ✏️ 수정: 우측 상단 버튼 텍스트 -->
-      <a href="contact.html" class="header-cta">예약문의</a>
+      <a href="package-workshop.html" class="header-cta">견적·문의</a>
 
       <!-- 모바일 햄버거 버튼 (수정 불필요) -->
       <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
@@ -129,19 +130,19 @@
         <!-- 글자 뒤 음영 띠를 씌우기 위한 묶음 -->
         <div class="hero-textbox">
         <!-- ✏️ 수정: 히어로 소제목 (영문 태그라인) -->
-        <span class="hero-eyebrow">바다를 곁에 둔 특별한 워케이션</span>
+        <span class="hero-eyebrow">울산 강동 · 바다 곁의 작은 회사</span>
 
         <!-- ✏️ 수정: 히어로 메인 타이틀 (<br>은 줄바꿈) -->
-        <h1 class="hero-title" style="white-space:nowrap;">머물고싶은 강동</h1>
+        <h1 class="hero-title">바다 곁에서,<br>쫓기지 않는 속도로</h1>
 
         <!-- ✏️ 수정: 히어로 본문 한 줄 설명 -->
-        <p class="hero-sub">일과 휴식, 그리고 특별한 경험</p>
+        <p class="hero-sub">팀 워크숍 · 워케이션 · 승마 · 인문학 강연<br>강동에서 일하고, 쉬고, 배우는 하루</p>
 
         <div class="hero-ctas">
           <!-- ✏️ 수정: 첫 번째 버튼 텍스트 (클릭 시 패키지 섹션으로 이동) -->
-          <a href="package-workshop.html" class="btn btn-light-outline">워크샵 패키지 보기</a>
+          <a href="package-workshop.html" class="btn-cta">우리 팀 견적 바로 보기</a>
           <!-- ✏️ 수정: 두 번째 버튼 텍스트 (클릭 시 문의 섹션으로 이동) -->
-          <a href="#contact" class="btn btn-light-fill">문의하기</a>
+          <a href="#event" class="link-quiet">이번 주 인문학 강연 신청</a>
         </div>
         </div>
       </div>
@@ -153,6 +154,43 @@
       </div>
 
     </section>
+
+    <!-- 2026-11 리뉴얼 시안 : 이번 달 행사 띠 -->
+    <section class="event-strip" id="event" aria-label="이번 달 행사">
+      <div class="container">
+        <div><span class="tag">이번 주 행사</span><strong>인문학 강연 #01 「이 시대에 나는 왜 불안을 느끼는가」</strong><span class="meta">11/29(일) 17:00 · 제이드밀 지하 1층 · 무료 선착순 30명</span></div>
+        <a href="https://pf.kakao.com/_DqYxlX/chat" target="_blank" rel="noopener">카톡으로 신청하기 →</a>
+      </div>
+    </section>
+
+    <!-- 2026-11 리뉴얼 시안 : 입구 둘 -->
+    <section class="entry-two" aria-label="어떻게 오시나요">
+      <div class="container">
+        <div class="grid">
+          <a class="entry-card" href="package-workshop.html">
+            <img src="images/main_Jade_01.JPG" alt="제이드밀 라운지">
+            <span class="shade"></span>
+            <span class="body">
+              <span class="who">회사 · 단체</span>
+              <h3>팀 하루, 바다 앞 워크숍</h3>
+              <p>인원과 날짜만 넣으면 예상 견적이 바로 나옵니다. 당일부터 1박 2일까지.</p>
+              <span class="go">견적 바로 보기</span>
+            </span>
+          </a>
+          <a class="entry-card" href="club-horse.html">
+            <img src="images/package_hores.JPG" alt="흰 말">
+            <span class="shade"></span>
+            <span class="body">
+              <span class="who">개인 · 소모임</span>
+              <h3>강연 · 승마 · 워케이션</h3>
+              <p>인문학 강연과 승마클럽, 바다 곁에서 머무는 며칠. 동네 이웃도 함께합니다.</p>
+              <span class="go">프로그램 보기</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
 
 
     <!-- ════════════════════════════════════════════════════════
@@ -366,6 +404,14 @@
 
 
   <!-- 자바스크립트 (수정 불필요) -->
+
+  <!-- 2026-11 리뉴얼 시안 : 모바일 하단 고정 바 -->
+  <nav class="mbar" aria-label="빠른 연락">
+    <a class="primary" href="package-workshop.html">견적 보기</a>
+    <a href="#event"><b>✎</b>강연 신청</a>
+    <a href="https://pf.kakao.com/_DqYxlX/chat" target="_blank" rel="noopener"><b>✉</b>카톡</a>
+    <a href="tel:0522823155"><b>☎</b>전화</a>
+  </nav>
   <script src="js/main.js"></script>
   <script src="js/events.js"></script>
 </body>

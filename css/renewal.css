@@ -1,0 +1,156 @@
+/* ══════════════════════════════════════════════════════════════
+   2026-11 리뉴얼 1차 시안 — 첫 화면 (전무이사)
+   근거 : 기능목록 1판 A1·A2·D1·D2·E1, 디자인 벤치마킹(홍보부 14곳)
+   - 첫 화면 : 사진 위 한두 줄 + 버튼 하나(주 신청) + 글자 링크 하나
+   - 신청 버튼만 강조색, 나머지는 바탕·글자색 한 쌍
+   - 모서리는 각지게, 그림자 없음. 둥근 알약은 신청 버튼에만
+   이 파일을 빼면 이전 화면으로 돌아간다
+══════════════════════════════════════════════════════════════ */
+
+:root {
+  --cta-bg: var(--c-accent-warm);
+  --cta-fg: #FFFFFF;
+}
+
+/* ── 첫 화면 글자 되살리기 (9/9 숨김 해제) ── */
+#hero .hero-content { display: block; }
+#hero .hero-overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.45) 100%);
+}
+#hero .hero-textbox::before { display: none; }
+#hero .hero-textbox { padding: 0; }
+#hero .hero-title { white-space: normal !important; font-size: clamp(34px, 6vw, 76px); line-height: 1.15; }
+#hero .hero-sub { font-size: 15px; font-weight: 500; line-height: 1.7; letter-spacing: 0.02em; }
+#hero .hero-eyebrow { letter-spacing: 0.18em; }
+#hero .hero-content, #hero .hero-sub { text-align: center; }
+#hero .hero-ctas { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+.entry-card h3, .entry-card p, #hero .hero-title { word-break: keep-all; }
+
+.btn-cta {
+  display: inline-block;
+  padding: 15px 34px;
+  border-radius: 999px;
+  background: var(--cta-bg);
+  color: var(--cta-fg);
+  font-family: var(--f-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform var(--t-fast), opacity var(--t-fast);
+}
+.btn-cta:hover { opacity: 0.92; transform: translateY(-1px); }
+.link-quiet {
+  display: inline-block;
+  margin-left: 22px;
+  color: rgba(255,255,255,0.92);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+/* ── 헤더 오른쪽 신청 버튼 (사례 14곳 중 7곳) ── */
+#header .header-cta {
+  background: var(--cta-bg);
+  color: var(--cta-fg) !important;
+  border-color: var(--cta-bg) !important;
+  border-radius: 999px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* ── 이번 달 행사 띠 ── */
+.event-strip {
+  background: var(--c-bg-dark);
+  color: var(--c-cream);
+}
+.event-strip .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  flex-wrap: wrap;
+}
+.event-strip .tag {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  opacity: 0.75;
+  margin-right: 14px;
+}
+.event-strip strong { font-weight: 600; font-size: 16px; }
+.event-strip .meta { font-size: 14px; opacity: 0.85; margin-left: 12px; }
+.event-strip a {
+  color: var(--c-cream);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  white-space: nowrap;
+}
+
+/* ── 입구 둘 : 회사·단체 / 개인·소모임 ── */
+.entry-two { padding: var(--sp-xl) 0; background: var(--c-bg); }
+.entry-two .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.entry-card {
+  position: relative;
+  display: block;
+  min-height: 360px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+}
+.entry-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-slow);
+}
+.entry-card:hover img { transform: scale(1.03); }
+.entry-card .shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.65) 100%);
+}
+.entry-card .body {
+  position: absolute; left: 32px; right: 32px; bottom: 30px;
+}
+.entry-card .who { font-size: 13px; letter-spacing: 0.14em; opacity: 0.85; }
+.entry-card h3 {
+  font-family: var(--f-display);
+  font-size: 32px; font-weight: 400; line-height: 1.25;
+  margin: 10px 0 10px; color: #fff;
+}
+.entry-card p { font-size: 14px; line-height: 1.7; opacity: 0.92; margin: 0 0 16px; }
+.entry-card .go { font-size: 14px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.7); padding-bottom: 2px; }
+
+/* ── 모바일 하단 고정 바 (견적·강연·카톡·전화) ── */
+.mbar { display: none; }
+@media (max-width: 768px) {
+  .entry-two .grid { grid-template-columns: 1fr; }
+  .entry-card { min-height: 300px; }
+  .entry-card h3 { font-size: 25px; }
+  .entry-card .body { left: 22px; right: 22px; bottom: 22px; }
+  .link-quiet { display: block; margin: 18px 0 0; width: 100%; text-align: center; }
+  .event-strip .meta { display: block; margin: 4px 0 0; }
+  .mbar {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    position: fixed; left: 0; right: 0; bottom: 0;
+    z-index: 120;
+    background: #fff;
+    border-top: 1px solid var(--c-border);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 58px;
+    font-size: 12px; color: var(--c-text); text-decoration: none; gap: 3px;
+  }
+  .mbar a b { font-size: 16px; line-height: 1; }
+  .mbar a.primary { background: var(--cta-bg); color: var(--cta-fg); font-weight: 600; font-size: 14px; }
+  body { padding-bottom: 58px; }
+}
