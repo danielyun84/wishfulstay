@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/event-lecture01", "destination": "/event01", "permanent": true },
+    { "source": "/event-lecture01.html", "destination": "/event01", "permanent": true }
+  ]
+}
