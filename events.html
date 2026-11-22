@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="css/main.css?v=5">
   <link rel="stylesheet" href="css/megamenu.css?v=5">
   <link rel="stylesheet" href="css/workcation-intro.css?v=3">
-  <link rel="stylesheet" href="css/events.css?v=4">
+  <link rel="stylesheet" href="css/events.css?v=6">
 </head>
 <body>
 
@@ -93,30 +93,11 @@
           <button data-f="open">모집 중</button>
           <button data-f="done">지난 행사</button>
         </div>
-        <div class="evl-grid2">
-          <a class="evl-card" data-s="open" href="event-lecture01.html">
-            <div class="evl-thumb"><img src="images/events/lecture01_card.jpg" alt="인문학 강연 #01 홍보 카드"><span class="evl-badge">모집 중</span></div>
-            <div class="evl-cbody">
-              <em>인문학 강연 #01</em>
-              <strong>이 시대에 나는 왜 불안을 느끼는가</strong>
-              <span>2026. 11. 29 (일) 17:00 · 제이드밀 지하 1층</span>
-              <span>인경 스님 (신흥사 주지) · 선착순 30명 · 무료</span>
-            </div>
-          </a>
-        </div>
+        <div class="evl-grid2" id="evl-list"></div>
         <p class="ev-empty ev-none" hidden>해당하는 행사가 아직 없습니다.</p>
       </div>
     </section>
-    <script>
-      (function () {
-        var bs = document.querySelectorAll('.evl-filter button'), cs = document.querySelectorAll('.evl-card'), none = document.querySelector('.ev-none');
-        bs.forEach(function (b) { b.addEventListener('click', function () {
-          bs.forEach(function (x) { x.classList.toggle('on', x === b); });
-          var n = 0; cs.forEach(function (c) { var v = b.dataset.f === 'all' || c.dataset.s === b.dataset.f; c.hidden = !v; if (v) n++; });
-          none.hidden = n > 0;
-        }); });
-      })();
-    </script>
+    <script src="js/ws-events.js"></script>
 
   </main>
 

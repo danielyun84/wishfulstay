@@ -1,5 +1,5 @@
 /* 2026-11-23 행사·강연 페이지 — 주황 칸은 홍보물(전단)과 같은 모양 */
-.ev-page { --ev-ac: #E0702A; }
+:root { --ev-ac: #E0702A; }
 .ev-now { max-width: 1000px; }
 .ev-banner { display: block; border-radius: 10px; overflow: hidden; margin-bottom: 28px; }
 .ev-banner img { display: block; width: 100%; height: auto; }

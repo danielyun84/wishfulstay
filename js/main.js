@@ -576,3 +576,15 @@
   initHeroSlider();
 
 })();
+
+/* 2026-11-23 떠 있는 카카오 상담 버튼 — 전 페이지 오른쪽 아래 */
+(function () {
+  if (document.querySelector('.ws-kakao-float')) return;
+  var a = document.createElement('a');
+  a.className = 'ws-kakao-float'; a.href = 'https://pf.kakao.com/_DqYxlX/chat'; a.target = '_blank'; a.rel = 'noopener';
+  a.setAttribute('aria-label', '카카오톡 상담');
+  a.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 3C6.48 3 2 6.72 2 11.25c0 2.88 1.58 5.41 4 6.96v3.29l3.1-1.71c.94.26 1.93.4 2.9.4 5.52 0 10-3.72 10-8.25C22 6.72 17.52 3 12 3z"/></svg><span>상담</span>';
+  var st = document.createElement('style');
+  st.textContent = '.ws-kakao-float{position:fixed;right:22px;bottom:22px;z-index:900;display:flex;align-items:center;gap:6px;background:#FEE500;color:#191600;font-weight:700;font-size:15px;padding:12px 18px;border-radius:30px;box-shadow:0 6px 18px rgba(0,0,0,.18);text-decoration:none}.ws-kakao-float:hover{transform:translateY(-2px)}@media(max-width:768px){.ws-kakao-float{bottom:16px;right:14px;padding:11px 15px}}';
+  document.head.appendChild(st); document.body.appendChild(a);
+})();

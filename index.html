@@ -36,6 +36,8 @@
   <link rel="stylesheet" href="css/variables.css?v=2">
   <link rel="stylesheet" href="css/main.css?v=5">
   <link rel="stylesheet" href="css/megamenu.css?v=5">
+  <link rel="stylesheet" href="css/events.css?v=6">
+  <link rel="stylesheet" href="css/home.css?v=1">
 </head>
 <body>
 
@@ -136,19 +138,19 @@
         <!-- 글자 뒤 음영 띠를 씌우기 위한 묶음 -->
         <div class="hero-textbox">
         <!-- ✏️ 수정: 히어로 소제목 (영문 태그라인) -->
-        <span class="hero-eyebrow">바다를 곁에 둔 특별한 워케이션</span>
+        <span class="hero-eyebrow">울산 강동 · 바다 곁의 워케이션</span>
 
         <!-- ✏️ 수정: 히어로 메인 타이틀 (<br>은 줄바꿈) -->
-        <h1 class="hero-title" style="white-space:nowrap;">머물고싶은 강동</h1>
+        <h1 class="hero-title">바다 곁에서 일하고, 쉬고, 배우다</h1>
 
         <!-- ✏️ 수정: 히어로 본문 한 줄 설명 -->
-        <p class="hero-sub">일과 휴식, 그리고 특별한 경험</p>
+        <p class="hero-sub">숙박 · 업무 공간 · 체험 · 교육을 하나의 일정으로</p>
 
         <div class="hero-ctas">
           <!-- ✏️ 수정: 첫 번째 버튼 텍스트 (클릭 시 패키지 섹션으로 이동) -->
-          <a href="package-workshop.html" class="btn btn-light-outline">워크샵 패키지 보기</a>
+          <a href="package-workshop.html" class="btn btn-light-fill">예상 견적 보기</a>
           <!-- ✏️ 수정: 두 번째 버튼 텍스트 (클릭 시 문의 섹션으로 이동) -->
-          <a href="#contact" class="btn btn-light-fill">문의하기</a>
+          <a href="events.html" class="btn btn-light-outline">행사·강연</a>
         </div>
         </div>
       </div>
@@ -160,6 +162,31 @@
       </div>
 
     </section>
+
+    <!-- 2026-11-23 [지금 진행 중] — 내용은 js/ws-events.js 에서. 모집 중인 게 없으면 칸이 숨는다 -->
+    <section id="now-section" class="home-sec">
+      <div class="container">
+        <div class="home-head"><h2>지금 진행 중</h2><a href="events.html">전체 보기 →</a></div>
+        <div class="evl-grid2" id="now-grid"></div>
+      </div>
+    </section>
+
+    <!-- 2026-11-23 [입구 둘] — 손님이 자기 자리를 먼저 고른다 -->
+    <section class="home-sec home-entry">
+      <div class="container">
+        <div class="entry-two">
+          <a class="entry-card" href="package-workshop.html">
+            <img loading="lazy" src="images/package_workshop.jpeg" alt="">
+            <div class="entry-body"><em>회사 · 단체</em><strong>워크숍 · 연수 · 워케이션</strong><p>인원과 날짜만 고르면 숙박 · 공간 · 프로그램 · 식사까지 예상 견적이 바로 나옵니다.</p><span>예상 견적 보기 →</span></div>
+          </a>
+          <a class="entry-card" href="events.html">
+            <img loading="lazy" src="images/package_hores.JPG" alt="">
+            <div class="entry-body"><em>개인 · 소모임</em><strong>강연 · 승마 · 강동 체험</strong><p>인문학 강연, 승마클럽, 사찰과 공예 체험. 혼자서도, 몇 사람이 모여서도 참여할 수 있습니다.</p><span>행사·강연 보기 →</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
 
 
     <!-- ════════════════════════════════════════════════════════
@@ -195,7 +222,7 @@
                 <img loading="lazy" src="images/package_workshop.jpeg" alt="워크샵 패키지">
               </div>
               <div class="about-pkg-info">
-                <strong>워크샵 패키지</strong>
+                <strong>워크샵 패키지</strong><span class="pkg-meta">6~40인 · 1박 2일 / 2박 3일 · 견적 바로 보기</span>
                 <p>기업 및 관공서의 임직원 워크숍, 세미나, 직원연수에 적합한 패키지입니다.</p>
               </div>
             </a>
@@ -204,7 +231,7 @@
                 <img loading="lazy" src="images/package_hores.JPG" alt="승마 패키지">
               </div>
               <div class="about-pkg-info">
-                <strong>승마 패키지</strong>
+                <strong>승마 패키지</strong><span class="pkg-meta">6인부터 · 1~2시간 체험 · 견적 바로 보기</span>
                 <p>승마를 제대로 경험해보는 소규모 팀에 적합한 패키지입니다.</p>
               </div>
             </a>
@@ -213,7 +240,7 @@
                 <img loading="lazy" src="images/package_templ.jpg" alt="힐링 패키지">
               </div>
               <div class="about-pkg-info">
-                <strong>힐링 패키지</strong>
+                <strong>힐링 패키지</strong><span class="pkg-meta">신흥사 · 인원과 일정은 문의로 조율</span>
                 <p>국가지정 보물이 있는 신흥사에서 비움과 회복의 시간을 원하는 분들께 적합한 패키지입니다.</p>
               </div>
             </div>
@@ -222,7 +249,7 @@
                 <img loading="lazy" src="images/목공방전경.jpeg" alt="목공 패키지">
               </div>
               <div class="about-pkg-info">
-                <strong>목공 패키지</strong>
+                <strong>목공 패키지</strong><span class="pkg-meta">날씨 무관 · 인원과 일정은 문의로 조율</span>
                 <p>내 손으로 만든 원목 소품을 가져가는, 날씨와 상관없이 즐길 수 있는 패키지입니다.</p>
               </div>
             </div>
@@ -236,6 +263,21 @@
 
 
 
+
+    <!-- 2026-11-23 [왜 강동인가] — 문장은 대장 사업계획서 「설립배경」. 사진 자리는 대장 사진 허락 뒤 교체 -->
+    <section class="home-sec home-why">
+      <div class="container why-wrap">
+        <div class="why-photo"><img loading="lazy" src="images/hotel_4.jpg" alt="강동 바닷가 전경"></div>
+        <div class="why-text">
+          <span class="eyebrow">Why Gangdong</span>
+          <h2>좋은 곳은 많은데,<br>하나로 엮어 줄 곳이 없었습니다</h2>
+          <p>울산 북구 강동은 2009년 관광단지로 지정된 뒤 오래 기다려 온 바닷가 마을입니다. 좋은 숙소와 식당, 승마장과 사찰이 있지만 저마다 따로 손님을 맞아 왔습니다.</p>
+          <p>위시풀스테이는 그 자원들을 하나의 일정으로 엮기 위해 세운 회사입니다. 손님이 머무는 시간이 길어질수록 강동의 가게와 이웃에게도 일이 돌아가는 구조를 만듭니다.</p>
+          <div class="why-partners"><span>함께하는 곳</span><b>머큐어 앰배서더 울산</b><b>씨스테이 레지던스</b><b>제이드밀</b><b>UEF 승마파크</b></div>
+          <a class="why-more" href="about.html">회사 소개 보기 →</a>
+        </div>
+      </div>
+    </section>
 
     <!-- 2026-11-23 대장 : 위시풀 커뮤니티 클럽 칸은 메인에서 뺌 (클럽 페이지 club-horse.html 은 그대로) -->
 
@@ -360,5 +402,6 @@
 
   <!-- 자바스크립트 (수정 불필요) -->
   <script src="js/main.js"></script>
+  <script src="js/ws-events.js"></script>
 </body>
 </html>
