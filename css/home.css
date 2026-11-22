@@ -52,3 +52,4 @@
   .why-wrap { gap: 28px; }
 }
 @media (max-width: 560px) { #now-section .evl-grid2 { grid-template-columns: 1fr; } }
+#hero .hero-sub { text-align: center; }
