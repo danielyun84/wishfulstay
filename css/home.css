@@ -87,3 +87,4 @@
 #now-section .evl-card { overflow: visible; box-shadow: none; }
 #now-section .evl-thumb { box-shadow: 0 6px 20px rgba(0,0,0,.10); }
 #now-section .evl-label { display: block; margin: 12px 2px 0; font-size: 14px; font-weight: 600; color: #3D414F; text-align: left; }
+#now-section .evl-label { display: none; }   /* 대장 : 포스터 아래 시리즈 이름 뺌 */
