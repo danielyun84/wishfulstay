@@ -1,0 +1,22 @@
+/* 2026-11-23 회사 소개 페이지 (탭 틀은 workcation-intro.css) */
+.wk-draft { color: #B8865A !important; font-size: 13px !important; }
+.wk-sign { margin-top: 28px !important; font-weight: 600; }
+.ab-table { border-top: 2px solid var(--c-text); max-width: 860px; }
+.ab-table div { display: flex; gap: 24px; padding: 16px 4px; border-bottom: 1px solid var(--c-border); font-size: 16px; line-height: 1.5; }
+.ab-table b { width: 140px; flex: none; color: var(--c-text-muted); font-weight: 500; }
+.ab-table span { color: #3D414F; word-break: keep-all; }
+.ab-table a { color: var(--c-text); }
+.ab-history { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--c-border); max-width: 860px; }
+.ab-history li { position: relative; padding: 0 0 26px 26px; display: flex; gap: 22px; font-size: 16px; line-height: 1.5; }
+.ab-history li::before { content: ''; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--c-accent); }
+.ab-history time { width: 110px; flex: none; color: var(--c-accent); font-weight: 600; }
+.ab-history span { color: #3D414F; word-break: keep-all; }
+.ab-partner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.ab-partner div { border: 1px solid var(--c-border); background: var(--c-cream); height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
+.ab-partner b { font-size: 16px; color: var(--c-text); }
+.ab-partner span { font-size: 13px; color: var(--c-text-muted); }
+@media (max-width: 900px) {
+  .ab-partner { grid-template-columns: 1fr 1fr; }
+  .ab-table div { flex-direction: column; gap: 4px; }
+  .ab-history li { flex-direction: column; gap: 4px; }
+}

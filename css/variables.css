@@ -14,7 +14,7 @@
 
   /* ── Typography ── */
   --f-display: 'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
-  --f-body:    'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --f-body:    'Pretendard Variable', Pretendard, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* ── Spacing ── */
   --sp-xs:   8px;

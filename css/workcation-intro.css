@@ -1,0 +1,51 @@
+/* 2026-11-23 워케이션 소개 — 부산 워케이션 구조(탭 3개). 색·글꼴은 사이트 그대로 */
+.wk-page-title { font-family: var(--f-display); font-size: clamp(28px, 3.4vw, 42px); font-weight: 400; color: var(--c-text); margin: 0 0 28px; }
+.wk-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--c-border); margin-bottom: 44px; flex-wrap: wrap; }
+.wk-tabs button { background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 14px 26px; font-family: var(--f-body); font-size: 16px; color: var(--c-text-muted); cursor: pointer; }
+.wk-tabs button.on { color: var(--c-text); font-weight: 600; border-bottom-color: var(--c-accent); }
+.wk-panel { display: none; }
+.wk-panel.on { display: block; }
+.wk-h { font-family: var(--f-body); font-size: 22px; font-weight: 600; color: var(--c-text); margin: 0 0 16px; }
+.wk-panel > p { font-size: 15px; line-height: 1.9; color: var(--c-text); max-width: 860px; margin: 0 0 12px; word-break: keep-all; }
+.wk-note { color: var(--c-text-muted) !important; font-size: 14px !important; margin-bottom: 48px !important; }
+.wk-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 56px; }
+.wk-box { border: 1px solid var(--c-border); background: var(--c-cream); padding: 28px 26px; }
+.wk-box strong { display: block; font-size: 17px; color: var(--c-text); margin-bottom: 14px; }
+.wk-box ul { margin: 0; padding-left: 18px; }
+.wk-box li, .wk-box p { font-size: 14px; line-height: 1.85; color: var(--c-text); word-break: keep-all; margin: 0; }
+.wk-map { border: 1px solid var(--c-border); background: var(--c-cream); padding: 40px 28px; margin-bottom: 56px; text-align: center; }
+.wk-core { display: inline-block; background: var(--c-accent); color: #fff; padding: 18px 40px; font-size: 18px; font-weight: 600; margin-bottom: 30px; }
+.wk-core small { display: block; font-size: 13px; font-weight: 400; opacity: 0.9; margin-top: 4px; }
+.wk-nodes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; position: relative; }
+.wk-nodes div { border: 1px solid var(--c-border); background: #fff; padding: 20px 10px; display: flex; flex-direction: column; gap: 6px; }
+.wk-nodes b { font-size: 16px; color: var(--c-text); }
+.wk-nodes span { font-size: 13px; color: var(--c-text-muted); }
+.wk-steps { list-style: none; margin: 0 0 40px; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.wk-steps li { border: 1px solid var(--c-border); background: var(--c-cream); padding: 22px 12px; text-align: center; position: relative; }
+.wk-steps em { display: block; font-style: normal; font-size: 12px; letter-spacing: 0.1em; color: var(--c-accent); margin-bottom: 8px; }
+.wk-steps b { display: block; font-size: 15px; color: var(--c-text); margin-bottom: 6px; }
+.wk-steps span { font-size: 12px; color: var(--c-text-muted); word-break: keep-all; }
+.wk-cta-line { text-align: center; }
+@media (max-width: 900px) {
+  .wk-three, .wk-nodes { grid-template-columns: 1fr; }
+  .wk-steps { grid-template-columns: 1fr 1fr; }
+  .wk-tabs button { padding: 12px 14px; font-size: 15px; }
+}
+.wk-cta-line a { display: inline-block; padding: 15px 34px; background: var(--c-dark); color: var(--c-cream); font-size: 15px; text-decoration: none; letter-spacing: 0.04em; }
+.wk-cta-line a:hover { background: var(--c-accent); }
+
+/* 2026-11-23 대장 : 큰 제목도 탭·소제목과 같은 글꼴(Noto Sans KR 굵게)로, 크기만 키움 */
+.wk-page-title { font-family: var(--f-body); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(30px, 3.2vw, 40px); }
+.page-hero-content h1 { font-family: var(--f-body); font-weight: 700; letter-spacing: -0.03em; }
+
+/* 2026-11-23 대장 : 본문 글씨 통일 — Pretendard 16px · 400 · 줄간격 1.5 · #3D414F (부산 워케이션 본문과 같게) */
+.wk-panel > p, .wk-box li, .wk-box p, .ab-table div, .ab-history li { font-size: 16px; font-weight: 400; line-height: 1.5; color: #3D414F; }
+.wk-panel > p { margin-bottom: 16px; }
+
+/* 2026-11-23 워케이션 소개 2판 — 구성 5칸 · 하는 일 4칸 · 작은 머리표 */
+.wk-five { grid-template-columns: repeat(5, 1fr); }
+.wk-four { grid-template-columns: repeat(4, 1fr); }
+.wk-box em { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--c-accent); margin-bottom: 8px; }
+.wk-box .wk-meta { margin-top: 12px; font-size: 14px; color: var(--c-text-muted); }
+.wk-panel > p a { color: var(--c-accent); }
+@media (max-width: 900px) { .wk-five, .wk-four { grid-template-columns: 1fr 1fr; } }

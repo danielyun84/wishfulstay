@@ -12,8 +12,8 @@ body {
   color: var(--c-text);
   font-family: var(--f-body);
   font-size: 16px;
-  line-height: 1.7;
-  font-weight: 300;
+  line-height: 1.5;   /* 2026-11-23 대장 : 본문은 부산 워케이션과 같게 — Pretendard 16px · 400 · 1.5 */
+  font-weight: 400;
 }
 
 p {
@@ -451,8 +451,8 @@ h4 {
 
 #hero {
   position: relative;
-  height: 100vh;
-  min-height: 640px;
+  height: 50vh;      /* 2026-11-23 대장 지시 : 100vh → 절반 */
+  min-height: 320px; /* 640px → 절반 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2892,4 +2892,10 @@ dd small {
   .ev-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* 2026-11-23 대장 : 푸터 맨 아래도 본문 글씨체(Pretendard · 보통 굵기 · 자간 없음)로 */
+#footer .footer-tagline, #footer .footer-nav a, #footer .footer-info p, #footer .footer-info a, #footer .footer-copy,
+footer .footer-tagline, footer .footer-nav a, footer .footer-info p, footer .footer-info a, footer .footer-copy {
+  font-family: var(--f-body); font-weight: 400; letter-spacing: 0; font-size: 13px;
 }

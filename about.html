@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <!-- ✏️ 수정: 브라우저 탭 타이틀 -->
+  <title>회사 소개 — WISHFUL STAY</title>
+  <!-- ✏️ 수정: 검색 결과 설명 문구 -->
+  <meta name="description" content="울산 강동 바닷가의 작은 회사, 위시풀스테이를 소개합니다. 인사말, 회사 개요, 연혁, 파트너, 오시는 길.">
+  <meta property="og:title" content="회사 소개 — WISHFUL STAY">
+  <meta property="og:description" content="울산 강동 바닷가의 작은 회사, 위시풀스테이를 소개합니다. 인사말, 회사 개요, 연혁, 파트너, 오시는 길.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="canonical" href="https://www.wishfulstay.com/about.html">
+  <meta property="og:url" content="https://www.wishfulstay.com/about.html">
+  <meta property="og:site_name" content="WISHFUL STAY">
+  <meta property="og:image" content="https://www.wishfulstay.com/images/og-thumbnail.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css?v=2">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <link rel="stylesheet" href="css/megamenu.css?v=5">
+  <link rel="stylesheet" href="css/workcation-intro.css?v=3">
+  <link rel="stylesheet" href="css/about.css?v=2">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HEADER — 모든 페이지 동일 구조
+       ✏️ 수정: 메뉴명 바꿀 경우 모든 페이지에서 동일하게 수정
+       ✏️ 현재 페이지: 워케이션 (is-active 클래스 위치 확인)
+  ════════════════════════════════════════════════════════════════ -->
+  <header id="header">
+    <div class="header-inner">
+      <!-- ✏️ 수정: 로고 텍스트 -->
+      <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="workcation.html">위시풀스테이</a>
+            <ul class="sub"><li><a href="about.html">회사 소개</a></li><li><a href="workcation.html">워케이션 소개</a></li></ul></li>
+          <li><a href="experience.html">강동관광</a>
+            <ul class="sub"><li><a href="experience.html">체험 전체</a></li><li><a href="exp-leisure.html">레저·액티비티</a></li><li><a href="exp-temple.html">사찰 문화체험</a></li><li><a href="exp-craft.html">공예·예술</a></li><li><a href="exp-edu.html">교육</a></li><li><a href="exp-event.html">행사·이벤트</a></li></ul></li>
+          <li><a href="workcation.html">업무공간</a>
+            <ul class="sub"><li><a href="workcation.html">업무공간</a></li><li><a href="dining.html">식사</a></li><li><a href="dining-cafe.html">카페·간단식</a></li><li><a href="dining-group.html">단체 식사</a></li></ul></li>
+          <li><a href="stay.html">스테이</a>
+            <ul class="sub"><li><a href="stay.html">스테이 전체</a></li><li><a href="stay-hotel.html">호텔</a></li><li><a href="stay-residence.html">씨스테이 레지던스</a></li></ul></li>
+          <li><a href="index.html#events-section">게시판</a>
+            <ul class="sub"><li><a href="club-horse.html">위시풀승마클럽</a></li><li><a href="partner.html">파트너 제휴</a></li><li><a href="contact.html">예약문의</a></li></ul></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="workcation.html">위시풀스테이</a></li>
+      <li><a href="experience.html">강동관광</a></li>
+      <li><a href="workcation.html">업무공간</a></li>
+      <li><a href="stay.html">스테이</a></li>
+      <li><a href="index.html#events-section">게시판</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         페이지 히어로
+         ✏️ 수정: 소제목, 메인 타이틀, 설명 문구
+         📷 사진 교체: .ph-image div → <img> 태그로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <img src="images/hotel_4.jpg" alt="바다 앞 강동 전경" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="page-hero-overlay"></div>
+    </section>
+
+    <!-- 2026-11-23 회사 소개 — 탭 5개 (워케이션 소개와 같은 틀). [초안] 표시는 대장 확인 전 문구 -->
+    <section class="content-section wk-intro">
+      <div class="container">
+        <h2 class="wk-page-title">회사 소개</h2>
+        <div class="wk-tabs" role="tablist">
+          <button class="on" data-tab="a1" role="tab">인사말</button>
+          <button data-tab="a2" role="tab">회사 개요</button>
+          <button data-tab="a3" role="tab">연혁</button>
+          <button data-tab="a4" role="tab">파트너</button>
+          <button data-tab="a5" role="tab">오시는 길</button>
+        </div>
+
+        <div class="wk-panel on" id="a1">
+          <h3 class="wk-h">일과 쉼, 배움과 경험을 하나의 흐름으로</h3>
+          <p class="wk-draft">[초안 — 대표님 확인 후 확정]</p>
+          <p>안녕하세요, 위시풀스테이입니다.</p>
+          <p>울산 북구 강동은 2009년 관광단지로 지정된 뒤 오랜 시간을 기다려 온 바닷가 마을입니다. 좋은 숙소와 식당, 카페, 승마장과 사찰이 있지만 저마다 따로 손님을 맞아 왔습니다. 머물 이유는 많은데, 그것을 하나로 엮어 줄 곳이 없었습니다.</p>
+          <p>위시풀스테이는 그 일을 하려고 세운 회사입니다. 숙소와 업무 공간, 체험과 교육을 고객의 목적에 맞춰 하나의 일정으로 설계합니다. 여러 곳에 따로 연락하지 않아도, 위시풀스테이 한 곳이면 강동에서의 시간이 완성됩니다.</p>
+          <p>저희가 만드는 것은 시설이 아니라 연결입니다. 큰 리조트가 들어서도 손님이 그 안에만 머문다면 마을은 달라지지 않습니다. 강동의 작은 가게와 체험장, 이웃이 함께 일하고 함께 나누는 구조를 만들겠습니다.</p>
+          <p>한 번 스쳐 가는 여행이 아니라, 다시 찾고 오래 머무는 곳. 위시풀스테이가 강동에서 쌓아 가려는 관계입니다.</p>
+          <p class="wk-sign">위시풀스테이 드림</p>
+        </div>
+
+        <div class="wk-panel" id="a2">
+          <h3 class="wk-h">회사 개요</h3>
+          <div class="ab-table">
+            <div><b>회사명</b><span>주식회사 위시풀스테이 (Wishful Stay)</span></div>
+            <div><b>대표</b><span>박성윤</span></div>
+            <div><b>사업자등록번호</b><span>875-81-03225</span></div>
+            <div><b>주소</b><span>울산광역시 북구 동해안로 1586, 지하1층 (산하동)</span></div>
+            <div><b>연락처</b><span>052-282-3155 · info@wishfulstay.com</span></div>
+          </div>
+          <h3 class="wk-h" style="margin-top:48px">하는 일</h3>
+          <div class="wk-three">
+            <div class="wk-box"><strong>워케이션 · 팀 워크숍</strong><p>숙박·업무 공간·체험·식사를 하나로 엮은 기업·단체 프로그램. 인원과 날짜만 넣으면 예상 견적을 바로 볼 수 있습니다.</p></div>
+            <div class="wk-box"><strong>승마 체험 · 승마클럽</strong><p>UEF 승마파크와 함께하는 승마 체험과 위시풀승마클럽 운영.</p></div>
+            <div class="wk-box"><strong>강연 · 커뮤니티</strong><p>인문학 강연 시리즈 등 지역 이웃과 함께하는 모임과 행사.</p></div>
+          </div>
+        </div>
+
+        <div class="wk-panel" id="a3">
+          <h3 class="wk-h">연혁</h3>
+          <ul class="ab-history">
+            <li><time>2024. 11. 05.</time><span>주식회사 위시풀스테이 법인 설립</span></li>
+            <li><time>2026. 09.</time><span>관광사업(국내여행업) 등록 — 울산광역시 북구청</span></li>
+          </ul>
+        </div>
+
+        <div class="wk-panel" id="a4">
+          <h3 class="wk-h">함께하는 파트너</h3>
+          <div class="ab-partner">
+            <div><b>머큐어 앰배서더 울산</b><span>숙박</span></div>
+            <div><b>씨스테이 레지던스</b><span>장기 체류 숙박</span></div>
+            <div><b>제이드밀</b><span>카페 · 업무 공간 · 강연</span></div>
+            <div><b>UEF 승마파크</b><span>승마 체험</span></div>
+          </div>
+          <p style="margin-top:28px">함께하고 싶은 숙소·체험·식당·강연자는 <a href="partner.html">파트너 제휴</a>로 연락 주세요.</p>
+        </div>
+
+        <div class="wk-panel" id="a5">
+          <h3 class="wk-h">오시는 길</h3>
+          <div class="ab-table">
+            <div><b>주소</b><span>울산광역시 북구 동해안로 1586, 지하1층 (산하동)</span></div>
+            <div><b>운영시간</b><span>09:00 — 21:00</span></div>
+            <div><b>전화</b><span><a href="tel:0522823155">052-282-3155</a></span></div>
+          </div>
+          <p class="wk-cta-line" style="margin-top:32px">
+            <a href="https://map.naver.com/p/search/%EC%9A%B8%EC%82%B0%20%EB%B6%81%EA%B5%AC%20%EB%8F%99%ED%95%B4%EC%95%88%EB%A1%9C%201586" target="_blank" rel="noopener">네이버 지도로 보기</a>
+            <a href="https://map.kakao.com/?q=%EC%9A%B8%EC%82%B0%20%EB%B6%81%EA%B5%AC%20%EB%8F%99%ED%95%B4%EC%95%88%EB%A1%9C%201586" target="_blank" rel="noopener" style="margin-left:8px">카카오맵으로 보기</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <script>
+      (function () {
+        function show(id) {
+          document.querySelectorAll('.wk-tabs button').forEach(function (x) { x.classList.toggle('on', x.dataset.tab === id); });
+          document.querySelectorAll('.wk-panel').forEach(function (p) { p.classList.toggle('on', p.id === id); });
+        }
+        document.querySelectorAll('.wk-tabs button').forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.tab); }); });
+        var h = location.hash.replace('#', ''); if (document.getElementById(h)) show(h);
+      })();
+    </script>
+
+  </main>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       FOOTER — 모든 페이지 동일
+       ✏️ 수정: 법인명, 운영시간, 저작권
+  ════════════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo"><img src="images/logo-symbol.png" alt="" class="footer-logo-symbol">WISHFUL STAY</p>
+          <!-- ✏️ 수정: 태그라인 -->
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <!-- ✏️ 수정: 사업자 정보 -->
+          <p>주식회사 위시풀스테이 &nbsp;|&nbsp; 대표 박성윤 &nbsp;|&nbsp; 사업자등록번호 875-81-03225</p>
+          <p>울산광역시 북구 동해안로 1586, 지하1층 (산하동) &nbsp;|&nbsp; 운영시간 09:00 — 21:00</p>
+          <p>전화 <a href="tel:0522823155">052-282-3155</a> &nbsp;|&nbsp; 메일 <a href="mailto:info@wishfulstay.com">info@wishfulstay.com</a></p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

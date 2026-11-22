@@ -23,9 +23,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/variables.css?v=2">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <link rel="stylesheet" href="css/megamenu.css?v=5">
+  <link rel="stylesheet" href="css/workcation-intro.css?v=4">
 </head>
 <body>
 
@@ -40,12 +43,16 @@
       <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
       <nav class="nav-main" aria-label="주요 메뉴">
         <ul>
-          <li><a href="index.html">위시풀스테이</a></li>
-          <!-- ✏️ 현재 페이지 = 워케이션 (is-active 유지) -->
-          <li><a href="workcation.html" class="is-active">워케이션</a></li>
-          <li><a href="stay.html">숙박</a></li>
-          <li><a href="experience.html">체험</a></li>
-          <li><a href="dining.html">식사</a></li>
+          <li><a href="workcation.html">위시풀스테이</a>
+            <ul class="sub"><li><a href="about.html">회사 소개</a></li><li><a href="workcation.html">워케이션 소개</a></li></ul></li>
+          <li><a href="experience.html">강동관광</a>
+            <ul class="sub"><li><a href="experience.html">체험 전체</a></li><li><a href="exp-leisure.html">레저·액티비티</a></li><li><a href="exp-temple.html">사찰 문화체험</a></li><li><a href="exp-craft.html">공예·예술</a></li><li><a href="exp-edu.html">교육</a></li><li><a href="exp-event.html">행사·이벤트</a></li></ul></li>
+          <li><a href="workcation.html">업무공간</a>
+            <ul class="sub"><li><a href="workcation.html">업무공간</a></li><li><a href="dining.html">식사</a></li><li><a href="dining-cafe.html">카페·간단식</a></li><li><a href="dining-group.html">단체 식사</a></li></ul></li>
+          <li><a href="stay.html">스테이</a>
+            <ul class="sub"><li><a href="stay.html">스테이 전체</a></li><li><a href="stay-hotel.html">호텔</a></li><li><a href="stay-residence.html">씨스테이 레지던스</a></li></ul></li>
+          <li><a href="index.html#events-section">게시판</a>
+            <ul class="sub"><li><a href="club-horse.html">위시풀승마클럽</a></li><li><a href="partner.html">파트너 제휴</a></li><li><a href="contact.html">예약문의</a></li></ul></li>
           <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
         </ul>
       </nav>
@@ -58,11 +65,11 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <ul>
-      <li><a href="index.html">위시풀스테이</a></li>
-      <li><a href="workcation.html">워케이션</a></li>
-      <li><a href="stay.html">숙박</a></li>
-      <li><a href="experience.html">체험</a></li>
-      <li><a href="dining.html">식사</a></li>
+      <li><a href="workcation.html">위시풀스테이</a></li>
+      <li><a href="experience.html">강동관광</a></li>
+      <li><a href="workcation.html">업무공간</a></li>
+      <li><a href="stay.html">스테이</a></li>
+      <li><a href="index.html#events-section">게시판</a></li>
       <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
     </ul>
     <a href="contact.html" class="mobile-contact-btn">예약문의</a>
@@ -94,177 +101,85 @@
     </section>
 
 
-    <!-- ════════════════════════════════════════════════════════
-         [1] 워케이션이란?
-         ✏️ 수정: 헤딩, 본문 2단락
-    ═══════════════════════════════════════════════════════════ -->
-    <section class="content-section">
+    <!-- 2026-11-23 대장 : 내용은 대장 계획서·제안서(강동관광사업 추진계획안 6월 · 사업계획서 9/3판)에서. 탭 이름과 같은 소제목은 넣지 않는다 -->
+    <section class="content-section wk-intro">
       <div class="container">
-        <div class="two-col-grid">
-          <div class="col-content reveal">
-            <!-- ✏️ 수정: 섹션 소제목 -->
-            <span class="eyebrow">What is Workcation</span>
-            <!-- ✏️ 수정: 섹션 헤딩 -->
-            <h2>워케이션이란 무엇인가요?</h2>
-            <!-- ✏️ 수정: 본문 설명 -->
-            <p>
-              워케이션(Workcation)은 일(Work)과 휴가(Vacation)를 결합한 새로운 업무 방식입니다.
-              익숙한 사무실에서 벗어나 자연 환경 속에서 업무 생산성과 개인의 재충전을 동시에 추구합니다.
-            </p>
-            <p>
-              위시풀스테이는 단순히 '다른 곳에서 일하기'에서 멈추지 않습니다.
-              숙박·업무·체험·식사를 하나의 흐름으로 연결하여, 강동에서만 가능한
-              <strong>체류형 워케이션 경험</strong>을 설계합니다.
-            </p>
-            <!-- ✏️ 수정: 특징 리스트 (추가/삭제 가능) -->
-            <ul>
-              <li>업무 생산성과 개인 회복을 동시에</li>
-              <li>숙박·업무·체험·식사 원스톱 패키지</li>
-              <li>개인부터 기업까지 맞춤 설계</li>
-              <li>강동 로컬 자원과 완전 연계</li>
-            </ul>
+        <h2 class="wk-page-title">워케이션 소개</h2>
+        <div class="wk-tabs" role="tablist">
+          <button class="on" data-tab="t1" role="tab">워케이션 소개</button>
+          <button data-tab="t2" role="tab">워케이션 구성도</button>
+          <button data-tab="t3" role="tab">신청 절차</button>
+        </div>
+
+        <!-- 탭 1 -->
+        <div class="wk-panel on" id="t1">
+          <h3 class="wk-h">강동 워케이션이란?</h3>
+          <p>울산 북구 강동동을 기반으로 <strong>일과 휴식, 배움과 경험을 하나의 흐름</strong>으로 잇는 체류형 워케이션입니다.</p>
+          <p>숙소, 업무 공간, 체험, 교육을 따로 알아보고 따로 연락할 필요가 없습니다. 고객의 목적과 일정에 맞춰 위시풀스테이가 하나의 일정으로 설계하고, 강동의 제휴사와 직접 조율해 완성된 형태로 제공합니다.</p>
+          <p>스쳐 가는 하루가 아니라 며칠을 머물며 강동의 식당과 카페, 바다와 체험을 함께 누리는 시간. 그 머묾이 지역 상권과 주민의 일자리로 이어지는 상생형 워케이션을 지향합니다.</p>
+
+          <h3 class="wk-h" style="margin-top:48px">무엇으로 구성되나요</h3>
+          <div class="wk-three wk-five">
+            <div class="wk-box"><em>기본</em><strong>숙박</strong><p>호텔 · 레지던스 · 펜션 · 게스트하우스. 규모와 예산에 맞는 유형을 고릅니다.</p></div>
+            <div class="wk-box"><em>기본</em><strong>업무 · 회의 공간</strong><p>업무공간 · 회의실 · 연회장. 개인 업무부터 단체 연수까지.</p></div>
+            <div class="wk-box"><em>선택</em><strong>교육</strong><p>AI · 창업 · 인문학 · 생애설계 등 배움이 있는 체류를 위한 프로그램.</p></div>
+            <div class="wk-box"><em>선택</em><strong>체험</strong><p>승마 · 요트 · 해양레저 · 요리 · 공예 · 농촌체험. 강동의 자연과 지역 자원으로.</p></div>
+            <div class="wk-box"><em>선택</em><strong>부가 서비스</strong><p>차량 · 식사 · 현장 코디네이터 · 공연과 행사까지 필요한 만큼.</p></div>
           </div>
-          <div class="col-image reveal reveal-delay-2">
-            <!-- 📷 사진 교체: <img src="images/workcation-concept.jpg" alt="워케이션 개념"> -->
-            <div class="ph-image ph-stay" style="min-height:480px;"
-                 data-concept="[ 사진 교체 예정 ] 워케이션 컨셉 이미지 — 창가, 노트북, 커피, 바다 뷰"></div>
+
+          <h3 class="wk-h">이런 분들께 맞춥니다</h3>
+          <div class="wk-three">
+            <div class="wk-box"><strong>기업 연수 · 워크숍</strong><p>팀빌딩, 세미나, 임직원 교육. 강의실을 벗어나 바다 곁에서 일상을 완전히 전환하는 연수.</p><p class="wk-meta">20~30명 · 1박 2일 ~ 2박 3일</p></div>
+            <div class="wk-box"><strong>공공기관 · 지자체</strong><p>임직원 연수와 지역경제 기여를 함께. 지역 로컬 체험 중심의 지역상생형 프로그램.</p><p class="wk-meta">20~40명 · 1박 2일 ~ 2박 3일</p></div>
+            <div class="wk-box"><strong>소규모 팀 · 스타트업</strong><p>집중 스프린트와 팀빌딩, 휴식을 한 번에. 장소 자체가 콘텐츠가 되는 경량 패키지.</p><p class="wk-meta">5~15명 · 1박 2일</p></div>
           </div>
+        </div>
+
+        <!-- 탭 2 -->
+        <div class="wk-panel" id="t2">
+          <div class="wk-map">
+            <div class="wk-core">위시풀스테이<small>기획 · 연결 · 판매 · 관리</small></div>
+            <div class="wk-nodes">
+              <div><b>숙박</b><span>머큐어 앰배서더 울산</span><span>씨스테이 레지던스</span></div>
+              <div><b>업무 · 회의 공간</b><span>제이드밀</span><span>호텔 연회장</span></div>
+              <div><b>체험</b><span>UEF 승마파크</span><span>해양레저 · 공예 · 농촌체험</span></div>
+              <div><b>교육 · 서비스</b><span>위시풀스테이 직접 기획</span><span>차량 · 식사 · 코디네이터</span></div>
+            </div>
+          </div>
+
+          <h3 class="wk-h">위시풀스테이가 하는 일</h3>
+          <p>위시풀스테이는 시설을 직접 운영하지 않습니다. 고객과 강동의 제휴사 사이를 잇는 플랫폼 운영사입니다. 제휴사는 각자의 분야에서 실제 서비스를 제공하고, 위시풀스테이는 그 전체를 하나로 묶습니다.</p>
+          <div class="wk-three wk-four">
+            <div class="wk-box"><em>01</em><strong>기획</strong><p>목적 · 인원 · 예산을 듣고 맞는 패키지를 설계합니다.</p></div>
+            <div class="wk-box"><em>02</em><strong>연결</strong><p>숙박 · 공간 · 체험 · 교육 제휴사를 발굴하고 협약합니다.</p></div>
+            <div class="wk-box"><em>03</em><strong>판매</strong><p>하나의 패키지, 하나의 견적으로 계약합니다.</p></div>
+            <div class="wk-box"><em>04</em><strong>관리</strong><p>현장 코디네이터가 일정 전체를 챙기고, 끝난 뒤 만족도를 묻습니다.</p></div>
+          </div>
+          <p>함께하고 싶은 숙소 · 체험 · 식당 · 강연자는 <a href="partner.html">파트너 제휴</a>로 연락 주세요.</p>
+        </div>
+
+        <!-- 탭 3 -->
+        <div class="wk-panel" id="t3">
+          <ol class="wk-steps">
+            <li><em>step1</em><b>예상 견적 보기</b><span>인원 · 날짜 · 구성을 고르면 바로 확인</span></li>
+            <li><em>step2</em><b>문의 접수</b><span>견적 내용 그대로 전송</span></li>
+            <li><em>step3</em><b>사전 상담</b><span>목적 · 인원 · 예산에 맞춰 설계</span></li>
+            <li><em>step4</em><b>확정</b><span>최종 일정 · 견적 · 계약</span></li>
+            <li><em>step5</em><b>워케이션</b><span>현장 코디네이터 동행</span></li>
+            <li><em>step6</em><b>사후 관리</b><span>현장 사진 · 만족도 조사</span></li>
+          </ol>
+          <p class="wk-cta-line"><a href="package-workshop.html">예상 견적 보기</a></p>
         </div>
       </div>
     </section>
-
-
-    <!-- ════════════════════════════════════════════════════════
-         [2] 프로그램 구성 — Stay / Work / Experience
-         ✏️ 수정: 3가지 구성 요소의 제목, 설명, 특징 리스트
-         📷 사진 교체: 각 .ph-image → <img>
-    ═══════════════════════════════════════════════════════════ -->
-    <section class="content-section content-section--alt" id="program">
-      <div class="container">
-        <div class="section-header reveal">
-          <!-- ✏️ 수정: 섹션 소제목, 헤딩 -->
-          <span class="eyebrow">Program Structure</span>
-          <h2>머물고, 집중하고, 경험하다</h2>
-        </div>
-      </div>
-
-      <!-- Stay -->
-      <div class="program-item program-item--stay">
-        <div class="program-image reveal">
-          <div class="ph-image ph-stay"
-               data-concept="[ 사진 교체 예정 ] KCC 앰버서더 호텔 객실 또는 레지던스 내부 — 창문, 자연광, 깔끔한 침실 분위기"></div>
-        </div>
-        <div class="program-content reveal reveal-delay-2">
-          <span class="eyebrow">Stay</span>
-          <!-- ✏️ 수정: 프로그램 제목, 본문, 리스트 -->
-          <h3>머물다</h3>
-          <p>KCC 앰버서더 호텔과 레지던스를 기반으로 한 숙박 프로그램입니다.
-             단기 출장부터 장기 체류까지, 목적에 맞는 숙박 유형을 선택할 수 있습니다.</p>
-          <ul class="program-features">
-            <li>KCC 앰버서더 호텔 — 단기형 숙박</li>
-            <li>씨스테이 레지던스 — 장기 체류형 (취사 가능)</li>
-            <li>셀프 체크인 / 체크아웃 운영</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Work -->
-      <div class="program-item program-item--work program-item--reverse">
-        <div class="program-image reveal">
-          <div class="ph-image ph-work"
-               data-concept="[ 사진 교체 예정 ] 해월당 내부 업무 공간 — 노트북, 넓은 테이블, 자연광"></div>
-        </div>
-        <div class="program-content reveal reveal-delay-2">
-          <span class="eyebrow">Work</span>
-          <!-- ✏️ 수정: 프로그램 제목, 본문, 리스트 -->
-          <h3>집중하다</h3>
-          <p>숙소 외부의 독립된 업무공간을 제공합니다.
-             해월당을 중심으로 개인 집중 업무부터 소규모 미팅까지 가능한 공간을 연계합니다.</p>
-          <ul class="program-features">
-            <li>해월당 집중 업무공간 연계</li>
-            <li>개인 업무 및 팀 미팅 모두 가능</li>
-            <li>안정적인 네트워크 환경 제공</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Experience -->
-      <div class="program-item program-item--exp">
-        <div class="program-image reveal">
-          <div class="ph-image ph-exp"
-               data-concept="[ 사진 교체 예정 ] 강동 해안 또는 로컬 체험 장면 — 레저, 공예, 지역 맛집"></div>
-        </div>
-        <div class="program-content reveal reveal-delay-2">
-          <span class="eyebrow">Experience</span>
-          <!-- ✏️ 수정: 프로그램 제목, 본문, 리스트 -->
-          <h3>경험하다</h3>
-          <p>강동의 로컬 자원과 연결된 체험 프로그램입니다.
-             식사, 레저, 문화 체험을 통해 진짜 강동을 만납니다.</p>
-          <ul class="program-features">
-            <li>레저·공예·예술·로컬 교육 연계</li>
-            <li>개인·소규모는 선택형, 기업은 맞춤형</li>
-            <li>강동 식당·카페 중심 식사 연계</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ════════════════════════════════════════════════════════
-         [3] 패키지 3종
-         ✏️ 수정: 패키지 제목, 설명, 버튼 텍스트
-    ═══════════════════════════════════════════════════════════ -->
-    <section class="content-section" id="packages">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="eyebrow">Package</span>
-          <!-- ✏️ 수정: 섹션 헤딩 -->
-          <h2>나에게 맞는 워케이션을 고르세요</h2>
-        </div>
-        <div class="packages-grid">
-
-          <div class="package-card reveal">
-            <div class="package-image">
-              <div class="ph-image ph-pkg1" data-concept="[ 사진 교체 예정 ] 1인 직장인 작업 장면"></div>
-            </div>
-            <div class="package-body">
-              <span class="eyebrow">Individual</span>
-              <!-- ✏️ 수정: 패키지 제목, 설명 -->
-              <h3>개인형 워케이션</h3>
-              <p>출장 또는 재충전을 원하는 1~2인을 위한 패키지. 숙박과 업무공간 기본 포함, 체험은 선택 추가.</p>
-              <a href="contact.html" class="pkg-cta">문의하기 &rarr;</a>
-            </div>
-          </div>
-
-          <div class="package-card reveal reveal-delay-2">
-            <div class="package-image">
-              <div class="ph-image ph-pkg2" data-concept="[ 사진 교체 예정 ] 소규모 팀 워크숍 장면"></div>
-            </div>
-            <div class="package-body">
-              <span class="eyebrow">Team</span>
-              <!-- ✏️ 수정: 패키지 제목, 설명 -->
-              <h3>팀형 워케이션</h3>
-              <p>팀 워크숍과 체류를 결합한 소규모 단체 패키지. 미팅 공간, 단체 식사, 팀 빌딩 체험 포함.</p>
-              <a href="contact.html" class="pkg-cta">문의하기 &rarr;</a>
-            </div>
-          </div>
-
-          <div class="package-card package-card--featured reveal reveal-delay-3">
-            <div class="package-image">
-              <div class="ph-image ph-pkg3" data-concept="[ 사진 교체 예정 ] 기업 단체 연수 장면"></div>
-            </div>
-            <div class="package-body">
-              <span class="eyebrow">Corporate</span>
-              <!-- ✏️ 수정: 패키지 제목, 설명 -->
-              <h3>기업 맞춤형</h3>
-              <p>인원·일정·목적에 따라 전체 커스터마이즈. 공공기관·법인 계약 가능.</p>
-              <a href="contact.html" class="pkg-cta">문의하기 &rarr;</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+    <script>
+      document.querySelectorAll('.wk-tabs button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('.wk-tabs button').forEach(function (x) { x.classList.toggle('on', x === b); });
+          document.querySelectorAll('.wk-panel').forEach(function (p) { p.classList.toggle('on', p.id === b.dataset.tab); });
+        });
+      });
+    </script>
 
 
     <!-- ════════════════════════════════════════════════════════

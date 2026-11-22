@@ -21,9 +21,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/variables.css?v=2">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <link rel="stylesheet" href="css/megamenu.css?v=5">
   <style>
     /* ── 클럽 페이지 전용 스타일 ── */
     .club-hero {
@@ -328,11 +330,16 @@
       <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
       <nav class="nav-main" aria-label="주요 메뉴">
         <ul>
-          <li><a href="index.html">위시풀스테이</a></li>
-          <li><a href="workcation.html">워케이션</a></li>
-          <li><a href="stay.html">숙박</a></li>
-          <li><a href="experience.html">체험</a></li>
-          <li><a href="dining.html">식사</a></li>
+          <li><a href="workcation.html">위시풀스테이</a>
+            <ul class="sub"><li><a href="about.html">회사 소개</a></li><li><a href="workcation.html">워케이션 소개</a></li></ul></li>
+          <li><a href="experience.html">강동관광</a>
+            <ul class="sub"><li><a href="experience.html">체험 전체</a></li><li><a href="exp-leisure.html">레저·액티비티</a></li><li><a href="exp-temple.html">사찰 문화체험</a></li><li><a href="exp-craft.html">공예·예술</a></li><li><a href="exp-edu.html">교육</a></li><li><a href="exp-event.html">행사·이벤트</a></li></ul></li>
+          <li><a href="workcation.html">업무공간</a>
+            <ul class="sub"><li><a href="workcation.html">업무공간</a></li><li><a href="dining.html">식사</a></li><li><a href="dining-cafe.html">카페·간단식</a></li><li><a href="dining-group.html">단체 식사</a></li></ul></li>
+          <li><a href="stay.html">스테이</a>
+            <ul class="sub"><li><a href="stay.html">스테이 전체</a></li><li><a href="stay-hotel.html">호텔</a></li><li><a href="stay-residence.html">씨스테이 레지던스</a></li></ul></li>
+          <li><a href="index.html#events-section">게시판</a>
+            <ul class="sub"><li><a href="club-horse.html">위시풀승마클럽</a></li><li><a href="partner.html">파트너 제휴</a></li><li><a href="contact.html">예약문의</a></li></ul></li>
         </ul>
       </nav>
       <a href="contact.html" class="header-cta">예약문의</a>
@@ -344,11 +351,11 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <ul>
-      <li><a href="index.html">위시풀스테이</a></li>
-      <li><a href="workcation.html">워케이션</a></li>
-      <li><a href="stay.html">숙박</a></li>
-      <li><a href="experience.html">체험</a></li>
-      <li><a href="dining.html">식사</a></li>
+      <li><a href="workcation.html">위시풀스테이</a></li>
+      <li><a href="experience.html">강동관광</a></li>
+      <li><a href="workcation.html">업무공간</a></li>
+      <li><a href="stay.html">스테이</a></li>
+      <li><a href="index.html#events-section">게시판</a></li>
     </ul>
     <a href="contact.html" class="mobile-contact-btn">예약문의</a>
   </div>
