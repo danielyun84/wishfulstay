@@ -69,3 +69,10 @@
 #hero .hero-ctas .btn { min-width: 132px; padding: 11px 22px; font-size: 13px; }
 #hero .hero-sub { letter-spacing: 0.02em; }   /* 대장 : 「위시풀스테이 워케이션」 글자 간격 넓힘 (-0.03em → 0.02em) */
 .home-head--nolabel { justify-content: flex-end; margin-bottom: 14px; }   /* 대장 : 「지금 진행 중」 제목만 뺌 */
+/* 대장 : 진행 중인 행사 카드 크기 2/3 로 */
+@media (min-width: 901px) {
+  #now-section .evl-grid2 { grid-template-columns: repeat(4, calc((100% - 56px) / 3 * 0.667)); }
+  #now-section .evl-cbody { padding: 14px 16px 18px; }
+  #now-section .evl-cbody strong { font-size: 16px; }
+  #now-section .evl-cbody span { font-size: 13px; }
+}
