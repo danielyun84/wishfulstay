@@ -8,7 +8,7 @@
 var WS_EVENTS = [
   {
     kind: 'event', status: 'open',
-    series: '인문학 강연 #01',
+    series: '인문학 강연 #01', label: '인문학 시리즈 #01',
     title: '이 시대에 나는 왜 불안을 느끼는가',
     when: '2026. 11. 29 (일) 17:00', where: '제이드밀 지하 1층',
     who: '인경 스님 (신흥사 주지) · 선착순 30명 · 무료',
@@ -17,7 +17,7 @@ var WS_EVENTS = [
   },
   {
     kind: 'club', status: 'open',
-    series: '클럽 회원 모집',
+    series: '클럽 회원 모집', label: '위시풀승마클럽',
     title: '위시풀승마클럽',
     when: '상시 모집', where: 'UEF 승마파크',
     who: '승마를 배우고 즐기며 에너지를 충전하는 클럽',
@@ -32,6 +32,7 @@ function wsEventCard(e) {
   a.innerHTML =
     '<div class="evl-thumb' + (e.fit === 'contain' ? ' evl-thumb--contain' : '') + '"><img loading="lazy" src="' + e.image + '" alt="' + e.series + '">' +
       '<span class="evl-badge' + (e.status === 'done' ? ' evl-badge--done' : '') + '">' + (e.status === 'open' ? (e.kind === 'club' ? '회원 모집' : '모집 중') : '지난 행사') + '</span></div>' +
+    '<p class="evl-label">' + (e.label || e.series) + '</p>' +
     '<div class="evl-cbody"><em>' + e.series + '</em><strong>' + e.title + '</strong>' +
       '<span>' + e.when + ' · ' + e.where + '</span><span>' + e.who + '</span></div>';
   return a;

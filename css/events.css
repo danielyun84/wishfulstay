@@ -47,3 +47,5 @@
 .ev-back:hover { color: #3D414F; }
 @media (max-width: 900px) { .evl-grid2 { grid-template-columns: 1fr 1fr; gap: 16px; } }
 @media (max-width: 560px) { .evl-grid2 { grid-template-columns: 1fr; } }
+/* 포스터 아래 시리즈 이름 — 메인 「진행 중인 행사」에서만 보임 */
+.evl-label { display: none; }
