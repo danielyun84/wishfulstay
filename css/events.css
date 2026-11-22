@@ -49,3 +49,9 @@
 @media (max-width: 560px) { .evl-grid2 { grid-template-columns: 1fr; } }
 /* 포스터 아래 시리즈 이름 — 메인 「진행 중인 행사」에서만 보임 */
 .evl-label { display: none; }
+/* 강연 소개 길게 (11-23) */
+.ev-q { font-family: var(--f-body); font-size: 17px; font-weight: 700; color: #E0702A; margin: 26px 0 10px; }
+.ev-for { margin: 0 0 40px; padding-left: 20px; max-width: 860px; }
+.ev-for li { font-size: 16px; line-height: 1.6; color: #3D414F; margin-bottom: 6px; word-break: keep-all; }
+.ev-lead { margin: 6px 0 22px; padding: 18px 22px; border-left: 4px solid #E0702A; background: #fff; font-size: 19px; font-weight: 600; line-height: 1.5; color: #3D414F; max-width: 860px; word-break: keep-all; }
+.ev-now > p { line-height: 1.75; }
