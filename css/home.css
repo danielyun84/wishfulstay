@@ -76,3 +76,10 @@
   #now-section .evl-cbody strong { font-size: 16px; }
   #now-section .evl-cbody span { font-size: 13px; }
 }
+/* 대장 : 아래 흰 글자칸 빼고 포스터만, 조금 더 크게 */
+#now-section .evl-cbody { display: none; }
+#now-section .evl-card { background: transparent; border: 0; border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.10); }
+#now-section .evl-thumb { border-radius: 10px; }
+@media (min-width: 901px) {
+  #now-section .evl-grid2 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+}
