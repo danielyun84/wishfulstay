@@ -59,3 +59,6 @@
 .ev-for { list-style: none; padding-left: 0; }
 .ev-for li { position: relative; padding-left: 30px; }
 .ev-for li::before { content: '✓'; position: absolute; left: 4px; top: 0; color: #E0702A; font-weight: 800; font-size: 17px; }
+/* 대장 : 모집 중 표시는 배너 오른쪽 위로 */
+.ev-banner { position: relative; }
+.ev-badge--on { position: absolute; right: 16px; top: 16px; margin: 0; font-size: 14px; padding: 6px 14px; box-shadow: 0 2px 10px rgba(0,0,0,.3); }
