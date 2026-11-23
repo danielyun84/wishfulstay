@@ -99,3 +99,5 @@
 #now-section #now-grid { background: none; border-radius: 0; padding: 0; box-shadow: none; }
 #now-section .eyebrow { display: block; margin-bottom: 14px; }   /* 대장 : 소개 칸처럼 EVENT 머리말 */
 .home-entry .eyebrow { display: block; margin-bottom: 14px; }
+#now-section { padding-top: 44px; padding-bottom: 48px; }   /* 대장 : 휑해 보여서 위아래 여백 줄임 */
+#now-section .home-head { margin-bottom: 18px; }
