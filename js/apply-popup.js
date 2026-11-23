@@ -91,12 +91,14 @@ var WS_APPLY = {
         schedule: c.sub, estimate: '', time: new Date().toLocaleString('ko-KR')
       }).catch(function () {}) : Promise.resolve();
       Promise.all([g, m]).then(function () {
+        if (window.gtag) gtag('event', 'apply_submit', { form: key }); // 신청 완료 수 (GA4)
         back.querySelector('.wsa').innerHTML = '<button class="wsa-x" aria-label="닫기">×</button><div class="wsa-done"><b>' + (c.done || '신청이 접수되었습니다') + '</b>' +
           '<p class="wsa-note" style="margin:0">' + n + '님, 감사합니다.<br>' + (c.doneNote || '확정 연락을 드리겠습니다.') + '</p>' +
           '<button class="wsa-go" type="button">닫기</button></div>';
         back.querySelectorAll('.wsa-x, .wsa-done .wsa-go').forEach(function (b) { b.onclick = close; });
       });
     };
+    if (window.gtag) gtag('event', 'apply_open', { form: key }); // 방문자 중 신청창을 연 수 (GA4)
     back.classList.add('on'); document.body.style.overflow = 'hidden';
     setTimeout(function () { f.n.focus(); }, 50);
   }
