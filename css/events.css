@@ -84,3 +84,7 @@
    사진 머리(page-hero) 없는 페이지 넷 — 행사 목록 · 행사 상세(event_01, event_00) · 위시풀스토리 — 는 내용이 고정 머리글 바로 밑에 붙어 있었다 */
 .ev-page, .st-page { padding-top: calc(72px + 48px); }
 @media (max-width: 768px) { .ev-page, .st-page { padding-top: calc(64px + 32px); } }
+/* 대장 11-23 : 상세 페이지 제목 「‹ 행사 목록」 = 목록으로 돌아가는 링크 */
+.ev-title-back a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: .18em; }
+.ev-title-back a span { font-weight: 400; color: var(--ev-ac, #E0702A); transition: transform .2s; }
+.ev-title-back a:hover span { transform: translateX(-4px); }
