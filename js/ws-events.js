@@ -16,6 +16,15 @@ var WS_EVENTS = [
     link: 'event_01.html'
   },
   {
+    kind: 'event', status: 'open',
+    series: '행사 제안하기', label: '행사 제안하기', badge: '상시 모집',
+    title: '강동에서 열고 싶은 행사, 있으신가요?',
+    when: '상시 접수', where: '강연 · 공연 · 클래스 · 모임',
+    who: '누구나 제안할 수 있습니다',
+    image: 'images/events/proposal_card.jpg',
+    link: 'event_00.html'
+  },
+  {
     kind: 'club', status: 'hidden',   // 2026-11-23 대장 : 메인 진행 중인 행사에서 뺌. 다시 띄우려면 'open'
     series: '클럽 회원 모집', label: '위시풀승마클럽',
     title: '위시풀승마클럽',
@@ -31,7 +40,7 @@ function wsEventCard(e) {
   a.className = 'evl-card'; a.href = e.link; a.dataset.s = e.status;
   a.innerHTML =
     '<div class="evl-thumb' + (e.fit === 'contain' ? ' evl-thumb--contain' : '') + '"><img loading="lazy" src="' + e.image + '" alt="' + e.series + '">' +
-      '<span class="evl-badge' + (e.status === 'done' ? ' evl-badge--done' : '') + '">' + (e.status === 'open' ? (e.kind === 'club' ? '회원 모집' : '모집 중') : '지난 행사') + '</span></div>' +
+      '<span class="evl-badge' + (e.status === 'done' ? ' evl-badge--done' : '') + '">' + (e.status === 'open' ? (e.badge || (e.kind === 'club' ? '회원 모집' : '모집 중')) : '지난 행사') + '</span></div>' +
     '<p class="evl-label">' + (e.label || e.series) + '</p>' +
     '<div class="evl-cbody"><em>' + e.series + '</em><strong>' + e.title + '</strong>' +
       '<span>' + e.when + ' · ' + e.where + '</span><span>' + e.who + '</span></div>';

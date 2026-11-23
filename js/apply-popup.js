@@ -14,6 +14,20 @@ var WS_APPLY = {
     worry: 'entry.1334920019',   // 나의 불안과 고민 한 줄 (선택, 2026-11-23 대장 추가)
     photo: 'entry.276527572', privacy: 'entry.1165653444', agree: '동의함',
     note: '선착순 30명 · 참가비 무료. 신청해 주시면 한 분 한 분 확정 연락을 드립니다.'
+  },
+  // 2026-11-23 행사 제안하기 (대장 구글폼 「위시풀스테이 행사제안」)
+  proposal: {
+    title: '행사 제안하기',
+    sub: '강동에서 열고 싶은 강연 · 공연 · 클래스 · 모임',
+    form: 'https://docs.google.com/forms/d/e/1FAIpQLSf-17pemVSIwG8JbXh2XJlVw2OmU4uWqd0cE0W98ZRGTXk5JA/formResponse',
+    name: 'entry.1868538658', nameLabel: '성함 또는 단체명', phone: 'entry.1679313492',
+    content: 'entry.448563232', contentLabel: '제안 내용',
+    contentHint: '어떤 행사인지, 직접 진행하실지 보고 싶은 행사인지, 희망 시기와 인원도 함께 적어 주세요.',
+    privacy: 'entry.1976789758', agree: '동의함',
+    privacyText: '보내 주신 정보는 제안 검토와 회신 목적으로만 쓰입니다.',
+    button: '제안 보내기', done: '제안이 접수되었습니다', doneNote: '꼼꼼히 읽고, 함께할 수 있는 제안에는 따로 연락드리겠습니다.',
+    route: '행사 제안 팝업',
+    note: '상시 접수 · 제안해 주신 분께 비용이 들지 않습니다.'
   }
 };
 
@@ -41,36 +55,39 @@ var WS_APPLY = {
     back.innerHTML = '<div class="wsa"><button class="wsa-x" aria-label="닫기">×</button>' +
       '<h3>' + c.title + '</h3><p class="wsa-sub">' + c.sub + '</p>' +
       '<form novalidate>' +
-      '<label>성함 <i>*</i></label><input type="text" name="n" autocomplete="name" required>' +
+      '<label>' + (c.nameLabel || '성함') + ' <i>*</i></label><input type="text" name="n" autocomplete="name" required>' +
       '<label>연락처 <i>*</i></label><input type="tel" name="p" autocomplete="tel" placeholder="010-0000-0000" required>' +
+      (c.content ? '<label>' + c.contentLabel + ' <i>*</i></label><textarea name="c" rows="5" placeholder="' + c.contentHint + '"></textarea>' : '') +
       (c.worry ? '<label>나의 불안과 고민 한 줄</label><textarea name="w" rows="3" placeholder="(필수 아님) 자유롭게 작성해 주세요."></textarea>' : '') +
-      '<label class="wsa-chk"><input type="checkbox" name="a1"><span><b>(필수) 촬영 동의</b> — 강연 기록을 위해 사진·영상이 촬영되며, 홍보와 기록용으로 쓰일 수 있습니다.</span></label>' +
-      '<label class="wsa-chk"><input type="checkbox" name="a2"><span><b>(필수) 개인정보 활용 동의</b> — 신청 정보는 위시풀스테이 인문학 강연 안내와 홍보 목적으로만 쓰입니다.</span></label>' +
-      '<p class="wsa-err"></p><button class="wsa-go" type="submit">신청하기</button>' +
+      (c.photo ? '<label class="wsa-chk"><input type="checkbox" name="a1"><span><b>(필수) 촬영 동의</b> — 강연 기록을 위해 사진·영상이 촬영되며, 홍보와 기록용으로 쓰일 수 있습니다.</span></label>' : '') +
+      '<label class="wsa-chk"><input type="checkbox" name="a2"><span><b>(필수) 개인정보 활용 동의</b> — ' + (c.privacyText || '신청 정보는 위시풀스테이 인문학 강연 안내와 홍보 목적으로만 쓰입니다.') + '</span></label>' +
+      '<p class="wsa-err"></p><button class="wsa-go" type="submit">' + (c.button || '신청하기') + '</button>' +
       '<p class="wsa-note">' + c.note + '</p></form></div>';
     back.querySelector('.wsa-x').onclick = close;
     var f = back.querySelector('form'), err = back.querySelector('.wsa-err'), go = back.querySelector('.wsa-go');
     f.onsubmit = function (e) {
       e.preventDefault();
       var n = f.n.value.trim(), p = f.p.value.trim();
-      if (!n) { err.textContent = '성함을 적어 주세요.'; f.n.focus(); return; }
+      if (!n) { err.textContent = (c.nameLabel || '성함') + '을 적어 주세요.'; f.n.focus(); return; }
       if (p.replace(/\D/g, '').length < 9) { err.textContent = '연락처를 확인해 주세요.'; f.p.focus(); return; }
-      if (!f.a1.checked || !f.a2.checked) { err.textContent = '두 가지 동의에 모두 체크해 주세요.'; return; }
+      var cc = f.c ? f.c.value.trim() : '';
+      if (c.content && !cc) { err.textContent = c.contentLabel + '을 적어 주세요.'; f.c.focus(); return; }
+      if ((f.a1 && !f.a1.checked) || !f.a2.checked) { err.textContent = (f.a1 ? '두 가지 동의에 모두' : '개인정보 활용 동의에') + ' 체크해 주세요.'; return; }
       err.textContent = ''; go.disabled = true; go.textContent = '보내는 중...';
       var body = new URLSearchParams();
       body.append(c.name, n); body.append(c.phone, p);
-      var w = f.w ? f.w.value.trim() : ''; if (c.worry && w) body.append(c.worry, w); body.append(c.photo, c.agree); body.append(c.privacy, c.agree);
+      var w = f.w ? f.w.value.trim() : ''; if (c.worry && w) body.append(c.worry, w); if (c.content) body.append(c.content, cc); if (c.photo) body.append(c.photo, c.agree); body.append(c.privacy, c.agree);
       // ① 구글폼 응답으로 (구글은 결과를 돌려주지 않으므로 no-cors)
       var g = fetch(c.form, { method: 'POST', mode: 'no-cors', body: body }).catch(function () {});
       // ② info@ 로 사본 (비서실장 메일 확인에 잡힌다)
       var m = window.emailjs ? emailjs.send('service_zg28jzh', 'template_tuagors', {
         to_email: 'info@wishfulstay.com',
-        summary: '문의 경로: 행사 신청 팝업 (' + c.title + ')\n성함: ' + n + '\n연락처: ' + p + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n촬영·개인정보 동의: 동의함',
+        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
         schedule: c.sub, estimate: '', time: new Date().toLocaleString('ko-KR')
       }).catch(function () {}) : Promise.resolve();
       Promise.all([g, m]).then(function () {
-        back.querySelector('.wsa').innerHTML = '<button class="wsa-x" aria-label="닫기">×</button><div class="wsa-done"><b>신청이 접수되었습니다</b>' +
-          '<p class="wsa-note" style="margin:0">' + n + '님, 감사합니다.<br>확정 연락을 드리겠습니다.</p>' +
+        back.querySelector('.wsa').innerHTML = '<button class="wsa-x" aria-label="닫기">×</button><div class="wsa-done"><b>' + (c.done || '신청이 접수되었습니다') + '</b>' +
+          '<p class="wsa-note" style="margin:0">' + n + '님, 감사합니다.<br>' + (c.doneNote || '확정 연락을 드리겠습니다.') + '</p>' +
           '<button class="wsa-go" type="button">닫기</button></div>';
         back.querySelectorAll('.wsa-x, .wsa-done .wsa-go').forEach(function (b) { b.onclick = close; });
       });

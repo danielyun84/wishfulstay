@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <!-- ✏️ 수정: 브라우저 탭 타이틀 -->
+  <title>행사 제안하기 — WISHFUL STAY</title>
+  <!-- ✏️ 수정: 검색 결과 설명 문구 -->
+  <meta name="description" content="위시풀스테이가 강동에서 여는 인문학 강연과 행사. 일정과 신청 방법을 안내합니다.">
+  <meta property="og:title" content="행사 · 강연 — WISHFUL STAY">
+  <meta property="og:description" content="위시풀스테이가 강동에서 여는 인문학 강연과 행사. 일정과 신청 방법을 안내합니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="canonical" href="https://www.wishfulstay.com/event_00">
+  <meta property="og:url" content="https://www.wishfulstay.com/event_00">
+  <meta property="og:site_name" content="WISHFUL STAY">
+  <meta property="og:image" content="https://www.wishfulstay.com/images/og-thumbnail.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css?v=2">
+  <link rel="stylesheet" href="css/main.css?v=5">
+  <link rel="stylesheet" href="css/megamenu.css?v=5">
+  <link rel="stylesheet" href="css/workcation-intro.css?v=3">
+  <link rel="stylesheet" href="css/events.css?v=13">
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HEADER — 모든 페이지 동일 구조
+       ✏️ 수정: 메뉴명 바꿀 경우 모든 페이지에서 동일하게 수정
+       ✏️ 현재 페이지: 워케이션 (is-active 클래스 위치 확인)
+  ════════════════════════════════════════════════════════════════ -->
+  <header id="header">
+    <div class="header-inner">
+      <!-- ✏️ 수정: 로고 텍스트 -->
+      <a href="index.html" class="logo"><img src="images/logo-symbol.png" alt="" class="logo-symbol">WISHFUL STAY</a>
+      <nav class="nav-main" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="workcation.html">위시풀스테이</a>
+            <ul class="sub"><li><a href="about.html">회사 소개</a></li><li><a href="workcation.html">워케이션 소개</a></li></ul></li>
+          <li><a href="experience.html">강동관광</a>
+            <ul class="sub"><li><a href="experience.html">체험 전체</a></li><li><a href="exp-leisure.html">레저·액티비티</a></li><li><a href="exp-temple.html">사찰 문화체험</a></li><li><a href="exp-craft.html">공예·예술</a></li><li><a href="exp-edu.html">교육</a></li><li><a href="exp-event.html">행사·이벤트</a></li></ul></li>
+          <li><a href="workcation.html">업무공간</a>
+            <ul class="sub"><li><a href="workcation.html">업무공간</a></li><li><a href="dining.html">식사</a></li><li><a href="dining-cafe.html">카페·간단식</a></li><li><a href="dining-group.html">단체 식사</a></li></ul></li>
+          <li><a href="stay.html">스테이</a>
+            <ul class="sub"><li><a href="stay.html">스테이 전체</a></li><li><a href="stay-hotel.html">호텔</a></li><li><a href="stay-residence.html">씨스테이 레지던스</a></li></ul></li>
+          <li><a href="events.html">게시판</a>
+            <ul class="sub"><li><a href="events.html">행사 · 강연</a></li><li><a href="club-horse.html">위시풀승마클럽</a></li><li><a href="partner.html">파트너 제휴</a></li><li><a href="contact.html">예약문의</a></li></ul></li>
+          <li id="navPackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="header-cta">예약문의</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <ul>
+      <li><a href="workcation.html">위시풀스테이</a></li>
+      <li><a href="experience.html">강동관광</a></li>
+      <li><a href="workcation.html">업무공간</a></li>
+      <li><a href="stay.html">스테이</a></li>
+      <li><a href="events.html">게시판</a></li>
+      <li id="mobilePackageItem" style="display:none"><a href="package.html">패키지(0)</a></li>
+    </ul>
+    <a href="contact.html" class="mobile-contact-btn">예약문의</a>
+  </div>
+
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         페이지 히어로
+         ✏️ 수정: 소제목, 메인 타이틀, 설명 문구
+         📷 사진 교체: .ph-image div → <img> 태그로 교체
+    ═══════════════════════════════════════════════════════════ -->
+    <!-- 2026-11-23 행사 제안하기 페이지 -->
+    <section class="content-section ev-page">
+      <div class="container">
+        <a class="ev-back" href="events.html">← 행사 · 강연 목록</a>
+        <h2 class="wk-page-title">행사 · 강연</h2>
+
+        <!-- [이번 행사] -->
+        <!-- 2026-11-23 행사 제안하기 (상시 모집). 지침 : C30/40. 시스템/행사페이지/행사페이지_작성지침.md -->
+        <article class="ev-now">
+          <a class="ev-banner" href="#apply" data-apply="proposal"><img src="images/events/proposal_banner.jpg" alt="위시풀스테이 행사 제안하기 — 강동에서 열고 싶은 행사, 있으신가요?"><span class="evl-badge ev-badge--on">상시 모집</span></a>
+          <h3 class="ev-title"><span class="ev-tk">모집명</span>강동에서 열고 싶은 행사, 있으신가요?</h3>
+
+          <div class="ev-cols">
+            <div class="ev-info">
+              <div class="r"><span class="k">분야</span><div>강연 · 공연 · 클래스 · 모임<small>형식은 자유롭게 제안해 주세요</small></div></div>
+              <div class="r"><span class="k">대상</span><div>누구나<small>직접 열고 싶은 분, 보고 싶은 행사가 있는 분 모두</small></div></div>
+              <div class="r"><span class="k">접수</span><div>상시 접수<small>마감 없이 언제든 보내 주세요</small></div></div>
+              <div class="r"><span class="k">비용</span><div>제안은 무료<small>제안하시는 분께 비용이 들지 않습니다</small></div></div>
+              <div class="r"><span class="k">문의</span><div><a href="tel:0522823155">052-282-3155</a> 위시풀스테이</div></div>
+              <div class="r"><span class="k">제안</span><div>온라인 제안 · 전화<small>아래 버튼이나 QR로 제안서를 보내 주세요</small></div></div>
+            </div>
+            <aside class="ev-apply">
+              <img src="images/events/proposal_qr.jpg" alt="온라인 제안 QR">
+              <p>휴대폰 카메라로 찍거나<br>아래 버튼을 눌러 제안하세요</p>
+              <a class="ev-btn" href="#apply" data-apply="proposal">행사 제안하기</a>
+            </aside>
+          </div>
+
+          <!-- 소개 글 : 책 소개글 흐름(인용→공감→이해→이번 이야기→권합니다). 약속할 수 없는 것(지원금·개최 확정)은 쓰지 않음 -->
+          <h4 class="ev-sub">제안 안내</h4>
+          <blockquote class="ev-lead">“이런 자리가 있으면 좋겠다, 생각만 하고 지나친 적 있으신가요?”</blockquote>
+
+          <p>좋아하는 작가의 이야기를 가까이서 들어 보고 싶었던 날. 배워 둔 것을 누군가와 나누고 싶었던 날. 마음 맞는 사람들과 한자리에 모여 보고 싶었던 날. 그런 마음은 대개 「언젠가」로 미뤄지다가 조용히 잊힙니다. 열 곳도, 함께할 사람도, 어디서부터 시작해야 할지도 막막하기 때문입니다.</p>
+          <p>위시풀스테이는 그 「언젠가」를 강동에서 함께 시작해 보려 합니다. 바다가 가까운 마을, 넓은 홀과 조용한 업무 공간, 그리고 사람을 모으고 자리를 꾸려 온 경험이 있습니다. 부족한 것은 단 하나, <strong>이곳에서 열릴 이야기</strong>입니다.</p>
+
+          <h5 class="ev-q">좋은 행사는 한 사람의 생각에서 시작됩니다</h5>
+          <p>오늘 열리는 인문학 강연도 처음에는 「이런 이야기를 이 동네에서 들을 수 있으면 좋겠다」는 한 줄의 생각이었습니다. 거창한 기획서가 필요하지 않습니다. 무엇을, 누구와, 왜 하고 싶은지만 들려주시면 됩니다.</p>
+          <p>직접 강연이나 클래스를 열고 싶은 분도, 「이런 행사가 있으면 꼭 가 보고 싶다」는 분도 모두 환영합니다. 강연, 공연, 클래스, 모임처럼 형식도 자유롭습니다.</p>
+
+          <h5 class="ev-q">보내 주시면 이렇게 이어집니다</h5>
+          <p>보내 주신 제안은 위시풀스테이가 한 건 한 건 꼼꼼히 읽습니다. 강동에서 함께 열 수 있겠다고 판단되는 제안에는 따로 연락을 드려, 시기와 장소, 진행 방식을 함께 이야기합니다. 모든 제안이 바로 행사로 열리지는 않지만, 들려주신 생각은 다음 행사를 고르는 소중한 바탕이 됩니다.</p>
+
+          <h5 class="ev-q">이런 분께 권합니다</h5>
+          <ul class="ev-for">
+            <li>내가 가진 지식이나 경험을 강연·클래스로 나누고 싶은 분</li>
+            <li>공연이나 전시, 작은 모임을 열 장소와 사람을 찾고 있는 분</li>
+            <li>「이런 강연이 강동에도 있으면 좋겠다」 싶은 주제가 있는 분</li>
+            <li>바다 가까운 공간에서 나만의 행사를 꾸려 보고 싶은 분</li>
+          </ul>
+
+          <h4 class="ev-sub">진행 순서</h4>
+          <ol class="ev-steps">
+            <li><b>1</b><span>제안 보내기<small>온라인 제안서나 전화로 생각해 둔 행사를 알려 주십니다.</small></span></li>
+            <li><b>2</b><span>꼼꼼한 검토<small>위시풀스테이가 보내 주신 제안을 한 건씩 읽습니다.</small></span></li>
+            <li><b>3</b><span>연락과 협의<small>함께할 수 있는 제안에는 따로 연락드려 시기와 장소를 함께 정합니다.</small></span></li>
+            <li><b>4</b><span>행사 열기<small>홍보와 모집을 거쳐 강동에서 행사를 엽니다.</small></span></li>
+          </ol>
+        </article>
+
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ════════════════════════════════════════════════════════════
+       FOOTER — 모든 페이지 동일
+       ✏️ 수정: 법인명, 운영시간, 저작권
+  ════════════════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo"><img src="images/logo-symbol.png" alt="" class="footer-logo-symbol">WISHFUL STAY</p>
+          <!-- ✏️ 수정: 태그라인 -->
+          <p class="footer-tagline">워케이션 in 강동, 울산</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html">위시풀스테이</a>
+          <a href="workcation.html">워케이션</a>
+          <a href="stay.html">숙박</a>
+          <a href="experience.html">체험</a>
+          <a href="dining.html">식사</a>
+          <a href="contact.html">예약문의</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <!-- ✏️ 수정: 사업자 정보 -->
+          <p>주식회사 위시풀스테이 &nbsp;|&nbsp; 대표 박성윤 &nbsp;|&nbsp; 사업자등록번호 875-81-03225</p>
+          <p>울산광역시 북구 동해안로 1586, 지하1층 (산하동) &nbsp;|&nbsp; 운영시간 09:00 — 21:00</p>
+          <p>전화 <a href="tel:0522823155">052-282-3155</a> &nbsp;|&nbsp; 메일 <a href="mailto:info@wishfulstay.com">info@wishfulstay.com</a></p>
+        </div>
+        <p class="footer-copy">&copy; 2026 Wishful Stay. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('hwNs16XJUZ63WZZhu');</script>
+  <script src="js/apply-popup.js"></script>
+</body>
+</html>
