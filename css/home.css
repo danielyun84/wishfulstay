@@ -113,3 +113,4 @@
 #hero .hero-ctas { display: none; }
 @media (max-width: 760px) { #hero .hero-content { max-width: 80%; left: 24px; } }
 /* 대장 11-23 : 40vh 로 줄여 봤다가 「너무 작다, 원상복구」 → 50vh 그대로 */
+#hero .hero-content { z-index: 101; }   /* 대장 11-23 : 메뉴에 마우스를 올려 검은 판이 내려와도 문구가 맨 위에 보이게 (머리글 100 보다 위) */
