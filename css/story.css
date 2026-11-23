@@ -34,3 +34,10 @@
 .st-card { max-width: 400px; }
 .st-item:not(:nth-child(odd)) .st-card { margin-left: auto; }
 .st-photo { aspect-ratio: 2 / 1; }
+/* 대장 : 사진은 정사각형으로 왼쪽, 내용 상자는 오른쪽 — 옆으로 긴 카드 */
+.st-card { display: flex; align-items: stretch; max-width: 500px; }
+.st-photo { flex: 0 0 150px; width: 150px; aspect-ratio: 1 / 1; }
+.st-text { flex: 1; padding: 18px 20px 18px; display: flex; flex-direction: column; justify-content: center; }
+.st-text h3 { font-size: 18px; margin-bottom: 6px; }
+.st-text p { font-size: 14px; line-height: 1.6; }
+@media (max-width: 560px) { .st-photo { flex-basis: 110px; width: 110px; } }
