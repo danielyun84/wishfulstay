@@ -88,3 +88,6 @@
 .ev-title-back a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: .18em; }
 .ev-title-back a span { font-weight: 400; color: var(--ev-ac, #E0702A); transition: transform .2s; }
 .ev-title-back a:hover span { transform: translateX(-4px); }
+/* 대장 11-23 : 화살표와 글자 사이 넓게, 글자 조금 작게, 「행사목록」 붙여 쓰기 */
+.ev-title-back { font-size: clamp(24px, 3.2vw, 34px); }
+.ev-title-back a { gap: .5em; }
