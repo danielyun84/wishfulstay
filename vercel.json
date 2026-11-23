@@ -1,3 +1,7 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/story", "destination": "/", "permanent": false },
+    { "source": "/story.html", "destination": "/", "permanent": false }
+  ]
 }
