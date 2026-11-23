@@ -41,3 +41,26 @@
 .st-text h3 { font-size: 18px; margin-bottom: 6px; }
 .st-text p { font-size: 14px; line-height: 1.6; }
 @media (max-width: 560px) { .st-photo { flex-basis: 110px; width: 110px; } }
+/* 대장 : 최근이 위로 · 맨 위에 해(2026) · 막대에 월 눈금 — 좌우는 nth-child 대신 클래스로 */
+.st-item, .st-item:nth-child(odd) { width: 50%; margin-left: 0; padding: 0 56px 56px 0; }
+.st-item.st-r { margin-left: 50%; padding: 0 0 56px 56px; }
+.st-item .st-dot, .st-item:nth-child(odd) .st-dot { right: -9px; left: auto; }
+.st-item.st-r .st-dot { left: -9px; right: auto; }
+.st-item:not(:nth-child(odd)) .st-card { margin-left: 0; }
+.st-item.st-l .st-card { margin-left: auto; }
+/* 월 눈금 : 점 반대편에 「N월」 */
+.st-mon { position: absolute; top: 28px; font-size: 13px; font-weight: 700; color: #B8AE9F; letter-spacing: .02em; transition: color .4s; }
+.st-item.st-l .st-mon { right: -58px; }
+.st-item.st-r .st-mon { left: -58px; text-align: right; width: 40px; }
+.st-item.on .st-mon { color: #E0702A; }
+/* 해 표시 */
+.st-year { position: relative; list-style: none; text-align: center; margin: 0 0 40px; z-index: 1; }
+.st-year span { display: inline-block; background: #E0702A; color: #fff; font-size: 20px; font-weight: 800; letter-spacing: .04em; padding: 6px 18px; border-radius: 20px; box-shadow: 0 0 0 8px var(--c-bg, #F4F1EC); }
+.st-year ~ .st-year { margin-top: 8px; }
+@media (max-width: 860px) {
+  .st-item, .st-item:nth-child(odd), .st-item.st-r { width: 100%; margin-left: 0; padding: 0 0 40px 40px; }
+  .st-item .st-dot, .st-item.st-r .st-dot, .st-item:nth-child(odd) .st-dot { left: 0; right: auto; }
+  .st-item.st-l .st-card { margin-left: 0; }
+  .st-mon, .st-item.st-l .st-mon, .st-item.st-r .st-mon { display: none; }
+  .st-year { text-align: left; }
+}
