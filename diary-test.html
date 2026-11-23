@@ -151,7 +151,7 @@ async function startRec(){
     rec=new MediaRecorder(st,type?{mimeType:type}:undefined);chunks=[];rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);
     rec.onstop=()=>{st.getTracks().forEach(t=>t.stop());blob=new Blob(chunks,{type:rec.mimeType||"audio/mp4"});clearInterval(tick);
       $("rec").classList.remove("on");$("rec").hidden=true;$("afterRec").hidden=false;$("timer").textContent=`${fmt(Math.round((Date.now()-t0)/1000))} 녹음했어요`};
-    player.pause();rec.start();t0=Date.now();$("rec").classList.add("on");$("rec").setAttribute("aria-label","녹음 멈추기");$("qErr").hidden=true;
+    player.pause();rec.start(1000);t0=Date.now();$("rec").classList.add("on");$("rec").setAttribute("aria-label","녹음 멈추기");$("qErr").hidden=true;
     tick=setInterval(()=>$("timer").textContent="말하는 중 "+fmt(Math.round((Date.now()-t0)/1000)),500);$("timer").textContent="말하는 중 0:00";
   }catch(e){$("qErr").textContent="마이크를 쓸 수 없어요. 브라우저 설정에서 마이크를 허용해 주세요.";$("qErr").hidden=false}}
 $("rec").onclick=()=>{if(rec&&rec.state==="recording"){rec.stop();$("rec").setAttribute("aria-label","녹음 시작")}else startRec()};
