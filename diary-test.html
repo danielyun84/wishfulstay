@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#11151d">
-<title>녹음일기 · 시험판</title>
+<title>다짐일기 · 시험판</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500&display=swap">
 <style>
@@ -85,7 +85,7 @@ input,select{width:100%;background:var(--card);color:var(--text);border:1px soli
   </section>
 
   <section id="vHome" hidden>
-    <p class="eyebrow">오늘 밤의 기록</p>
+    <p class="eyebrow">다짐일기 · 오늘 밤의 기록</p>
     <h1>잠들기 전,<br>질문 두 개만 들려 드릴게요.</h1>
     <div class="card"><p class="sub">나의 2027 다짐</p><p class="pledge" id="pledgeShow"></p></div>
     <p class="count" id="countHome" style="margin:0;text-align:left"></p>
@@ -127,7 +127,7 @@ input,select{width:100%;background:var(--card);color:var(--text);border:1px soli
     <button class="btn ghost" id="bookHome" type="button">오늘 밤 기록으로</button>
   </section>
 
-  <p class="note">시험판 · 녹음은 이 폰에만 저장돼요</p>
+  <p class="note">시험판 · 녹음은 이 폰과 위시풀 창고에 저장돼요</p>
 </div>
 <audio id="player" preload="auto" playsinline></audio>
 <script>
@@ -162,7 +162,13 @@ $("next").onclick=async()=>{if(!blob)return;cur.blobs[step]=blob;
   if(!step){step=1;return ask()}
   const now=new Date(),e={at:now.toISOString(),month:now.getMonth()+1,q1:cur.q[0],q2:cur.q[1],b1:cur.blobs[0],b2:cur.blobs[1],mood};
   try{await tx("entries","readwrite",s=>s.put(e));entries.push(e)}catch(err){$("qErr").textContent="저장하지 못했어요. 다시 눌러 주세요.";$("qErr").hidden=false;return}
+  upload(e);
   const i=Math.floor(Math.random()*TX.T.length);$("thanks").textContent=TX.T[i];$("countDone").textContent=cnt();show("vDone");play("t"+i)};
+const STORE="https://script.google.com/macros/s/AKfycbxqf9HHPcspYSsMe5O97oB22mpEFSA1J7McvbqQU4PzlJIEA2e49xwdf-ZB81_FsfPegg/exec",KEY="wishful-diary-test-2611";
+function b64(b){return new Promise((r,j)=>{const f=new FileReader();f.onload=()=>r(String(f.result).split(",")[1]);f.onerror=j;f.readAsDataURL(b)})}
+async function upload(e){let ok=true;for(const [i,q,b] of [[1,e.q1,e.b1],[2,e.q2,e.b2]]){try{const res=await fetch(STORE,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+  body:JSON.stringify({key:KEY,user:"대장",at:e.at,idx:i,q,mood:i===2?e.mood:"",pledge:profile?profile.pledge:"",mime:b.type||"audio/mp4",data:await b64(b)})});const j=await res.json();if(!j.ok)ok=false}catch(err){ok=false}}
+  $("countDone").textContent=cnt()+(ok?" · 창고에도 저장했어요":" · 창고 저장은 실패했어요 (폰에는 남아 있어요)")}
 $("start").onclick=()=>{cur=pick();step=0;ask()};
 $("saveSetup").onclick=async()=>{const p=$("pledgeIn").value.trim();if(!p){$("setupErr").textContent="다짐을 한 문장 적어 주세요.";$("setupErr").hidden=false;return}
   profile={pledge:p,cat:$("catIn").value};try{await tx("kv","readwrite",s=>s.put(profile,"profile"))}catch(e){}home()};
