@@ -89,3 +89,6 @@
 #now-section .evl-label { display: block; margin: 12px 2px 0; font-size: 14px; font-weight: 600; color: #3D414F; text-align: left; }
 #now-section .evl-label { display: none; }   /* 대장 : 포스터 아래 시리즈 이름 뺌 */
 .home-entry { padding-top: 88px; }   /* 대장 : 진행 중인 행사와 단락 나눔 */
+/* 대장 : 단락이 나뉘면 배경색도 바꾼다 — 진행 중인 행사(크림) / 워케이션(옅은 베이지) / 소개(흰색) / 왜 강동(크림) / 문의(짙은 녹색) */
+#now-section { padding-bottom: 72px; }
+.home-entry { background: #EAE4DA; padding: 72px 0 80px; }
