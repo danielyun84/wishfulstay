@@ -30,3 +30,7 @@
   .st-dot, .st-item:nth-child(odd) .st-dot { left: 0; right: auto; top: 24px; }
   .st-next { text-align: left; padding-left: 40px; }
 }
+/* 대장 : 사진 크기 줄이기 — 카드 폭을 줄이고 사진 높이를 낮춤 (카드는 막대 쪽으로 붙음) */
+.st-card { max-width: 400px; }
+.st-item:not(:nth-child(odd)) .st-card { margin-left: auto; }
+.st-photo { aspect-ratio: 2 / 1; }
