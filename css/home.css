@@ -1,7 +1,7 @@
 /* 2026-11-23 메인 첫 화면 개편 — 대장 「전부 반영」 */
 
 /* 1. 첫 화면 한 줄 + 버튼 둘 (9/9에 감췄던 것을 되살림. 사진 높이가 절반이라 글자도 줄임) */
-#hero .hero-content { display: block; }
+#hero .hero-content { display: none; } /* 대장 11-23 「가운데 문구들을 다 없애봐」 : 첫 화면은 사진만 (문구·버튼 숨김. 되살리려면 block) */
 #hero .hero-textbox { padding: 34px 0 38px; }
 #hero .hero-eyebrow { letter-spacing: 0.12em; margin-bottom: 14px; }
 #hero .hero-title { font-family: var(--f-body); font-weight: 700; font-size: clamp(26px, 3.6vw, 46px); letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 12px; }
