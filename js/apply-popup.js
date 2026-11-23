@@ -21,7 +21,8 @@ var WS_APPLY = {
     sub: '강동에서 열고 싶은 강연 · 공연 · 클래스 · 모임',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSf-17pemVSIwG8JbXh2XJlVw2OmU4uWqd0cE0W98ZRGTXk5JA/formResponse',
     name: 'entry.1868538658', nameLabel: '성함 또는 단체명', phone: 'entry.1679313492',
-    kinds: ['아이디어만 있어요', '직접 열고 싶어요'],   // 고른 값은 제안 내용 맨 앞에 [ ] 로 붙여 보냄 (폼 칸 추가 없이)
+    kinds: [['아이디어만 있어요', '아이디어만'], ['직접 열고 싶어요', '직접참여원함']],   // [창에 보이는 말, 구글폼 보기 값]
+    kind: 'entry.298908573',   // 행사주관 (2026-11-23 대장 추가)
     content: 'entry.448563232', contentLabel: '제안 내용',
     contentHint: '어떤 행사인지, 직접 진행하실지 보고 싶은 행사인지, 희망 시기와 인원도 함께 적어 주세요.',
     privacy: 'entry.1976789758', agree: '동의함',
@@ -59,7 +60,7 @@ var WS_APPLY = {
       '<form novalidate>' +
       '<label>' + (c.nameLabel || '성함') + ' <i>*</i></label><input type="text" name="n" autocomplete="name" required>' +
       '<label>연락처 <i>*</i></label><input type="tel" name="p" autocomplete="tel" placeholder="010-0000-0000" required>' +
-      (c.kinds ? '<label>어떤 제안인가요 <i>*</i></label><div class="wsa-kinds">' + c.kinds.map(function (k, i) { return '<label class="wsa-kind"><input type="radio" name="k" value="' + k + '"' + (i ? '' : ' checked') + '><span>' + k + '</span></label>'; }).join('') + '</div>' : '') +
+      (c.kinds ? '<label>어떤 제안인가요 <i>*</i></label><div class="wsa-kinds">' + c.kinds.map(function (k, i) { return '<label class="wsa-kind"><input type="radio" name="k" value="' + k[1] + '" data-l="' + k[0] + '"' + (i ? '' : ' checked') + '><span>' + k[0] + '</span></label>'; }).join('') + '</div>' : '') +
       (c.content ? '<label>' + c.contentLabel + ' <i>*</i></label><textarea name="c" rows="5" placeholder="' + c.contentHint + '"></textarea>' : '') +
       (c.worry ? '<label>나의 불안과 고민 한 줄</label><textarea name="w" rows="3" placeholder="(필수 아님) 자유롭게 작성해 주세요."></textarea>' : '') +
       (c.photo ? '<label class="wsa-chk"><input type="checkbox" name="a1"><span><b>(필수) 촬영 동의</b> — 강연 기록을 위해 사진·영상이 촬영되며, 홍보와 기록용으로 쓰일 수 있습니다.</span></label>' : '') +
@@ -74,19 +75,19 @@ var WS_APPLY = {
       if (!n) { err.textContent = (c.nameLabel || '성함') + '을 적어 주세요.'; f.n.focus(); return; }
       if (p.replace(/\D/g, '').length < 9) { err.textContent = '연락처를 확인해 주세요.'; f.p.focus(); return; }
       var cc = f.c ? f.c.value.trim() : '';
-      var kk = c.kinds ? (f.querySelector('input[name=k]:checked') || {}).value : '';
+      var kr = c.kinds ? f.querySelector('input[name=k]:checked') : null, kk = kr ? kr.value : '', kl = kr ? kr.getAttribute('data-l') : '';
       if (c.content && !cc) { err.textContent = c.contentLabel + '을 적어 주세요.'; f.c.focus(); return; }
       if ((f.a1 && !f.a1.checked) || !f.a2.checked) { err.textContent = (f.a1 ? '두 가지 동의에 모두' : '개인정보 활용 동의에') + ' 체크해 주세요.'; return; }
       err.textContent = ''; go.disabled = true; go.textContent = '보내는 중...';
       var body = new URLSearchParams();
       body.append(c.name, n); body.append(c.phone, p);
-      var w = f.w ? f.w.value.trim() : ''; if (c.worry && w) body.append(c.worry, w); if (c.content) body.append(c.content, (kk ? '[' + kk + '] ' : '') + cc); if (c.photo) body.append(c.photo, c.agree); body.append(c.privacy, c.agree);
+      var w = f.w ? f.w.value.trim() : ''; if (c.worry && w) body.append(c.worry, w); if (c.content) body.append(c.content, cc); if (c.kind && kk) body.append(c.kind, kk); if (c.photo) body.append(c.photo, c.agree); body.append(c.privacy, c.agree);
       // ① 구글폼 응답으로 (구글은 결과를 돌려주지 않으므로 no-cors)
       var g = fetch(c.form, { method: 'POST', mode: 'no-cors', body: body }).catch(function () {});
       // ② info@ 로 사본 (비서실장 메일 확인에 잡힌다)
       var m = window.emailjs ? emailjs.send('service_zg28jzh', 'template_tuagors', {
         to_email: 'info@wishfulstay.com',
-        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (kk ? '\n갈래: ' + kk : '') + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
+        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (kl ? '\n행사주관: ' + kl : '') + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
         schedule: c.sub, estimate: '', time: new Date().toLocaleString('ko-KR')
       }).catch(function () {}) : Promise.resolve();
       Promise.all([g, m]).then(function () {
