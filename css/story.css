@@ -1,0 +1,32 @@
+/* 2026-11-23 위시풀스토리 — 세로 막대 + 스크롤에 따라 차오르고 하나씩 떠오르는 이야기 */
+.st-page .eyebrow { display: block; margin-bottom: 14px; }
+.st-intro { font-size: 17px; line-height: 1.6; color: #3D414F; margin: -8px 0 56px; text-align: left; }
+
+.st-line { position: relative; list-style: none; margin: 0 auto; padding: 0; max-width: 1040px; }
+.st-bar { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; transform: translateX(-50%); background: #E5DED3; border-radius: 3px; }
+.st-fill { position: absolute; left: 0; top: 0; width: 100%; height: 0; background: #E0702A; border-radius: 3px; transition: height .15s linear; }
+
+.st-item { position: relative; width: 50%; padding: 0 56px 72px 0; box-sizing: border-box; }
+.st-item:nth-child(odd) { margin-left: 50%; padding: 0 0 72px 56px; }   /* 첫 li 는 막대(span) 다음이라 짝·홀이 한 칸 밀림 */
+.st-dot { position: absolute; top: 30px; right: -9px; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #D9D0C3; box-sizing: border-box; z-index: 1; transition: border-color .4s, background .4s, transform .4s; }
+.st-item:nth-child(odd) .st-dot { right: auto; left: -9px; }
+.st-item.on .st-dot { border-color: #E0702A; background: #E0702A; transform: scale(1.15); box-shadow: 0 0 0 6px rgba(224,112,42,.15); }
+
+.st-card { background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.07); overflow: hidden; opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+.st-item.on .st-card { opacity: 1; transform: none; }
+.st-photo { aspect-ratio: 16 / 10; overflow: hidden; background: #EEE8DF; }
+.st-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
+.st-item.on .st-photo img { transform: scale(1.03); }
+.st-text { padding: 22px 26px 26px; }
+.st-text time { display: block; font-size: 14px; font-weight: 700; letter-spacing: .06em; color: #E0702A; margin-bottom: 6px; }
+.st-text h3 { font-family: var(--f-body); font-size: 21px; font-weight: 700; letter-spacing: -.02em; color: #3D414F; margin: 0 0 10px; word-break: keep-all; }
+.st-text p { font-size: 15px; line-height: 1.7; color: #3D414F; margin: 0; text-align: justify; word-break: normal; }
+
+.st-next { text-align: center; font-size: 16px; color: #8a8580; margin: 8px 0 0; }
+
+@media (max-width: 860px) {
+  .st-bar { left: 9px; transform: none; }
+  .st-item, .st-item:nth-child(odd) { width: 100%; margin-left: 0; padding: 0 0 48px 40px; }
+  .st-dot, .st-item:nth-child(odd) .st-dot { left: 0; right: auto; top: 24px; }
+  .st-next { text-align: left; padding-left: 40px; }
+}
