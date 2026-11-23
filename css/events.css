@@ -55,3 +55,7 @@
 .ev-for li { font-size: 16px; line-height: 1.6; color: #3D414F; margin-bottom: 6px; word-break: keep-all; }
 .ev-lead { margin: 6px 0 22px; padding: 18px 22px; border-left: 4px solid #E0702A; background: #fff; font-size: 19px; font-weight: 600; line-height: 1.5; color: #3D414F; max-width: 860px; word-break: keep-all; }
 .ev-now > p { line-height: 1.75; }
+/* 대장 : 권합니다 앞에 체크표시 */
+.ev-for { list-style: none; padding-left: 0; }
+.ev-for li { position: relative; padding-left: 30px; }
+.ev-for li::before { content: '✓'; position: absolute; left: 4px; top: 0; color: #E0702A; font-weight: 800; font-size: 17px; }
