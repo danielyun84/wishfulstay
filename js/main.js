@@ -535,7 +535,7 @@
   function initHeroSlider() {
     var slides = document.querySelectorAll('.hero-slide');
     var dots   = document.querySelectorAll('.hero-dot');
-    if (!slides.length) return;
+    if (slides.length < 2) return; /* 2026-11-23 : 메인 사진 한 장 고정이면 넘기지 않는다 */
 
     var current = 0;
     var timer;
