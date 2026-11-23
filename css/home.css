@@ -101,3 +101,4 @@
 .home-entry .eyebrow { display: block; margin-bottom: 14px; }
 #now-section { padding-top: 44px; padding-bottom: 48px; }   /* 대장 : 휑해 보여서 위아래 여백 줄임 */
 #now-section .home-head { margin-bottom: 18px; }
+#now-section .evl-card, #now-section .evl-thumb { border-radius: 0; }   /* 대장 : 포스터 각지게 */
