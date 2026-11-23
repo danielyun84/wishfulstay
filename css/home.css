@@ -92,3 +92,10 @@
 /* 대장 : 단락이 나뉘면 배경색도 바꾼다 — 진행 중인 행사(크림) / 워케이션(옅은 베이지) / 소개(흰색) / 왜 강동(크림) / 문의(짙은 녹색) */
 #now-section { padding-bottom: 72px; }
 .home-entry { background: #EAE4DA; padding: 72px 0 80px; }
+/* 대장 : 좌우로 긴 흰 박스 안에 포스터가 들어가게 */
+#now-section #now-grid { background: #fff; border-radius: 14px; padding: 28px; box-shadow: 0 6px 24px rgba(0,0,0,.06); }
+/* 대장 : 좌우 경계 없이 끝까지 흰색 — 박스 대신 단락 배경 자체를 흰색으로 */
+#now-section { background: #fff; padding-top: 64px; }
+#now-section #now-grid { background: none; border-radius: 0; padding: 0; box-shadow: none; }
+#now-section .eyebrow { display: block; margin-bottom: 14px; }   /* 대장 : 소개 칸처럼 EVENT 머리말 */
+.home-entry .eyebrow { display: block; margin-bottom: 14px; }
