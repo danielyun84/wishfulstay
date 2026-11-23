@@ -79,3 +79,8 @@
 .ev-page p, .ev-way p, .ev-info, .ev-steps, .ev-for { text-align: left; word-break: keep-all; overflow-wrap: break-word; }
 /* 대장 : 양쪽 맞춤은 유지하고, 한 단어라도 글자 단위로 자연스럽게 넘겨 단어 사이가 벌어지지 않게 */
 .ev-page p, .ev-way p { text-align: justify; word-break: normal; line-break: auto; }
+
+/* 대장 11-23 「헤더와 『행사 · 강연 목록』 사이가 너무 작다, 이렇게 된 곳 또 있으면 넓혀」
+   사진 머리(page-hero) 없는 페이지 넷 — 행사 목록 · 행사 상세(event_01, event_00) · 위시풀스토리 — 는 내용이 고정 머리글 바로 밑에 붙어 있었다 */
+.ev-page, .st-page { padding-top: calc(72px + 48px); }
+@media (max-width: 768px) { .ev-page, .st-page { padding-top: calc(64px + 32px); } }
