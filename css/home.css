@@ -136,3 +136,4 @@
 }
 @media (max-width: 760px) { #hero .hero-content { z-index: 2; } }   /* 폰 : 메뉴를 열면 메뉴판이 문구 위로 (문구 101 은 데스크탑 펼침 메뉴용) */
 .mobile-nav.is-open ~ main #hero .hero-content { opacity: 0; transition: opacity .2s; }   /* 폰 메뉴를 열면 뒤 문구가 비치지 않게 */
+@media (max-width: 760px) { #hero .hero-desc { margin-top: 16px; } }   /* 대장 11-23 「위 두 줄을 조금 더 위로」 : 두 줄과 설명 문장 사이를 벌림 (8 → 16px) */
