@@ -588,3 +588,21 @@
   st.textContent = '.ws-kakao-float{position:fixed;right:22px;bottom:22px;z-index:900;display:flex;align-items:center;gap:6px;background:#FEE500;color:#191600;font-weight:700;font-size:15px;padding:12px 18px;border-radius:30px;box-shadow:0 6px 18px rgba(0,0,0,.18);text-decoration:none}.ws-kakao-float:hover{transform:translateY(-2px)}@media(max-width:768px){.ws-kakao-float{bottom:16px;right:14px;padding:11px 15px}}';
   document.head.appendChild(st); document.body.appendChild(a);
 })();
+
+/* 2026-11-23 대장 : 폰 「진행 중인 행사」 가로 넘김 아래 진행 막대 (넘길 게 있을 때만 보임) */
+(function () {
+  function setup() {
+    var g = document.querySelector('#now-section .evl-grid2'); if (!g || g.__bar) return; g.__bar = 1;
+    var bar = document.createElement('div'); bar.className = 'now-bar'; bar.setAttribute('aria-hidden', 'true');
+    var th = document.createElement('i'); bar.appendChild(th); g.parentNode.insertBefore(bar, g.nextSibling);
+    function upd() {
+      var over = g.scrollWidth - g.clientWidth > 4; bar.classList.toggle('on', over); if (!over) return;
+      var r = g.clientWidth / g.scrollWidth; th.style.width = (r * 100) + '%';
+      th.style.left = (g.scrollLeft / g.scrollWidth * 100) + '%';
+    }
+    g.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd);
+    new MutationObserver(upd).observe(g, { childList: true }); upd(); setTimeout(upd, 600);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup); else setup();
+  setTimeout(setup, 800);
+})();

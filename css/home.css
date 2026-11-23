@@ -143,3 +143,10 @@
   #now-section .evl-grid2::-webkit-scrollbar { display: none; }
   #now-section .evl-grid2 > * { scroll-snap-align: start; }
 }
+/* 대장 11-23 : 다음 포스터 살짝 보이게 해 봤다가 「하지 마」 → 두 개 꽉 차게, 대신 아래 진행 막대로 「옆에 더 있음」을 보여 준다 */
+/* 대장 11-23 「밑에 가로 스크롤바 하나 넣어봐」 : 폰에서 넘길 포스터가 있을 때만 얇은 막대 */
+.now-bar { display: none; }
+@media (max-width: 560px) {
+  .now-bar.on { display: block; position: relative; height: 3px; margin-top: 14px; background: rgba(61,65,79,.12); border-radius: 3px; overflow: hidden; }
+  .now-bar i { position: absolute; top: 0; bottom: 0; left: 0; background: #E0702A; border-radius: 3px; }
+}
