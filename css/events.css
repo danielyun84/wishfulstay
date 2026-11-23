@@ -77,3 +77,5 @@
 @media (max-width: 760px) { .ev-two { grid-template-columns: 1fr; } }
 /* 대장 : 단어 사이가 벌어지지 않게 — 양쪽 맞춤 끄고 단어 단위로 자연스럽게 줄바꿈 */
 .ev-page p, .ev-way p, .ev-info, .ev-steps, .ev-for { text-align: left; word-break: keep-all; overflow-wrap: break-word; }
+/* 대장 : 양쪽 맞춤은 유지하고, 한 단어라도 글자 단위로 자연스럽게 넘겨 단어 사이가 벌어지지 않게 */
+.ev-page p, .ev-way p { text-align: justify; word-break: normal; line-break: auto; }
