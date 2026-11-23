@@ -1,8 +1,8 @@
 /* ================================================================
-   WISHFUL STAY — 행사·강연·모집 소식 (2026-11-23)
-   이 파일 하나만 고치면 메인 「지금 진행 중」과 행사·강연 목록이 같이 바뀐다.
+   WISHFUL STAY — 행사 · 강연·모집 소식 (2026-11-23)
+   이 파일 하나만 고치면 메인 「지금 진행 중」과 행사 · 강연 목록이 같이 바뀐다.
    status : 'open'(모집 중) | 'done'(지난 행사) | 'hidden'(안 보임)
-   kind   : 'event'(행사·강연 목록에도 나옴) | 'club'(메인에만 나옴)
+   kind   : 'event'(행사 · 강연 목록에도 나옴) | 'club'(메인에만 나옴)
    새 행사 = 맨 위에 한 덩어리 추가. 끝나면 status 를 'done' 으로.
    ================================================================ */
 var WS_EVENTS = [
@@ -47,7 +47,7 @@ function wsEventCard(e) {
   list.forEach(function (e) { box.appendChild(wsEventCard(e)); });
 })();
 
-/* 행사·강연 목록 : event 만, 탭으로 거르기 */
+/* 행사 · 강연 목록 : event 만, 탭으로 거르기 */
 (function () {
   var grid = document.getElementById('evl-list');
   if (!grid) return;
