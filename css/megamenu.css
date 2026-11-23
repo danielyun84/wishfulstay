@@ -55,3 +55,13 @@
 /* 2026-11-23 대장 「글자 크기 조금 더 키워」 : 위 메뉴 14→16px, 펼침 메뉴 14→15px */
 .nav-main > ul > li > a { font-size: 16px; }
 .nav-main .sub a { font-size: 15px; padding: 10px 0; }
+
+/* 2026-11-23 대장 「폰 메뉴판도 어둡게, 데스크탑이랑 똑같게 — 대신 어둠 농도 더 높게」 */
+.mobile-nav { background: rgba(0,0,0,0.82); backdrop-filter: none; -webkit-backdrop-filter: none; border-top: 0; }
+.mobile-nav a { color: rgba(253,251,248,0.88); border-bottom-color: rgba(253,251,248,0.12); }
+.mobile-nav a:hover { color: #fff; }
+.mobile-nav .mobile-contact-btn { background: transparent; color: var(--c-cream); border: 1px solid rgba(253,251,248,0.6); }
+/* 스크롤 뒤(크림 헤더)에는 데스크탑처럼 크림 판 */
+#header.is-scrolled ~ .mobile-nav { background: rgba(244,241,236,0.98); }
+#header.is-scrolled ~ .mobile-nav a { color: var(--c-text); border-bottom-color: var(--c-border); }
+#header.is-scrolled ~ .mobile-nav .mobile-contact-btn { background: var(--c-dark); color: var(--c-cream); border: 0; }
