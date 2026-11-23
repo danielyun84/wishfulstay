@@ -114,3 +114,6 @@
 @media (max-width: 760px) { #hero .hero-content { max-width: 80%; left: 24px; } }
 /* 대장 11-23 : 40vh 로 줄여 봤다가 「너무 작다, 원상복구」 → 50vh 그대로 */
 #hero .hero-content { z-index: 101; }   /* 대장 11-23 : 메뉴에 마우스를 올려 검은 판이 내려와도 문구가 맨 위에 보이게 (머리글 100 보다 위) */
+#hero .hero-desc { margin-top: 20px; font-size: clamp(14px, 1.15vw, 17px); line-height: 1.7; color: rgba(253,251,248,.9); text-shadow: 0 2px 12px rgba(0,0,0,.35); word-break: keep-all; }   /* 대장 11-23 「왼쪽에 텍스트 좀 더」 */
+#hero .hero-content { max-width: 40%; }
+@media (max-width: 760px) { #hero .hero-desc br { display: none; } #hero .hero-content { max-width: 86%; } }
