@@ -68,3 +68,10 @@
 /* 대장 : 「강연명」 박스를 아래 일시·장소 박스와 같은 크기로 */
 .ev-title { gap: 18px; }
 .ev-tk { width: 64px; box-sizing: border-box; text-align: center; font-size: 14px; padding: 3px 0; border-radius: 5px; }
+/* 행사 제안 : 두 갈래 상자 (아이디어만 / 직접 열고 싶어요) */
+.ev-two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 860px; margin: 18px 0 8px; }
+.ev-way { background: #fff; border: 1px solid var(--c-border); border-top: 4px solid #E0702A; border-radius: 6px; padding: 22px 22px 20px; }
+.ev-way em { display: inline-block; font-style: normal; background: #E0702A; color: #fff; font-size: 14px; font-weight: 700; padding: 3px 12px; border-radius: 5px; margin-bottom: 12px; }
+.ev-way strong { display: block; font-size: 17px; color: #3D414F; margin-bottom: 8px; word-break: keep-all; }
+.ev-way p { font-size: 15px; line-height: 1.65; color: #3D414F; margin: 0; word-break: keep-all; }
+@media (max-width: 760px) { .ev-two { grid-template-columns: 1fr; } }

@@ -21,6 +21,7 @@ var WS_APPLY = {
     sub: '강동에서 열고 싶은 강연 · 공연 · 클래스 · 모임',
     form: 'https://docs.google.com/forms/d/e/1FAIpQLSf-17pemVSIwG8JbXh2XJlVw2OmU4uWqd0cE0W98ZRGTXk5JA/formResponse',
     name: 'entry.1868538658', nameLabel: '성함 또는 단체명', phone: 'entry.1679313492',
+    kinds: ['아이디어만 있어요', '직접 열고 싶어요'],   // 고른 값은 제안 내용 맨 앞에 [ ] 로 붙여 보냄 (폼 칸 추가 없이)
     content: 'entry.448563232', contentLabel: '제안 내용',
     contentHint: '어떤 행사인지, 직접 진행하실지 보고 싶은 행사인지, 희망 시기와 인원도 함께 적어 주세요.',
     privacy: 'entry.1976789758', agree: '동의함',
@@ -37,6 +38,7 @@ var WS_APPLY = {
     '.wsa h3{font-family:inherit;font-size:20px;font-weight:700;letter-spacing:-.02em;margin:0 0 4px}.wsa .wsa-sub{font-size:14px;color:#8a8580;margin:0 0 18px}' +
     '.wsa label{display:block;font-size:14px;font-weight:600;margin:14px 0 6px}.wsa label i{color:#E0702A;font-style:normal}' +
     '.wsa input[type=text],.wsa input[type=tel],.wsa textarea{width:100%;box-sizing:border-box;border:1px solid #ddd5ca;border-radius:8px;padding:12px 14px;font-size:16px;font-family:inherit}' +
+    '.wsa .wsa-kinds{display:flex;gap:8px}.wsa .wsa-kind{flex:1;margin:0;font-weight:500;cursor:pointer}.wsa .wsa-kind input{position:absolute;opacity:0}.wsa .wsa-kind span{display:block;text-align:center;border:1px solid #ddd5ca;border-radius:8px;padding:11px 6px;font-size:14px}.wsa .wsa-kind input:checked+span{border-color:#E0702A;background:#FDF1E8;color:#C85E1C;font-weight:700}' +
     '.wsa textarea{resize:vertical;line-height:1.5}.wsa input:focus,.wsa textarea:focus{outline:none;border-color:#E0702A}.wsa .wsa-chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;font-weight:400;line-height:1.5;color:#5b5f6b;margin:12px 0 0;cursor:pointer}' +
     '.wsa .wsa-chk input{margin-top:3px;accent-color:#E0702A;flex:none}.wsa .wsa-note{font-size:13px;color:#8a8580;margin:16px 0 0;line-height:1.5}' +
     '.wsa button.wsa-go{width:100%;margin-top:18px;background:#E0702A;color:#fff;border:0;border-radius:8px;padding:14px 0;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer}' +
@@ -57,6 +59,7 @@ var WS_APPLY = {
       '<form novalidate>' +
       '<label>' + (c.nameLabel || '성함') + ' <i>*</i></label><input type="text" name="n" autocomplete="name" required>' +
       '<label>연락처 <i>*</i></label><input type="tel" name="p" autocomplete="tel" placeholder="010-0000-0000" required>' +
+      (c.kinds ? '<label>어떤 제안인가요 <i>*</i></label><div class="wsa-kinds">' + c.kinds.map(function (k, i) { return '<label class="wsa-kind"><input type="radio" name="k" value="' + k + '"' + (i ? '' : ' checked') + '><span>' + k + '</span></label>'; }).join('') + '</div>' : '') +
       (c.content ? '<label>' + c.contentLabel + ' <i>*</i></label><textarea name="c" rows="5" placeholder="' + c.contentHint + '"></textarea>' : '') +
       (c.worry ? '<label>나의 불안과 고민 한 줄</label><textarea name="w" rows="3" placeholder="(필수 아님) 자유롭게 작성해 주세요."></textarea>' : '') +
       (c.photo ? '<label class="wsa-chk"><input type="checkbox" name="a1"><span><b>(필수) 촬영 동의</b> — 강연 기록을 위해 사진·영상이 촬영되며, 홍보와 기록용으로 쓰일 수 있습니다.</span></label>' : '') +
@@ -71,18 +74,19 @@ var WS_APPLY = {
       if (!n) { err.textContent = (c.nameLabel || '성함') + '을 적어 주세요.'; f.n.focus(); return; }
       if (p.replace(/\D/g, '').length < 9) { err.textContent = '연락처를 확인해 주세요.'; f.p.focus(); return; }
       var cc = f.c ? f.c.value.trim() : '';
+      var kk = c.kinds ? (f.querySelector('input[name=k]:checked') || {}).value : '';
       if (c.content && !cc) { err.textContent = c.contentLabel + '을 적어 주세요.'; f.c.focus(); return; }
       if ((f.a1 && !f.a1.checked) || !f.a2.checked) { err.textContent = (f.a1 ? '두 가지 동의에 모두' : '개인정보 활용 동의에') + ' 체크해 주세요.'; return; }
       err.textContent = ''; go.disabled = true; go.textContent = '보내는 중...';
       var body = new URLSearchParams();
       body.append(c.name, n); body.append(c.phone, p);
-      var w = f.w ? f.w.value.trim() : ''; if (c.worry && w) body.append(c.worry, w); if (c.content) body.append(c.content, cc); if (c.photo) body.append(c.photo, c.agree); body.append(c.privacy, c.agree);
+      var w = f.w ? f.w.value.trim() : ''; if (c.worry && w) body.append(c.worry, w); if (c.content) body.append(c.content, (kk ? '[' + kk + '] ' : '') + cc); if (c.photo) body.append(c.photo, c.agree); body.append(c.privacy, c.agree);
       // ① 구글폼 응답으로 (구글은 결과를 돌려주지 않으므로 no-cors)
       var g = fetch(c.form, { method: 'POST', mode: 'no-cors', body: body }).catch(function () {});
       // ② info@ 로 사본 (비서실장 메일 확인에 잡힌다)
       var m = window.emailjs ? emailjs.send('service_zg28jzh', 'template_tuagors', {
         to_email: 'info@wishfulstay.com',
-        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
+        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (kk ? '\n갈래: ' + kk : '') + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
         schedule: c.sub, estimate: '', time: new Date().toLocaleString('ko-KR')
       }).catch(function () {}) : Promise.resolve();
       Promise.all([g, m]).then(function () {
