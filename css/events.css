@@ -75,3 +75,5 @@
 .ev-way strong { display: block; font-size: 17px; color: #3D414F; margin-bottom: 8px; word-break: keep-all; }
 .ev-way p { font-size: 15px; line-height: 1.65; color: #3D414F; margin: 0; word-break: keep-all; }
 @media (max-width: 760px) { .ev-two { grid-template-columns: 1fr; } }
+/* 대장 : 단어 사이가 벌어지지 않게 — 양쪽 맞춤 끄고 단어 단위로 자연스럽게 줄바꿈 */
+.ev-page p, .ev-way p, .ev-info, .ev-steps, .ev-for { text-align: left; word-break: keep-all; overflow-wrap: break-word; }
