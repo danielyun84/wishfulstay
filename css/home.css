@@ -124,5 +124,5 @@
   #hero .hero-sub { font-size: 22px; }
   #hero .hero-desc { margin-top: 10px; font-size: 13.5px; line-height: 1.6; text-align: left; }
   #hero .hero-overlay { background: linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.55) 100%); }
-  #hero .hero-slide img { object-position: 50% 30% !important; }
+  #hero .hero-slide img { object-position: 12% 30% !important; }   /* 대장 : 사진을 오른쪽으로 — 현판이 오른쪽, 왼쪽 벽이 넓게 */
 }
