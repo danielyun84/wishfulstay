@@ -117,3 +117,12 @@
 #hero .hero-desc { margin-top: 20px; font-size: clamp(14px, 1.15vw, 17px); line-height: 1.7; color: rgba(253,251,248,.9); text-shadow: 0 2px 12px rgba(0,0,0,.35); word-break: keep-all; }   /* 대장 11-23 「왼쪽에 텍스트 좀 더」 */
 #hero .hero-content { max-width: 40%; }
 @media (max-width: 760px) { #hero .hero-desc br { display: none; } #hero .hero-content { max-width: 86%; } }
+/* 대장 11-23 「모바일에서는 간판이랑 구도가 안 맞네」 : 폰에서는 현판을 위에, 글은 사진 아래쪽에 — 아래로 갈수록 어두워지는 막 위에 */
+@media (max-width: 760px) {
+  #hero .hero-content { top: auto; bottom: 22px; left: 20px; right: 20px; transform: none; max-width: none; }
+  #hero .hero-title { font-size: 13px; margin-bottom: 6px; }
+  #hero .hero-sub { font-size: 22px; }
+  #hero .hero-desc { margin-top: 10px; font-size: 13.5px; line-height: 1.6; text-align: left; }
+  #hero .hero-overlay { background: linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.55) 100%); }
+  #hero .hero-slide img { object-position: 50% 30% !important; }
+}
