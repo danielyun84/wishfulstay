@@ -65,3 +65,8 @@
 #header.is-scrolled ~ .mobile-nav { background: rgba(244,241,236,0.98); }
 #header.is-scrolled ~ .mobile-nav a { color: var(--c-text); border-bottom-color: var(--c-border); }
 #header.is-scrolled ~ .mobile-nav .mobile-contact-btn { background: var(--c-dark); color: var(--c-cream); border: 0; }
+/* 대장 11-23 「헤더랑 내려오는 메뉴 사이 경계 없애」 : 폰 메뉴를 열면 머리글도 같은 농도로, 판은 머리글 바로 밑에 붙여 한 장처럼 */
+body:has(.mobile-nav.is-open) #header:not(.is-scrolled)::before { background: rgba(0,0,0,0.82); }   /* 대장 : 메뉴를 열면 머리글 농도를 메뉴판(0.82)과 똑같이 */
+.mobile-nav { top: 72px; }
+.mobile-nav.is-open { transform: none; }
+@media (max-width: 768px) { .mobile-nav { top: 64px; } }   /* 폰 머리글 높이(64)에 딱 붙임 — 72 였을 때 8px 틈이 생겨 경계가 보였음 */
