@@ -131,6 +131,11 @@ body::before{position:fixed;top:0;bottom:0;left:50%;right:auto;width:min(100vw,4
 /* ── 아이폰 : 주소창이 줄거나 끝에서 튕겨도 검은 바탕이 안 보이게 ── */
 @media (max-width:500px){html{background:#e9dcc6}body{box-shadow:none}}
 body::before{top:-25vh;bottom:-25vh}
+
+#vLogin:not([hidden]) ~ .x{}
+body.nologin .top span:last-child{visibility:hidden}
+
+.wrap{min-height:calc(100vh - 48px);min-height:calc(100dvh - 48px)}
 </style>
 </head>
 <body>
@@ -142,6 +147,22 @@ body::before{top:-25vh;bottom:-25vh}
 
 <div class="wrap">
   <div class="top"><span id="today"></span><span><button class="link" id="goBook" type="button">내 책</button><button class="link" id="goSetup" type="button">다짐 바꾸기</button></span></div>
+
+  <section id="vLogin" hidden>
+    <p class="eyebrow">처음 한 번만</p>
+    <h1>휴대폰 번호로<br>시작해요</h1>
+    <p class="sub">번호는 내 기록을 지키는 열쇠로만 써요. 한 번 들어오면 이 폰에서는 다음부터 바로 열려요.</p>
+    <label class="sub" for="phoneIn">휴대폰 번호</label>
+    <input id="phoneIn" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" placeholder="010-0000-0000">
+    <button class="btn ghost" id="sendCode" type="button">인증번호 받기</button>
+    <div id="codeBox" hidden style="display:flex;flex-direction:column;gap:14px">
+      <label class="sub" for="codeIn">문자로 온 인증번호 6자리</label>
+      <input id="codeIn" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000">
+      <p class="sub" id="testCode" hidden></p>
+    </div>
+    <p class="err" id="loginErr" hidden></p>
+    <button class="btn" id="verifyCode" type="button" style="margin-top:auto" hidden>확인하고 들어가기</button>
+  </section>
 
   <section id="vSetup" hidden>
     <p class="eyebrow">처음 한 번만</p>
@@ -195,6 +216,7 @@ body::before{top:-25vh;bottom:-25vh}
     <div class="months" id="months"></div>
     <div id="pages" style="display:flex;flex-direction:column;gap:14px"></div>
     <button class="btn ghost" id="bookHome" type="button">오늘 밤 기록으로</button>
+    <button class="link" id="logout" type="button" style="align-self:center;padding:6px 0">다른 번호로 들어가기</button>
   </section>
 
   <p class="note">시험판 · 녹음은 이 폰과 위시풀 창고에 저장돼요</p>
@@ -203,8 +225,10 @@ body::before{top:-25vh;bottom:-25vh}
 <script>
 const A="/diary-test-audio/";let TX=null,profile=null,entries=[],step=0,cur=null,mood="",rec=null,chunks=[],blob=null,t0=0,tick=null,dbh=null;
 const $=id=>document.getElementById(id),player=$("player");
-function show(v){["vSetup","vHome","vQ","vDone","vBook"].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
-function idb(){return new Promise((res,rej)=>{const r=indexedDB.open("recdiary",1);r.onupgradeneeded=()=>{r.result.createObjectStore("kv");r.result.createObjectStore("entries",{keyPath:"at"})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function show(v){document.body.classList.toggle("nologin",v==="vLogin");["vLogin","vSetup","vHome","vQ","vDone","vBook"].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
+let SES=null;try{SES=JSON.parse(localStorage.getItem("diary_ses")||"null")}catch(_){}if(SES&&SES.exp<Date.now())SES=null;
+function dbName(){let o=null;try{o=localStorage.getItem("diary_dbowner");if(!o){localStorage.setItem("diary_dbowner",SES.uid);o=SES.uid}}catch(_){}return o===SES.uid?"recdiary":"recdiary-"+SES.uid}
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open(dbName(),1);r.onupgradeneeded=()=>{r.result.createObjectStore("kv");r.result.createObjectStore("entries",{keyPath:"at"})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
 function tx(store,mode,fn){return new Promise((res,rej)=>{const t=dbh.transaction(store,mode);const s=t.objectStore(store);const out=fn(s);t.oncomplete=()=>res(out?out.result:undefined);t.onerror=()=>rej(t.error)})}
 async function load(){try{dbh=await idb();profile=await tx("kv","readonly",s=>s.get("profile"))||null;entries=await tx("entries","readonly",s=>s.getAll())||[]}catch(e){dbh=null}}
 let CTX=null;const QB={};function ac(){if(!CTX)CTX=new (window.AudioContext||window.webkitAudioContext)();return CTX}
@@ -255,7 +279,7 @@ $("next").onclick=async()=>{if(!blob)return;cur.blobs[step]=blob;
 const STORE="https://script.google.com/macros/s/AKfycbxqf9HHPcspYSsMe5O97oB22mpEFSA1J7McvbqQU4PzlJIEA2e49xwdf-ZB81_FsfPegg/exec",KEY="wishful-diary-test-2611";
 function b64(b){return new Promise((r,j)=>{const f=new FileReader();f.onload=()=>r(String(f.result).split(",")[1]);f.onerror=j;f.readAsDataURL(b)})}
 async function upload(e){let ok=true;for(const [i,q,b] of [[1,e.q1,e.b1],[2,e.q2,e.b2]]){try{const res=await fetch(STORE,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-  body:JSON.stringify({key:KEY,user:"대장",at:e.at,idx:i,q,mood:i===2?e.mood:"",pledge:profile?profile.pledge:"",mime:b.type||"audio/mp4",data:await b64(b)})});const j=await res.json();if(!j.ok)ok=false}catch(err){ok=false}}
+  body:JSON.stringify({key:KEY,user:SES.uid,at:e.at,idx:i,q,mood:i===2?e.mood:"",pledge:profile?profile.pledge:"",mime:b.type||"audio/mp4",data:await b64(b)})});const j=await res.json();if(!j.ok)ok=false}catch(err){ok=false}}
   $("countDone").textContent=cnt()+(ok?" · 창고에도 저장했어요":" · 창고 저장은 실패했어요 (폰에는 남아 있어요)")}
 $("start").onclick=()=>{cur=pick();step=0;ask()};
 $("saveSetup").onclick=async()=>{const p=$("pledgeIn").value.trim();if(!p){$("setupErr").textContent="다짐을 한 문장 적어 주세요.";$("setupErr").hidden=false;return}
@@ -271,12 +295,28 @@ function book(){$("coverPledge").textContent=profile?"다짐 · "+profile.pledge
     const pb=document.createElement("button");pb.className="pl";pb.type="button";pb.innerHTML="<span>▶</span> 내 목소리로<br>듣기";
     pb.onclick=()=>{const list=[e.b1,e.b2].filter(Boolean);let i=0;const nx=()=>{if(i>=list.length){pb.classList.remove("on");return}player.src=URL.createObjectURL(list[i++]);player.onended=nx;player.play().catch(()=>pb.classList.remove("on"))};pb.classList.add("on");nx()};
     d.append(tx_,pb);box.append(d)});show("vBook");fillLines()}
-async function fillLines(){if(!entries.some(e=>!e.line))return;let L={};try{L=(await (await fetch(STORE+"?key="+encodeURIComponent(KEY)+"&action=lines&user="+encodeURIComponent("대장"))).json()).lines||{}}catch(_){return}
+async function fillLines(){if(!entries.some(e=>!e.line))return;let L={};try{L=(await (await fetch(STORE+"?key="+encodeURIComponent(KEY)+"&action=lines&user="+encodeURIComponent(SES.uid))).json()).lines||{};if(dbName()==="recdiary"){const o=(await (await fetch(STORE+"?key="+encodeURIComponent(KEY)+"&action=lines&user="+encodeURIComponent("대장"))).json()).lines||{};L=Object.assign(o,L)}}catch(_){return}
   for(const e of entries){const v=L[e.at];if(v&&!e.line){e.line=v;try{await tx("entries","readwrite",s=>s.put(e))}catch(_){}const el=document.querySelector('.ln[data-at="'+e.at+'"]');if(el){el.textContent=v;el.classList.remove("q")}}}}
 $("goBook").onclick=book;$("doneBook").onclick=book;$("bookHome").onclick=()=>profile?home():show("vSetup");
 $("goSetup").onclick=()=>{if(profile){$("pledgeIn").value=profile.pledge;$("catIn").value=profile.cat}show("vSetup")};
 $("today").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})+" 밤";
-(async()=>{try{TX=await (await fetch(A+"texts.json")).json()}catch(e){}await load();if(profile)home();else show("vSetup")})();
+let LT=null;
+$("phoneIn").oninput=()=>{$("loginErr").hidden=true};
+$("sendCode").onclick=async()=>{const p=$("phoneIn").value.replace(/\D/g,"");if(!/^01[016789]\d{7,8}$/.test(p)){$("loginErr").textContent="휴대폰 번호를 다시 확인해 주세요.";$("loginErr").hidden=false;return}
+  $("sendCode").disabled=true;$("sendCode").textContent="보내는 중…";
+  try{const j=await (await fetch("/api/diary-auth",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"send",phone:p})})).json();
+    if(!j.ok)throw 0;LT=j.token;$("codeBox").hidden=false;$("verifyCode").hidden=false;$("sendCode").textContent="인증번호 다시 받기";
+    if(j.test){$("testCode").textContent="시험판이라 문자 대신 여기에 보여 드려요 : "+j.code;$("testCode").hidden=false}else $("testCode").hidden=true;$("codeIn").focus()}
+  catch(e){$("loginErr").textContent="인증번호를 보내지 못했어요. 잠시 뒤 다시 눌러 주세요.";$("loginErr").hidden=false;$("sendCode").textContent="인증번호 받기"}
+  $("sendCode").disabled=false};
+$("verifyCode").onclick=async()=>{const p=$("phoneIn").value.replace(/\D/g,""),c=$("codeIn").value.replace(/\D/g,"");
+  try{const j=await (await fetch("/api/diary-auth",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"verify",phone:p,code:c,token:LT})})).json();
+    if(!j.ok){$("loginErr").textContent=j.why==="expired"?"5분이 지났어요. 인증번호를 다시 받아 주세요.":"인증번호가 맞지 않아요.";$("loginErr").hidden=false;return}
+    SES={uid:j.uid,tail:j.tail,sid:j.sid,exp:Date.now()+364*864e5};try{localStorage.setItem("diary_ses",JSON.stringify(SES))}catch(_){}
+    await load();if(profile)home();else show("vSetup")}
+  catch(e){$("loginErr").textContent="확인하지 못했어요. 다시 눌러 주세요.";$("loginErr").hidden=false}};
+$("logout").onclick=()=>{try{localStorage.removeItem("diary_ses")}catch(_){}SES=null;profile=null;entries=[];dbh=null;$("phoneIn").value="";$("codeIn").value="";$("codeBox").hidden=true;$("verifyCode").hidden=true;show("vLogin")};
+(async()=>{try{TX=await (await fetch(A+"texts.json")).json()}catch(e){}if(!SES){show("vLogin");return}await load();if(profile)home();else show("vSetup")})();
 </script>
 </body>
 </html>
