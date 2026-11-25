@@ -112,6 +112,21 @@ input::placeholder{color:#a8977f}
 :root{--text:#2A170C;--muted:#5B3A26;--lamp:#4A2A18}
 input::placeholder{color:#8A6A52}
 .sub,.top,.note,.timer,.count,.empty{font-weight:500}
+
+/* ── 배경 : 스크롤해도 나뭇결이 끝까지 ── */
+html,body{height:auto}
+body{background:#e9dcc6;min-height:100vh;min-height:100dvh}
+body::before{position:fixed;top:0;bottom:0;left:50%;right:auto;width:min(100vw,430px);transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,250,240,.10),rgba(255,250,240,.25)),url(images/diary/maple_real.jpg) center/cover}
+/* ── 내 책 : 하루 한 줄 ── */
+.page.day{display:flex;align-items:center;gap:14px;background:rgba(255,252,246,.78);padding:16px 16px 16px 18px}
+.page.day .dtx{flex:1;min-width:0}
+.page.day .d{margin:0 0 4px}
+.page.day .ln{margin:0;font-size:16px;line-height:1.5;color:#2A170C;word-break:keep-all}
+.page.day .ln.q{color:#7a5f4a;font-size:14px}
+.page.day .pl{flex:none;margin:0;flex-direction:column;gap:2px;border-radius:12px;padding:8px 10px;font-size:11px;line-height:1.3;text-align:center;color:#4A2A18;border-color:rgba(74,42,24,.35)}
+.page.day .pl span{font-size:13px}
+.page.day .pl.on{background:#4A2A18;color:#F5EDE0}
+#lineIn{text-align:center}
 </style>
 </head>
 <body>
@@ -167,6 +182,9 @@ input::placeholder{color:#8A6A52}
   <section id="vDone" hidden>
     <p class="thanks" id="thanks"></p>
     <p class="count" id="countDone"></p>
+    <label class="sub" for="lineIn" style="text-align:center">오늘을 한 줄로 남겨 볼까요?</label>
+    <input id="lineIn" maxlength="40" placeholder="예) 추운 날에도 바다를 걸었다">
+    <button class="btn" id="saveLine" type="button">한 줄 남기기</button>
     <button class="btn ghost" id="doneBook" type="button">내 책 보기</button>
   </section>
 
@@ -204,12 +222,14 @@ function wav(bufs,rate){let n=0;bufs.forEach(b=>n+=b.length);const all=new Float
   for(let i=0;i<len;i++){const s=Math.max(-1,Math.min(1,all[Math.floor(i*ratio)]));dv.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true)}
   return new Blob([dv],{type:"audio/wav"})}
 async function startRec(){
-  try{player.pause();if(!window.MIC||MIC.getTracks()[0].readyState!=="live")window.MIC=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});const st=MIC;
+  try{player.pause();const tk=window.MIC&&MIC.getTracks()[0];if(!tk||tk.readyState!=="live"||tk.muted||!tk.enabled){try{window.MIC&&MIC.getTracks().forEach(t=>t.stop())}catch(_){}window.MIC=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}const st=MIC;
     const ctx=new (window.AudioContext||window.webkitAudioContext)();await ctx.resume();
     const src=ctx.createMediaStreamSource(st),proc=ctx.createScriptProcessor(4096,1,1),bufs=[];
     proc.onaudioprocess=e=>bufs.push(new Float32Array(e.inputBuffer.getChannelData(0)));src.connect(proc);proc.connect(ctx.destination);
     rec={state:"recording",stop(){this.state="inactive";try{src.disconnect();proc.disconnect()}catch(_){}
+      let pk=0;for(const b of bufs)for(let i=0;i<b.length;i+=8){const v=Math.abs(b[i]);if(v>pk)pk=v}
       blob=wav(bufs,ctx.sampleRate);ctx.close();clearInterval(tick);
+      if(pk<0.0005){blob=null;try{MIC.getTracks().forEach(t=>t.stop())}catch(_){}window.MIC=null;resetRec();$("qErr").textContent="소리가 담기지 않았어요. 버튼을 한 번 더 눌러 말해 주세요.";$("qErr").hidden=false;return}
       $("rec").classList.remove("on");$("rec").hidden=true;$("afterRec").hidden=false;$("timer").textContent=`${fmt(Math.round((Date.now()-t0)/1000))} 녹음했어요 · ${Math.round(blob.size/1024)}KB`}};
     t0=Date.now();$("rec").classList.add("on");$("rec").setAttribute("aria-label","녹음 멈추기");$("qErr").hidden=true;
     tick=setInterval(()=>$("timer").textContent="말하는 중 "+fmt(Math.round((Date.now()-t0)/1000)),500);$("timer").textContent="말하는 중 0:00";
@@ -237,11 +257,14 @@ $("pledgeIn").oninput=()=>$("setupErr").hidden=true;
 function book(){$("coverPledge").textContent=profile?"다짐 · "+profile.pledge:"";$("countBook").textContent=cnt();
   const has=new Set(entries.map(e=>e.month));$("months").innerHTML="";for(let m=1;m<=12;m++){const s=document.createElement("span");s.textContent=m+"월";if(has.has(m))s.className="has";$("months").append(s)}
   const box=$("pages");box.innerHTML="";if(!entries.length){const p=document.createElement("p");p.className="empty";p.textContent="첫 이야기를 남기면 여기에 책의 첫 쪽이 생겨요.";box.append(p)}
-  entries.slice().sort((a,b)=>a.at<b.at?1:-1).forEach(e=>{const d=document.createElement("div");d.className="page";
-    const dt=document.createElement("p");dt.className="d";dt.textContent=new Date(e.at).toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})+" 밤";d.append(dt);
-    [[e.q1,e.b1],[e.q2,e.b2]].forEach(([q,b])=>{const qq=document.createElement("p");qq.className="qq";qq.textContent=q;const pb=document.createElement("button");pb.className="pl";pb.type="button";pb.textContent="▶ 내 목소리로 듣기";
-      pb.onclick=()=>{player.src=URL.createObjectURL(b);player.play().catch(()=>{})};d.append(qq,pb)});
-    if(e.mood){const m=document.createElement("p");m.className="mood";m.textContent="다짐 · "+e.mood;d.append(m)}box.append(d)});show("vBook")}
+  entries.slice().sort((a,b)=>a.at<b.at?1:-1).forEach(e=>{const d=document.createElement("div");d.className="page day";
+    const tx_=document.createElement("div");tx_.className="dtx";
+    const dt=document.createElement("p");dt.className="d";dt.textContent=new Date(e.at).toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"short"})+(e.mood?" · "+e.mood:"");
+    const ln=document.createElement("p");ln.className="ln";ln.textContent=e.line||e.q1;if(!e.line)ln.classList.add("q");tx_.append(dt,ln);
+    const pb=document.createElement("button");pb.className="pl";pb.type="button";pb.innerHTML="<span>▶</span> 내 목소리로<br>듣기";
+    pb.onclick=()=>{const list=[e.b1,e.b2].filter(Boolean);let i=0;const nx=()=>{if(i>=list.length){pb.classList.remove("on");return}player.src=URL.createObjectURL(list[i++]);player.onended=nx;player.play().catch(()=>pb.classList.remove("on"))};pb.classList.add("on");nx()};
+    d.append(tx_,pb);box.append(d)});show("vBook")}
+$("saveLine").onclick=async()=>{const e=entries[entries.length-1],v=$("lineIn").value.trim();if(e&&v){e.line=v;try{await tx("entries","readwrite",s=>s.put(e))}catch(_){}}$("lineIn").value="";book()};
 $("goBook").onclick=book;$("doneBook").onclick=book;$("bookHome").onclick=()=>profile?home():show("vSetup");
 $("goSetup").onclick=()=>{if(profile){$("pledgeIn").value=profile.pledge;$("catIn").value=profile.cat}show("vSetup")};
 $("today").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})+" 밤";
