@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#11151d">
+<title>다짐일기 · 시험판 (오크)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500&display=swap">
+<style>
+:root{--bg:#11151d;--card:#1a202b;--line:#2a3240;--lamp:#efc27a;--lamp2:#f6d9a6;--glow:rgba(239,194,122,.16);--text:#efe9de;--muted:#9c978d;--rec:#e8775f;
+--serif:"Gowun Batang",serif;--sans:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);height:100%}
+body{font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;padding:max(20px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}
+.wrap{max-width:440px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+.link{background:none;border:0;color:var(--muted);font:inherit;padding:8px 0 8px 14px;cursor:pointer}
+.link:hover{color:var(--lamp)}
+section{flex:1;display:flex;flex-direction:column;gap:22px;padding-top:28px}
+.eyebrow{font-size:12px;letter-spacing:.12em;color:var(--lamp);margin:0}
+h1{font-family:var(--serif);font-weight:700;font-size:28px;line-height:1.4;margin:0;word-break:keep-all}
+.q{font-family:var(--serif);font-size:25px;line-height:1.55;margin:0;word-break:keep-all;min-height:3.1em}
+.sub{color:var(--muted);font-size:14px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.pledge{font-family:var(--serif);font-size:19px;margin:4px 0 0;word-break:keep-all}
+.btn{width:100%;border:0;border-radius:14px;padding:17px;font:500 17px var(--sans);cursor:pointer;background:var(--lamp);color:#22190a}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn:active{transform:scale(.99)}
+input,select{width:100%;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:14px;font:16px var(--sans)}
+:focus-visible{outline:2px solid var(--lamp);outline-offset:3px}
+.dots{display:flex;gap:6px}.dots i{width:22px;height:4px;border-radius:2px;background:var(--line)}.dots i.on{background:var(--lamp)}
+.listen{display:flex;align-items:center;gap:10px;background:none;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:9px 16px;font:14px var(--sans);cursor:pointer;align-self:flex-start}
+.listen .bars{display:flex;gap:3px;align-items:flex-end;height:14px}.listen .bars b{width:3px;height:5px;background:var(--lamp);border-radius:2px}
+.playing .bars b{animation:eq .9s ease-in-out infinite}.playing .bars b:nth-child(2){animation-delay:.15s}.playing .bars b:nth-child(3){animation-delay:.3s}
+@keyframes eq{50%{height:14px}}
+.recbox{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:auto;padding:10px 0 4px}
+.rec{position:relative;width:112px;height:112px;border-radius:50%;border:0;background:var(--glow);cursor:pointer;display:grid;place-items:center}
+.rec::before{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--lamp)}
+.rec .core{width:62px;height:62px;border-radius:50%;background:var(--lamp);display:grid;place-items:center;transition:all .25s}
+.rec .core svg{width:26px;height:26px}
+.rec.on .core{width:40px;height:40px;border-radius:10px;background:var(--rec)}
+.rec.on::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:1.5px solid var(--rec);animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{from{opacity:.8;transform:scale(.9)}to{opacity:0;transform:scale(1.15)}}
+.timer{font-variant-numeric:tabular-nums;font-size:15px;color:var(--muted);min-height:1.5em}
+.done-row{display:flex;gap:10px;width:100%}
+.done-row .btn{flex:1}
+.chips{display:flex;gap:8px}
+.chip{flex:1;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:11px 4px;font:15px var(--sans);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--lamp);color:var(--lamp);background:var(--glow)}
+.err{color:#f0a58a;font-size:14px;margin:0;text-align:center}
+.thanks{font-family:var(--serif);font-size:24px;line-height:1.65;text-align:center;margin:auto 0 0;word-break:keep-all}
+.count{color:var(--muted);text-align:center;font-size:14px;margin:0 0 auto}
+.cover{border:1px solid var(--lamp);border-radius:8px;padding:34px 18px;text-align:center;background:linear-gradient(var(--card),var(--card))}
+.cover .y{font-family:var(--serif);color:var(--lamp);margin:0;font-size:15px;letter-spacing:.2em}
+.cover .t{font-family:var(--serif);font-size:28px;margin:8px 0 6px}
+.months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.months span{font-size:12px;text-align:center;padding:7px 0;border-radius:8px;border:1px dashed var(--line);color:var(--muted)}
+.months span.has{border:1px solid var(--lamp);color:var(--lamp);background:var(--glow)}
+.page{background:#f4eee2;color:#2b251a;border-radius:6px;padding:22px 20px;font-family:var(--serif)}
+.page .d{font:13px var(--sans);color:#86795f;margin:0 0 10px}
+.page .qq{font-size:15px;margin:0 0 8px;line-height:1.6;word-break:keep-all}
+.page .pl{display:flex;align-items:center;gap:8px;background:none;border:1px solid #d8cdb6;border-radius:999px;padding:7px 14px;font:13px var(--sans);color:#5d5240;cursor:pointer;margin-bottom:14px}
+.page .mood{font:12px var(--sans);color:#86795f}
+.empty{color:var(--muted);text-align:center;font-size:14px;margin:10px 0}
+.note{color:var(--muted);font-size:12px;text-align:center;margin:22px 0 0}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ── 오크 배경 시험 (diary-test-oak) ── */
+:root{--card:rgba(28,18,11,.58);--line:rgba(239,214,170,.22)}
+html{background:#2a1d14}
+body{background:#2a1d14 url(images/diary/oak_real.jpg) center top/cover fixed}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(18,10,5,.15),rgba(18,10,5,.5));pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+.card,input,select{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* ── 첫 화면 (편자) ── */
+#intro{position:fixed;inset:0;z-index:50;background:#2a1d14 url(images/diary/oak_horseshoe.jpg?v=2) center center/cover;display:flex;flex-direction:column;align-items:center;text-align:center;color:#f3ebdd;transition:opacity .6s ease,visibility .6s}
+#intro::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,8,3,.45),rgba(15,8,3,0) 38%,rgba(15,8,3,0) 62%,rgba(15,8,3,.6));pointer-events:none}
+#intro>*{position:relative}
+#intro .it{margin-top:max(14vh,80px)}
+#intro .it h1{font-family:var(--serif);font-weight:700;font-size:40px;letter-spacing:.32em;margin:0 0 0 .32em;color:#f3ebdd}
+#intro .it p{margin:10px 0 0;font-size:11px;letter-spacing:.42em;color:var(--lamp2);opacity:.9}
+#intro .tag{margin:0 0 clamp(22px,4.5vh,44px);font-family:var(--serif);font-size:16px;line-height:1.9;color:#efe5d3;letter-spacing:.06em}
+#intro .go{position:absolute;left:24px;right:24px;bottom:max(9vh,60px);max-width:392px;margin:0 auto}
+#intro .go small{display:block;margin-top:12px;font-size:11px;color:rgba(239,229,211,.7);letter-spacing:.1em}
+#intro.hide{opacity:0;visibility:hidden}
+
+/* ── 모바일 폭 고정 : 넓은 화면에서도 휴대폰 화면처럼 가운데 한 줄 ── */
+html{background:#140d08}
+body{max-width:430px;margin:0 auto;position:relative;min-height:100vh;min-height:100dvh;background-attachment:scroll;box-shadow:0 0 60px rgba(0,0,0,.55)}
+body::before{position:absolute}
+#intro{left:50%;right:auto;width:min(100vw,430px);transform:translateX(-50%)}
+
+/* ── 안쪽 화면 : 밝은 메이플 ── */
+:root{--bg:#efe4d2;--card:rgba(255,252,246,.62);--line:rgba(92,64,44,.22);--lamp:#4A3426;--lamp2:#7a5a40;--glow:rgba(74,52,38,.08);--text:#2E241C;--muted:#7A6A58;--rec:#c25a42}
+html{background:#140d08}
+body{background:#e9dcc6 url(images/diary/maple_real.jpg) center top/cover}
+body::before{background:linear-gradient(180deg,rgba(255,250,240,.10),rgba(255,250,240,.25))}
+.btn{color:#F5EDE0}
+.btn.ghost{color:var(--text)}
+.rec .core svg{stroke:#F5EDE0}
+.err{color:#b4462f}
+input::placeholder{color:#a8977f}
+/* 첫 화면은 오크 그대로 */
+#intro .btn{background:#E9C27F;color:#22190a}
+#intro .it p{color:#f6d9a6}
+
+/* ── 글자 더 진하게 (짙은 밤색) ── */
+:root{--text:#2A170C;--muted:#5B3A26;--lamp:#4A2A18}
+input::placeholder{color:#8A6A52}
+.sub,.top,.note,.timer,.count,.empty{font-weight:500}
+</style>
+</head>
+<body>
+<div id="intro" role="dialog" aria-label="다짐일기 시작">
+  <div class="it"><h1>다짐일기</h1><p>MY 2027 PROMISE</p></div>
+  <div class="go"><div class="tag">행운은 머무는 곳에.<br>오늘의 다짐을 들려주세요.</div><button class="btn" id="introGo">내 다짐 기록하기</button><small>WISHFUL STAY</small></div>
+</div>
+<script>document.getElementById('introGo').onclick=function(){document.getElementById('intro').classList.add('hide')}</script>
+
+<div class="wrap">
+  <div class="top"><span id="today"></span><span><button class="link" id="goBook" type="button">내 책</button><button class="link" id="goSetup" type="button">다짐 바꾸기</button></span></div>
+
+  <section id="vSetup" hidden>
+    <p class="eyebrow">처음 한 번만</p>
+    <h1>2027년, 어떤 다짐을 하셨나요?</h1>
+    <label class="sub" for="pledgeIn">올해 꼭 지키고 싶은 다짐 한 가지를 적어 주세요.</label>
+    <input id="pledgeIn" maxlength="60" placeholder="예) 나를 더 돌보기">
+    <label class="sub" for="catIn">올해 나에게 가장 중요한 것은 무엇인가요?</label>
+    <select id="catIn"><option value="health">건강한 몸과 마음</option><option value="habit">나를 다스리는 힘</option><option value="money">든든한 내일</option><option value="family">곁에 있는 사람들</option><option value="grow">어제보다 나은 나</option></select>
+    <p class="err" id="setupErr" hidden></p>
+    <button class="btn" id="saveSetup" type="button" style="margin-top:auto">이 다짐으로 시작하기</button>
+  </section>
+
+  <section id="vHome" hidden>
+    <p class="eyebrow">다짐일기 · 오늘 밤의 기록</p>
+    <h1>잠들기 전,<br>질문 두 개만 들려 드릴게요.</h1>
+    <div class="card"><p class="sub">나의 2027 다짐</p><p class="pledge" id="pledgeShow"></p></div>
+    <p class="count" id="countHome" style="margin:0;text-align:left"></p>
+    <button class="btn" id="start" type="button" style="margin-top:auto">듣기 시작</button>
+  </section>
+
+  <section id="vQ" hidden>
+    <div class="dots"><i id="d1"></i><i id="d2"></i></div>
+    <p class="eyebrow" id="qLabel"></p>
+    <p class="q" id="qText"></p>
+    <button class="listen" id="listen" type="button"><span class="bars"><b></b><b></b><b></b></span><span>질문 다시 듣기</span></button>
+    <div class="chips" id="chips" hidden>
+      <button class="chip" type="button" data-m="잘 지켰어요" aria-pressed="false">잘 지켰어요</button>
+      <button class="chip" type="button" data-m="조금" aria-pressed="false">조금</button>
+      <button class="chip" type="button" data-m="못 했어요" aria-pressed="false">못 했어요</button>
+    </div>
+    <div class="recbox">
+      <div class="timer" id="timer">버튼을 누르고 말해 주세요</div>
+      <button class="rec" id="rec" type="button" aria-label="녹음 시작"><span class="core"><svg viewBox="0 0 24 24" fill="none" stroke="#22190a" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span></button>
+      <p class="err" id="qErr" hidden></p>
+      <div class="done-row" id="afterRec" hidden>
+        <button class="btn ghost" id="redo" type="button">다시 녹음</button>
+        <button class="btn" id="next" type="button">다음</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="vDone" hidden>
+    <p class="thanks" id="thanks"></p>
+    <p class="count" id="countDone"></p>
+    <button class="btn ghost" id="doneBook" type="button">내 책 보기</button>
+  </section>
+
+  <section id="vBook" hidden>
+    <div class="cover"><p class="y">2027</p><p class="t">나의 한 해</p><p class="sub" id="coverPledge"></p></div>
+    <p class="count" id="countBook" style="margin:0"></p>
+    <div class="months" id="months"></div>
+    <div id="pages" style="display:flex;flex-direction:column;gap:14px"></div>
+    <button class="btn ghost" id="bookHome" type="button">오늘 밤 기록으로</button>
+  </section>
+
+  <p class="note">시험판 · 녹음은 이 폰과 위시풀 창고에 저장돼요</p>
+</div>
+<audio id="player" preload="auto" playsinline></audio>
+<script>
+const A="/diary-test-audio/";let TX=null,profile=null,entries=[],step=0,cur=null,mood="",rec=null,chunks=[],blob=null,t0=0,tick=null,dbh=null;
+const $=id=>document.getElementById(id),player=$("player");
+function show(v){["vSetup","vHome","vQ","vDone","vBook"].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open("recdiary",1);r.onupgradeneeded=()=>{r.result.createObjectStore("kv");r.result.createObjectStore("entries",{keyPath:"at"})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function tx(store,mode,fn){return new Promise((res,rej)=>{const t=dbh.transaction(store,mode);const s=t.objectStore(store);const out=fn(s);t.oncomplete=()=>res(out?out.result:undefined);t.onerror=()=>rej(t.error)})}
+async function load(){try{dbh=await idb();profile=await tx("kv","readonly",s=>s.get("profile"))||null;entries=await tx("entries","readonly",s=>s.getAll())||[]}catch(e){dbh=null}}
+function play(name){return new Promise(r=>{player.src=A+name+".mp3";$("listen").classList.add("playing");player.onended=player.onerror=()=>{$("listen").classList.remove("playing");r()};player.play().catch(()=>{$("listen").classList.remove("playing");r()})})}
+function cnt(){return `지금까지 남긴 이야기 ${entries.length}개`}
+function home(){$("pledgeShow").textContent=profile.pledge;$("countHome").textContent=cnt();show("vHome")}
+function pick(){const n=entries.length,ci=n%TX.C.length,list=TX.P[profile.cat],pi=n%list.length;return{q:[TX.C[ci],list[pi]],a:["c"+ci,profile.cat+pi],blobs:[]}}
+function resetRec(){blob=null;$("afterRec").hidden=true;$("rec").hidden=false;$("rec").classList.remove("on");$("timer").textContent="버튼을 누르고 말해 주세요";$("qErr").hidden=true}
+async function ask(){$("d1").className="on";$("d2").className=step?"on":"";$("qLabel").textContent=step?"나의 다짐 질문":"오늘의 질문";$("qText").textContent=cur.q[step];
+  $("chips").hidden=!step;mood="";document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));$("next").textContent=step?"오늘 기록 마치기":"다음";resetRec();show("vQ");await play(cur.a[step])}
+function fmt(s){return String(Math.floor(s/60)).padStart(1,"0")+":"+String(s%60).padStart(2,"0")}
+function wav(bufs,rate){let n=0;bufs.forEach(b=>n+=b.length);const all=new Float32Array(n);let o=0;bufs.forEach(b=>{all.set(b,o);o+=b.length});
+  const R=16000,ratio=rate/R,len=Math.floor(n/ratio),dv=new DataView(new ArrayBuffer(44+len*2));
+  const w=(p,s)=>{for(let i=0;i<s.length;i++)dv.setUint8(p+i,s.charCodeAt(i))};
+  w(0,"RIFF");dv.setUint32(4,36+len*2,true);w(8,"WAVE");w(12,"fmt ");dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);
+  dv.setUint32(24,R,true);dv.setUint32(28,R*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);w(36,"data");dv.setUint32(40,len*2,true);
+  for(let i=0;i<len;i++){const s=Math.max(-1,Math.min(1,all[Math.floor(i*ratio)]));dv.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true)}
+  return new Blob([dv],{type:"audio/wav"})}
+async function startRec(){
+  try{player.pause();if(!window.MIC||MIC.getTracks()[0].readyState!=="live")window.MIC=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});const st=MIC;
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();await ctx.resume();
+    const src=ctx.createMediaStreamSource(st),proc=ctx.createScriptProcessor(4096,1,1),bufs=[];
+    proc.onaudioprocess=e=>bufs.push(new Float32Array(e.inputBuffer.getChannelData(0)));src.connect(proc);proc.connect(ctx.destination);
+    rec={state:"recording",stop(){this.state="inactive";try{src.disconnect();proc.disconnect()}catch(_){}
+      blob=wav(bufs,ctx.sampleRate);ctx.close();clearInterval(tick);
+      $("rec").classList.remove("on");$("rec").hidden=true;$("afterRec").hidden=false;$("timer").textContent=`${fmt(Math.round((Date.now()-t0)/1000))} 녹음했어요 · ${Math.round(blob.size/1024)}KB`}};
+    t0=Date.now();$("rec").classList.add("on");$("rec").setAttribute("aria-label","녹음 멈추기");$("qErr").hidden=true;
+    tick=setInterval(()=>$("timer").textContent="말하는 중 "+fmt(Math.round((Date.now()-t0)/1000)),500);$("timer").textContent="말하는 중 0:00";
+  }catch(e){$("qErr").textContent="마이크를 쓸 수 없어요. 브라우저 설정에서 마이크를 허용해 주세요. ("+e.name+")";$("qErr").hidden=false}}
+$("rec").onclick=()=>{if(rec&&rec.state==="recording"){rec.stop();$("rec").setAttribute("aria-label","녹음 시작")}else startRec()};
+$("redo").onclick=resetRec;
+$("listen").onclick=()=>play(cur.a[step]);
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{mood=c.dataset.m;document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c?"true":"false"))});
+$("next").onclick=async()=>{if(!blob)return;cur.blobs[step]=blob;
+  if(!step){step=1;return ask()}
+  const now=new Date(),e={at:now.toISOString(),month:now.getMonth()+1,q1:cur.q[0],q2:cur.q[1],b1:cur.blobs[0],b2:cur.blobs[1],mood};
+  try{await tx("entries","readwrite",s=>s.put(e));entries.push(e)}catch(err){$("qErr").textContent="저장하지 못했어요. 다시 눌러 주세요.";$("qErr").hidden=false;return}
+  try{window.MIC&&MIC.getTracks().forEach(t=>t.stop());window.MIC=null}catch(_){}
+  upload(e);
+  const i=Math.floor(Math.random()*TX.T.length);$("thanks").textContent=TX.T[i];$("countDone").textContent=cnt();show("vDone");play("t"+i)};
+const STORE="https://script.google.com/macros/s/AKfycbxqf9HHPcspYSsMe5O97oB22mpEFSA1J7McvbqQU4PzlJIEA2e49xwdf-ZB81_FsfPegg/exec",KEY="wishful-diary-test-2611";
+function b64(b){return new Promise((r,j)=>{const f=new FileReader();f.onload=()=>r(String(f.result).split(",")[1]);f.onerror=j;f.readAsDataURL(b)})}
+async function upload(e){let ok=true;for(const [i,q,b] of [[1,e.q1,e.b1],[2,e.q2,e.b2]]){try{const res=await fetch(STORE,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+  body:JSON.stringify({key:KEY,user:"대장",at:e.at,idx:i,q,mood:i===2?e.mood:"",pledge:profile?profile.pledge:"",mime:b.type||"audio/mp4",data:await b64(b)})});const j=await res.json();if(!j.ok)ok=false}catch(err){ok=false}}
+  $("countDone").textContent=cnt()+(ok?" · 창고에도 저장했어요":" · 창고 저장은 실패했어요 (폰에는 남아 있어요)")}
+$("start").onclick=()=>{cur=pick();step=0;ask()};
+$("saveSetup").onclick=async()=>{const p=$("pledgeIn").value.trim();if(!p){$("setupErr").textContent="다짐을 한 문장 적어 주세요.";$("setupErr").hidden=false;return}
+  profile={pledge:p,cat:$("catIn").value};try{await tx("kv","readwrite",s=>s.put(profile,"profile"))}catch(e){}home()};
+$("pledgeIn").oninput=()=>$("setupErr").hidden=true;
+function book(){$("coverPledge").textContent=profile?"다짐 · "+profile.pledge:"";$("countBook").textContent=cnt();
+  const has=new Set(entries.map(e=>e.month));$("months").innerHTML="";for(let m=1;m<=12;m++){const s=document.createElement("span");s.textContent=m+"월";if(has.has(m))s.className="has";$("months").append(s)}
+  const box=$("pages");box.innerHTML="";if(!entries.length){const p=document.createElement("p");p.className="empty";p.textContent="첫 이야기를 남기면 여기에 책의 첫 쪽이 생겨요.";box.append(p)}
+  entries.slice().sort((a,b)=>a.at<b.at?1:-1).forEach(e=>{const d=document.createElement("div");d.className="page";
+    const dt=document.createElement("p");dt.className="d";dt.textContent=new Date(e.at).toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})+" 밤";d.append(dt);
+    [[e.q1,e.b1],[e.q2,e.b2]].forEach(([q,b])=>{const qq=document.createElement("p");qq.className="qq";qq.textContent=q;const pb=document.createElement("button");pb.className="pl";pb.type="button";pb.textContent="▶ 내 목소리로 듣기";
+      pb.onclick=()=>{player.src=URL.createObjectURL(b);player.play().catch(()=>{})};d.append(qq,pb)});
+    if(e.mood){const m=document.createElement("p");m.className="mood";m.textContent="다짐 · "+e.mood;d.append(m)}box.append(d)});show("vBook")}
+$("goBook").onclick=book;$("doneBook").onclick=book;$("bookHome").onclick=()=>profile?home():show("vSetup");
+$("goSetup").onclick=()=>{if(profile){$("pledgeIn").value=profile.pledge;$("catIn").value=profile.cat}show("vSetup")};
+$("today").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})+" 밤";
+(async()=>{try{TX=await (await fetch(A+"texts.json")).json()}catch(e){}await load();if(profile)home();else show("vSetup")})();
+</script>
+</body>
+</html>
