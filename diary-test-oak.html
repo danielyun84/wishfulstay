@@ -127,6 +127,10 @@ body::before{position:fixed;top:0;bottom:0;left:50%;right:auto;width:min(100vw,4
 .page.day .pl span{font-size:13px}
 .page.day .pl.on{background:#4A2A18;color:#F5EDE0}
 #lineIn{text-align:center}
+
+/* ── 아이폰 : 주소창이 줄거나 끝에서 튕겨도 검은 바탕이 안 보이게 ── */
+@media (max-width:500px){html{background:#e9dcc6}body{box-shadow:none}}
+body::before{top:-25vh;bottom:-25vh}
 </style>
 </head>
 <body>
@@ -182,9 +186,6 @@ body::before{position:fixed;top:0;bottom:0;left:50%;right:auto;width:min(100vw,4
   <section id="vDone" hidden>
     <p class="thanks" id="thanks"></p>
     <p class="count" id="countDone"></p>
-    <label class="sub" for="lineIn" style="text-align:center">오늘을 한 줄로 남겨 볼까요?</label>
-    <input id="lineIn" maxlength="40" placeholder="예) 추운 날에도 바다를 걸었다">
-    <button class="btn" id="saveLine" type="button">한 줄 남기기</button>
     <button class="btn ghost" id="doneBook" type="button">내 책 보기</button>
   </section>
 
@@ -206,7 +207,13 @@ function show(v){["vSetup","vHome","vQ","vDone","vBook"].forEach(x=>$(x).hidden=
 function idb(){return new Promise((res,rej)=>{const r=indexedDB.open("recdiary",1);r.onupgradeneeded=()=>{r.result.createObjectStore("kv");r.result.createObjectStore("entries",{keyPath:"at"})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
 function tx(store,mode,fn){return new Promise((res,rej)=>{const t=dbh.transaction(store,mode);const s=t.objectStore(store);const out=fn(s);t.oncomplete=()=>res(out?out.result:undefined);t.onerror=()=>rej(t.error)})}
 async function load(){try{dbh=await idb();profile=await tx("kv","readonly",s=>s.get("profile"))||null;entries=await tx("entries","readonly",s=>s.getAll())||[]}catch(e){dbh=null}}
-function play(name){return new Promise(r=>{player.src=A+name+".mp3";$("listen").classList.add("playing");player.onended=player.onerror=()=>{$("listen").classList.remove("playing");r()};player.play().catch(()=>{$("listen").classList.remove("playing");r()})})}
+let CTX=null;const QB={};function ac(){if(!CTX)CTX=new (window.AudioContext||window.webkitAudioContext)();return CTX}
+function stopQ(){const s=window.QSRC;window.QSRC=null;if(s){try{s.stop()}catch(_){}try{s.onended&&s.onended()}catch(_){}}}
+async function play(name){$("listen").classList.add("playing");try{const c=ac();if(c.state!=="running")await c.resume();let b=QB[name];
+  if(!b){const ab=await (await fetch(A+name+".mp3")).arrayBuffer();b=QB[name]=await new Promise((ok,no)=>c.decodeAudioData(ab,ok,no))}
+  stopQ();const s=c.createBufferSource();s.buffer=b;s.connect(c.destination);window.QSRC=s;await new Promise(r=>{s.onended=r;s.start()});window.QSRC===s&&(window.QSRC=null)}
+  catch(e){await playEl(name)}$("listen").classList.remove("playing")}
+function playEl(name){return new Promise(r=>{player.src=A+name+".mp3";$("listen").classList.add("playing");player.onended=player.onerror=()=>{$("listen").classList.remove("playing");r()};player.play().catch(()=>{$("listen").classList.remove("playing");r()})})}
 function cnt(){return `지금까지 남긴 이야기 ${entries.length}개`}
 function home(){$("pledgeShow").textContent=profile.pledge;$("countHome").textContent=cnt();show("vHome")}
 function pick(){const n=entries.length,ci=n%TX.C.length,list=TX.P[profile.cat],pi=n%list.length;return{q:[TX.C[ci],list[pi]],a:["c"+ci,profile.cat+pi],blobs:[]}}
@@ -222,13 +229,13 @@ function wav(bufs,rate){let n=0;bufs.forEach(b=>n+=b.length);const all=new Float
   for(let i=0;i<len;i++){const s=Math.max(-1,Math.min(1,all[Math.floor(i*ratio)]));dv.setInt16(44+i*2,s<0?s*0x8000:s*0x7FFF,true)}
   return new Blob([dv],{type:"audio/wav"})}
 async function startRec(){
-  try{player.pause();const tk=window.MIC&&MIC.getTracks()[0];if(!tk||tk.readyState!=="live"||tk.muted||!tk.enabled){try{window.MIC&&MIC.getTracks().forEach(t=>t.stop())}catch(_){}window.MIC=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}const st=MIC;
-    const ctx=new (window.AudioContext||window.webkitAudioContext)();await ctx.resume();
+  try{player.pause();stopQ();const tk=window.MIC&&MIC.getTracks()[0];if(!tk||tk.readyState!=="live"||tk.muted||!tk.enabled){try{window.MIC&&MIC.getTracks().forEach(t=>t.stop())}catch(_){}window.MIC=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}const st=MIC;
+    const ctx=ac();if(ctx.state!=="running")await ctx.resume();
     const src=ctx.createMediaStreamSource(st),proc=ctx.createScriptProcessor(4096,1,1),bufs=[];
     proc.onaudioprocess=e=>bufs.push(new Float32Array(e.inputBuffer.getChannelData(0)));src.connect(proc);proc.connect(ctx.destination);
     rec={state:"recording",stop(){this.state="inactive";try{src.disconnect();proc.disconnect()}catch(_){}
       let pk=0;for(const b of bufs)for(let i=0;i<b.length;i+=8){const v=Math.abs(b[i]);if(v>pk)pk=v}
-      blob=wav(bufs,ctx.sampleRate);ctx.close();clearInterval(tick);
+      blob=wav(bufs,ctx.sampleRate);clearInterval(tick);
       if(pk<0.0005){blob=null;try{MIC.getTracks().forEach(t=>t.stop())}catch(_){}window.MIC=null;resetRec();$("qErr").textContent="소리가 담기지 않았어요. 버튼을 한 번 더 눌러 말해 주세요.";$("qErr").hidden=false;return}
       $("rec").classList.remove("on");$("rec").hidden=true;$("afterRec").hidden=false;$("timer").textContent=`${fmt(Math.round((Date.now()-t0)/1000))} 녹음했어요 · ${Math.round(blob.size/1024)}KB`}};
     t0=Date.now();$("rec").classList.add("on");$("rec").setAttribute("aria-label","녹음 멈추기");$("qErr").hidden=true;
@@ -259,12 +266,13 @@ function book(){$("coverPledge").textContent=profile?"다짐 · "+profile.pledge
   const box=$("pages");box.innerHTML="";if(!entries.length){const p=document.createElement("p");p.className="empty";p.textContent="첫 이야기를 남기면 여기에 책의 첫 쪽이 생겨요.";box.append(p)}
   entries.slice().sort((a,b)=>a.at<b.at?1:-1).forEach(e=>{const d=document.createElement("div");d.className="page day";
     const tx_=document.createElement("div");tx_.className="dtx";
-    const dt=document.createElement("p");dt.className="d";dt.textContent=new Date(e.at).toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"short"})+(e.mood?" · "+e.mood:"");
-    const ln=document.createElement("p");ln.className="ln";ln.textContent=e.line||e.q1;if(!e.line)ln.classList.add("q");tx_.append(dt,ln);
+    const dt=document.createElement("p");dt.className="d";dt.textContent=new Date(e.at).toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"short"});
+    const ln=document.createElement("p");ln.className="ln";ln.dataset.at=e.at;if(e.line)ln.textContent=e.line;else{ln.textContent="오늘의 이야기를 정리하는 중이에요";ln.classList.add("q")}tx_.append(dt,ln);
     const pb=document.createElement("button");pb.className="pl";pb.type="button";pb.innerHTML="<span>▶</span> 내 목소리로<br>듣기";
     pb.onclick=()=>{const list=[e.b1,e.b2].filter(Boolean);let i=0;const nx=()=>{if(i>=list.length){pb.classList.remove("on");return}player.src=URL.createObjectURL(list[i++]);player.onended=nx;player.play().catch(()=>pb.classList.remove("on"))};pb.classList.add("on");nx()};
-    d.append(tx_,pb);box.append(d)});show("vBook")}
-$("saveLine").onclick=async()=>{const e=entries[entries.length-1],v=$("lineIn").value.trim();if(e&&v){e.line=v;try{await tx("entries","readwrite",s=>s.put(e))}catch(_){}}$("lineIn").value="";book()};
+    d.append(tx_,pb);box.append(d)});show("vBook");fillLines()}
+async function fillLines(){if(!entries.some(e=>!e.line))return;let L={};try{L=(await (await fetch(STORE+"?key="+encodeURIComponent(KEY)+"&action=lines&user="+encodeURIComponent("대장"))).json()).lines||{}}catch(_){return}
+  for(const e of entries){const v=L[e.at];if(v&&!e.line){e.line=v;try{await tx("entries","readwrite",s=>s.put(e))}catch(_){}const el=document.querySelector('.ln[data-at="'+e.at+'"]');if(el){el.textContent=v;el.classList.remove("q")}}}}
 $("goBook").onclick=book;$("doneBook").onclick=book;$("bookHome").onclick=()=>profile?home():show("vSetup");
 $("goSetup").onclick=()=>{if(profile){$("pledgeIn").value=profile.pledge;$("catIn").value=profile.cat}show("vSetup")};
 $("today").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})+" 밤";
