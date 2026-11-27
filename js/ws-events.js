@@ -7,6 +7,15 @@
    ================================================================ */
 var WS_EVENTS = [
   {
+    kind: 'event', status: 'open',   // 2026-11-27 인문학 강연 #02
+    series: '인문학 강연 #02', label: '인문학 시리즈 #02',
+    title: '반복의 힘, 루틴을 성장으로 바꾸다',
+    when: '2026. 12. 6 (일) 17:00', where: '제이드밀 지하 1층',
+    who: '방송인 정윤지 · 선착순 30명 · 무료',
+    image: 'images/events/lecture02_card.jpg',
+    link: 'event_04.html'
+  },
+  {
     kind: 'event', status: 'open',
     series: '인문학 강연 #01', label: '인문학 시리즈 #01',
     title: '이 시대에 나는 왜 불안을 느끼는가',

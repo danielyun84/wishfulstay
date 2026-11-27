@@ -6,6 +6,16 @@
    구글폼 질문을 고치면 아래 entry 번호를 다시 맞춰야 한다.
    ================================================================ */
 var WS_APPLY = {
+  // 2026-11-27 인문학 강연 #02 (대장 구글폼 「인문학 #02」, 11/29 폼 질문을 가져와 12/6 내용으로 고침)
+  lecture02: {
+    title: '인문학 강연 #02 참가 신청',
+    sub: '2026. 12. 6 (일) 17:00 · 제이드밀 지하 1층 · 방송인 정윤지',
+    form: 'https://docs.google.com/forms/d/e/1FAIpQLSds4o6CaXHk1X6y24AOgguKbzHioDwSMd9JvdW4w03cGKqbtw/formResponse',
+    name: 'entry.700103021', phone: 'entry.2133268765',
+    worry: 'entry.78698618', worryLabel: '새해에 지키고 싶은 나의 루틴 한 줄',
+    photo: 'entry.1870635329', privacy: 'entry.1371427182', agree: '동의함',
+    note: '선착순 30명 · 참가비 무료. 신청해 주시면 한 분 한 분 확정 연락을 드립니다.'
+  },
   lecture01: {
     title: '인문학 강연 #01 참가 신청',
     sub: '2026. 11. 29 (일) 17:00 · 제이드밀 지하 1층 · 인경 스님',
@@ -62,7 +72,7 @@ var WS_APPLY = {
       '<label>연락처 <i>*</i></label><input type="tel" name="p" autocomplete="tel" placeholder="010-0000-0000" required>' +
       (c.kinds ? '<label>어떤 제안인가요 <i>*</i></label><div class="wsa-kinds">' + c.kinds.map(function (k, i) { return '<label class="wsa-kind"><input type="radio" name="k" value="' + k[1] + '" data-l="' + k[0] + '"' + (i ? '' : ' checked') + '><span>' + k[0] + '</span></label>'; }).join('') + '</div>' : '') +
       (c.content ? '<label>' + c.contentLabel + ' <i>*</i></label><textarea name="c" rows="5" placeholder="' + c.contentHint + '"></textarea>' : '') +
-      (c.worry ? '<label>나의 불안과 고민 한 줄</label><textarea name="w" rows="3" placeholder="(필수 아님) 자유롭게 작성해 주세요."></textarea>' : '') +
+      (c.worry ? '<label>' + (c.worryLabel || '나의 불안과 고민 한 줄') + '</label><textarea name="w" rows="3" placeholder="(필수 아님) 자유롭게 작성해 주세요."></textarea>' : '') +
       (c.photo ? '<label class="wsa-chk"><input type="checkbox" name="a1"><span><b>(필수) 촬영 동의</b> — 강연 기록을 위해 사진·영상이 촬영되며, 홍보와 기록용으로 쓰일 수 있습니다.</span></label>' : '') +
       '<label class="wsa-chk"><input type="checkbox" name="a2"><span><b>(필수) 개인정보 활용 동의</b> — ' + (c.privacyText || '신청 정보는 위시풀스테이 인문학 강연 안내와 홍보 목적으로만 쓰입니다.') + '</span></label>' +
       '<p class="wsa-err"></p><button class="wsa-go" type="submit">' + (c.button || '신청하기') + '</button>' +
@@ -87,7 +97,7 @@ var WS_APPLY = {
       // ② info@ 로 사본 (비서실장 메일 확인에 잡힌다)
       var m = window.emailjs ? emailjs.send('service_zg28jzh', 'template_tuagors', {
         to_email: 'info@wishfulstay.com',
-        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (kl ? '\n행사주관: ' + kl : '') + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n불안과 고민 한 줄: ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
+        summary: '문의 경로: ' + (c.route || '행사 신청 팝업') + ' (' + c.title + ')\n' + (c.nameLabel || '성함') + ': ' + n + '\n연락처: ' + p + (kl ? '\n행사주관: ' + kl : '') + (cc ? '\n' + c.contentLabel + ': ' + cc : '') + (w ? '\n' + (c.worryLabel || '불안과 고민 한 줄') + ': ' + w : '') + '\n' + (c.photo ? '촬영·' : '') + '개인정보 동의: 동의함',
         schedule: c.sub, estimate: '', time: new Date().toLocaleString('ko-KR')
       }).catch(function () {}) : Promise.resolve();
       Promise.all([g, m]).then(function () {
