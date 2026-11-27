@@ -92,3 +92,5 @@
 .ev-title-back { font-size: clamp(24px, 3.2vw, 34px); }
 .ev-title-back a { gap: .5em; }
 .ev-title-back a span { font-size: 1.35em; line-height: 1; position: relative; top: -0.04em; }   /* 대장 11-23 「화살표 조금만 더 키워」 */
+/* 2026-11-28 대장 : 모바일에서 「모집 중」이 배너 속 얼굴을 가림 → ev-badge--br 붙인 배너만 작게, 오른쪽 아래 구석으로 (event_04) */
+@media (max-width: 760px) { .ev-badge--on.ev-badge--br { top: auto; bottom: 8px; right: 8px; font-size: 11px; padding: 3px 8px; box-shadow: 0 1px 6px rgba(0,0,0,.3); } }
